@@ -1,0 +1,100 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\map\\map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\map\\map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "vector",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
+              "ViewState": "AgIAAGUIAAAAAAAAAAAawHwIAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-21T01:51:24.632Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "xmemory",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "ViewState": "AgIAAMoEAAAAAAAAAAAawOEEAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-16T01:35:44.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "map.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.h",
+              "RelativeDocumentMoniker": "Src\\Game\\map\\map.h",
+              "ToolTip": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.h",
+              "RelativeToolTip": "Src\\Game\\map\\map.h",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAACkAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-13T03:38:02.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "map.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\map\\map.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.cpp",
+              "RelativeToolTip": "Src\\Game\\map\\map.cpp",
+              "ViewState": "AgIAAIMBAAAAvSIpGUEDwKEBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-13T03:37:55.227Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\main.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\main.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\main.cpp",
+              "RelativeToolTip": "Src\\Game\\main.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-13T03:34:22.752Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

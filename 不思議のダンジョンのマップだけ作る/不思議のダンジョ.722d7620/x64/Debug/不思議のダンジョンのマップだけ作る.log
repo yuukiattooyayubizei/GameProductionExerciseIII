@@ -1,0 +1,5 @@
+﻿  map.cpp
+C:\Users\2409408\Desktop\MyC\不思議のダンジョンのマップだけ作る2\Src\Game\map\map.cpp(269,20): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Desktop\MyC\不思議のダンジョンのマップだけ作る2\Src\Game\map\map.cpp(270,20): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Desktop\MyC\不思議のダンジョンのマップだけ作る2\Src\Game\map\map.cpp(411,11): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  不思議のダンジョンのマップだけ作る.vcxproj -> C:\Users\2409408\Desktop\MyC\不思議のダンジョンのマップだけ作る2\x64\Debug\不思議のダンジョンのマップだけ作る.exe
