@@ -139,6 +139,7 @@ void CMap::DigCorridor(Int2 a, Int2 b)
 	{
 		if (m_Map[y][x] != TILE_ROOM)
 			m_Map[y][x] = TILE_CORRIDOR;
+		//目標が右か左か調べ、その方向に1マス移動
 		x += (b.x > x) ? 1 : -1;
 	}
 
@@ -147,6 +148,7 @@ void CMap::DigCorridor(Int2 a, Int2 b)
 	{
 		if (m_Map[y][x] != TILE_ROOM)
 			m_Map[y][x] = TILE_CORRIDOR;
+		//目標が上か下か調べ、その方向に1マス移動
 		y += (b.y > y) ? 1 : -1;
 	}
 
@@ -197,31 +199,36 @@ bool CMap::CreateCorridor()
 
 }
 
-void CMap::Draw() {
+void CMap::Draw(int x, int y) {
 	for (int i = 0;i < MAP_Y;i++)
 	{
 		for (int k = 0;k < MAP_X;k++)
 		{
-			switch (m_Map[i][k])
+			if(i == y && k == x)
+				cout << "PL";
+			else
 			{
-			case TILE_WALL:
-				//"壁"だと遠くから見て違いがわからず、■だと文字の大きさの関係でマップが崩れてしまうため、パッと見で■に見える口を採用
-				cout << "口";
-				break;
-			case TILE_WALL_EDGE:
-				cout << "隣";
-				break;
-			case TILE_ROOM:
-				cout << "部";
-				break;
-			case TILE_CORRIDOR:
-				cout << "廊";
-				break;
-			case TILE_STAIRS:
-				cout << "階";
-				break;
-			default:
-				break;
+				switch (m_Map[i][k])
+				{
+				case TILE_WALL:
+					//"壁"だと遠くから見て違いがわからず、■だと文字の大きさの関係でマップが崩れてしまうため、パッと見で■に見える口を採用
+					cout << "口";
+					break;
+				case TILE_WALL_EDGE:
+					cout << "隣";
+					break;
+				case TILE_ROOM:
+					cout << "部";
+					break;
+				case TILE_CORRIDOR:
+					cout << "廊";
+					break;
+				case TILE_STAIRS:
+					cout << "階";
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		cout << endl;
@@ -426,4 +433,37 @@ void CMap::CreateStairs()
 
 	//階段を置く
 	m_Map[SetPos.y][SetPos.x] = TILE_STAIRS;
+}
+
+void CMap::DeleteAll() {
+
+	//壁で埋める
+	for (int i = 0;i < MAP_Y;i++)
+	{
+		for (int k = 0;k < MAP_X;k++)
+		{
+			//全部壁で埋める
+			m_Map[i][k] = TILE_WALL;
+		}
+	}
+
+	//部屋の情報を消去
+	m_Room.clear();
+}
+
+CRoom CMap::GetStratRoom() {
+	CRoom r = {};
+	for (std::vector<CRoom>::iterator ite = m_Room.begin(); ite != m_Room.end();ite++) {
+		CRoom& room2 = *ite;
+
+		Int2 i2 = room2.GetPos();
+
+		r.SetPos(i2.x, i2.y);
+
+		Int2 i2 = room2.GetSize();
+
+		r.SetSize(i2.x, i2.y);
+
+		return r;
+	}
 }

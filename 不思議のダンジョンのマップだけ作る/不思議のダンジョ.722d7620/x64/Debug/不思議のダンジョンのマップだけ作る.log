@@ -1,5 +1,16 @@
-﻿  map.cpp
-C:\Users\2409408\Desktop\MyC\不思議のダンジョンのマップだけ作る2\Src\Game\map\map.cpp(269,20): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\MyC\不思議のダンジョンのマップだけ作る2\Src\Game\map\map.cpp(270,20): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\MyC\不思議のダンジョンのマップだけ作る2\Src\Game\map\map.cpp(411,11): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  不思議のダンジョンのマップだけ作る.vcxproj -> C:\Users\2409408\Desktop\MyC\不思議のダンジョンのマップだけ作る2\x64\Debug\不思議のダンジョンのマップだけ作る.exe
+﻿  PlayScene.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(90,15): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(91,15): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(213,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(213,31): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  SceneManager.cpp
+  main.cpp
+  map.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\map\map.cpp(276,20): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\map\map.cpp(277,20): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\map\map.cpp(418,11): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\map\map.cpp(463,8): error C2086: 'Int2 i2': 再定義されました。
+      C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\map\map.cpp(459,8):
+      'i2' の宣言を確認してください
+  
+  コードを生成中...

@@ -1,21 +1,73 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\",
+  "WorkspaceRootPath": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Play\\PlayScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Scene\\Play\\PlayScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Scene\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Player\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Object\\Player\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\map\\map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\map\\map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\map\\map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\map\\map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\map\\map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Data\\Data.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Data\\Data.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Data\\Data.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Data\\Data.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Title\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Scene\\Title\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Object\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Player\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Object\\Player\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Play\\PlayScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Scene\\Play\\PlayScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Scene\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Result\\Result.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Scene\\Result\\Result.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Result\\ResultScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{722D7620-568C-417C-B522-7FA151F987A8}|\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B.vcxproj|solutionrelative:Src\\Game\\Scene\\Result\\ResultScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory||{3B902123-F8A7-4915-9F01-361F908088D0}|"
@@ -28,69 +80,239 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayScene.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Play\\PlayScene.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Scene\\Play\\PlayScene.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Play\\PlayScene.cpp",
+              "RelativeToolTip": "Src\\Game\\Scene\\Play\\PlayScene.cpp",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFQAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T01:13:34.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "vector",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
-              "ViewState": "AgIAAGUIAAAAAAAAAAAawHwIAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-04-21T01:51:24.632Z"
+              "Title": "Player.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Player\\Player.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\Player\\Player.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Player\\Player.cpp",
+              "RelativeToolTip": "Src\\Game\\Object\\Player\\Player.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T01:05:30.551Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "xmemory",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
-              "ViewState": "AgIAAMoEAAAAAAAAAAAawOEEAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-04-16T01:35:44.261Z"
+              "Title": "map.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\map\\map.h",
+              "RelativeDocumentMoniker": "Src\\Game\\map\\map.h",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\map\\map.h",
+              "RelativeToolTip": "Src\\Game\\map\\map.h",
+              "ViewState": "AgIAADcAAAAAAAAAAADwv2UAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-13T03:38:02.942Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "map.h",
-              "DocumentMoniker": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.h",
-              "RelativeDocumentMoniker": "Src\\Game\\map\\map.h",
-              "ToolTip": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.h",
-              "RelativeToolTip": "Src\\Game\\map\\map.h",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAACkAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-13T03:38:02.942Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "map.cpp",
-              "DocumentMoniker": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\map\\map.cpp",
               "RelativeDocumentMoniker": "Src\\Game\\map\\map.cpp",
-              "ToolTip": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\map\\map.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\map\\map.cpp",
               "RelativeToolTip": "Src\\Game\\map\\map.cpp",
-              "ViewState": "AgIAAIMBAAAAvSIpGUEDwKEBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAALcBAAAAuyoVS0QewMUBAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-13T03:37:55.227Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 9,
+              "Title": "Player.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Player\\Player.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\Player\\Player.h",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Player\\Player.h",
+              "RelativeToolTip": "Src\\Game\\Object\\Player\\Player.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T01:03:44.598Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Object.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Object.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\Object.h",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Object\\Object.h",
+              "RelativeToolTip": "Src\\Game\\Object\\Object.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T01:00:43.108Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "common.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\common.h",
+              "RelativeDocumentMoniker": "Src\\Game\\common.h",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\common.h",
+              "RelativeToolTip": "Src\\Game\\common.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T01:01:32.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Result.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Result\\Result.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Scene\\Result\\Result.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Result\\Result.cpp",
+              "RelativeToolTip": "Src\\Game\\Scene\\Result\\Result.cpp",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T01:16:18.917Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ResultScene.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Result\\ResultScene.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Scene\\Result\\ResultScene.h",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Result\\ResultScene.h",
+              "RelativeToolTip": "Src\\Game\\Scene\\Result\\ResultScene.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T01:16:10.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Data.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Data\\Data.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Data\\Data.h",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Data\\Data.h",
+              "RelativeToolTip": "Src\\Game\\Data\\Data.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T01:15:01.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TitleScene.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Title\\TitleScene.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Scene\\Title\\TitleScene.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Title\\TitleScene.cpp",
+              "RelativeToolTip": "Src\\Game\\Scene\\Title\\TitleScene.cpp",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T01:15:53.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PlayScene.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Play\\PlayScene.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Scene\\Play\\PlayScene.h",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\Play\\PlayScene.h",
+              "RelativeToolTip": "Src\\Game\\Scene\\Play\\PlayScene.h",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAABsAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T01:13:23.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Data.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Data\\Data.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Data\\Data.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Data\\Data.cpp",
+              "RelativeToolTip": "Src\\Game\\Data\\Data.cpp",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T01:15:31.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SceneManager.h",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\SceneManager.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Scene\\SceneManager.h",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\SceneManager.h",
+              "RelativeToolTip": "Src\\Game\\Scene\\SceneManager.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T01:12:41.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\main.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\main.cpp",
               "RelativeDocumentMoniker": "Src\\Game\\main.cpp",
-              "ToolTip": "C:\\Users\\2409408\\Desktop\\MyC\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B2\\Src\\Game\\main.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\main.cpp",
               "RelativeToolTip": "Src\\Game\\main.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-13T03:34:22.752Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SceneManager.cpp",
+              "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\SceneManager.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Scene\\SceneManager.cpp",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\\u4E0D\u601D\u8B70\u306E\u30C0\u30F3\u30B8\u30E7\u30F3\u306E\u30DE\u30C3\u30D7\u3060\u3051\u4F5C\u308B\\Src\\Game\\Scene\\SceneManager.cpp",
+              "RelativeToolTip": "Src\\Game\\Scene\\SceneManager.cpp",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACQAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T01:12:55.567Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "vector",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\vector",
+              "ViewState": "AgIAAGUIAAAAAAAAAAAawHwIAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-21T01:51:24.632Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "xmemory",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "ViewState": "AgIAAMoEAAAAAAAAAAAawOEEAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-16T01:35:44.261Z"
             }
           ]
         }

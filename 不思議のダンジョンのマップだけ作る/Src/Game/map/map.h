@@ -1,17 +1,13 @@
 #include <vector>
+#include "../common.h"
 
 static constexpr int MAP_X = 50;			//マップの最大横幅
-static constexpr int MAP_Y = 50;			//マップの最大縦幅
+static constexpr int MAP_Y = 30;			//マップの最大縦幅
 static constexpr int RETRY_MAX = 100;		//部屋作成時のリトライ回数(これを超えると部屋の置き場がないとみなす)
 static constexpr int MAP_SIZE_MIN = 5;		//部屋の最小の大きさ
 static constexpr int MAP_SIZE_MAX = 9;		//部屋の最大の大きさ
 
-enum DIRECTION {
-	DIRECTION_UP,
-	DIRECTION_LEFT,
-	DIRECTION_DOWN,
-	DIRECTION_RIGHT
-};
+
 
 struct Int2 {
 	int x, y;
@@ -32,14 +28,6 @@ struct SpecifiedRoomInformation {
 	DIRECTION m_Direction;		//一番近い部屋の方角	
 	int m_DistanceX;			//中心までのX座標の距離
 	int m_DistanceY;			//中心までのY座標の距離
-};
-
-enum TILE {
-	TILE_WALL,			//壁
-	TILE_WALL_EDGE,		//壁
-	TILE_ROOM,			//部屋
-	TILE_CORRIDOR,		//廊下
-	TILE_STAIRS			//階段
 };
 
 class CRoom {
@@ -97,6 +85,9 @@ public:
 	//廊下につながる部屋のマスを決定
 	CriateCorridor ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformation close);
 
+	//全部消す
+	void DeleteAll();
+
 	//掘る
 	void DigCorridor(Int2 a, Int2 b);
 
@@ -104,5 +95,9 @@ public:
 	void CreateStairs();
 
 	//描画
-	void Draw();
+	void Draw(int x,int y);
+
+	TILE GetTile(int x, int y) { return m_Map[y][x]; }
+
+	CRoom GetStratRoom();
 };
