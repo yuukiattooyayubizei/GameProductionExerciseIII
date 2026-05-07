@@ -2,6 +2,7 @@
 #include"iostream"
 #include <DxLib.h>
 #include"cmath"
+#include <algorithm>
 
 using namespace std;
 
@@ -19,6 +20,8 @@ CRoom::CRoom() {
 void CMap::Init() {
 	//•”‰®î•ñ‚ğÁ‹
 	m_Room.clear();
+
+	m_StairsPos = {};
 
 	for (int i = 0;i < MAP_Y;i++)
 	{
@@ -161,46 +164,87 @@ void CMap::DigCorridor(Int2 a, Int2 b)
 		m_Map[y][x] = TILE_CORRIDOR;
 }
 
-//˜L‰º‚Ì¶¬
 bool CMap::CreateCorridor()
 {
+	if (m_Room.size() < 2)
+		return false;
 
-	if (m_Room.size() < 2) return false;
+	std::vector<RoomEdge> edges;
 
-	for (size_t i = 0; i < m_Room.size() - 1; i++)
+	int roomCount = static_cast<int>(m_Room.size());
+
+	for (int i = 0; i < roomCount; i++)
 	{
-		const CRoom& roomA = m_Room[i];
-		const CRoom& roomB = m_Room[i + 1];
+		for (int k = i + 1; k < roomCount; k++)
+		{
+			int ax = static_cast<int>(m_Room[i].GetCenter().x);
+			int ay = static_cast<int>(m_Room[i].GetCenter().y);
+
+			int bx = static_cast<int>(m_Room[k].GetCenter().x);
+			int by = static_cast<int>(m_Room[k].GetCenter().y);
+
+			int dx = ax - bx;
+			int dy = ay - by;
+
+			RoomEdge edge;
+			edge.roomA = i;
+			edge.roomB = k;
+			edge.distance = dx * dx + dy * dy;
+
+			edges.push_back(edge);
+		}
+	}
+
+	std::sort(edges.begin(), edges.end(),
+		[](const RoomEdge& a, const RoomEdge& b)
+		{
+			return a.distance < b.distance;
+		});
+
+	UnionFind uf(roomCount);
+
+	int corridorCount = 0;
+
+	for (const RoomEdge& edge : edges)
+	{
+		if (uf.Same(edge.roomA, edge.roomB))
+			continue;
+
+		uf.Unite(edge.roomA, edge.roomB);
+
+		const CRoom& roomA = m_Room[edge.roomA];
+		const CRoom& roomB = m_Room[edge.roomB];
 
 		Int2 centerA{
-			(int)roomA.GetCenter().x,
-			(int)roomA.GetCenter().y
+			static_cast<int>(roomA.GetCenter().x),
+			static_cast<int>(roomA.GetCenter().y)
 		};
 
 		Int2 centerB{
-			(int)roomB.GetCenter().x,
-			(int)roomB.GetCenter().y
+			static_cast<int>(roomB.GetCenter().x),
+			static_cast<int>(roomB.GetCenter().y)
 		};
 
-		// ƒ‰ƒ“ƒ_ƒ€‚ÅŒ@‚é‡”Ô‚ğ•Ï‚¦‚é
 		if (GetRand(1) == 0)
 		{
-			// ‰¡ ¨ c
 			Int2 mid{ centerB.x, centerA.y };
 			DigCorridor(centerA, mid);
 			DigCorridor(mid, centerB);
 		}
 		else
 		{
-			// c ¨ ‰¡
 			Int2 mid{ centerA.x, centerB.y };
 			DigCorridor(centerA, mid);
 			DigCorridor(mid, centerB);
 		}
+
+		corridorCount++;
+
+		if (corridorCount >= roomCount - 1)
+			break;
 	}
 
 	return true;
-
 }
 
 void CMap::Draw(int x, int y) {
@@ -262,16 +306,17 @@ void CMap::Draw(int x, int y) {
 				case TILE_CORRIDOR:
 					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 255, 0), TRUE);
 					break;
-				case TILE_STAIRS:
-					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
-					break;
 				default:
 					break;
 				}
 			}
 		}
-		cout << endl;
 	}
+	//ŠK’i‚Ì•`‰æ
+	int centerX = 8 + 16 * m_StairsPos.x;
+	int centerY = 8 + 16 * m_StairsPos.y;
+	DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
+						
 }
 
 SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
@@ -474,7 +519,8 @@ void CMap::CreateStairs()
 	SetPos.y = GetRand(Size.y - 1) + Pos.y;
 
 	//ŠK’i‚ğ’u‚­
-	m_Map[SetPos.y][SetPos.x] = TILE_STAIRS;
+	m_StairsPos.x = SetPos.x;
+	m_StairsPos.y = SetPos.y;
 }
 
 void CMap::DeleteAll() {

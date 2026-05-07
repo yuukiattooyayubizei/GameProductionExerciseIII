@@ -3,6 +3,8 @@
 #include <DxLib.h>
 #include "../../Common.h"
 
+static constexpr int HP_MAX = 15;
+
 
 class CPlayer : public CObject {
 private:

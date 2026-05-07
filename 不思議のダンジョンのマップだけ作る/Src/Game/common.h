@@ -21,5 +21,4 @@ enum TILE {
 	TILE_WALL,			//•Ç
 	TILE_ROOM,			//•”‰®
 	TILE_CORRIDOR,		//˜L‰º
-	TILE_STAIRS			//ŠK’i
 };

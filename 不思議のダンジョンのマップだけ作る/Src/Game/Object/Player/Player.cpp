@@ -10,6 +10,8 @@ CPlayer::~CPlayer(){
 void CPlayer::Init(){
 	m_Pos = VGet(0,0,0);
 	m_Kind = KIND_PLAYER;
+	m_HP = HP_MAX;
+	m_MaxHP = HP_MAX;
 }
 
 void CPlayer::Load() {

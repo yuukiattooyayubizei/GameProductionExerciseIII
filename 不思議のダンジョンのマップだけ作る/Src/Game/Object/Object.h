@@ -14,6 +14,9 @@ protected:
     ObjectKind m_Kind;
     VECTOR m_Pos;
     DIRECTION m_Direction;
+
+    int m_HP;
+    int m_MaxHP;
 public:
     CObject();
     virtual ~CObject() {}
