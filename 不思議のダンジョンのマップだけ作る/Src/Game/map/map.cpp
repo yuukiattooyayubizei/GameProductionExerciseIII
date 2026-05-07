@@ -17,6 +17,9 @@ CRoom::CRoom() {
 }
 
 void CMap::Init() {
+	//部屋情報を消去
+	m_Room.clear();
+
 	for (int i = 0;i < MAP_Y;i++)
 	{
 		for (int k = 0;k < MAP_X;k++)
@@ -56,6 +59,7 @@ CRoom CMap::RoomSizeDecision() {
 	CenterX = CenterY = 0.0f;
 
 	//部屋の大きさをランダムで決定
+	//大きさは5~9マスだが、端の2マスは壁と同じなため、
 	//縦も横も3~7マスの間になる
 	//同時に部屋の隣の壁の判別も行う
 
@@ -200,31 +204,69 @@ bool CMap::CreateCorridor()
 }
 
 void CMap::Draw(int x, int y) {
+	////文字入力バージョン
+	//for (int i = 0;i < MAP_Y;i++)
+	//{
+	//	for (int k = 0;k < MAP_X;k++)
+	//	{
+	//		if(i == y && k == x)
+	//			cout << "PL";
+	//		else
+	//		{
+	//			switch (m_Map[i][k])
+	//			{
+	//			case TILE_WALL:
+	//				//"壁"だと遠くから見て違いがわからず、■だと文字の大きさの関係でマップが崩れてしまうため、パッと見で■に見える口を採用
+	//				cout << "口";
+	//				break;
+	//			case TILE_WALL_EDGE:
+	//				cout << "隣";
+	//				break;
+	//			case TILE_ROOM:
+	//				cout << "部";
+	//				break;
+	//			case TILE_CORRIDOR:
+	//				cout << "廊";
+	//				break;
+	//			case TILE_STAIRS:
+	//				cout << "階";
+	//				break;
+	//			default:
+	//				break;
+	//			}
+	//		}
+	//	}
+	//	cout << endl;
+	//}
+
+	//DrawBoxバージョン
 	for (int i = 0;i < MAP_Y;i++)
 	{
 		for (int k = 0;k < MAP_X;k++)
 		{
-			if(i == y && k == x)
-				cout << "PL";
+			int centerX = 8 + 16 * k;
+			int centerY = 8 + 16 * i;
+			if (i == y && k == x)
+				DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
 			else
 			{
 				switch (m_Map[i][k])
 				{
 				case TILE_WALL:
 					//"壁"だと遠くから見て違いがわからず、■だと文字の大きさの関係でマップが崩れてしまうため、パッと見で■に見える口を採用
-					cout << "口";
+					DrawBox(centerX + 8, centerY + 8, centerX - 8,centerY - 8,GetColor(0,0,0),TRUE);
 					break;
 				case TILE_WALL_EDGE:
-					cout << "隣";
+					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(128, 128, 128), TRUE);
 					break;
 				case TILE_ROOM:
-					cout << "部";
+					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 255), TRUE);
 					break;
 				case TILE_CORRIDOR:
-					cout << "廊";
+					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 255, 0), TRUE);
 					break;
 				case TILE_STAIRS:
-					cout << "階";
+					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
 					break;
 				default:
 					break;
@@ -238,7 +280,8 @@ void CMap::Draw(int x, int y) {
 SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
 {
 	//最初は何があってもこれより距離が短くなる値を入れる
-	float MinDistance = 10000;
+	//マップの端から端までの長さが最も長くなる
+	float MinDistance = sqrt(MAP_X * MAP_X + MAP_Y * MAP_Y);
 	int MinNum = -1;
 	int num = 0;
 	float DistanceX = 0, DistanceY = 0, Distance = 0, BestDistanceX = 0, BestDistanceY = 0;
@@ -273,16 +316,16 @@ SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
 	SpecifiedRoomInformation ret;
 
 	ret.m_CloseRoomID = MinNum;
-	ret.m_DistanceX = DistanceX;
-	ret.m_DistanceY = DistanceY;
+	ret.m_DistanceX = BestDistanceX;
+	ret.m_DistanceY = BestDistanceY;
 
 	//Xがマイナスなら東にあり、Yがマイナスなら北にある
-	if (DistanceX >= 0)
+	if (BestDistanceX >= 0)
 	{
 		//南西にある
-		if (DistanceY >= 0)
+		if (BestDistanceY >= 0)
 		{
-			if (DistanceY >= DistanceX)
+			if (BestDistanceY >= BestDistanceX)
 				ret.m_Direction = DIRECTION_DOWN;
 			else
 				ret.m_Direction = DIRECTION_RIGHT;
@@ -290,7 +333,7 @@ SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
 		//北西にある
 		else
 		{
-			if (abs(DistanceY) >= DistanceX)
+			if (abs(BestDistanceY) >= BestDistanceX)
 				ret.m_Direction = DIRECTION_UP;
 			else
 				ret.m_Direction = DIRECTION_RIGHT;
@@ -299,9 +342,9 @@ SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
 	else
 	{
 		//南東にある
-		if (DistanceY >= 0)
+		if (BestDistanceY >= 0)
 		{
-			if (abs(DistanceY) >= DistanceX)
+			if (abs(BestDistanceY) >= BestDistanceX)
 				ret.m_Direction = DIRECTION_DOWN;
 			else
 				ret.m_Direction = DIRECTION_LEFT;
@@ -309,7 +352,7 @@ SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
 		//北東にある
 		else
 		{
-			if (abs(DistanceY) >= abs(DistanceX))
+			if (abs(BestDistanceY) >= abs(BestDistanceX))
 				ret.m_Direction = DIRECTION_UP;
 			else
 				ret.m_Direction = DIRECTION_LEFT;
@@ -320,34 +363,34 @@ SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
 	return ret;
 }
 
-CriateCorridor CMap::ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformation close)
+CorridorInfo CMap::ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformation close)
 {
 	Int2 StartPos{};
-	CriateCorridor i{};
+	CorridorInfo i{};
 	for (int Retry = 0;Retry < RETRY_MAX;Retry++)
 	{
 		switch (close.m_Direction)
 		{
-		case 0:
+		case DIRECTION_UP:
 			//部屋の北に作成
 			StartPos.y = room.GetPos().y;
 			//どのマスにするかはランダム
 			//roomの端は壁なので端にならないように調整
 			StartPos.x = GetRand(room.GetSize().x) + room.GetPos().x;
 			break;
-		case 1:
+		case DIRECTION_LEFT:
 			//部屋の西に作成
 			//どのマスにするかはランダム
 			StartPos.y = GetRand(room.GetSize().y) + room.GetPos().y;
 			StartPos.x = room.GetPos().x;
 			break;
-		case 2:
+		case DIRECTION_DOWN:
 			//部屋の南に作成
 			StartPos.y = room.GetPos().y + room.GetSize().y - 1;
 			//どのマスにするかはランダム
 			StartPos.x = GetRand(room.GetSize().x) + room.GetPos().x;
 			break;
-		case 3:
+		case DIRECTION_RIGHT:
 			//部屋の東に作成
 			//どのマスにするかはランダム
 			StartPos.y = GetRand(room.GetSize().y) + room.GetPos().y;
@@ -436,34 +479,24 @@ void CMap::CreateStairs()
 }
 
 void CMap::DeleteAll() {
-
-	//壁で埋める
-	for (int i = 0;i < MAP_Y;i++)
-	{
-		for (int k = 0;k < MAP_X;k++)
-		{
-			//全部壁で埋める
-			m_Map[i][k] = TILE_WALL;
-		}
-	}
-
-	//部屋の情報を消去
-	m_Room.clear();
+	//やることはInitと変わらない
+	Init();
 }
 
-CRoom CMap::GetStratRoom() {
-	CRoom r = {};
-	for (std::vector<CRoom>::iterator ite = m_Room.begin(); ite != m_Room.end();ite++) {
-		CRoom& room2 = *ite;
-
-		Int2 i2 = room2.GetPos();
-
-		r.SetPos(i2.x, i2.y);
-
-		Int2 i2 = room2.GetSize();
-
-		r.SetSize(i2.x, i2.y);
-
-		return r;
+CRoom CMap::GetStartRoom() {
+	//もしRoomが存在しないなら初期化されたRoomで返す
+	if (m_Room.empty()) {
+		return CRoom{};
 	}
+	//最初ののRoomで返す
+	return m_Room.front();
+}
+
+TILE CMap::GetTile(int x, int y) {
+	//配列外にアクセスしようとしていたら
+	if (x < 0 || x >= MAP_X || y < 0 || y >= MAP_Y) {
+		//無を返す
+		return TILE_NON;
+	}
+	return m_Map[y][x];
 }

@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "../common.h"
 
@@ -17,7 +18,7 @@ struct Float2 {
 	float x, y;
 };
 
-struct CriateCorridor
+struct CorridorInfo
 {
 	Int2 StratPos;
 	Int2 MovePos;
@@ -83,7 +84,7 @@ public:
 	SpecifiedRoomInformation SpecifiedRoom(const CRoom& room);
 
 	//˜L‰º‚É‚Â‚È‚ª‚é•”‰®‚Ìƒ}ƒX‚ğŒˆ’è
-	CriateCorridor ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformation close);
+	CorridorInfo ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformation close);
 
 	//‘S•”Á‚·
 	void DeleteAll();
@@ -97,7 +98,7 @@ public:
 	//•`‰æ
 	void Draw(int x,int y);
 
-	TILE GetTile(int x, int y) { return m_Map[y][x]; }
+	TILE GetTile(int x, int y);
 
-	CRoom GetStratRoom();
+	CRoom GetStartRoom();
 };

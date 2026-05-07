@@ -73,25 +73,17 @@ void CPlayScene::Load()
 
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Load(); });
 
-	//VECTOR v = {0};
-	//v.x = GetRand(MAP_X - 1);
-	//v.y = GetRand(MAP_Y - 1);
-	//TILE t = {};
-	//while (t == m_Map.GetTile(v.x, v.y) == TILE_WALL || t == m_Map.GetTile(v.x, v.y) == TILE_WALL_EDGE)
-	//{
-	//	v.x = GetRand(MAP_X - 1);
-	//	v.y = GetRand(MAP_Y - 1);
 
-	//	if (t == m_Map.GetTile(v.x, v.y) != TILE_WALL && t == m_Map.GetTile(v.x, v.y) != TILE_WALL_EDGE)break;
-	//}
-
-	m_Map.GetStratRoom();
+	CRoom r = m_Map.GetStartRoom();
 	VECTOR v = { 0 };
-	v.x = GetRand(MAP_X - 1);
-	v.y = GetRand(MAP_Y - 1);
+
+	v.x = GetRand(r.GetSize().x - 3) + r.GetPos().x + 1;
+	v.y = GetRand(r.GetSize().y - 3) + r.GetPos().y + 1;
 
 
 	m_Player->SetPos(v);
+
+	m_Map.Draw(m_Player->GetPos().x, m_Player->GetPos().y);
 }
 
 int CPlayScene::Loop()
@@ -169,7 +161,7 @@ int CPlayScene::Step()
 				t = m_Map.GetTile(x - 1, y);
 
 
-				if (t == TILE_WALL || TILE_WALL_EDGE)
+				if (t == TILE_WALL || t == TILE_WALL_EDGE)
 					C.Left = false;
 			}
 			if (C.Right == true)
@@ -177,7 +169,7 @@ int CPlayScene::Step()
 				t = m_Map.GetTile(x + 1, y);
 
 
-				if (t == TILE_WALL || TILE_WALL_EDGE)
+				if (t == TILE_WALL || t == TILE_WALL_EDGE)
 					C.Right = false;
 			}
 			if (C.Up == true)
@@ -185,7 +177,7 @@ int CPlayScene::Step()
 				t = m_Map.GetTile(x, y - 1);
 
 
-				if (t == TILE_WALL || TILE_WALL_EDGE)
+				if (t == TILE_WALL || t == TILE_WALL_EDGE)
 					C.Up = false;
 			}
 			if (C.Down == true)
@@ -193,7 +185,7 @@ int CPlayScene::Step()
 				t = m_Map.GetTile(x, y + 1);
 
 
-				if (t == TILE_WALL || TILE_WALL_EDGE)
+				if (t == TILE_WALL || t == TILE_WALL_EDGE)
 					C.Down = false;
 			}
 
@@ -214,7 +206,7 @@ int CPlayScene::Step()
 		m_PlayerTurn = true;
 	}
 
-
+	m_Map.Draw(m_Player->GetPos().x, m_Player->GetPos().y);
 
 	if (CheckHitKey(KEY_INPUT_L))
 		return 1;
@@ -227,8 +219,6 @@ void CPlayScene::Draw()
 	//背景の描画
 
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Draw(); });
-
-
 
 	//描画処理
 	DrawFormatString(32, 96, GetColor(255, 255, 255), "プレイシーンLキーでリザルトに遷移");

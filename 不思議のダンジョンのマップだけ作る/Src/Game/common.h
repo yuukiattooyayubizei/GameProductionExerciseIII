@@ -17,6 +17,7 @@ typedef struct {
 }CanMove;
 
 enum TILE {
+	TILE_NON,			//–³(ƒoƒO‚Á‚½‚É‚µ‚©o‚È‚¢)
 	TILE_WALL,			//•Ç
 	TILE_WALL_EDGE,		//•Ç
 	TILE_ROOM,			//•”‰®
