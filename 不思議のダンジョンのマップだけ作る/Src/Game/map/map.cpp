@@ -98,10 +98,10 @@ void CMap::RoomSave (const CRoom& room) {
 	{
 		for (int k = 0;k < X;k++)
 		{
-			//端の部分は部屋に隣接する壁とする(通常の壁と機能は変わらず、部屋どうしが隣接しないために使う)
-			if (i == 0 || i == Y - 1 || k == 0 || k == X - 1)
-				m_Map[StartY + i][StartX + k] = TILE_WALL_EDGE;
-			else
+			////端の部分は部屋に隣接する壁とする(通常の壁と機能は変わらず、部屋どうしが隣接しないために使う)
+			//if (i == 0 || i == Y - 1 || k == 0 || k == X - 1)
+			//	m_Map[StartY + i][StartX + k] = TILE_WALL_EDGE;
+			//else
 				m_Map[StartY + i][StartX + k] = TILE_ROOM;
 		}
 	}
@@ -114,10 +114,10 @@ bool CMap::CollisionRoom(const CRoom& room) {
 		CRoom& room2 = *ite;
 
 		//座標を指定
-		int room1Left = room.GetPos().x;
-		int room1Right = room.GetPos().x + room.GetSize().x - 1;
-		int room1Up = room.GetPos().y;
-		int room1Down = room.GetPos().y + room.GetSize().y - 1;
+		int room1Left = room.GetPos().x - ROOM_MARGIN;
+		int room1Right = room.GetPos().x + room.GetSize().x - 1 + ROOM_MARGIN;
+		int room1Up = room.GetPos().y - ROOM_MARGIN;
+		int room1Down = room.GetPos().y + room.GetSize().y - 1 + ROOM_MARGIN;
 
 		int room2Left = room2.GetPos().x;
 		int room2Right = room2.GetPos().x + room2.GetSize().x - 1;
@@ -255,9 +255,6 @@ void CMap::Draw(int x, int y) {
 				case TILE_WALL:
 					//"壁"だと遠くから見て違いがわからず、■だと文字の大きさの関係でマップが崩れてしまうため、パッと見で■に見える口を採用
 					DrawBox(centerX + 8, centerY + 8, centerX - 8,centerY - 8,GetColor(0,0,0),TRUE);
-					break;
-				case TILE_WALL_EDGE:
-					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(128, 128, 128), TRUE);
 					break;
 				case TILE_ROOM:
 					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 255), TRUE);
@@ -471,8 +468,10 @@ void CMap::CreateStairs()
 	//どこに置くかを決定
 	Int2 SetPos;
 	//部屋の端には置けないようにする
-	SetPos.x = GetRand(Size.x - 2) + 1 + Pos.x;
-	SetPos.y = GetRand(Size.y - 2) + 1 + Pos.y;
+	//GetRand(Size.x) + Pos.x;だと部屋の外に飛び出る可能性があるため1だけ減らす
+	//yの方も同様
+	SetPos.x = GetRand(Size.x - 1) + Pos.x;
+	SetPos.y = GetRand(Size.y - 1) + Pos.y;
 
 	//階段を置く
 	m_Map[SetPos.y][SetPos.x] = TILE_STAIRS;

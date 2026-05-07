@@ -7,7 +7,7 @@ static constexpr int MAP_Y = 30;			//マップの最大縦幅
 static constexpr int RETRY_MAX = 100;		//部屋作成時のリトライ回数(これを超えると部屋の置き場がないとみなす)
 static constexpr int MAP_SIZE_MIN = 5;		//部屋の最小の大きさ
 static constexpr int MAP_SIZE_MAX = 9;		//部屋の最大の大きさ
-
+static constexpr int ROOM_MARGIN = 3;		//部屋どうしの最低距離
 
 
 struct Int2 {

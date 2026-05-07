@@ -61,7 +61,7 @@ void CPlayScene::Load()
 	Data->Load();
 
 	//3ŒÂ‚©‚ç5ŒÂ‚Ì•”‰®‚ğì¬
-	for (int i = 0;i < GetRand(2) + 3;i++)
+	for (int i = 0;i < GetRand(ROOM_MAX - ROOM_MIN) + ROOM_MIN;i++)
 	{
 		if (m_Map.CreateRoom() == false)
 			break;
@@ -161,7 +161,7 @@ int CPlayScene::Step()
 				t = m_Map.GetTile(x - 1, y);
 
 
-				if (t == TILE_WALL || t == TILE_WALL_EDGE)
+				if (t == TILE_WALL)
 					C.Left = false;
 			}
 			if (C.Right == true)
@@ -169,7 +169,7 @@ int CPlayScene::Step()
 				t = m_Map.GetTile(x + 1, y);
 
 
-				if (t == TILE_WALL || t == TILE_WALL_EDGE)
+				if (t == TILE_WALL)
 					C.Right = false;
 			}
 			if (C.Up == true)
@@ -177,7 +177,7 @@ int CPlayScene::Step()
 				t = m_Map.GetTile(x, y - 1);
 
 
-				if (t == TILE_WALL || t == TILE_WALL_EDGE)
+				if (t == TILE_WALL)
 					C.Up = false;
 			}
 			if (C.Down == true)
@@ -185,7 +185,7 @@ int CPlayScene::Step()
 				t = m_Map.GetTile(x, y + 1);
 
 
-				if (t == TILE_WALL || t == TILE_WALL_EDGE)
+				if (t == TILE_WALL)
 					C.Down = false;
 			}
 

@@ -5,8 +5,10 @@
 #include <vector>
 #include "../../map/map.h"
 
-//当たり判定を行うフィールドのマップチップの長さ
-static const int HIT_FIELD_MAP_CHIP_SIZE = 3;
+//部屋の最小値
+static const int ROOM_MIN = 5;
+//部屋の最大値
+static const int ROOM_MAX = 7;
 
 class CPlayScene 
 {
