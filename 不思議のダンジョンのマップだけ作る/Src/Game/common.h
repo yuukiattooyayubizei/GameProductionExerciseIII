@@ -22,3 +22,23 @@ enum TILE {
 	TILE_ROOM,			//部屋
 	TILE_CORRIDOR,		//廊下
 };
+
+enum ITEM_TYPE
+{
+	ITEM_NON = -1,	//アイテムがない状態
+
+	ITEM_1,
+	ITEM_2,
+	ITEM_3,
+	ITEM_4,
+
+	ITEM_NUM,		//アイテムの種類数
+};
+
+struct Int2 {
+	int x, y;
+};
+
+struct Float2 {
+	float x, y;
+};

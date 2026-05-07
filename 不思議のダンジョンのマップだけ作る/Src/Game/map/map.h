@@ -16,14 +16,6 @@ struct RoomEdge
 	int distance;
 };
 
-struct Int2 {
-	int x, y;
-};
-
-struct Float2 {
-	float x, y;
-};
-
 struct CorridorInfo
 {
 	Int2 StratPos;

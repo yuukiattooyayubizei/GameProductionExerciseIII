@@ -1,6 +1,7 @@
 #include"Player.h"
 #include "../../../lib/Input/input.h"
 #include "../../Common.h"
+#include "../../Item/Item.h"
 
 
 
@@ -45,4 +46,45 @@ void CPlayer::Draw() {
 
 void CPlayer::Exit() {
 
+}
+
+bool CPlayer::AddItem(const Item& item)
+{
+	// 最大数以上は持てない
+	if (IsInventoryFull())
+		return false;
+
+	// 同じアイテムでもまとめずに、そのまま1個追加する
+	m_Inventory.push_back(item);
+
+	return true;
+}
+
+bool CPlayer::IsInventoryFull() const
+{
+	return static_cast<int>(m_Inventory.size()) >= INVENTORY_MAX;
+}
+
+void CPlayer::DrawInventoryDebug()
+{
+	int x = 820;
+	int y = 20;
+
+	DrawString(x, y, "Inventory", GetColor(255, 255, 255));
+	y += 20;
+
+	for (int i = 0; i < static_cast<int>(m_Inventory.size()); i++)
+	{
+		DrawFormatString(
+			x,
+			y,
+			GetColor(255, 255, 255),
+			"%02d: %s",
+			i,
+			/*GetItemName(m_Inventory[i].type)*/
+			"a"
+		);
+
+		y += 20;
+	}
 }

@@ -49,6 +49,9 @@
     <Filter Include="ソース ファイル\Game\Data">
       <UniqueIdentifier>{224c99af-3792-4621-bf3e-06370119ffc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Item">
+      <UniqueIdentifier>{512f58a1-f441-4e03-a8f9-c6a4a246173a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -86,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Data\Data.cpp">
       <Filter>ソース ファイル\Game\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Item\Item.cpp">
+      <Filter>ソース ファイル\Game\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="Src\Game\Data\Data.h">
       <Filter>ソース ファイル\Game\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Item\Item.h">
+      <Filter>ソース ファイル\Game\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,15 +1,15 @@
-﻿  Object.cpp
+﻿  Item.cpp
+  main.cpp
   Player.cpp
   PlayScene.cpp
-C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(80,50): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(81,50): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(86,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(86,31): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(205,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(205,31): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(209,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(209,31): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(80,50): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(81,50): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(86,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(86,31): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(205,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(205,31): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(209,53): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\Src\Game\Scene\Play\PlayScene.cpp(209,31): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   SceneManager.cpp
-  main.cpp
   コードを生成中...
-  不思議のダンジョンのマップだけ作る.vcxproj -> C:\Users\2409408\Desktop\不思議のダンジョンのマップだけ作る\x64\Debug\不思議のダンジョンのマップだけ作る.exe
+  不思議のダンジョンのマップだけ作る.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\不思議のダンジョンのマップだけ作る\x64\Debug\不思議のダンジョンのマップだけ作る.exe
