@@ -42,3 +42,11 @@ struct Int2 {
 struct Float2 {
 	float x, y;
 };
+
+//boolŒ^‚Ìtrue‚Æfalse‚ð‹t“]‚³‚¹‚é
+static bool ReverseBool(bool is) {
+	if (is == true)
+		return false;
+	else
+		true;
+}

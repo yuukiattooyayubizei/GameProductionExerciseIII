@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "../common.h"
+#include "../Item/Item.h"
 
 static constexpr int MAP_X = 50;			//マップの最大横幅
 static constexpr int MAP_Y = 30;			//マップの最大縦幅
@@ -102,7 +103,13 @@ private:
 	TILE m_Map[MAP_Y][MAP_X];
 	std::vector<CRoom> m_Room;		//部屋
 
+	std::vector<FieldItem*> m_Item;	//落ちているアイテム
+
 	Int2 m_StairsPos;				//階段の座標
+
+public:
+	//部屋の中のランダムな座標を取得
+	Int2 GetRoomPos();
 public:
 	CMap() { Init(); }
 
@@ -136,6 +143,8 @@ public:
 
 	//階段を作成
 	void CreateStairs();
+	//床落ちアイテムを作成
+	void CreateItem();
 
 	//描画
 	void Draw(int x,int y);

@@ -71,6 +71,8 @@ void CPlayScene::Load()
 
 	m_Map.CreateStairs();
 
+	m_Map.CreateItem();
+
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Load(); });
 
 

@@ -3,6 +3,7 @@
 #include <DxLib.h>
 #include"cmath"
 #include <algorithm>
+#include <random>
 
 using namespace std;
 
@@ -248,67 +249,28 @@ bool CMap::CreateCorridor()
 }
 
 void CMap::Draw(int x, int y) {
-	////文字入力バージョン
-	//for (int i = 0;i < MAP_Y;i++)
-	//{
-	//	for (int k = 0;k < MAP_X;k++)
-	//	{
-	//		if(i == y && k == x)
-	//			cout << "PL";
-	//		else
-	//		{
-	//			switch (m_Map[i][k])
-	//			{
-	//			case TILE_WALL:
-	//				//"壁"だと遠くから見て違いがわからず、■だと文字の大きさの関係でマップが崩れてしまうため、パッと見で■に見える口を採用
-	//				cout << "口";
-	//				break;
-	//			case TILE_WALL_EDGE:
-	//				cout << "隣";
-	//				break;
-	//			case TILE_ROOM:
-	//				cout << "部";
-	//				break;
-	//			case TILE_CORRIDOR:
-	//				cout << "廊";
-	//				break;
-	//			case TILE_STAIRS:
-	//				cout << "階";
-	//				break;
-	//			default:
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	cout << endl;
-	//}
 
-	//DrawBoxバージョン
 	for (int i = 0;i < MAP_Y;i++)
 	{
 		for (int k = 0;k < MAP_X;k++)
 		{
 			int centerX = 8 + 16 * k;
 			int centerY = 8 + 16 * i;
-			if (i == y && k == x)
-				DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
-			else
+
+
+			switch (m_Map[i][k])
 			{
-				switch (m_Map[i][k])
-				{
-				case TILE_WALL:
-					//"壁"だと遠くから見て違いがわからず、■だと文字の大きさの関係でマップが崩れてしまうため、パッと見で■に見える口を採用
-					DrawBox(centerX + 8, centerY + 8, centerX - 8,centerY - 8,GetColor(0,0,0),TRUE);
-					break;
-				case TILE_ROOM:
-					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 255), TRUE);
-					break;
-				case TILE_CORRIDOR:
-					DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 255, 0), TRUE);
-					break;
-				default:
-					break;
-				}
+			case TILE_WALL:
+				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 0), TRUE);
+				break;
+			case TILE_ROOM:
+				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 255), TRUE);
+				break;
+			case TILE_CORRIDOR:
+				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 255, 0), TRUE);
+				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -316,6 +278,19 @@ void CMap::Draw(int x, int y) {
 	int centerX = 8 + 16 * m_StairsPos.x;
 	int centerY = 8 + 16 * m_StairsPos.y;
 	DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
+
+
+	for_each(m_Item.begin(), m_Item.end(), [this](FieldItem* item) {
+		int X = 8 + item->pos.x;
+		int Y = 8 + item->pos.y;
+		DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(255, 0, 0), TRUE);
+	});
+
+
+	//プレイヤーの描画
+	centerX = 8 + x * 16;
+	centerY = 8 + y * 16;
+	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
 						
 }
 
@@ -498,29 +473,36 @@ CorridorInfo CMap::ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformat
 
 void CMap::CreateStairs()
 {
-	//どの部屋に階段を置くかランダムで決定
-
-	int size = m_Room.size();
-	int choiceCreateRoom;
-
-	if (size <= 1)return;
-	choiceCreateRoom = GetRand(size - 1);
-
-	//階段を億部屋の位置と大きさを取得
-	Int2 Pos = m_Room.at(choiceCreateRoom).GetPos();
-	Int2 Size = m_Room.at(choiceCreateRoom).GetSize();
-
-	//どこに置くかを決定
-	Int2 SetPos;
-	//部屋の端には置けないようにする
-	//GetRand(Size.x) + Pos.x;だと部屋の外に飛び出る可能性があるため1だけ減らす
-	//yの方も同様
-	SetPos.x = GetRand(Size.x - 1) + Pos.x;
-	SetPos.y = GetRand(Size.y - 1) + Pos.y;
+	//ランダムな部屋マスを取得
+	Int2 pos = GetRoomPos();
+	//エラーの場合-1が帰ってくる
+	if (pos.x == -1)
+		return;
 
 	//階段を置く
-	m_StairsPos.x = SetPos.x;
-	m_StairsPos.y = SetPos.y;
+	m_StairsPos.x = pos.x;
+	m_StairsPos.y = pos.y;
+}
+
+
+void CMap::CreateItem()
+{
+	//ランダムな部屋マスを取得
+	Int2 pos = GetRoomPos();
+	//エラーの場合-1が帰ってくる
+	if (pos.x == -1)
+		return;
+
+	FieldItem item{};
+
+	//座標を入力
+	item.pos.x = pos.x;
+	item.pos.y = pos.y;
+	//アイテムの種類をランダムで決定
+	int i =  GetRand(ITEM_NUM - 1);
+	item.item.type = static_cast<ITEM_TYPE>(i);
+
+	m_Item.push_back(&item);
 }
 
 void CMap::DeleteAll() {
@@ -544,4 +526,34 @@ TILE CMap::GetTile(int x, int y) {
 		return TILE_NON;
 	}
 	return m_Map[y][x];
+}
+
+Int2 CMap::GetRoomPos()
+{
+	//どの部屋に階段を置くかランダムで決定
+
+	int size = m_Room.size();
+	int choiceCreateRoom;
+
+	if (size <= 1) {
+		Int2 p{};
+		p.x = -1;
+		p.y = -1;
+		return p;
+	}
+	choiceCreateRoom = GetRand(size - 1);
+
+	//階段を億部屋の位置と大きさを取得
+	Int2 Pos = m_Room.at(choiceCreateRoom).GetPos();
+	Int2 Size = m_Room.at(choiceCreateRoom).GetSize();
+
+	//どこに置くかを決定
+	Int2 SetPos;
+	//部屋の端には置けないようにする
+	//GetRand(Size.x) + Pos.x;だと部屋の外に飛び出る可能性があるため1だけ減らす
+	//yの方も同様
+	SetPos.x = GetRand(Size.x - 1) + Pos.x;
+	SetPos.y = GetRand(Size.y - 1) + Pos.y;
+
+	return SetPos;
 }
