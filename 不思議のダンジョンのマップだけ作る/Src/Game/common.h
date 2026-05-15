@@ -39,6 +39,14 @@ struct Int2 {
 	int x, y;
 };
 
+static Int2 AddInt2(Int2 i1, Int2 i2)
+{
+	Int2 Ret;
+	Ret.x = i1.x + i2.x;
+	Ret.y = i1.y + i2.y;
+	return Ret;
+}
+
 struct Float2 {
 	float x, y;
 };

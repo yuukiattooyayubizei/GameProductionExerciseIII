@@ -1,6 +1,6 @@
 #pragma once
 #include <DxLib.h>
-#include "../Common.h"
+
 
 class CData {
 private:

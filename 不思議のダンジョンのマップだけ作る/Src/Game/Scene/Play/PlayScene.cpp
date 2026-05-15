@@ -61,17 +61,15 @@ void CPlayScene::Load()
 	Data->Load();
 
 	//3ŒÂ‚©‚ç5ŒÂ‚Ì•”‰®‚ğì¬
-	for (int i = 0;i < GetRand(ROOM_MAX - ROOM_MIN) + ROOM_MIN;i++)
-	{
-		if (m_Map.CreateRoom() == false)
-			break;
-	}
+	if (m_Map.CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
+	
+	
 
 	m_Map.CreateCorridor();
 
 	m_Map.CreateStairs();
 
-	m_Map.CreateItem();
+	m_Map.CreateItem(5);
 
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Load(); });
 

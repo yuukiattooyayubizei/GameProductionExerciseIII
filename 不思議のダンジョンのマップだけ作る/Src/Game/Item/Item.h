@@ -1,5 +1,5 @@
 #pragma once
-#include "../common.h"
+#include "../Common.h"
 
 // ƒAƒCƒeƒ€1ŒÂ•ª‚Ìî•ñ
 struct Item

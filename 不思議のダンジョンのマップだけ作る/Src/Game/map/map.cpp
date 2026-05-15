@@ -21,6 +21,7 @@ CRoom::CRoom() {
 void CMap::Init() {
 	//部屋情報を消去
 	m_Room.clear();
+	m_Item.clear();
 
 	m_StairsPos = {};
 
@@ -34,24 +35,27 @@ void CMap::Init() {
 	}
 }
 
-bool CMap::CreateRoom() {
-
-	CRoom room{};
-
-	for (int Retry = 0;Retry < RETRY_MAX;Retry++)
+bool CMap::CreateRoom(int CreateNum) {
+	for (int index = 0;index < CreateNum;index++)
 	{
-		room = RoomSizeDecision();
+		CRoom room{};
 
-		//ここで他の部屋との当たり判定を行い、衝突していたら作り直し
-		if (CollisionRoom(room))
-			continue;
+		for (int Retry = 0;Retry < RETRY_MAX;Retry++)
+		{
+			room = RoomSizeDecision();
 
-		RoomSave(room);
-		//ここまで来たら、部屋の作成は完了している
-		return true;
+			//ここで他の部屋との当たり判定を行い、衝突していたら作り直し
+			if (CollisionRoom(room))
+				continue;
+
+			RoomSave(room);
+			//ここまで来たら、部屋の作成は完了している
+			break;
+		}
+		////ここに来たら、もう部屋の置き場がないと判断
+		//return false;
 	}
-	//ここに来たら、もう部屋の置き場がないと判断
-	return false;
+	return true;
 }
 
 CRoom CMap::RoomSizeDecision() {
@@ -134,6 +138,78 @@ bool CMap::CollisionRoom(const CRoom& room) {
 			room1Up <= room2Down &&
 			room2Up <= room1Down) return true;
 	}
+	return false;
+}
+
+bool CMap::IsItemExist(int x, int y){
+		for (const FieldItem& fieldItem : m_Item)
+		{
+			if (fieldItem.pos.x == x && fieldItem.pos.y == y)
+			{
+				return true;
+			}
+		}
+		return false;
+	};
+
+bool CMap::CollisionItem(FieldItem& item){
+
+	// まず、現在の座標にアイテムがなければそのまま置ける
+	if (!IsItemExist(item.pos.x, item.pos.y))
+	{
+		return true;
+	}
+
+	//アイテムの位置が被っていた場合1マス移動させる
+	// 優先順位
+	// ⑤③⑥
+	// ①〇②
+	// ⑦④⑧
+	const Int2 movePos[] =
+	{
+		{-1,  0},	//左
+		{ 1,  0},	//右
+		{ 0, -1},	//上
+		{ 0,  1},	//下
+		{-1, -1},	//左上
+		{ 1, -1},	//右上
+		{-1,  1},	//左下
+		{ 1,  1},	//右下
+	};
+
+	for (const Int2& move : movePos)
+	{
+		//調べる座標を決定
+		int nextX = item.pos.x + move.x;
+		int nextY = item.pos.y + move.y;
+
+		//マップの範囲外は置けない
+		if (nextX < 0 || nextX >= MAP_X ||
+			nextY < 0 || nextY >= MAP_Y)
+		{
+			continue;
+		}
+
+		//部屋以外のマスには置けない
+		if (m_Map[nextY][nextX] != TILE_ROOM)
+		{
+			continue;
+		}
+
+		//そこにもアイテムが落ちていたら置けない
+		if (IsItemExist(nextX, nextY))
+		{
+			continue;
+		}
+
+		//ここまで来たらそのマスには置けるので移動
+		item.pos.x = nextX;
+		item.pos.y = nextY;
+
+		return true;
+	}
+
+	//周囲8マスすべて置けなかったらfalseを返す
 	return false;
 }
 
@@ -280,10 +356,30 @@ void CMap::Draw(int x, int y) {
 	DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
 
 
-	for_each(m_Item.begin(), m_Item.end(), [this](FieldItem* item) {
-		int X = 8 + item->pos.x;
-		int Y = 8 + item->pos.y;
-		DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(255, 0, 0), TRUE);
+	for_each(m_Item.begin(), m_Item.end(), [this](FieldItem item) {
+		//床落ちアイテムの座標を取得
+		int X = 8 + item.pos.x * 16;
+		int Y = 8 + item.pos.y * 16;
+		//種類によって色を変えておく
+		switch (item.item.type)
+		{
+		case ITEM_1:
+			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(255, 0, 0), TRUE);
+			break;
+		case ITEM_2:
+			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(0, 255, 255), TRUE);
+			break;
+		case ITEM_3:
+			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(255, 0, 255), TRUE);
+			break;
+		case ITEM_4:
+			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(255, 255, 0), TRUE);
+			break;
+		default:
+			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(128, 128, 128), TRUE);
+			break;
+		}
+		
 	});
 
 
@@ -485,24 +581,33 @@ void CMap::CreateStairs()
 }
 
 
-void CMap::CreateItem()
+void CMap::CreateItem(int CreateNum)
 {
-	//ランダムな部屋マスを取得
-	Int2 pos = GetRoomPos();
-	//エラーの場合-1が帰ってくる
-	if (pos.x == -1)
-		return;
+	for (int index = 0;index < CreateNum;index++)
+	{
+		//ランダムな部屋マスを取得
+		Int2 pos = GetRoomPos();
+		//エラーの場合-1が帰ってくる
+		if (pos.x == -1)
+			return;
 
-	FieldItem item{};
+		FieldItem item{};
 
-	//座標を入力
-	item.pos.x = pos.x;
-	item.pos.y = pos.y;
-	//アイテムの種類をランダムで決定
-	int i =  GetRand(ITEM_NUM - 1);
-	item.item.type = static_cast<ITEM_TYPE>(i);
+		//座標を入力
+		item.pos.x = pos.x;
+		item.pos.y = pos.y;
+		//アイテムの種類をランダムで決定
+		int i = GetRand(ITEM_NUM - 1);
+		item.item.type = static_cast<ITEM_TYPE>(i);
 
-	m_Item.push_back(&item);
+		// 置けなかった場合は追加しない
+		if (!CollisionItem(item))
+			continue;
+
+		item.item.type = static_cast<ITEM_TYPE>(i);
+
+		m_Item.push_back(item);
+	}
 }
 
 void CMap::DeleteAll() {

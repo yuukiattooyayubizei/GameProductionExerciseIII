@@ -103,7 +103,7 @@ private:
 	TILE m_Map[MAP_Y][MAP_X];
 	std::vector<CRoom> m_Room;		//部屋
 
-	std::vector<FieldItem*> m_Item;	//落ちているアイテム
+	std::vector<FieldItem> m_Item;	//落ちているアイテム
 
 	Int2 m_StairsPos;				//階段の座標
 
@@ -117,6 +117,10 @@ public:
 
 	//部屋どうしがかぶっているかを判定
 	bool CollisionRoom(const CRoom& room);
+	//アイテムが同じ座標にあるかチェック
+	bool CollisionItem(FieldItem& item);
+
+	bool IsItemExist(int x, int y);
 
 	//部屋のサイズ決定
 	CRoom RoomSizeDecision();
@@ -124,7 +128,11 @@ public:
 	void RoomSave(const CRoom& room);
 
 	//部屋を作成
-	bool CreateRoom();
+	bool CreateRoom(int CreateNum);
+	//階段を作成
+	void CreateStairs();
+	//床落ちアイテムを作成
+	void CreateItem(int CreateNum);
 
 	//廊下の生成
 	bool CreateCorridor();
@@ -140,11 +148,6 @@ public:
 
 	//掘る
 	void DigCorridor(Int2 a, Int2 b);
-
-	//階段を作成
-	void CreateStairs();
-	//床落ちアイテムを作成
-	void CreateItem();
 
 	//描画
 	void Draw(int x,int y);
