@@ -39,21 +39,25 @@ bool CMap::CreateRoom(int CreateNum) {
 	for (int index = 0;index < CreateNum;index++)
 	{
 		CRoom room{};
+		bool CreateSuccess = false;
+
 
 		for (int Retry = 0;Retry < RETRY_MAX;Retry++)
 		{
 			room = RoomSizeDecision();
 
 			//ここで他の部屋との当たり判定を行い、衝突していたら作り直し
-			if (CollisionRoom(room))
+			if (CollisionRoomToRoom(room))
 				continue;
 
 			RoomSave(room);
 			//ここまで来たら、部屋の作成は完了している
+			CreateSuccess = true;
 			break;
 		}
-		////ここに来たら、もう部屋の置き場がないと判断
-		//return false;
+		if (CreateSuccess == false)
+			//ここに来たら、もう部屋の置き場がないと判断
+			return false;
 	}
 	return true;
 }
@@ -116,7 +120,7 @@ void CMap::RoomSave (const CRoom& room) {
 }
 
 
-bool CMap::CollisionRoom(const CRoom& room) {
+bool CMap::CollisionRoomToRoom(const CRoom& room) {
 	for (std::vector<CRoom>::iterator ite = m_Room.begin(); ite != m_Room.end();ite++)
 	{
 		CRoom& room2 = *ite;
@@ -141,21 +145,43 @@ bool CMap::CollisionRoom(const CRoom& room) {
 	return false;
 }
 
-bool CMap::IsItemExist(int x, int y){
+ITEM_TYPE CMap::IsItemExist(Int2 i){
 		for (const FieldItem& fieldItem : m_Item)
 		{
-			if (fieldItem.pos.x == x && fieldItem.pos.y == y)
+			if (fieldItem.pos.x == i.x && fieldItem.pos.y == i.y)
 			{
-				return true;
+				return fieldItem.item.type;
 			}
 		}
-		return false;
+		return ITEM_NON;
 	};
 
-bool CMap::CollisionItem(FieldItem& item){
+bool CMap::CollisionStairs(Int2 i) {
+
+		if (m_StairsPos.x == i.x && m_StairsPos.y == i.y)
+		{
+			return true;
+		}
+	
+		return false;
+};
+
+bool CMap::CollisionItem(Int2 i) {
+
+	for (const FieldItem& fieldItem : m_Item)
+	{
+		if (fieldItem.pos.x == i.x && fieldItem.pos.y == i.y)
+		{
+			return true;
+		}
+	}
+	return false;
+};
+
+bool CMap::CollisionItemToItem(FieldItem& item){
 
 	// まず、現在の座標にアイテムがなければそのまま置ける
-	if (!IsItemExist(item.pos.x, item.pos.y))
+	if (IsItemExist(item.pos) == ITEM_NON)
 	{
 		return true;
 	}
@@ -182,6 +208,9 @@ bool CMap::CollisionItem(FieldItem& item){
 		//調べる座標を決定
 		int nextX = item.pos.x + move.x;
 		int nextY = item.pos.y + move.y;
+		Int2 next;
+		next.x = nextX;
+		next.y = nextY;
 
 		//マップの範囲外は置けない
 		if (nextX < 0 || nextX >= MAP_X ||
@@ -197,7 +226,7 @@ bool CMap::CollisionItem(FieldItem& item){
 		}
 
 		//そこにもアイテムが落ちていたら置けない
-		if (IsItemExist(nextX, nextY))
+		if (IsItemExist(next) != ITEM_NON)
 		{
 			continue;
 		}
@@ -211,6 +240,18 @@ bool CMap::CollisionItem(FieldItem& item){
 
 	//周囲8マスすべて置けなかったらfalseを返す
 	return false;
+}
+
+void CMap::EraseItem(Int2 pos) {
+	int i = 0;
+	for (const FieldItem& fieldItem : m_Item)
+	{
+		if (fieldItem.pos.x == (int)pos.x && fieldItem.pos.y == (int)pos.y)
+		{
+			m_Item.erase(m_Item.begin() + i);
+		}
+		i++;
+	}
 }
 
 void CMap::DigCorridor(Int2 a, Int2 b)
@@ -383,10 +424,7 @@ void CMap::Draw(int x, int y) {
 	});
 
 
-	//プレイヤーの描画
-	centerX = 8 + x * 16;
-	centerY = 8 + y * 16;
-	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
+
 						
 }
 
@@ -578,34 +616,47 @@ void CMap::CreateStairs()
 	//階段を置く
 	m_StairsPos.x = pos.x;
 	m_StairsPos.y = pos.y;
+
+	std::cout <<pos.x << "," << pos.y << "に階段を生成" << std::endl;
 }
 
 
-void CMap::CreateItem(int CreateNum)
+void CMap::CreateItem(int CreateNum, int x, int y)
 {
 	for (int index = 0;index < CreateNum;index++)
 	{
-		//ランダムな部屋マスを取得
-		Int2 pos = GetRoomPos();
-		//エラーの場合-1が帰ってくる
-		if (pos.x == -1)
-			return;
-
 		FieldItem item{};
 
-		//座標を入力
-		item.pos.x = pos.x;
-		item.pos.y = pos.y;
+		if (x == -1 && y == -1)
+		{
+			//ランダムな部屋マスを取得
+			Int2 pos = GetRoomPos();
+			//エラーの場合-1が帰ってくる
+			if (pos.x == -1)
+				return;
+
+			//座標を入力
+			item.pos.x = pos.x;
+			item.pos.y = pos.y;
+		}
+		else
+		{
+			//座標を入力
+			item.pos.x = x;
+			item.pos.y = y;
+		}
+
+		// 置けなかった場合は追加しない
+		if (CollisionStairs(item.pos))
+			continue;
+		if (!CollisionItemToItem(item))
+			continue;
+
 		//アイテムの種類をランダムで決定
 		int i = GetRand(ITEM_NUM - 1);
 		item.item.type = static_cast<ITEM_TYPE>(i);
 
-		// 置けなかった場合は追加しない
-		if (!CollisionItem(item))
-			continue;
-
-		item.item.type = static_cast<ITEM_TYPE>(i);
-
+		std::cout << item.pos.x << "," << item.pos.y << "にアイテムを生成" << std::endl;
 		m_Item.push_back(item);
 	}
 }

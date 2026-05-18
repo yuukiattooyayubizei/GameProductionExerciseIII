@@ -5,6 +5,7 @@
 enum ObjectKind {
     KIND_NON,
     KIND_PLAYER,
+    KIND_ENEMY,
 };
 
 
@@ -12,7 +13,7 @@ enum ObjectKind {
 class CObject {
 protected:
     ObjectKind m_Kind;
-    VECTOR m_Pos;
+    Int2 m_Pos;
     DIRECTION m_Direction;
 
     int m_HP;
@@ -27,10 +28,10 @@ public:
     virtual void Draw() = 0;
     virtual void Exit() = 0;
 
-    VECTOR GetPos() const { return m_Pos; }
+    Int2 GetPos() const { return m_Pos; }
     ObjectKind GetKind() const { return m_Kind; }
     DIRECTION GetDirection() const { return m_Direction; }
 
 
-    void SetPos(VECTOR pos) { m_Pos = pos; }
+    void SetPos(Int2 pos) {m_Pos.x = pos.x;m_Pos.y = pos.y;}
 };

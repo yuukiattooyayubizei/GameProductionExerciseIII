@@ -36,6 +36,24 @@ public:
 	CPlayScene();
 	~CPlayScene();
 
+	//既に生成されているオブジェクトと座標が被っているかどうか
+	bool CollsionObject(Int2& pos) const;
+
+	//オブジェクト、アイテム、敵など全てと被っているかどうか
+	bool CollsionAll(Int2 pos);
+
+	Int2 FindSpawnPos();
+
+	CanMove GetCanMove(Int2 pos);
+
+	//移動先にObjectがいるかどうか
+	ObjectKind GetAheadMoveObject(Int2 pos, DIRECTION dir);
+
+	//敵生成
+	void CreateEnemy(int CreateNum = 1);
+	//プレイヤー生成
+	void CreatePlayer();
+
 	//メイン処理
 	int Loop();
 	//描画処理

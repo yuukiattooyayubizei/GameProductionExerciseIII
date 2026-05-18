@@ -56,5 +56,7 @@ static bool ReverseBool(bool is) {
 	if (is == true)
 		return false;
 	else
-		true;
+		return true;
 }
+
+static constexpr int RETRY_MAX = 100;		//•”‰®ì¬‚ÌƒŠƒgƒ‰ƒC‰ñ”(‚±‚ê‚ğ’´‚¦‚é‚Æ•”‰®‚Ì’u‚«ê‚ª‚È‚¢‚Æ‚İ‚È‚·)

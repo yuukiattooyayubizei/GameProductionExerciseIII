@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
+#include<DxLib.h>
 #include "../common.h"
 #include "../Item/Item.h"
 
 static constexpr int MAP_X = 50;			//マップの最大横幅
 static constexpr int MAP_Y = 30;			//マップの最大縦幅
-static constexpr int RETRY_MAX = 100;		//部屋作成時のリトライ回数(これを超えると部屋の置き場がないとみなす)
 static constexpr int MAP_SIZE_MIN = 5;		//部屋の最小の大きさ
 static constexpr int MAP_SIZE_MAX = 9;		//部屋の最大の大きさ
 static constexpr int ROOM_MARGIN = 3;		//部屋どうしの最低距離
@@ -116,11 +116,9 @@ public:
 	void Init();
 
 	//部屋どうしがかぶっているかを判定
-	bool CollisionRoom(const CRoom& room);
-	//アイテムが同じ座標にあるかチェック
-	bool CollisionItem(FieldItem& item);
-
-	bool IsItemExist(int x, int y);
+	bool CollisionRoomToRoom(const CRoom& room);
+	//廊下とかぶっているかを判定
+	bool CollisionStairs(Int2 i);
 
 	//部屋のサイズ決定
 	CRoom RoomSizeDecision();
@@ -131,8 +129,27 @@ public:
 	bool CreateRoom(int CreateNum);
 	//階段を作成
 	void CreateStairs();
+
+	//----------------------------------------------
+	//アイテム関連
+	//----------------------------------------------
+
 	//床落ちアイテムを作成
-	void CreateItem(int CreateNum);
+	//xとyを入力したらその座標に、しなかったら置けるランダムなマスから選択
+	void CreateItem(int CreateNum, int x = -1, int y = -1);
+
+	//探している座標にアイテムがあるかどうか
+	ITEM_TYPE IsItemExist(Int2 i);
+
+	//アイテムどうしが同じ座標にあるかチェック
+	bool CollisionItemToItem(FieldItem& item);
+
+	//アイテムが同じ座標にあるかチェック
+	bool CollisionItem(Int2 i);
+
+	//指定した座標のアイテムを消去
+	void EraseItem(Int2 pos);
+
 
 	//廊下の生成
 	bool CreateCorridor();
