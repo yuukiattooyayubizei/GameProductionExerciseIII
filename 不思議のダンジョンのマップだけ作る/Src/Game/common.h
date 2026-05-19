@@ -1,12 +1,24 @@
 #pragma once
 
+struct Int2 {
+	int x, y;
+};
+
 enum DIRECTION {
-	DIRECTION_NON,
+	DIRECTION_NON,	//移動しない
 	DIRECTION_UP,	//上
 	DIRECTION_LEFT,	//左
 	DIRECTION_DOWN,	//下
 	DIRECTION_RIGHT	//右
 };
+
+static Int2 DirectionToInt2(DIRECTION dir) {
+	if (dir == DIRECTION_UP)return { 0,-1 };
+	else if (dir == DIRECTION_DOWN)return { 0,1 };
+	else if (dir == DIRECTION_LEFT)return { -1,0 };
+	else if (dir == DIRECTION_RIGHT)return { 1,0 };
+	else return { 0,0 };
+}
 
 //その方向に動けるかどうか
 typedef struct {
@@ -33,10 +45,6 @@ enum ITEM_TYPE
 	ITEM_4,
 
 	ITEM_NUM,		//アイテムの種類数
-};
-
-struct Int2 {
-	int x, y;
 };
 
 static Int2 AddInt2(Int2 i1, Int2 i2)

@@ -30,6 +30,7 @@ private:
 	CMap m_Map;
 
 	bool m_PlayerTurn;
+	int m_EnemySpwanWait;
 
 public:
 	//コンストラクタ・デストラクタ
@@ -37,7 +38,7 @@ public:
 	~CPlayScene();
 
 	//既に生成されているオブジェクトと座標が被っているかどうか
-	bool CollsionObject(Int2& pos) const;
+	int CollsionObject(Int2& pos) const;
 
 	//オブジェクト、アイテム、敵など全てと被っているかどうか
 	bool CollsionAll(Int2 pos);

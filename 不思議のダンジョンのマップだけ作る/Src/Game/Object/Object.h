@@ -18,6 +18,10 @@ protected:
 
     int m_HP;
     int m_MaxHP;
+
+    int m_Atk;
+
+    bool m_IsActive = true;
 public:
     CObject();
     virtual ~CObject() {}
@@ -31,7 +35,13 @@ public:
     Int2 GetPos() const { return m_Pos; }
     ObjectKind GetKind() const { return m_Kind; }
     DIRECTION GetDirection() const { return m_Direction; }
+    int GetAtk() const { return m_Atk; }
+    int GetHP() const { return m_HP; }
+    bool GetActive() const { return m_IsActive; }
 
 
     void SetPos(Int2 pos) {m_Pos.x = pos.x;m_Pos.y = pos.y;}
+    void AddPos(Int2 pos) { m_Pos.x += pos.x;m_Pos.y += pos.y; }
+    void AddDamage(int dam) { m_HP -= dam; }
+    void SetActive(bool active) { m_IsActive = active; }
 };

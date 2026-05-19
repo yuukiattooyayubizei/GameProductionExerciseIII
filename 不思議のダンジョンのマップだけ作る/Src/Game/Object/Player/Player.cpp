@@ -15,6 +15,7 @@ void CPlayer::Init(){
 	m_Kind = KIND_PLAYER;
 	m_HP = HP_MAX;
 	m_MaxHP = HP_MAX;
+	m_Atk = 5;
 }
 
 void CPlayer::Load() {
@@ -24,19 +25,15 @@ void CPlayer::Step(CanMove canmove) {
 	m_Direction = DIRECTION_NON;
 
 	if (IsInputTrg(KEY_W) && canmove.Up == true) {
-		m_Pos.y--;
 		m_Direction = DIRECTION_UP;
 	}
 	if (IsInputTrg(KEY_S) && canmove.Down == true) {
-		m_Pos.y++;
 		m_Direction = DIRECTION_DOWN;
 	}
 	if (IsInputTrg(KEY_A) && canmove.Left == true) {
-		m_Pos.x--;
 		m_Direction = DIRECTION_LEFT;
 	}
 	if (IsInputTrg(KEY_D) && canmove.Right == true) {
-		m_Pos.x++;
 		m_Direction = DIRECTION_RIGHT;
 	}
 }

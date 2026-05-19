@@ -15,13 +15,29 @@ void CEnemy::Init() {
 	m_Kind = KIND_ENEMY;
 	m_HP = 5;
 	m_MaxHP = 5;
+	m_Atk = 2;
 }
 
 void CEnemy::Load() {
 }
 
 void CEnemy::Step(CanMove canmove) {
-
+	//‚Æ‚è‚ ‚¦‚¸ƒ‰ƒ“ƒ_ƒ€‚Å
+	int rand = GetRand(3);
+	if (rand == 0 && canmove.Up == true) {
+		m_Direction = DIRECTION_UP;
+	}
+	else if (rand == 1 && canmove.Down == true) {
+		m_Direction = DIRECTION_DOWN;
+	}
+	else if (rand == 2 && canmove.Left == true) {
+		m_Direction = DIRECTION_LEFT;
+	}
+	else if (rand == 3 && canmove.Right == true) {
+		m_Direction = DIRECTION_RIGHT;
+	}
+	else
+		m_Direction = DIRECTION_NON;
 }
 
 void CEnemy::Draw() {

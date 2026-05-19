@@ -26,17 +26,19 @@ Int2 CPlayScene::FindSpawnPos()
 	return { -1, -1 };
 }
 
-bool CPlayScene::CollsionObject(Int2& pos) const
+int CPlayScene::CollsionObject(Int2& pos) const
 {
+	int ret = 0;
 	for (CObject* obj : m_Object)
 	{
 		if (obj->GetPos().x == pos.x && obj->GetPos().y == pos.y)
 		{
-			return true;
+			return ret;
 		}
+		ret++;
 	}
 
-	return false;
+	return -1;
 }
 
 CanMove CPlayScene::GetCanMove(Int2 pos)
@@ -122,7 +124,7 @@ void CPlayScene::Init()
 
 	m_Player = new CPlayer();
 	m_Object.push_back(m_Player);
-
+	m_EnemySpwanWait = 30;
 
 
 	m_Player->Init();
@@ -259,6 +261,36 @@ int CPlayScene::Step()
 				//プレイヤーが移動していたら
 				if (object->GetDirection() != DIRECTION_NON)
 				{
+					Int2 move = DirectionToInt2(object->GetDirection());
+					Int2 NextPos = AddInt2(object->GetPos(), move);
+					//移動する方向にオブジェクトがいないかチェック
+					int ObjectNum = CollsionObject(NextPos);
+					if (ObjectNum == -1)
+					{
+						//何もいないなら
+						//プレイヤーを移動させる
+						object->AddPos(move);
+					}
+					else
+					{
+						// 何かがいるなら代わりにそいつに攻撃
+						CObject* target = m_Object[ObjectNum];
+
+						// 敵なら攻撃する
+						if (target->GetKind() == KIND_ENEMY)
+						{
+							int damage = object->GetAtk(); // プレイヤーの攻撃力
+							target->AddDamage(damage);                // 敵にダメージを与える
+							std::cout << "敵に" << damage << "ダメージを与えた" << std::endl;
+							// HPが0以下なら死亡処理
+							if (target->GetHP() <= 0)
+							{
+								std::cout << "敵撃破" << std::endl;
+								target->SetActive(false);
+							}
+						}
+					}
+
 					m_PlayerTurn = false;
 
 					//移動先のアイテムを検索
@@ -276,20 +308,57 @@ int CPlayScene::Step()
 				}
 			}
 		});
+		
+		//死んでいる敵を消去
+		auto newEnd = std::remove_if(
+			m_Object.begin(),
+			m_Object.end(),
+			[](CObject* object)
+			{
+				if (!object->GetActive())
+				{
+					delete object;
+					return true;
+				}
+
+				return false;
+			}
+		);
+
+		m_Object.erase(newEnd, m_Object.end());
+		
+		
 	}
 	//プレイヤー行動の後
 	else
 	{
 		for_each(m_Object.begin(), m_Object.end(), [this](CObject* object) {
-			//オブジェクトが動けるマスを探す
-			CanMove C = GetCanMove(object->GetPos());
-
 			//プレイヤー以外を動かす
 			if (object->GetKind() != KIND_PLAYER)
+			{
+				//オブジェクトが動けるマスを探す
+				CanMove C = GetCanMove(object->GetPos());
+
 				object->Step(C);
 
-			});
+				Int2 move = DirectionToInt2(object->GetDirection());
+				Int2 NextPos = AddInt2(object->GetPos(), move);
+				object->AddPos(move);
+			}
+			
+
+		});
 		m_PlayerTurn = true;
+
+		//敵を出す処理
+		//敵をだすまでのカウントを下げる
+		m_EnemySpwanWait--;
+		if (m_EnemySpwanWait <= 0)
+		{
+			//0になったら敵を出してカウントをリセット
+			m_EnemySpwanWait = 30;
+			CreateEnemy();
+		}
 	}
 
 
