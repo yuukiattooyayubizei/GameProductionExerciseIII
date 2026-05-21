@@ -9,6 +9,7 @@
 #include "../../../Lib/Sound/sound.h"
 #include "../../Data/Data.h"
 #include "../../Object/Enemy/Enemy.h"
+#include "../../../Lib/Input/input.h"
 
 using namespace std;
 
@@ -130,9 +131,13 @@ void CPlayScene::Init()
 	m_Object.push_back(m_Player);
 	m_EnemySpwanWait = 30;
 
+	m_PlayMode = MODE_PLAY;
+
+	m_Floor = 1;
 
 	m_Player->Init();
-
+	m_SelectItemIndex = 0;
+	m_ItemPage = 0;
 }
 
 void CPlayScene::Exit()
@@ -171,6 +176,49 @@ void CPlayScene::Load()
 	CMap* Map = CMap::GetInstance();
 	CData* Data = CData::GetInstance();
 
+	//Data->Load();
+
+	////3個から5個の部屋を作成
+	//if (Map->CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
+	//Map->CreateCorridor();
+	//Map->CreateStairs();
+	//Map->CreateItem(5);
+
+	////敵を作成
+	//CreateEnemy(5);
+
+	CreateFloor();
+
+
+	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Load(); });
+	//m_Map.Draw(m_Player->GetPos().x, m_Player->GetPos().y);
+}
+
+void CPlayScene::CreateFloor() {
+	CMap* Map = CMap::GetInstance();
+	CData* Data = CData::GetInstance();
+
+	//マップを消去
+	Map->Exit();
+	//プレイヤー以外のオブジェクトを削除
+	auto newEnd = std::remove_if(
+		m_Object.begin(),
+		m_Object.end(),
+		[](CObject* object)
+		{
+			if (object->GetKind() != KIND_PLAYER)
+			{
+				object->Exit();
+				delete object;
+				return true;
+			}
+
+			return false;
+		}
+	);
+
+	m_Object.erase(newEnd, m_Object.end());
+
 	Data->Load();
 
 	//3個から5個の部屋を作成
@@ -179,13 +227,10 @@ void CPlayScene::Load()
 	Map->CreateStairs();
 	Map->CreateItem(5);
 
-	CreatePlayer();
-
 	//敵を作成
 	CreateEnemy(5);
 
-	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Load(); });
-	//m_Map.Draw(m_Player->GetPos().x, m_Player->GetPos().y);
+	CreatePlayer();
 }
 
 int CPlayScene::Loop()
@@ -248,6 +293,139 @@ ObjectKind CPlayScene::GetAheadMoveObject(Int2 pos, DIRECTION dir){
 
 int CPlayScene::Step()
 {
+
+		if (m_PlayMode == MODE_PLAY)
+		{
+			return StepPlay();
+		}
+		else if (m_PlayMode == MODE_ITEM_MENU)
+		{
+			return StepItemMenu();
+		}
+
+
+	return 0;
+}
+
+int CPlayScene::StepItemMenu()
+{
+	int itemCount = m_Player->GetInventorySize();
+
+	if (IsInputTrg(KEY_J) || IsInputTrg(KEY_K))
+	{
+		m_PlayMode = MODE_PLAY;
+		return 0;
+	}
+
+	if (itemCount <= 0)
+	{
+		m_SelectItemIndex = 0;
+		m_ItemPage = 0;
+		return 0;
+	}
+
+	int maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
+
+	// Aで前のページへ
+	if (IsInputTrg(KEY_A))
+	{
+		m_ItemPage--;
+
+		if (m_ItemPage < 0)
+		{
+			m_ItemPage = maxPage - 1;
+		}
+
+		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
+	}
+
+	// Dで次のページへ
+	if (IsInputTrg(KEY_D))
+	{
+		m_ItemPage++;
+
+		if (m_ItemPage >= maxPage)
+		{
+			m_ItemPage = 0;
+		}
+
+		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
+	}
+
+	int pageStart = m_ItemPage * ITEM_PER_PAGE;
+	int pageEnd = pageStart + ITEM_PER_PAGE;
+
+	if (pageEnd > itemCount)
+	{
+		pageEnd = itemCount;
+	}
+
+	// Wで上へ
+	if (IsInputTrg(KEY_W))
+	{
+		m_SelectItemIndex--;
+
+		if (m_SelectItemIndex < pageStart)
+		{
+			m_SelectItemIndex = pageEnd - 1;
+		}
+	}
+
+	// Sで下へ
+	if (IsInputTrg(KEY_S))
+	{
+		m_SelectItemIndex++;
+
+		if (m_SelectItemIndex >= pageEnd)
+		{
+			m_SelectItemIndex = pageStart;
+		}
+	}
+
+	// SPACEで使用
+	if (IsInputTrg(KEY_SPACE))
+	{
+		m_Player->UseItem(m_SelectItemIndex);
+
+		itemCount = m_Player->GetInventorySize();
+
+		if (itemCount <= 0)
+		{
+			m_SelectItemIndex = 0;
+			m_ItemPage = 0;
+			return 0;
+		}
+
+		maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
+
+		if (m_ItemPage >= maxPage)
+		{
+			m_ItemPage = maxPage - 1;
+		}
+
+		pageStart = m_ItemPage * ITEM_PER_PAGE;
+		pageEnd = pageStart + ITEM_PER_PAGE;
+
+		if (pageEnd > itemCount)
+		{
+			pageEnd = itemCount;
+		}
+
+		if (m_SelectItemIndex >= itemCount)
+		{
+			m_SelectItemIndex = itemCount - 1;
+		}
+
+		if (m_SelectItemIndex < pageStart)
+		{
+			m_SelectItemIndex = pageStart;
+		}
+	}
+
+	return 0;
+}
+
+int CPlayScene::StepPlay() {
 	CData* Data = CData::GetInstance();
 	CMap* Map = CMap::GetInstance();
 
@@ -255,10 +433,19 @@ int CPlayScene::Step()
 	//プレイヤーの行動待ちなら
 	if (m_PlayerTurn == true)
 	{
+		//アイテム選択に移行
+		if (IsInputTrg(KEY_K))
+		{
+			m_PlayMode = MODE_ITEM_MENU;
+			m_SelectItemIndex = 0;
+			m_ItemPage = 0;
+			return 0;
+		}
+
 		for_each(m_Object.begin(), m_Object.end(), [&](CObject* object) {
 			//オブジェクトが動けるマスを探す
 			CanMove C = GetCanMove(object->GetPos());
-			
+
 			//プレイヤーだけ動かす
 			if (object->GetKind() == KIND_PLAYER)
 			{
@@ -307,14 +494,16 @@ int CPlayScene::Step()
 					if (item.type != ITEM_NON)
 					{
 						//そのアイテムをインベントリに入れる
-						m_Player->AddItem(item);
-						//入れたアイテムを消す
-						Map->EraseItem(m_Player->GetPos());
+						if (m_Player->AddItem(item))
+							//入れたアイテムを消す
+							Map->EraseItem(m_Player->GetPos());
+						else
+							std::cout << "インベントリがまんたん" << std::endl;
 					}
 				}
 			}
-		});
-		
+			});
+
 		//死んでいる敵を消去
 		auto newEnd = std::remove_if(
 			m_Object.begin(),
@@ -332,8 +521,8 @@ int CPlayScene::Step()
 		);
 
 		m_Object.erase(newEnd, m_Object.end());
-		
-		
+
+
 	}
 	//プレイヤー行動の後
 	else
@@ -385,9 +574,9 @@ int CPlayScene::Step()
 				}
 
 			}
-			
 
-		});
+
+			});
 		m_PlayerTurn = true;
 
 		//敵を出す処理
@@ -408,11 +597,18 @@ int CPlayScene::Step()
 
 	//プレイヤーが階段に乗ったら終了
 	if (CollsionInt2(m_Player->GetPos(), Map->GetStairsPos()) == true)
-		return 1;
+	{
+		if (m_Floor >= 5)
+			return 1;
+		m_Floor++;
+		CreateFloor();
+	}
+		
 
 	//プレイヤーが死んだら終了
 	if (m_Player->GetHP() <= 0)
 		return 1;
+
 	return 0;
 }
 
@@ -425,13 +621,95 @@ void CPlayScene::Draw()
 
 	CData* Data = CData::GetInstance();
 
-	
 	Map->Draw(m_Player->GetPos().x, m_Player->GetPos().y);
 
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Draw(); });
 
 	//描画処理
+
+	DrawFormatString(32, 160, GetColor(255, 255, 255), "%d 階", m_Floor);
+
 	DrawFormatString(32, 704, GetColor(255, 255, 255), "プレイシーンLキーでリザルトに遷移");
 
+	if (m_PlayMode == MODE_ITEM_MENU)
+	{
+		DrawItemMenu();
+	}
+}
 
+void CPlayScene::DrawItemMenu()
+{
+	DrawBox(80, 80, 500, 500, GetColor(0, 0, 0), TRUE);
+	DrawBox(80, 80, 500, 500, GetColor(255, 255, 255), FALSE);
+
+	DrawFormatString(100, 100, GetColor(255, 255, 255), "ITEM");
+
+	const auto& inventory = m_Player->GetInventory();
+	int itemCount = static_cast<int>(inventory.size());
+
+	if (itemCount <= 0)
+	{
+		DrawFormatString(100, 140, GetColor(255, 255, 255), "アイテムを持っていません");
+		DrawFormatString(100, 460, GetColor(255, 255, 255), "J/K: 戻る");
+		return;
+	}
+
+	int maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
+
+	int pageStart = m_ItemPage * ITEM_PER_PAGE;
+	int pageEnd = pageStart + ITEM_PER_PAGE;
+
+	if (pageEnd > itemCount)
+	{
+		pageEnd = itemCount;
+	}
+
+	for (int i = pageStart; i < pageEnd; i++)
+	{
+		int drawIndex = i - pageStart;
+		int y = 140 + drawIndex * 24;
+
+		if (i == m_SelectItemIndex)
+		{
+			DrawFormatString(100, y, GetColor(255, 255, 0), ">");
+		}
+
+		const char* name = "不明なアイテム";
+
+		switch (inventory[i].type)
+		{
+		case ITEM_1:
+			name = "アイテム1";
+			break;
+		case ITEM_2:
+			name = "アイテム2";
+			break;
+		case ITEM_3:
+			name = "アイテム3";
+			break;
+		case ITEM_4:
+			name = "アイテム4";
+			break;
+		default:
+			break;
+		}
+
+		DrawFormatString(130, y, GetColor(255, 255, 255), "%s", name);
+	}
+
+	DrawFormatString(
+		100,
+		410,
+		GetColor(255, 255, 255),
+		"Page %d / %d",
+		m_ItemPage + 1,
+		maxPage
+	);
+
+	DrawFormatString(
+		100,
+		460,
+		GetColor(255, 255, 255),
+		"W/S: 選択  A/D: ページ変更  SPACE: 使用  J/K: 戻る"
+	);
 }

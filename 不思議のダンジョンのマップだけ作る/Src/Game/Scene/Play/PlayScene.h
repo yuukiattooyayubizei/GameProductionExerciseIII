@@ -10,6 +10,14 @@ static const int ROOM_MIN = 5;
 //部屋の最大値
 static const int ROOM_MAX = 7;
 
+static const int ITEM_PER_PAGE = 10;
+
+enum PlayMode
+{
+	MODE_PLAY,
+	MODE_ITEM_MENU,
+};
+
 class CPlayScene 
 {
 private:
@@ -31,6 +39,16 @@ private:
 
 	bool m_PlayerTurn;
 	int m_EnemySpwanWait;
+
+	PlayMode m_PlayMode;
+
+	//アイテム選択時どれを選んでいるか
+	int m_SelectItemIndex;
+	//アイテム選択時のぺージ
+	int m_ItemPage;
+
+	//階層
+	int m_Floor;
 
 public:
 	//コンストラクタ・デストラクタ
@@ -60,6 +78,11 @@ public:
 	//描画処理
 	void Draw();
 
+	void DrawItemMenu();
+
+	//階層を生成
+	void CreateFloor();
+
 private:
 	//初期化
 	void Init(void);
@@ -72,4 +95,7 @@ private:
 
 	//制御
 	int Step();
+
+	int StepPlay();
+	int StepItemMenu();
 };

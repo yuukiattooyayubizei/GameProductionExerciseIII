@@ -31,4 +31,9 @@ public:
 
     //デバッグ用の表示
     void DrawInventoryDebug();
+
+    //アイテムの使用
+    bool UseItem(int index);
+
+    int GetInventorySize() const { return static_cast<int>(m_Inventory.size()); }
 };

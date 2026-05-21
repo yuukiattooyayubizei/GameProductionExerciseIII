@@ -120,3 +120,45 @@ void CPlayer::DrawInventoryDebug()
 
 	});
 }
+
+bool CPlayer::UseItem(int index)
+{
+	if (index < 0 || index >= static_cast<int>(m_Inventory.size()))
+		return false;
+
+	Item item = m_Inventory[index];
+
+	switch (item.type)
+	{
+	case ITEM_1:
+		// 例：HP回復
+		m_MaxHP += 3000;
+		m_HP = m_MaxHP;
+		break;
+
+	case ITEM_2:
+		// 例：攻撃力アップ
+		m_MaxHP += 20;
+		break;
+
+	case ITEM_3:
+		// 例：HP最大値アップ
+		m_MaxHP += 30;
+		m_HP = m_MaxHP;
+		break;
+
+	case ITEM_4:
+		// 例：何か特殊効果
+		m_MaxHP += 300;
+		m_HP = m_MaxHP;
+		break;
+
+	default:
+		return false;
+	}
+
+	// 使ったアイテムを消す
+	m_Inventory.erase(m_Inventory.begin() + index);
+
+	return true;
+}

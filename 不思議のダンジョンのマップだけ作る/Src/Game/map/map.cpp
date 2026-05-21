@@ -64,6 +64,22 @@ void CMap::Init() {
 	}
 }
 
+void CMap::Exit() {
+	m_Room.clear();
+	m_Item.clear();
+
+	m_StairsPos = {};
+
+	for (int i = 0; i < MAP_Y; i++)
+	{
+		for (int k = 0; k < MAP_X; k++)
+		{
+			//Å‰‚Í•Ç‚Å–„‚ß‚é
+			m_Map[i][k] = TILE_WALL;
+		}
+	}
+}
+
 bool CMap::CreateRoom(int CreateNum) {
 	for (int index = 0;index < CreateNum;index++)
 	{
