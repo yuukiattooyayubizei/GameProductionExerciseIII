@@ -3,6 +3,8 @@
 #include "../../Common.h"
 #include "../../Item/Item.h"
 #include <iostream>
+#include <algorithm>
+using namespace std;
 
 
 
@@ -96,11 +98,9 @@ bool CPlayer::IsInventoryFull() const
 void CPlayer::DrawInventoryDebug()
 {
 	std::cout << "Inventory" << std::endl;
+	for_each(m_Inventory.begin(), m_Inventory.end(), [&](Item invectory) {
 
-
-	for (int i = 0; i < static_cast<int>(m_Inventory.size()); i++)
-	{
-		switch (item.type)
+		switch (invectory.type)
 		{
 		case ITEM_1:
 			std::cout << "ƒAƒCƒeƒ€1" << std::endl;
@@ -117,5 +117,6 @@ void CPlayer::DrawInventoryDebug()
 		default:
 			break;
 		}
-	}
+
+	});
 }

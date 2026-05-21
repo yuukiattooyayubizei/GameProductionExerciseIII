@@ -5,6 +5,7 @@
 struct Item
 {
     ITEM_TYPE type;
+
 };
 
 // マップ上に落ちているアイテム
