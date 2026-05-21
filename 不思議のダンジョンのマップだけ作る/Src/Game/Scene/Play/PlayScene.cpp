@@ -14,9 +14,10 @@ using namespace std;
 
 Int2 CPlayScene::FindSpawnPos()
 {
+	CMap* Map = CMap::GetInstance();
 	for (int i = 0; i < RETRY_MAX; ++i)
 	{
-		Int2 pos = m_Map.GetRoomPos();
+		Int2 pos = Map->GetRoomPos();
 
 		if (!CollsionAll(pos))
 		{
@@ -43,6 +44,7 @@ int CPlayScene::CollsionObject(Int2& pos) const
 
 CanMove CPlayScene::GetCanMove(Int2 pos)
 {
+	CMap* Map = CMap::GetInstance();
 	Int2 v = pos;
 	CanMove C;
 
@@ -67,25 +69,25 @@ CanMove CPlayScene::GetCanMove(Int2 pos)
 	TILE t = {};
 	if (C.Left == true)
 	{
-		t = m_Map.GetTile(x - 1, y);
+		t = Map->GetTile(x - 1, y);
 		if (t == TILE_WALL)
 			C.Left = false;
 	}
 	if (C.Right == true)
 	{
-		t = m_Map.GetTile(x + 1, y);
+		t = Map->GetTile(x + 1, y);
 		if (t == TILE_WALL)
 			C.Right = false;
 	}
 	if (C.Up == true)
 	{
-		t = m_Map.GetTile(x, y - 1);
+		t = Map->GetTile(x, y - 1);
 		if (t == TILE_WALL)
 			C.Up = false;
 	}
 	if (C.Down == true)
 	{
-		t = m_Map.GetTile(x, y + 1);
+		t = Map->GetTile(x, y + 1);
 		if (t == TILE_WALL)
 			C.Down = false;
 	}
@@ -95,9 +97,10 @@ CanMove CPlayScene::GetCanMove(Int2 pos)
 
 bool CPlayScene::CollsionAll(Int2 pos) 
 {
-	if (CollsionObject(pos) == true)return true;
-	if (m_Map.CollisionItem(pos) == true)return true;
-	if (m_Map.CollisionStairs(pos) == true)return true;
+	CMap* Map = CMap::GetInstance();
+	if (CollsionObject(pos) != -1)return true;
+	if (Map->CollisionItem(pos) == true)return true;
+	if (Map->CollisionStairs(pos) == true)return true;
 
 	return false;
 }
@@ -120,6 +123,7 @@ CPlayScene::~CPlayScene()
 void CPlayScene::Init()
 {
 	CData* Data = CData::GetInstance();
+	CMap* Map = CMap::GetInstance();
 	Data->Init();
 
 	m_Player = new CPlayer();
@@ -133,13 +137,13 @@ void CPlayScene::Init()
 
 void CPlayScene::Exit()
 {
-
+	CMap* Map = CMap::GetInstance();
 	for (auto obj : m_Object) {
 		obj->Exit();
 		delete obj;
 	}
 	m_Object.clear();
-	m_Map.DeleteAll();
+	Map->DeleteAll();
 
 	m_Player = nullptr;
 }
@@ -164,15 +168,16 @@ void CPlayScene::CreatePlayer() {
 
 void CPlayScene::Load()
 {
+	CMap* Map = CMap::GetInstance();
 	CData* Data = CData::GetInstance();
 
 	Data->Load();
 
 	//3個から5個の部屋を作成
-	if (m_Map.CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
-	m_Map.CreateCorridor();
-	m_Map.CreateStairs();
-	m_Map.CreateItem(5);
+	if (Map->CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
+	Map->CreateCorridor();
+	Map->CreateStairs();
+	Map->CreateItem(5);
 
 	CreatePlayer();
 
@@ -244,19 +249,20 @@ ObjectKind CPlayScene::GetAheadMoveObject(Int2 pos, DIRECTION dir){
 int CPlayScene::Step()
 {
 	CData* Data = CData::GetInstance();
+	CMap* Map = CMap::GetInstance();
 
 
 	//プレイヤーの行動待ちなら
 	if (m_PlayerTurn == true)
 	{
-		for_each(m_Object.begin(), m_Object.end(), [this](CObject* object) {
+		for_each(m_Object.begin(), m_Object.end(), [&](CObject* object) {
 			//オブジェクトが動けるマスを探す
 			CanMove C = GetCanMove(object->GetPos());
 			
 			//プレイヤーだけ動かす
 			if (object->GetKind() == KIND_PLAYER)
 			{
-				object->Step(C);
+				object->Step(C, m_Player->GetPos());
 
 				//プレイヤーが移動していたら
 				if (object->GetDirection() != DIRECTION_NON)
@@ -295,7 +301,7 @@ int CPlayScene::Step()
 
 					//移動先のアイテムを検索
 					Item item = {};
-					item.type = m_Map.IsItemExist(m_Player->GetPos());
+					item.type = Map->IsItemExist(m_Player->GetPos());
 
 					//アイテムがあったら
 					if (item.type != ITEM_NON)
@@ -303,7 +309,7 @@ int CPlayScene::Step()
 						//そのアイテムをインベントリに入れる
 						m_Player->AddItem(item);
 						//入れたアイテムを消す
-						m_Map.EraseItem(m_Player->GetPos());
+						Map->EraseItem(m_Player->GetPos());
 					}
 				}
 			}
@@ -339,11 +345,45 @@ int CPlayScene::Step()
 				//オブジェクトが動けるマスを探す
 				CanMove C = GetCanMove(object->GetPos());
 
-				object->Step(C);
+				object->Step(C, m_Player->GetPos());
 
-				Int2 move = DirectionToInt2(object->GetDirection());
-				Int2 NextPos = AddInt2(object->GetPos(), move);
-				object->AddPos(move);
+				//敵が移動していたら
+				if (object->GetDirection() != DIRECTION_NON)
+				{
+					Int2 move = DirectionToInt2(object->GetDirection());
+					Int2 NextPos = AddInt2(object->GetPos(), move);
+					//移動する方向にオブジェクトがいないかチェック
+					int ObjectNum = CollsionObject(NextPos);
+					if (ObjectNum == -1)
+					{
+						//何もいないなら
+						//敵を移動させる
+
+						Int2 move = DirectionToInt2(object->GetDirection());
+						Int2 NextPos = AddInt2(object->GetPos(), move);
+						object->AddPos(move);
+					}
+					else
+					{
+						// 何かがいるなら代わりにそいつに攻撃
+						CObject* target = m_Object[ObjectNum];
+
+						// 敵なら攻撃する
+						if (target->GetKind() == KIND_PLAYER)
+						{
+							int damage = object->GetAtk(); //敵の攻撃力
+							target->AddDamage(damage);                // 敵にダメージを与える
+							std::cout << "プレイヤーは" << damage << "ダメージを受けた" << std::endl;
+							// HPが0以下なら死亡処理
+							if (target->GetHP() <= 0)
+							{
+								std::cout << "撃破された" << std::endl;
+								target->SetActive(false);
+							}
+						}
+					}
+				}
+
 			}
 			
 
@@ -365,11 +405,20 @@ int CPlayScene::Step()
 
 	if (CheckHitKey(KEY_INPUT_L))
 		return 1;
+
+	//プレイヤーが階段に乗ったら終了
+	if (CollsionInt2(m_Player->GetPos(), Map->GetStairsPos()) == true)
+		return 1;
+
+	//プレイヤーが死んだら終了
+	if (m_Player->GetHP() <= 0)
+		return 1;
 	return 0;
 }
 
 void CPlayScene::Draw()
 {
+	CMap* Map = CMap::GetInstance();
 	//プレイヤーがnullなら呼ばない
 	if (m_Player == nullptr)return;
 
@@ -377,7 +426,7 @@ void CPlayScene::Draw()
 	CData* Data = CData::GetInstance();
 
 	
-	m_Map.Draw(m_Player->GetPos().x, m_Player->GetPos().y);
+	Map->Draw(m_Player->GetPos().x, m_Player->GetPos().y);
 
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Draw(); });
 

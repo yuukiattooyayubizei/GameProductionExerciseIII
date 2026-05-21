@@ -27,7 +27,7 @@ private:
 
 	std::vector<CObject*> m_Object;
 	CPlayer* m_Player;
-	CMap m_Map;
+//	CMap m_Map;
 
 	bool m_PlayerTurn;
 	int m_EnemySpwanWait;

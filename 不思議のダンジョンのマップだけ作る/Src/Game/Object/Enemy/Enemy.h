@@ -14,7 +14,7 @@ public:
 
     void Init()override;
     void Load()override;
-    void Step(CanMove canmove)override;
+    void Step(CanMove canmove, Int2 playerPos)override;
     void Draw()override;
     void Exit()override;
 public:

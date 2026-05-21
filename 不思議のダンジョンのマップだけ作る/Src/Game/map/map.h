@@ -95,9 +95,17 @@ public:
 	const Int2& GetPos() const { return m_Pos; }
 	const Float2& GetCenter() const { return m_Center; }
 	bool GetConnectRoom() const { return m_IsConnectRoom; }
+
+	bool CollsionRoom(Int2 i);
 };
 
 class CMap {
+private:
+	static CMap* m_Instance;
+public:
+	static CMap* GetInstance();
+
+	static void DeleteInstance();
 private:
 	//マップチップ
 	TILE m_Map[MAP_Y][MAP_X];
@@ -115,6 +123,11 @@ public:
 
 	void Init();
 
+	//座標に部屋があるかを調べる
+	//返り値は部屋の番号
+	//部屋がない場合は-1を返す
+	int GetRoomNum(Int2 i);
+
 	//部屋どうしがかぶっているかを判定
 	bool CollisionRoomToRoom(const CRoom& room);
 	//廊下とかぶっているかを判定
@@ -129,6 +142,9 @@ public:
 	bool CreateRoom(int CreateNum);
 	//階段を作成
 	void CreateStairs();
+
+	//階段の座標を返す
+	Int2 GetStairsPos() const { return m_StairsPos; }
 
 	//----------------------------------------------
 	//アイテム関連
@@ -150,6 +166,9 @@ public:
 	//指定した座標のアイテムを消去
 	void EraseItem(Int2 pos);
 
+	//----------------------------------------------
+	//
+	//----------------------------------------------
 
 	//廊下の生成
 	bool CreateCorridor();

@@ -21,7 +21,7 @@ void CPlayer::Init(){
 void CPlayer::Load() {
 }
 
-void CPlayer::Step(CanMove canmove) {
+void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 	m_Direction = DIRECTION_NON;
 
 	if (IsInputTrg(KEY_W) && canmove.Up == true) {
@@ -36,6 +36,9 @@ void CPlayer::Step(CanMove canmove) {
 	if (IsInputTrg(KEY_D) && canmove.Right == true) {
 		m_Direction = DIRECTION_RIGHT;
 	}
+
+	if (IsInputTrg(KEY_SPACE))
+		DrawInventoryDebug();
 }
 
 void CPlayer::Draw() {
@@ -92,24 +95,27 @@ bool CPlayer::IsInventoryFull() const
 
 void CPlayer::DrawInventoryDebug()
 {
-	int x = 820;
-	int y = 20;
+	std::cout << "Inventory" << std::endl;
 
-	DrawString(x, y, "Inventory", GetColor(255, 255, 255));
-	y += 20;
 
 	for (int i = 0; i < static_cast<int>(m_Inventory.size()); i++)
 	{
-		DrawFormatString(
-			x,
-			y,
-			GetColor(255, 255, 255),
-			"%02d: %s",
-			i,
-			/*GetItemName(m_Inventory[i].type)*/
-			"a"
-		);
-
-		y += 20;
+		switch (item.type)
+		{
+		case ITEM_1:
+			std::cout << "アイテム1" << std::endl;
+			break;
+		case ITEM_2:
+			std::cout << "アイテム2" << std::endl;
+			break;
+		case ITEM_3:
+			std::cout << "アイテム3" << std::endl;
+			break;
+		case ITEM_4:
+			std::cout << "アイテム4" << std::endl;
+			break;
+		default:
+			break;
+		}
 	}
 }

@@ -55,6 +55,23 @@ static Int2 AddInt2(Int2 i1, Int2 i2)
 	return Ret;
 }
 
+static Int2 SubInt2(Int2 i1, Int2 i2)
+{
+	Int2 Ret;
+	Ret.x = i1.x - i2.x;
+	Ret.y = i1.y - i2.y;
+	return Ret;
+}
+
+//2‚Â‚ÌInt2‚ª“¯‚¶‚©‚Ç‚¤‚©
+static bool CollsionInt2(Int2 i1, Int2 i2)
+{
+	if (i1.x == i2.x && i1.y == i2.y)
+		return true;
+	else
+		return false;
+}
+
 struct Float2 {
 	float x, y;
 };

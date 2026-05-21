@@ -7,6 +7,29 @@
 
 using namespace std;
 
+
+CMap* CMap::m_Instance = NULL;
+
+CMap* CMap::GetInstance() {
+	//‚Ü‚¾¶¬‚³‚ê‚Ä‚È‚¢‚È‚ç
+	if (m_Instance == NULL)
+	{
+		m_Instance = new CMap();
+	}
+
+	return m_Instance;
+}
+
+void CMap::DeleteInstance() {
+	//‚Ü‚¾¶¬‚³‚ê‚Ä‚È‚¢‚È‚ç
+	if (m_Instance)
+	{
+		delete m_Instance;
+		m_Instance = NULL;
+	}
+
+}
+
 CRoom::CRoom() {
 	m_Center.x = 0;
 	m_Center.y = 0;
@@ -16,6 +39,12 @@ CRoom::CRoom() {
 	m_Size.y = 0;
 	m_CloseRoom = -1;
 	m_IsConnectRoom = false;
+}
+
+bool CRoom::CollsionRoom(Int2 i) {
+	if (i.x >= m_Pos.x && i.x <= m_Pos.x + m_Size.x && i.y >= m_Pos.y && i.y <= m_Pos.y + m_Size.y)
+		return true;
+	return false;
 }
 
 void CMap::Init() {
@@ -618,6 +647,24 @@ void CMap::CreateStairs()
 	m_StairsPos.y = pos.y;
 
 	std::cout <<pos.x << "," << pos.y << "‚ÉŠK’i‚ð¶¬" << std::endl;
+}
+
+int CMap::GetRoomNum(Int2 i) {
+
+	int num = 0;
+
+	for (std::vector<CRoom>::iterator ite = m_Room.begin(); ite != m_Room.end();ite++, num++)
+	{
+		CRoom& room2 = *ite;
+
+
+		if (room2.CollsionRoom(i) == true)
+		{
+			return num;
+		}
+
+	}
+	return -1;
 }
 
 

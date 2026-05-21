@@ -28,7 +28,7 @@ public:
 
     virtual void Init() = 0;
     virtual void Load() = 0;
-    virtual void Step(CanMove canmove) = 0;
+    virtual void Step(CanMove canmove, Int2 playerPos) = 0;
     virtual void Draw() = 0;
     virtual void Exit() = 0;
 
