@@ -738,13 +738,13 @@ CRoom CMap::GetStartRoom() {
 	return m_Room.front();
 }
 
-TILE CMap::GetTile(int x, int y) {
+TILE CMap::GetTile(Int2 i) {
 	//配列外にアクセスしようとしていたら
-	if (x < 0 || x >= MAP_X || y < 0 || y >= MAP_Y) {
+	if (i.x < 0 || i.x >= MAP_X || i.y < 0 || i.y >= MAP_Y) {
 		//無を返す
 		return TILE_NON;
 	}
-	return m_Map[y][x];
+	return m_Map[i.y][i.x];
 }
 
 Int2 CMap::GetRoomPos()

@@ -11,6 +11,11 @@ static constexpr int INVENTORY_MAX = 20;        //Š‚Å‚«‚éƒAƒCƒeƒ€”‚ÌŒÀŠE
 class CPlayer : public CObject {
 private:
     std::vector<Item> m_Inventory;
+    //ˆÚ“®‚·‚é‚©‚Ç‚¤‚©
+    bool m_IsMove;
+
+    //‘«“¥‚İ‚µ‚½‚©‚Ç‚¤‚©
+    bool m_IsStomping;
 public:
     ~CPlayer()override;
 
@@ -36,4 +41,8 @@ public:
     bool UseItem(int index);
 
     int GetInventorySize() const { return static_cast<int>(m_Inventory.size()); }
+    bool GetIsStomping() const { return m_IsStomping; }
+    bool GetIsMove() const { return m_IsMove; }
+
+    void SetMove(bool is) { m_IsMove = is; }
 };

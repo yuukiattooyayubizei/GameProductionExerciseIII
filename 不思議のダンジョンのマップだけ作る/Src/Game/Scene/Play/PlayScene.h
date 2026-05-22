@@ -10,6 +10,11 @@ static const int ROOM_MIN = 5;
 //部屋の最大値
 static const int ROOM_MAX = 7;
 
+//最初に沸くアイテムの数
+static const int STRAT_ITEM_NUM = 5;
+//最初に沸く敵の数
+static const int STRAT_ENEMY_NUM = 5;
+//インベントリの１ページい表示される数
 static const int ITEM_PER_PAGE = 10;
 
 enum PlayMode

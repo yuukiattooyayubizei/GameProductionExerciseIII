@@ -48,19 +48,20 @@ CanMove CPlayScene::GetCanMove(Int2 pos)
 	CMap* Map = CMap::GetInstance();
 	Int2 v = pos;
 	CanMove C;
+	Int2 NextPos{};
+	NextPos.x = static_cast<int>(v.x);
+	NextPos.y = static_cast<int>(v.y);
 
-	int x = static_cast<int>(v.x);
-	int y = static_cast<int>(v.y);
 	//一旦全部trueに
 	C.Down = true, C.Up = true, C.Left = true, C.Right = true;
 	//マス目の端だとマスの外側の方向には行けない
-	if (x <= 0)
+	if (NextPos.x <= 0)
 		C.Left = false;
-	if (x >= MAP_X - 1)
+	if (NextPos.x >= MAP_X - 1)
 		C.Right = false;
-	if (y <= 0)
+	if (NextPos.y <= 0)
 		C.Up = false;
-	if (y >= MAP_Y - 1)
+	if (NextPos.y >= MAP_Y - 1)
 		C.Down = false;
 
 
@@ -70,27 +71,35 @@ CanMove CPlayScene::GetCanMove(Int2 pos)
 	TILE t = {};
 	if (C.Left == true)
 	{
-		t = Map->GetTile(x - 1, y);
+		NextPos.x--;
+		t = Map->GetTile(NextPos);
 		if (t == TILE_WALL)
 			C.Left = false;
+		NextPos.x++;
 	}
 	if (C.Right == true)
 	{
-		t = Map->GetTile(x + 1, y);
+		NextPos.x++;
+		t = Map->GetTile(NextPos);
 		if (t == TILE_WALL)
 			C.Right = false;
+		NextPos.x--;
 	}
 	if (C.Up == true)
 	{
-		t = Map->GetTile(x, y - 1);
+		NextPos.y--;
+		t = Map->GetTile(NextPos);
 		if (t == TILE_WALL)
 			C.Up = false;
+		NextPos.y++;
 	}
 	if (C.Down == true)
 	{
-		t = Map->GetTile(x, y + 1);
+		NextPos.y++;
+		t = Map->GetTile(NextPos);
 		if (t == TILE_WALL)
 			C.Down = false;
+		NextPos.y--;
 	}
 
 	return C;
@@ -225,10 +234,10 @@ void CPlayScene::CreateFloor() {
 	if (Map->CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
 	Map->CreateCorridor();
 	Map->CreateStairs();
-	Map->CreateItem(5);
+	Map->CreateItem(STRAT_ITEM_NUM);
 
 	//敵を作成
-	CreateEnemy(5);
+	CreateEnemy(STRAT_ENEMY_NUM);
 
 	CreatePlayer();
 }
@@ -385,41 +394,12 @@ int CPlayScene::StepItemMenu()
 	// SPACEで使用
 	if (IsInputTrg(KEY_SPACE))
 	{
+		//アイテムの使用
 		m_Player->UseItem(m_SelectItemIndex);
 
-		itemCount = m_Player->GetInventorySize();
-
-		if (itemCount <= 0)
-		{
-			m_SelectItemIndex = 0;
-			m_ItemPage = 0;
-			return 0;
-		}
-
-		maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
-
-		if (m_ItemPage >= maxPage)
-		{
-			m_ItemPage = maxPage - 1;
-		}
-
-		pageStart = m_ItemPage * ITEM_PER_PAGE;
-		pageEnd = pageStart + ITEM_PER_PAGE;
-
-		if (pageEnd > itemCount)
-		{
-			pageEnd = itemCount;
-		}
-
-		if (m_SelectItemIndex >= itemCount)
-		{
-			m_SelectItemIndex = itemCount - 1;
-		}
-
-		if (m_SelectItemIndex < pageStart)
-		{
-			m_SelectItemIndex = pageStart;
-		}
+		//使用したらターン経過させる
+		m_PlayMode = MODE_PLAY;
+		m_PlayerTurn = false;
 	}
 
 	return 0;
@@ -441,28 +421,37 @@ int CPlayScene::StepPlay() {
 			m_ItemPage = 0;
 			return 0;
 		}
-
-		for_each(m_Object.begin(), m_Object.end(), [&](CObject* object) {
+		//足踏みする(なにもしない)
+		if (IsInputTrg(KEY_F))
+		{
+			m_PlayerTurn = false;
+		}
+		
 			//オブジェクトが動けるマスを探す
-			CanMove C = GetCanMove(object->GetPos());
+			CanMove C = GetCanMove(m_Player->GetPos());
 
 			//プレイヤーだけ動かす
-			if (object->GetKind() == KIND_PLAYER)
+			if (m_Player->GetKind() == KIND_PLAYER)
 			{
-				object->Step(C, m_Player->GetPos());
+				m_Player->Step(C, m_Player->GetPos());
 
 				//プレイヤーが移動していたら
-				if (object->GetDirection() != DIRECTION_NON)
+				if (m_Player->GetIsMove() == true)
 				{
-					Int2 move = DirectionToInt2(object->GetDirection());
-					Int2 NextPos = AddInt2(object->GetPos(), move);
+					Int2 move = DirectionToInt2(m_Player->GetDirection());
+					Int2 NextPos = AddInt2(m_Player->GetPos(), move);
 					//移動する方向にオブジェクトがいないかチェック
 					int ObjectNum = CollsionObject(NextPos);
+					TILE NextTile = Map->GetTile(NextPos);
 					if (ObjectNum == -1)
 					{
-						//何もいないなら
-						//プレイヤーを移動させる
-						object->AddPos(move);
+						if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
+						{
+							//何もいないなら
+							//プレイヤーを移動させる
+							m_Player->AddPos(move);
+							m_Player->SetMove(false);
+						}
 					}
 					else
 					{
@@ -472,7 +461,7 @@ int CPlayScene::StepPlay() {
 						// 敵なら攻撃する
 						if (target->GetKind() == KIND_ENEMY)
 						{
-							int damage = object->GetAtk(); // プレイヤーの攻撃力
+							int damage = m_Player->GetAtk(); // プレイヤーの攻撃力
 							target->AddDamage(damage);                // 敵にダメージを与える
 							std::cout << "敵に" << damage << "ダメージを与えた" << std::endl;
 							// HPが0以下なら死亡処理
@@ -501,8 +490,10 @@ int CPlayScene::StepPlay() {
 							std::cout << "インベントリがまんたん" << std::endl;
 					}
 				}
+
 			}
-			});
+
+
 
 		//死んでいる敵を消去
 		auto newEnd = std::remove_if(
@@ -527,7 +518,7 @@ int CPlayScene::StepPlay() {
 	//プレイヤー行動の後
 	else
 	{
-		for_each(m_Object.begin(), m_Object.end(), [this](CObject* object) {
+		for_each(m_Object.begin(), m_Object.end(), [&](CObject* object) {
 			//プレイヤー以外を動かす
 			if (object->GetKind() != KIND_PLAYER)
 			{
@@ -543,14 +534,15 @@ int CPlayScene::StepPlay() {
 					Int2 NextPos = AddInt2(object->GetPos(), move);
 					//移動する方向にオブジェクトがいないかチェック
 					int ObjectNum = CollsionObject(NextPos);
+					TILE NextTile = Map->GetTile(NextPos);
 					if (ObjectNum == -1)
 					{
-						//何もいないなら
-						//敵を移動させる
-
-						Int2 move = DirectionToInt2(object->GetDirection());
-						Int2 NextPos = AddInt2(object->GetPos(), move);
-						object->AddPos(move);
+						if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
+						{
+							//何もいないなら
+							//プレイヤーを移動させる
+							object->AddPos(move);
+						}
 					}
 					else
 					{
@@ -595,7 +587,7 @@ int CPlayScene::StepPlay() {
 	if (CheckHitKey(KEY_INPUT_L))
 		return 1;
 
-	//プレイヤーが階段に乗ったら終了
+	//プレイヤーが5階で階段に乗ったら終了
 	if (CollsionInt2(m_Player->GetPos(), Map->GetStairsPos()) == true)
 	{
 		if (m_Floor >= 5)
@@ -622,6 +614,34 @@ void CPlayScene::Draw()
 	CData* Data = CData::GetInstance();
 
 	Map->Draw(m_Player->GetPos().x, m_Player->GetPos().y);
+	int centerX = 0;
+	int centerY = 0;
+
+	switch (m_Player->GetDirection())
+	{
+	case DIRECTION_UP:
+		centerX = 8 + m_Player->GetPos().x * 16;
+		centerY = 8 + m_Player->GetPos().y * 16 - 6;
+		DrawBox(centerX + 3, centerY + 3, centerX - 3, centerY - 3, GetColor(255, 255, 255), TRUE);
+		break;
+	case DIRECTION_DOWN:
+		centerX = 8 + m_Player->GetPos().x * 16;
+		centerY = 8 + m_Player->GetPos().y * 16 + 6;
+		DrawBox(centerX + 3, centerY + 3, centerX - 3, centerY - 3, GetColor(255, 255, 255), TRUE);
+		break;
+	case DIRECTION_LEFT:
+		centerX = 8 + m_Player->GetPos().x * 16 - 6;
+		centerY = 8 + m_Player->GetPos().y * 16;
+		DrawBox(centerX + 3, centerY + 3, centerX - 3, centerY - 3, GetColor(255, 255, 255), TRUE);
+		break;
+	case DIRECTION_RIGHT:
+		centerX = 8 + m_Player->GetPos().x * 16 + 6;
+		centerY = 8 + m_Player->GetPos().y * 16;
+		DrawBox(centerX + 3, centerY + 3, centerX - 3, centerY - 3, GetColor(255, 255, 255), TRUE);
+		break;
+	default:
+		break;
+	}
 
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Draw(); });
 
@@ -697,19 +717,7 @@ void CPlayScene::DrawItemMenu()
 		DrawFormatString(130, y, GetColor(255, 255, 255), "%s", name);
 	}
 
-	DrawFormatString(
-		100,
-		410,
-		GetColor(255, 255, 255),
-		"Page %d / %d",
-		m_ItemPage + 1,
-		maxPage
-	);
+	DrawFormatString(100,410,GetColor(255, 255, 255),"Page %d / %d",m_ItemPage + 1,maxPage);
 
-	DrawFormatString(
-		100,
-		460,
-		GetColor(255, 255, 255),
-		"W/S: 選択  A/D: ページ変更  SPACE: 使用  J/K: 戻る"
-	);
+	DrawFormatString(100,460,GetColor(255, 255, 255),"W/S: 選択  A/D: ページ変更  SPACE: 使用  J/K: 戻る");
 }

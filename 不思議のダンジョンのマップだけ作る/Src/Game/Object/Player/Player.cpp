@@ -18,29 +18,42 @@ void CPlayer::Init(){
 	m_HP = HP_MAX;
 	m_MaxHP = HP_MAX;
 	m_Atk = 5;
+	m_IsStomping = false;
+	m_IsMove = false;
 }
 
 void CPlayer::Load() {
 }
 
 void CPlayer::Step(CanMove canmove, Int2 playerPos) {
-	m_Direction = DIRECTION_NON;
+	m_IsMove = false;
 
 	if (IsInputTrg(KEY_W) && canmove.Up == true) {
 		m_Direction = DIRECTION_UP;
+		m_IsMove = true;
 	}
 	if (IsInputTrg(KEY_S) && canmove.Down == true) {
 		m_Direction = DIRECTION_DOWN;
+		m_IsMove = true;
 	}
 	if (IsInputTrg(KEY_A) && canmove.Left == true) {
 		m_Direction = DIRECTION_LEFT;
+		m_IsMove = true;
 	}
 	if (IsInputTrg(KEY_D) && canmove.Right == true) {
 		m_Direction = DIRECTION_RIGHT;
+		m_IsMove = true;
 	}
+	if (IsInputRep(KEY_G))
+		m_IsMove = false;
 
 	if (IsInputTrg(KEY_SPACE))
 		DrawInventoryDebug();
+
+	if (IsInputTrg(KEY_F))
+		m_IsStomping = true;
+	else
+		m_IsStomping = false;
 }
 
 void CPlayer::Draw() {

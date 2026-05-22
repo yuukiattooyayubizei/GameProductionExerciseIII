@@ -190,7 +190,7 @@ public:
 	//•`‰æ
 	void Draw(int x,int y);
 
-	TILE GetTile(int x, int y);
+	TILE GetTile(Int2 i);
 
 	CRoom GetStartRoom();
 };
