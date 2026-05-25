@@ -4,6 +4,7 @@
 #include "../../Object/Player/Player.h"
 #include <vector>
 #include "../../Map/Map.h"
+#include "../../Camera/CameraManager.h"
 
 //•”‰®‚ÌÅ¬’l
 static const int ROOM_MIN = 5;
@@ -37,6 +38,8 @@ private:
 		PLAY_SCENE_NUM,
 	};
 	tagPlayScene m_tagPlayScene;//ó‘Ô‘JˆÚ
+
+	CCameraManager m_CameraManager;//ƒJƒƒ‰
 
 	std::vector<CObject*> m_Object;
 	CPlayer* m_Player;

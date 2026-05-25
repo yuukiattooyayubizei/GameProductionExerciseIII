@@ -13,7 +13,10 @@ int main(void)
 	// ＤＸライブラリ初期化処理　基本的にはこれより後でDxLib関数を使う
 	if (DxLib_Init() == -1) return -1;
 
+	SetDrawScreen(DX_SCREEN_BACK);
 
+	SetUseZBuffer3D(TRUE);
+	SetWriteZBuffer3D(TRUE);
 
 
 	SceneManager m_Scene;

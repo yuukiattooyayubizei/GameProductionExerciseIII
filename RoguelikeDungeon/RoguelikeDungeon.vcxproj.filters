@@ -55,6 +55,18 @@
     <Filter Include="ソース ファイル\Lib\Input">
       <UniqueIdentifier>{b1d5e783-06b1-4bc4-b197-55acbf8393ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Camera">
+      <UniqueIdentifier>{17a0f2c1-e0ab-43f5-aa1b-1070b17f383e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Camera\Edit">
+      <UniqueIdentifier>{2fa59ce4-8787-4d2d-b3e3-1813181480d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Camera\Debug">
+      <UniqueIdentifier>{0ae0dce8-d7ac-402b-ab38-052c70afe381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Camera\Play">
+      <UniqueIdentifier>{669429ed-6cef-4c66-a121-ca307a91f18e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\common.h">
@@ -102,6 +114,18 @@
     <ClInclude Include="Src\Lib\Input\PadInput.h">
       <Filter>ソース ファイル\Lib\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Camera\CameraManager.h">
+      <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Camera\Play\PlayCamera.h">
+      <Filter>ソース ファイル\Game\Camera\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Camera\Debug\DebugCamera.h">
+      <Filter>ソース ファイル\Game\Camera\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Camera\Edit\EditCamera.h">
+      <Filter>ソース ファイル\Game\Camera\Edit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -145,6 +169,18 @@
     </ClCompile>
     <ClCompile Include="Src\Lib\Input\PadInput.cpp">
       <Filter>ソース ファイル\Lib\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Camera\CameraManager.cpp">
+      <Filter>ソース ファイル\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Camera\Play\PlayCamera.cpp">
+      <Filter>ソース ファイル\Game\Camera\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Camera\Debug\DebugCamera.cpp">
+      <Filter>ソース ファイル\Game\Camera\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Camera\Edit\EditCamera.cpp">
+      <Filter>ソース ファイル\Game\Camera\Edit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

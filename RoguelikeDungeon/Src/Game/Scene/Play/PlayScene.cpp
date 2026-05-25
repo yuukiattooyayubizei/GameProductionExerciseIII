@@ -147,6 +147,11 @@ void CPlayScene::Init()
 	m_Player->Init();
 	m_SelectItemIndex = 0;
 	m_ItemPage = 0;
+
+	//カメラの初期化
+	m_CameraManager.Init();
+	//カメラのNearFarの設定
+	m_CameraManager.SetNearFar(CAMERA_NEAR, CAMERA_FAR);
 }
 
 void CPlayScene::Exit()
@@ -158,6 +163,7 @@ void CPlayScene::Exit()
 	}
 	m_Object.clear();
 	Map->DeleteAll();
+	m_CameraManager.Exit();
 
 	m_Player = nullptr;
 }
@@ -302,6 +308,15 @@ ObjectKind CPlayScene::GetAheadMoveObject(Int2 pos, DIRECTION dir){
 
 int CPlayScene::Step()
 {
+	VECTOR plPos{};
+	plPos.x = m_Player->GetPos().x * 100;
+	plPos.y = 0;
+	plPos.z = m_Player->GetPos().y * 100;
+	m_CameraManager.Step(plPos, 0, 0, 0);
+
+
+
+	m_CameraManager.UpDate();
 
 		if (m_PlayMode == MODE_PLAY)
 		{
@@ -311,7 +326,6 @@ int CPlayScene::Step()
 		{
 			return StepItemMenu();
 		}
-
 
 	return 0;
 }
@@ -699,6 +713,8 @@ void CPlayScene::Draw()
 	DrawFormatString(32, 160, GetColor(255, 255, 255), "%d 階", m_Floor);
 
 	DrawFormatString(32, 704, GetColor(255, 255, 255), "プレイシーンLキーでリザルトに遷移");
+
+	m_CameraManager.Draw();
 
 	if (m_PlayMode == MODE_ITEM_MENU)
 	{

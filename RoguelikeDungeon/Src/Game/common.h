@@ -1,5 +1,11 @@
 #pragma once
 
+
+static constexpr float CAMERA_NEAR = 3.0f;						//ƒJƒƒ‰‚Ì‰f‚·‹——£‚Ì‰ºŒÀ
+static constexpr float CAMERA_FAR = 1500.0f;					//ƒJƒƒ‰‚Ì‰f‚·‹——£‚ÌãŒÀ
+
+
+
 struct Int2 {
 	int x, y;
 };

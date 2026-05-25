@@ -129,6 +129,8 @@ public:
 
 	void Init();
 
+	void DrawTileCube(int mapX, int mapY, int color, float height);
+
 	// •`‰æ
 	void Draw();
 

@@ -135,6 +135,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Camera\CameraManager.h" />
+    <ClInclude Include="Src\Game\Camera\Debug\DebugCamera.h" />
+    <ClInclude Include="Src\Game\Camera\Edit\EditCamera.h" />
+    <ClInclude Include="Src\Game\Camera\Play\PlayCamera.h" />
     <ClInclude Include="Src\Game\common.h" />
     <ClInclude Include="Src\Game\Data\Data.h" />
     <ClInclude Include="Src\Game\Item\Item.h" />
@@ -152,6 +156,10 @@
     <ClInclude Include="Src\Lib\Sound\sound.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Camera\CameraManager.cpp" />
+    <ClCompile Include="Src\Game\Camera\Debug\DebugCamera.cpp" />
+    <ClCompile Include="Src\Game\Camera\Edit\EditCamera.cpp" />
+    <ClCompile Include="Src\Game\Camera\Play\PlayCamera.cpp" />
     <ClCompile Include="Src\Game\Data\Data.cpp" />
     <ClCompile Include="Src\Game\Item\Item.cpp" />
     <ClCompile Include="Src\Game\main.cpp" />

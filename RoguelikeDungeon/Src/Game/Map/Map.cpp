@@ -410,6 +410,19 @@ bool CMap::CreateCorridor()
 	return true;
 }
 
+void CMap::DrawTileCube(int mapX, int mapY, int color, float height)
+{
+	static constexpr float TILE_SIZE = 100.0f;
+
+	float x = mapX * TILE_SIZE;
+	float z = mapY * TILE_SIZE;
+
+	VECTOR pos1 = VGet(x - 50.0f, height, z - 50.0f);
+	VECTOR pos2 = VGet(x + 50.0f, height + 100.0f, z + 50.0f);
+
+	DrawCube3D(pos1, pos2, color, color, TRUE);
+}
+
 void CMap::Draw() {
 
 	for (int i = 0;i < MAP_Y;i++)
@@ -423,13 +436,17 @@ void CMap::Draw() {
 			switch (m_Map[i][k])
 			{
 			case TILE_WALL:
+				DrawTileCube(k, i, GetColor(255, 0, 0), 10);
 				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 0), TRUE);
 				break;
 			case TILE_ROOM:
+				DrawTileCube(k, i, GetColor(0, 0, 255), 10);
 				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 255), TRUE);
 				break;
 			case TILE_CORRIDOR:
+				DrawTileCube(k, i, GetColor(0, 255, 0), 10);
 				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 255, 0), TRUE);
+			
 				break;
 			default:
 				break;
