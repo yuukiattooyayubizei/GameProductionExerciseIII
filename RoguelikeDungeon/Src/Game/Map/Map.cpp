@@ -38,6 +38,7 @@ CRoom::CRoom() {
 	m_Size.x = 0;
 	m_Size.y = 0;
 	m_CloseRoom = -1;
+
 	m_IsConnectRoom = false;
 }
 
@@ -54,7 +55,7 @@ void CMap::Init() {
 
 	m_StairsPos = {};
 
-	for (int i = 0;i < 3;i++) {
+	for (int i = 0;i <= 3;i++) {
 		m_Itemhndl[i] = -1;
 
 	}
@@ -67,12 +68,52 @@ void CMap::Init() {
 			m_Map[i][k] = TILE_WALL;
 		}
 	}
-	m_Itemhndl[0] = MV1LoadModel("Data/Model/Item1.x");
+
+
+	m_Corridorhndl = -1;
+	m_Roomhndl = -1;
+	m_Wallhndl = -1;
+	m_Stairshndl = -1;
+}
+
+void CMap::Load() {
+
+	if(m_Itemhndl[0] == -1)
+	
+	if (m_Itemhndl[1] == -1)
 	m_Itemhndl[1] = MV1LoadModel("Data/Model/Item2.x");
+	if (m_Itemhndl[2] == -1)
 	m_Itemhndl[2] = MV1LoadModel("Data/Model/Item3.x");
+	if (m_Itemhndl[3] == -1)
 	m_Itemhndl[3] = MV1LoadModel("Data/Model/Item4.x");
 
+	for(int index = 0;index <= 3;index++)
+	MV1SetScale(m_Itemhndl[index], VGet(0.5f, 0.5f, 0.5f));
 
+
+	if (m_Corridorhndl == -1)
+	{
+		m_Corridorhndl = MV1LoadModel("Data/Model/Corridor.x");
+		MV1SetScale(m_Corridorhndl, VGet(0.5f, 0.5f, 0.5f));
+	}
+
+	if(m_Roomhndl == -1)
+	{
+		m_Roomhndl = MV1LoadModel("Data/Model/Room.x");
+		MV1SetScale(m_Roomhndl, VGet(0.5f, 0.5f, 0.5f));
+	}
+
+	if (m_Stairshndl == -1)
+	{
+		m_Stairshndl = MV1LoadModel("Data/Model/STAIRS.x");
+		MV1SetScale(m_Stairshndl, VGet(0.5f, 0.5f, 0.5f));
+	}
+
+	if (m_Wallhndl)
+	{
+		m_Wallhndl = MV1LoadModel("Data/Model/WALL.x");
+		MV1SetScale(m_Wallhndl, VGet(0.5f, 0.5f, 0.5f));
+	}
 }
 
 void CMap::Exit() {
@@ -81,11 +122,23 @@ void CMap::Exit() {
 
 	m_StairsPos = {};
 
-	for (int i = 0;i < 3;i++) {
-		MV1DeleteModel(m_Itemhndl[i]);
-		m_Itemhndl[i] = -1;
-
+	if(m_Corridorhndl != -1) {
+		MV1DeleteModel(m_Corridorhndl);
+		m_Corridorhndl = -1;
 	}
+	if (m_Roomhndl != -1) {
+		MV1DeleteModel(m_Roomhndl);
+		m_Roomhndl = -1;
+	}
+	if (m_Wallhndl != -1) {
+		MV1DeleteModel(m_Wallhndl);
+		m_Wallhndl = -1;
+	}
+	if (m_Stairshndl != -1) {
+		MV1DeleteModel(m_Stairshndl);
+		m_Stairshndl = -1;
+	}
+
 
 	for (int i = 0; i < MAP_Y; i++)
 	{
@@ -96,6 +149,8 @@ void CMap::Exit() {
 		}
 	}
 }
+
+
 
 bool CMap::CreateRoom(int CreateNum) {
 	for (int index = 0;index < CreateNum;index++)
@@ -453,14 +508,19 @@ void CMap::Draw() {
 			switch (m_Map[i][k])
 			{
 			case TILE_WALL:
-				DrawTileCube(k, i, GetColor(255, 0, 0), 100);
+			//	DrawTileCube(k, i, GetColor(255, 0, 0), 100);
+				MV1SetPosition(m_Wallhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+				MV1DrawModel(m_Wallhndl);
 				break;
 			case TILE_ROOM:
-				DrawTileCube(k, i, GetColor(0, 0, 255), 100);
+			//	DrawTileCube(k, i, GetColor(0, 0, 255), 100);
+				MV1SetPosition(m_Roomhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+				MV1DrawModel(m_Roomhndl);
 				break;
 			case TILE_CORRIDOR:
-				DrawTileCube(k, i, GetColor(0, 255, 0), 100);
-			
+			//	DrawTileCube(k, i, GetColor(0, 255, 0), 100);
+				MV1SetPosition(m_Corridorhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+				MV1DrawModel(m_Corridorhndl);
 				break;
 			default:
 				break;
@@ -470,15 +530,16 @@ void CMap::Draw() {
 	//階段の描画
 	int centerX = 8 + 16 * m_StairsPos.x;
 	int centerY = 8 + 16 * m_StairsPos.y;
-	DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
+	//DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
 
 	float x = -m_StairsPos.x * TILE_SIZE;
 	float z = m_StairsPos.y * TILE_SIZE;
 
 	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
 	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
-	DrawCube3D(pos1, pos2, GetColor(0, 0, 128), GetColor(128, 128, 128), TRUE);
-
+	//DrawCube3D(pos1, pos2, GetColor(0, 0, 128), GetColor(128, 128, 128), TRUE);
+	MV1SetPosition(m_Stairshndl, VGet(x, 150, z));
+	MV1DrawModel(m_Stairshndl);
 
 	for_each(m_Item.begin(), m_Item.end(), [this](FieldItem item) {
 		//床落ちアイテムの座標を取得
@@ -497,22 +558,22 @@ void CMap::Draw() {
 		switch (item.item.type)
 		{
 		case ITEM_1:
-			DrawCube3D(pos1, pos2, GetColor(0, 128, 0), GetColor(128, 128, 128), TRUE);
+		//	DrawCube3D(pos1, pos2, GetColor(0, 128, 0), GetColor(128, 128, 128), TRUE);
 			MV1SetPosition(m_Itemhndl[0], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
 			MV1DrawModel(m_Itemhndl[0]);
 			break;
 		case ITEM_2:
-			DrawCube3D(pos1, pos2, GetColor(128, 0, 0), GetColor(128, 128, 128), TRUE);
+		//	DrawCube3D(pos1, pos2, GetColor(128, 0, 0), GetColor(128, 128, 128), TRUE);
 			MV1SetPosition(m_Itemhndl[1], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
 			MV1DrawModel(m_Itemhndl[1]);
 			break;
 		case ITEM_3:
-			DrawCube3D(pos1, pos2, GetColor(128, 128, 0), GetColor(128, 128, 128), TRUE);
+		//	DrawCube3D(pos1, pos2, GetColor(128, 128, 0), GetColor(128, 128, 128), TRUE);
 			MV1SetPosition(m_Itemhndl[2], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
 			MV1DrawModel(m_Itemhndl[2]);
 			break;
 		case ITEM_4:
-			DrawCube3D(pos1, pos2, GetColor(128, 0, 128), GetColor(128, 128, 128), TRUE);
+		//	DrawCube3D(pos1, pos2, GetColor(128, 0, 128), GetColor(128, 128, 128), TRUE);
 			MV1SetPosition(m_Itemhndl[3], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
 			MV1DrawModel(m_Itemhndl[3]);
 			break;

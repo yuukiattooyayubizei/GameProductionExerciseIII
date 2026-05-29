@@ -28,6 +28,8 @@ void CPlayer::Load() {
 
 		m_hndl = MV1LoadModel("Data/Model/Player.x");
 
+		MV1SetScale(m_hndl, VGet(0.5f, 0.5f, 0.5f));
+
 		}
 	
 }
@@ -78,7 +80,7 @@ void CPlayer::Draw() {
 	//ÉvÉåÉCÉÑÅ[ÇÃï`âÊ
 	int centerX = 8 + m_Pos.x * 16;
 	int centerY = 8 + m_Pos.y * 16;
-	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
+//	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
 
 	float x = -m_Pos.x * TILE_SIZE;
 	float z = m_Pos.y * TILE_SIZE;
@@ -86,7 +88,7 @@ void CPlayer::Draw() {
 	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
 	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
 
-	DrawCube3D(pos1, pos2, GetColor(128,128,128), GetColor(128, 128, 128), TRUE);
+//	DrawCube3D(pos1, pos2, GetColor(128,128,128), GetColor(128, 128, 128), TRUE);
 
 	MV1DrawModel(m_hndl);
 }

@@ -121,6 +121,10 @@ private:
 	Int2 m_StairsPos;
 
 	int m_Itemhndl[4];
+	int m_Corridorhndl;
+	int m_Roomhndl;
+	int m_Wallhndl;
+	int m_Stairshndl;
 
 public:
 	CMap() { Init(); }
@@ -130,6 +134,8 @@ public:
 	//----------------------------------------------
 
 	void Init();
+
+	void Load();
 
 	void DrawTileCube(int mapX, int mapY, int color, float height);
 

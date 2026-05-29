@@ -214,7 +214,7 @@ void CPlayScene::CreateFloor() {
 	CData* Data = CData::GetInstance();
 
 	//マップを消去
-	Map->Exit();
+	Map->Init();
 	//プレイヤー以外のオブジェクトを削除
 	auto newEnd = std::remove_if(
 		m_Object.begin(),
@@ -235,6 +235,8 @@ void CPlayScene::CreateFloor() {
 	m_Object.erase(newEnd, m_Object.end());
 
 	Data->Load();
+
+	Map->Load();
 
 	//3個から5個の部屋を作成
 	if (Map->CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
@@ -677,34 +679,8 @@ void CPlayScene::Draw()
 	CData* Data = CData::GetInstance();
 
 	Map->Draw();
-	int centerX = 0;
-	int centerY = 0;
 
-	switch (m_Player->GetDirection())
-	{
-	case DIRECTION_UP:
-		centerX = 8 + m_Player->GetPos().x * 16;
-		centerY = 8 + m_Player->GetPos().y * 16 - 6;
-		DrawBox(centerX + 3, centerY + 3, centerX - 3, centerY - 3, GetColor(255, 255, 255), TRUE);
-		break;
-	case DIRECTION_DOWN:
-		centerX = 8 + m_Player->GetPos().x * 16;
-		centerY = 8 + m_Player->GetPos().y * 16 + 6;
-		DrawBox(centerX + 3, centerY + 3, centerX - 3, centerY - 3, GetColor(255, 255, 255), TRUE);
-		break;
-	case DIRECTION_LEFT:
-		centerX = 8 + m_Player->GetPos().x * 16 - 6;
-		centerY = 8 + m_Player->GetPos().y * 16;
-		DrawBox(centerX + 3, centerY + 3, centerX - 3, centerY - 3, GetColor(255, 255, 255), TRUE);
-		break;
-	case DIRECTION_RIGHT:
-		centerX = 8 + m_Player->GetPos().x * 16 + 6;
-		centerY = 8 + m_Player->GetPos().y * 16;
-		DrawBox(centerX + 3, centerY + 3, centerX - 3, centerY - 3, GetColor(255, 255, 255), TRUE);
-		break;
-	default:
-		break;
-	}
+
 
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Draw(); });
 
@@ -712,7 +688,7 @@ void CPlayScene::Draw()
 
 	DrawFormatString(32, 160, GetColor(255, 255, 255), "%d 階", m_Floor);
 
-	DrawFormatString(32, 704, GetColor(255, 255, 255), "プレイシーンLキーでリザルトに遷移");
+	DrawFormatString(32, 704, GetColor(255, 255, 255), "プレイシーン Fで足踏み、Kでアイテムメニュー");
 
 	m_CameraManager.Draw();
 

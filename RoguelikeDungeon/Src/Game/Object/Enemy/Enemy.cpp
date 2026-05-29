@@ -51,6 +51,11 @@ void CEnemy::Init() {
 	m_Enemyhndl[1] = MV1LoadModel("Data/Model/Enemy2.x");
 	m_Enemyhndl[2] = MV1LoadModel("Data/Model/Enemy3.x");
 	m_Enemyhndl[3] = MV1LoadModel("Data/Model/Enemy4.x");
+
+	MV1SetScale(m_Enemyhndl[0], VGet(0.5f, 0.5f, 0.5f));
+	MV1SetScale(m_Enemyhndl[1], VGet(0.5f, 0.5f, 0.5f));
+	MV1SetScale(m_Enemyhndl[2], VGet(0.5f, 0.5f, 0.5f));
+	MV1SetScale(m_Enemyhndl[3], VGet(0.5f, 0.5f, 0.5f));
 }
 
 void CEnemy::Load() {
@@ -174,26 +179,26 @@ void CEnemy::Draw() {
 	switch (m_EnemyType)
 	{
 	case ENEMY_1:
-		DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(0, 0, 0), TRUE);
-		DrawCube3D(pos1, pos2, GetColor(128, 255, 255), GetColor(128, 128, 128), TRUE);
+	//	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(0, 0, 0), TRUE);
+	//	DrawCube3D(pos1, pos2, GetColor(128, 255, 255), GetColor(128, 128, 128), TRUE);
 		MV1SetPosition(m_Enemyhndl[0], VGet(-m_Pos.x * TILE_SIZE, 151, m_Pos.y * TILE_SIZE));
 		MV1DrawModel(m_Enemyhndl[0]);
 		break;
 	case ENEMY_2:
-		DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(128, 0, 0), TRUE);
-		DrawCube3D(pos1, pos2, GetColor(128, 128, 255), GetColor(128, 128, 128), TRUE);
+	//	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(128, 0, 0), TRUE);
+	//	DrawCube3D(pos1, pos2, GetColor(128, 128, 255), GetColor(128, 128, 128), TRUE);
 		MV1SetPosition(m_Enemyhndl[1], VGet(-m_Pos.x * TILE_SIZE, 151, m_Pos.y * TILE_SIZE));
 		MV1DrawModel(m_Enemyhndl[1]);
 		break;
 	case ENEMY_3:
-		DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(0, 128, 0), TRUE);
-		DrawCube3D(pos1, pos2, GetColor(128, 255, 128), GetColor(128, 128, 128), TRUE);
+	//	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(0, 128, 0), TRUE);
+	//	DrawCube3D(pos1, pos2, GetColor(128, 255, 128), GetColor(128, 128, 128), TRUE);
 		MV1SetPosition(m_Enemyhndl[2], VGet(-m_Pos.x * TILE_SIZE, 151, m_Pos.y * TILE_SIZE));
 		MV1DrawModel(m_Enemyhndl[2]);
 		break;
 	case ENEMY_4:
-		DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(0, 0, 128), TRUE);
-		DrawCube3D(pos1, pos2, GetColor(255, 128, 128), GetColor(128, 128, 128), TRUE);
+	//	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(0, 0, 128), TRUE);
+	//	DrawCube3D(pos1, pos2, GetColor(255, 128, 128), GetColor(128, 128, 128), TRUE);
 
 		MV1SetPosition(m_Enemyhndl[3], VGet(-m_Pos.x * TILE_SIZE, 151, m_Pos.y * TILE_SIZE));
 		MV1DrawModel(m_Enemyhndl[3]);
