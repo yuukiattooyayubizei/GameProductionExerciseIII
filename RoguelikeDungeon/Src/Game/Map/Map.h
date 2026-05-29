@@ -120,6 +120,8 @@ private:
 	// ŠK’i‚ÌÀ•W
 	Int2 m_StairsPos;
 
+	int m_Itemhndl[4];
+
 public:
 	CMap() { Init(); }
 

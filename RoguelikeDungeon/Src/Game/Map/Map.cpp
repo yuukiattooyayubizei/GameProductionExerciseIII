@@ -54,6 +54,11 @@ void CMap::Init() {
 
 	m_StairsPos = {};
 
+	for (int i = 0;i < 3;i++) {
+		m_Itemhndl[i] = -1;
+
+	}
+
 	for (int i = 0;i < MAP_Y;i++)
 	{
 		for (int k = 0;k < MAP_X;k++)
@@ -62,6 +67,12 @@ void CMap::Init() {
 			m_Map[i][k] = TILE_WALL;
 		}
 	}
+	m_Itemhndl[0] = MV1LoadModel("Data/Model/Item1.x");
+	m_Itemhndl[1] = MV1LoadModel("Data/Model/Item2.x");
+	m_Itemhndl[2] = MV1LoadModel("Data/Model/Item3.x");
+	m_Itemhndl[3] = MV1LoadModel("Data/Model/Item4.x");
+
+
 }
 
 void CMap::Exit() {
@@ -69,6 +80,12 @@ void CMap::Exit() {
 	m_Item.clear();
 
 	m_StairsPos = {};
+
+	for (int i = 0;i < 3;i++) {
+		MV1DeleteModel(m_Itemhndl[i]);
+		m_Itemhndl[i] = -1;
+
+	}
 
 	for (int i = 0; i < MAP_Y; i++)
 	{
@@ -412,9 +429,9 @@ bool CMap::CreateCorridor()
 
 void CMap::DrawTileCube(int mapX, int mapY, int color, float height)
 {
-	static constexpr float TILE_SIZE = 100.0f;
 
-	float x = mapX * TILE_SIZE;
+
+	float x = -mapX * TILE_SIZE;
 	float z = mapY * TILE_SIZE;
 
 	VECTOR pos1 = VGet(x - 50.0f, height, z - 50.0f);
@@ -436,16 +453,13 @@ void CMap::Draw() {
 			switch (m_Map[i][k])
 			{
 			case TILE_WALL:
-				DrawTileCube(k, i, GetColor(255, 0, 0), 10);
-				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 0), TRUE);
+				DrawTileCube(k, i, GetColor(255, 0, 0), 100);
 				break;
 			case TILE_ROOM:
-				DrawTileCube(k, i, GetColor(0, 0, 255), 10);
-				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 0, 255), TRUE);
+				DrawTileCube(k, i, GetColor(0, 0, 255), 100);
 				break;
 			case TILE_CORRIDOR:
-				DrawTileCube(k, i, GetColor(0, 255, 0), 10);
-				DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(0, 255, 0), TRUE);
+				DrawTileCube(k, i, GetColor(0, 255, 0), 100);
 			
 				break;
 			default:
@@ -458,28 +472,52 @@ void CMap::Draw() {
 	int centerY = 8 + 16 * m_StairsPos.y;
 	DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
 
+	float x = -m_StairsPos.x * TILE_SIZE;
+	float z = m_StairsPos.y * TILE_SIZE;
+
+	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
+	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
+	DrawCube3D(pos1, pos2, GetColor(0, 0, 128), GetColor(128, 128, 128), TRUE);
+
 
 	for_each(m_Item.begin(), m_Item.end(), [this](FieldItem item) {
 		//床落ちアイテムの座標を取得
 		int X = 8 + item.pos.x * 16;
 		int Y = 8 + item.pos.y * 16;
+
+
+		float x = -item.pos.x * TILE_SIZE;
+		float z = item.pos.y * TILE_SIZE;
+
+		VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
+		VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
+
+
 		//種類によって色を変えておく
 		switch (item.item.type)
 		{
 		case ITEM_1:
-			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(255, 0, 0), TRUE);
+			DrawCube3D(pos1, pos2, GetColor(0, 128, 0), GetColor(128, 128, 128), TRUE);
+			MV1SetPosition(m_Itemhndl[0], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
+			MV1DrawModel(m_Itemhndl[0]);
 			break;
 		case ITEM_2:
-			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(0, 255, 255), TRUE);
+			DrawCube3D(pos1, pos2, GetColor(128, 0, 0), GetColor(128, 128, 128), TRUE);
+			MV1SetPosition(m_Itemhndl[1], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
+			MV1DrawModel(m_Itemhndl[1]);
 			break;
 		case ITEM_3:
-			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(255, 0, 255), TRUE);
+			DrawCube3D(pos1, pos2, GetColor(128, 128, 0), GetColor(128, 128, 128), TRUE);
+			MV1SetPosition(m_Itemhndl[2], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
+			MV1DrawModel(m_Itemhndl[2]);
 			break;
 		case ITEM_4:
-			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(255, 255, 0), TRUE);
+			DrawCube3D(pos1, pos2, GetColor(128, 0, 128), GetColor(128, 128, 128), TRUE);
+			MV1SetPosition(m_Itemhndl[3], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
+			MV1DrawModel(m_Itemhndl[3]);
 			break;
 		default:
-			DrawBox(X + 4, Y + 4, X - 4, Y - 4, GetColor(128, 128, 128), TRUE);
+			DrawCube3D(pos1, pos2, GetColor(0, 128, 128), GetColor(128, 128, 128), TRUE);
 			break;
 		}
 		

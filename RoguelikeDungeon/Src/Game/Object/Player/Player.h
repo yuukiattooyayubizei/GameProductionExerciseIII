@@ -16,6 +16,8 @@ private:
 
     //‘«“¥‚Ý‚µ‚½‚©‚Ç‚¤‚©
     bool m_IsStomping;
+
+    int m_hndl;
 public:
     ~CPlayer()override;
 

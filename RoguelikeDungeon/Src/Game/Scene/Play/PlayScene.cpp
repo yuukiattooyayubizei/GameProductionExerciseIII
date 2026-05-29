@@ -309,7 +309,7 @@ ObjectKind CPlayScene::GetAheadMoveObject(Int2 pos, DIRECTION dir){
 int CPlayScene::Step()
 {
 	VECTOR plPos{};
-	plPos.x = m_Player->GetPos().x * 100;
+	plPos.x = -m_Player->GetPos().x * 100;
 	plPos.y = 0;
 	plPos.z = m_Player->GetPos().y * 100;
 	m_CameraManager.Step(plPos, 0, 0, 0);
@@ -508,7 +508,7 @@ int CPlayScene::StepPlay() {
 				TILE NextTile = Map->GetTile(NextPos);
 				if (ObjectNum == -1)
 				{
-					if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
+					//if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
 					{
 						//âΩÇ‡Ç¢Ç»Ç¢Ç»ÇÁ
 						//ÉvÉåÉCÉÑÅ[Çà⁄ìÆÇ≥ÇπÇÈ

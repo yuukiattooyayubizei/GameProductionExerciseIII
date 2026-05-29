@@ -7,8 +7,6 @@ private:
 	VECTOR m_camPos;//カメラの位置
 	VECTOR m_targetPos;//注視点
 	VECTOR m_upVec;//高さ
-	int m_Camera_Distance;
-	bool m_isZoomIn;
 public:
 	//コンストラクタ・デストラクタ
 	PlayerCamera();

@@ -2,9 +2,9 @@
 
 
 static constexpr float CAMERA_NEAR = 3.0f;						//カメラの映す距離の下限
-static constexpr float CAMERA_FAR = 1500.0f;					//カメラの映す距離の上限
+static constexpr float CAMERA_FAR = 15000.0f;					//カメラの映す距離の上限
 
-
+static constexpr float TILE_SIZE = 100.0f;						//マップチップ1枚ごとのサイズ
 
 struct Int2 {
 	int x, y;

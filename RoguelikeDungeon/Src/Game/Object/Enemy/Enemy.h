@@ -17,6 +17,8 @@ enum EnemyType {
 class CEnemy : public CObject {
 private:
     EnemyType m_EnemyType;
+
+    int m_Enemyhndl[4];
 public:
     CEnemy();
     ~CEnemy()override;

@@ -20,9 +20,16 @@ void CPlayer::Init(){
 	m_Atk = 5;
 	m_IsStomping = false;
 	m_IsMove = false;
+	m_hndl = -1;
 }
 
 void CPlayer::Load() {
+	if (m_hndl == -1) {
+
+		m_hndl = MV1LoadModel("Data/Model/Player.x");
+
+		}
+	
 }
 
 void CPlayer::Step(CanMove canmove, Int2 playerPos) {
@@ -44,6 +51,8 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		m_Direction = DIRECTION_RIGHT;
 		m_IsMove = true;
 	}
+
+
 	if (IsInputRep(KEY_G))
 		m_IsMove = false;
 
@@ -54,6 +63,10 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		m_IsStomping = true;
 	else
 		m_IsStomping = false;
+
+
+		MV1SetPosition(m_hndl, VGet(-m_Pos.x * TILE_SIZE,151, m_Pos.y * TILE_SIZE));
+	
 }
 
 void CPlayer::Draw() {
@@ -66,10 +79,24 @@ void CPlayer::Draw() {
 	int centerX = 8 + m_Pos.x * 16;
 	int centerY = 8 + m_Pos.y * 16;
 	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
+
+	float x = -m_Pos.x * TILE_SIZE;
+	float z = m_Pos.y * TILE_SIZE;
+
+	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
+	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
+
+	DrawCube3D(pos1, pos2, GetColor(128,128,128), GetColor(128, 128, 128), TRUE);
+
+	MV1DrawModel(m_hndl);
 }
 
 void CPlayer::Exit() {
-
+	if (m_hndl != -1)
+	{
+		MV1DeleteModel(m_hndl);
+		m_hndl = -1;
+	}
 }
 
 bool CPlayer::AddItem(const Item& item)
