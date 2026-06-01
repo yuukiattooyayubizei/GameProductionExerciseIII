@@ -14,6 +14,8 @@
 #include "../../Object/Enemy/Enemy3/Enemy3.h"
 #include "../../Object/Enemy/Enemy4/Enemy4.h"
 #include "../../../Lib/Input/input.h"
+#include "../../Item/ItemManager.h"
+
 
 using namespace std;
 
@@ -446,6 +448,8 @@ int CPlayScene::StepItemMenu()
 	return 0;
 }
 
+
+
 bool CPlayScene::UseItem(int index)
 {
 	const auto& inventory = m_Player->GetInventory();
@@ -494,6 +498,7 @@ bool CPlayScene::UseItem(int index)
 
 	return true;
 }
+
 int CPlayScene::StepPlay() {
 	CData* Data = CData::GetInstance();
 	CMap* Map = CMap::GetInstance();
@@ -534,7 +539,7 @@ int CPlayScene::StepPlay() {
 				TILE NextTile = Map->GetTile(NextPos);
 				if (ObjectNum == -1)
 				{
-					//if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
+					/*if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)*/
 					{
 						//何もいないなら
 						//プレイヤーを移動させる
@@ -702,7 +707,7 @@ void CPlayScene::Draw()
 
 	CData* Data = CData::GetInstance();
 
-	Map->Draw();
+	Map->Draw(m_Player->GetPos());
 
 
 

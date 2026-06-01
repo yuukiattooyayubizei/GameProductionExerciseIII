@@ -514,38 +514,75 @@ void CMap::DrawTileCube(int mapX, int mapY, int color, float height)
 	DrawCube3D(pos1, pos2, color, color, TRUE);
 }
 
-void CMap::Draw() {
+void CMap::Draw(Int2 playerPos) {
 
-	for (int i = 0;i < MAP_Y;i++)
+	//for (int i = 0;i < MAP_Y;i++)
+	//{
+	//	for (int k = 0;k < MAP_X;k++)
+	//	{
+	//		int centerX = 8 + 16 * k;
+	//		int centerY = 8 + 16 * i;
+
+
+	//		switch (m_Map[i][k])
+	//		{
+	//		case TILE_WALL:
+	//		//	DrawTileCube(k, i, GetColor(255, 0, 0), 100);
+	//			MV1SetPosition(m_Wallhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+	//			MV1DrawModel(m_Wallhndl);
+	//			break;
+	//		case TILE_ROOM:
+	//		//	DrawTileCube(k, i, GetColor(0, 0, 255), 100);
+	//			MV1SetPosition(m_Roomhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+	//			MV1DrawModel(m_Roomhndl);
+	//			break;
+	//		case TILE_CORRIDOR:
+	//		//	DrawTileCube(k, i, GetColor(0, 255, 0), 100);
+	//			MV1SetPosition(m_Corridorhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+	//			MV1DrawModel(m_Corridorhndl);
+	//			break;
+	//		default:
+	//			break;
+	//		}
+	//	}
+	//}
+	for (int i = playerPos.y - 8;i < playerPos.y + 8;i++)
 	{
-		for (int k = 0;k < MAP_X;k++)
+		for (int k = playerPos.x - 10;k < playerPos.x + 10;k++)
 		{
-			int centerX = 8 + 16 * k;
-			int centerY = 8 + 16 * i;
 
+			int tile = TILE_WALL;
+			Int2 nextPos = { k,i };
 
-			switch (m_Map[i][k])
+			// 配列内なら実際のマップを参照
+			if (InvestigationMapOutside(nextPos) == false)
+			{
+				tile = m_Map[i][k];
+			}
+
+			switch (tile)
 			{
 			case TILE_WALL:
-			//	DrawTileCube(k, i, GetColor(255, 0, 0), 100);
 				MV1SetPosition(m_Wallhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
 				MV1DrawModel(m_Wallhndl);
 				break;
+
 			case TILE_ROOM:
-			//	DrawTileCube(k, i, GetColor(0, 0, 255), 100);
 				MV1SetPosition(m_Roomhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
 				MV1DrawModel(m_Roomhndl);
 				break;
+
 			case TILE_CORRIDOR:
-			//	DrawTileCube(k, i, GetColor(0, 255, 0), 100);
 				MV1SetPosition(m_Corridorhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
 				MV1DrawModel(m_Corridorhndl);
 				break;
+
 			default:
 				break;
 			}
 		}
 	}
+
 	//階段の描画
 	int centerX = 8 + 16 * m_StairsPos.x;
 	int centerY = 8 + 16 * m_StairsPos.y;
@@ -858,9 +895,9 @@ int CMap::GetFieldOfVision(Int2 i, DIRECTION dir) {
 }
 
 bool CMap::InvestigationMapOutside(Int2 i) {
-	if (i.x < 0 || i.x > MAP_X || i.y < 0 || i.y > MAP_Y) return true;
+	if (i.y >= 0 && i.y < MAP_Y && i.x >= 0 && i.x < MAP_X) return false;
 
-	return false;
+	return true;
 }
 
 

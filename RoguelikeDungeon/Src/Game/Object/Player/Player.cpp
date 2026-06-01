@@ -53,7 +53,22 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		m_Direction = DIRECTION_RIGHT;
 		m_IsMove = true;
 	}
-
+	//if (IsInputTrg(KEY_W)) {
+	//	m_Direction = DIRECTION_UP;
+	//	m_IsMove = true;
+	//}
+	//if (IsInputTrg(KEY_S)) {
+	//	m_Direction = DIRECTION_DOWN;
+	//	m_IsMove = true;
+	//}
+	//if (IsInputTrg(KEY_A)) {
+	//	m_Direction = DIRECTION_LEFT;
+	//	m_IsMove = true;
+	//}
+	//if (IsInputTrg(KEY_D)) {
+	//	m_Direction = DIRECTION_RIGHT;
+	//	m_IsMove = true;
+	//}
 
 	if (IsInputRep(KEY_G))
 		m_IsMove = false;

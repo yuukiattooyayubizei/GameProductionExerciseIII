@@ -142,6 +142,8 @@
     <ClInclude Include="Src\Game\common.h" />
     <ClInclude Include="Src\Game\Data\Data.h" />
     <ClInclude Include="Src\Game\Item\Item.h" />
+    <ClInclude Include="Src\Game\Item\ItemModelManager.h" />
+    <ClInclude Include="Src\Game\Item\Weapon\Weapon.h" />
     <ClInclude Include="Src\Game\Map\Map.h" />
     <ClInclude Include="Src\Game\Object\Enemy\Enemy.h" />
     <ClInclude Include="Src\Game\Object\Enemy\Enemy1\Enemy1.h" />
@@ -167,6 +169,8 @@
     <ClCompile Include="Src\Game\Camera\Play\PlayCamera.cpp" />
     <ClCompile Include="Src\Game\Data\Data.cpp" />
     <ClCompile Include="Src\Game\Item\Item.cpp" />
+    <ClCompile Include="Src\Game\Item\ItemModelManager.cpp" />
+    <ClCompile Include="Src\Game\Item\Weapon\Weapon.cpp" />
     <ClCompile Include="Src\Game\main.cpp" />
     <ClCompile Include="Src\Game\Map\Map.cpp" />
     <ClCompile Include="Src\Game\Object\Enemy\Enemy.cpp" />

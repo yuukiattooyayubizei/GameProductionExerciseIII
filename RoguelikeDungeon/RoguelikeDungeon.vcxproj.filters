@@ -79,6 +79,9 @@
     <Filter Include="ソース ファイル\Game\Object\Enemy\Enemy4">
       <UniqueIdentifier>{c9a10486-36d5-4553-a1d6-862ff8eb52ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Item\Weapon">
+      <UniqueIdentifier>{b3aee689-7a02-4903-9b02-91272aae1142}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\common.h">
@@ -153,6 +156,12 @@
     <ClInclude Include="Src\Game\Object\Enemy\Enemy4\Enemy4.h">
       <Filter>ソース ファイル\Game\Object\Enemy\Enemy4</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Item\Weapon\Weapon.h">
+      <Filter>ソース ファイル\Game\Item\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Item\ItemModelManager.h">
+      <Filter>ソース ファイル\Game\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -223,6 +232,12 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Object\Enemy\Enemy4\Enemy4.cpp">
       <Filter>ソース ファイル\Game\Object\Enemy\Enemy4</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Item\Weapon\Weapon.cpp">
+      <Filter>ソース ファイル\Game\Item\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Item\ItemModelManager.cpp">
+      <Filter>ソース ファイル\Game\Item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

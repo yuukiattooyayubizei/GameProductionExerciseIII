@@ -1,6 +1,7 @@
 #pragma once
 #include "../Common.h"
 
+
 // ƒAƒCƒeƒ€1ŒÂ•ª‚Ìî•ñ
 struct Item
 {
@@ -22,3 +23,4 @@ public:
     void SetPos(int x, int y) { m_FieldItem.pos.x = x;m_FieldItem.pos.y = y; }
     Int2 GetPos() { return m_FieldItem.pos; }
 };
+
