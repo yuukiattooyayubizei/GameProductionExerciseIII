@@ -2,6 +2,8 @@
 #include<DxLib.h>
 #include"../Scene.h"
 #include "../../Object/Player/Player.h"
+#include "../../Object/Enemy/EnemyModelManager.h"
+#include "../../Object/Enemy/Enemy.h"
 #include <vector>
 #include "../../Map/Map.h"
 #include "../../Camera/CameraManager.h"
@@ -41,6 +43,7 @@ private:
 
 	CCameraManager m_CameraManager;//カメラ
 
+	CEnemyModelManager m_EnemyModelManager;
 	std::vector<CObject*> m_Object;
 	CPlayer* m_Player;
 //	CMap m_Map;
@@ -76,6 +79,8 @@ public:
 	//移動先にObjectがいるかどうか
 	ObjectKind GetAheadMoveObject(Int2 pos, DIRECTION dir);
 
+	//敵の種類を決定
+	CEnemy* CreateRandomEnemy();
 	//敵生成
 	void CreateEnemy(int CreateNum = 1);
 	//プレイヤー生成

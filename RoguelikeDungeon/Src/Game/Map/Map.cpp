@@ -55,6 +55,23 @@ void CMap::Init() {
 
 	m_StairsPos = {};
 
+	if (m_Corridorhndl != -1) {
+		MV1DeleteModel(m_Corridorhndl);
+		m_Corridorhndl = -1;
+	}
+	if (m_Roomhndl != -1) {
+		MV1DeleteModel(m_Roomhndl);
+		m_Roomhndl = -1;
+	}
+	if (m_Wallhndl != -1) {
+		MV1DeleteModel(m_Wallhndl);
+		m_Wallhndl = -1;
+	}
+	if (m_Stairshndl != -1) {
+		MV1DeleteModel(m_Stairshndl);
+		m_Stairshndl = -1;
+	}
+
 	for (int i = 0;i <= 3;i++) {
 		m_Itemhndl[i] = -1;
 
@@ -79,16 +96,18 @@ void CMap::Init() {
 void CMap::Load() {
 
 	if(m_Itemhndl[0] == -1)
-	
+		m_Itemhndl[0] = MV1LoadModel("Data/Model/Item1.x");
 	if (m_Itemhndl[1] == -1)
-	m_Itemhndl[1] = MV1LoadModel("Data/Model/Item2.x");
+		m_Itemhndl[1] = MV1LoadModel("Data/Model/Item2.x");
 	if (m_Itemhndl[2] == -1)
-	m_Itemhndl[2] = MV1LoadModel("Data/Model/Item3.x");
+		m_Itemhndl[2] = MV1LoadModel("Data/Model/Item3.x");
 	if (m_Itemhndl[3] == -1)
-	m_Itemhndl[3] = MV1LoadModel("Data/Model/Item4.x");
+		m_Itemhndl[3] = MV1LoadModel("Data/Model/Item4.x");
 
-	for(int index = 0;index <= 3;index++)
-	MV1SetScale(m_Itemhndl[index], VGet(0.5f, 0.5f, 0.5f));
+	for (int index = 0;index <= 3;index++) {
+		MV1SetScale(m_Itemhndl[index], VGet(0.5f, 0.5f, 0.5f));
+		MV1SetRotationXYZ(m_Itemhndl[index], VGet(0.0f, DX_PI_F, 0.0f));
+	}
 
 
 	if (m_Corridorhndl == -1)

@@ -1,4 +1,4 @@
-#include"playScene.h"
+ï»¿#include"PlayScene.h"
 #include"math.h"
 #include <iostream>
 #include <vector>
@@ -9,6 +9,10 @@
 #include "../../../Lib/Sound/sound.h"
 #include "../../Data/Data.h"
 #include "../../Object/Enemy/Enemy.h"
+#include "../../Object/Enemy/Enemy1/Enemy1.h"
+#include "../../Object/Enemy/Enemy2/Enemy2.h"
+#include "../../Object/Enemy/Enemy3/Enemy3.h"
+#include "../../Object/Enemy/Enemy4/Enemy4.h"
 #include "../../../Lib/Input/input.h"
 
 using namespace std;
@@ -52,9 +56,9 @@ CanMove CPlayScene::GetCanMove(Int2 pos)
 	NextPos.x = static_cast<int>(v.x);
 	NextPos.y = static_cast<int>(v.y);
 
-	//ˆê’U‘S•”true‚É
+	//ä¸€æ—¦å…¨éƒ¨trueã«
 	C.Down = true, C.Up = true, C.Left = true, C.Right = true;
-	//ƒ}ƒX–Ú‚Ì’[‚¾‚Æƒ}ƒX‚ÌŠO‘¤‚Ì•ûŒü‚É‚Ís‚¯‚È‚¢
+	//ãƒã‚¹ç›®ã®ç«¯ã ã¨ãƒã‚¹ã®å¤–å´ã®æ–¹å‘ã«ã¯è¡Œã‘ãªã„
 	if (NextPos.x <= 0)
 		C.Left = false;
 	if (NextPos.x >= MAP_X - 1)
@@ -66,8 +70,8 @@ CanMove CPlayScene::GetCanMove(Int2 pos)
 
 
 
-	//ã‰º¶‰E‚Ìƒ}ƒX‚ğŒ©‚Ä’Ê‚ê‚éƒ}ƒX‚Å‚È‚¯‚ê‚Îs‚¯‚È‚¢
-	//‚·‚Å‚Éfalse‚È‚çŒ©‚é•K—v‚ª‚È‚¢
+	//ä¸Šä¸‹å·¦å³ã®ãƒã‚¹ã‚’è¦‹ã¦é€šã‚Œã‚‹ãƒã‚¹ã§ãªã‘ã‚Œã°è¡Œã‘ãªã„
+	//ã™ã§ã«falseãªã‚‰è¦‹ã‚‹å¿…è¦ãŒãªã„
 	TILE t = {};
 	if (C.Left == true)
 	{
@@ -115,7 +119,7 @@ bool CPlayScene::CollsionAll(Int2 pos)
 	return false;
 }
 
-//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 CPlayScene::CPlayScene()
 {
 	m_tagPlayScene = PLAY_SCENE_INIT;
@@ -124,7 +128,7 @@ CPlayScene::CPlayScene()
 	m_PlayerTurn = true;
 }
 
-//ƒfƒXƒgƒ‰ƒNƒ^
+//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 CPlayScene::~CPlayScene()
 {
 	Exit();
@@ -148,9 +152,9 @@ void CPlayScene::Init()
 	m_SelectItemIndex = 0;
 	m_ItemPage = 0;
 
-	//ƒJƒƒ‰‚Ì‰Šú‰»
+	//ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
 	m_CameraManager.Init();
-	//ƒJƒƒ‰‚ÌNearFar‚Ìİ’è
+	//ã‚«ãƒ¡ãƒ©ã®NearFarã®è¨­å®š
 	m_CameraManager.SetNearFar(CAMERA_NEAR, CAMERA_FAR);
 }
 
@@ -168,15 +172,35 @@ void CPlayScene::Exit()
 	m_Player = nullptr;
 }
 
-void CPlayScene::CreateEnemy(int CreateNum){
-	for (int i = 0; i < CreateNum; i++)
-	{
+CEnemy* CPlayScene::CreateRandomEnemy() {
+	int enemyType = GetRand(3); // 0ã€œ1
+
+	switch (enemyType) {
+	case 0:
+		return new CEnemy1(&m_EnemyModelManager);
+
+	case 1:
+		return new CEnemy2(&m_EnemyModelManager);
+	case 2:
+		return new CEnemy3(&m_EnemyModelManager);
+
+	case 3:
+		return new CEnemy4(&m_EnemyModelManager);
+
+	default:
+		return new CEnemy1(&m_EnemyModelManager);
+	}
+}
+
+void CPlayScene::CreateEnemy(int CreateNum) {
+	for (int i = 0; i < CreateNum; i++) {
 		Int2 pos = FindSpawnPos();
 
-		CEnemy* enemy = new CEnemy();
+		CEnemy* enemy = CreateRandomEnemy();
 		enemy->SetPos(pos);
 
-		std::cout << pos.x << "," << pos.y << "‚É“G‚ğ¶¬" << std::endl;
+		std::cout << pos.x << "," << pos.y << "ã«æ•µã‚’ç”Ÿæˆ" << std::endl;
+
 		m_Object.push_back(enemy);
 	}
 }
@@ -193,13 +217,13 @@ void CPlayScene::Load()
 
 	//Data->Load();
 
-	////3ŒÂ‚©‚ç5ŒÂ‚Ì•”‰®‚ğì¬
+	////3å€‹ã‹ã‚‰5å€‹ã®éƒ¨å±‹ã‚’ä½œæˆ
 	//if (Map->CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
 	//Map->CreateCorridor();
 	//Map->CreateStairs();
 	//Map->CreateItem(5);
 
-	////“G‚ğì¬
+	////æ•µã‚’ä½œæˆ
 	//CreateEnemy(5);
 
 	CreateFloor();
@@ -213,9 +237,9 @@ void CPlayScene::CreateFloor() {
 	CMap* Map = CMap::GetInstance();
 	CData* Data = CData::GetInstance();
 
-	//ƒ}ƒbƒv‚ğÁ‹
+	//ãƒãƒƒãƒ—ã‚’æ¶ˆå»
 	Map->Init();
-	//ƒvƒŒƒCƒ„[ˆÈŠO‚ÌƒIƒuƒWƒFƒNƒg‚ğíœ
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ä»¥å¤–ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤
 	auto newEnd = std::remove_if(
 		m_Object.begin(),
 		m_Object.end(),
@@ -238,13 +262,13 @@ void CPlayScene::CreateFloor() {
 
 	Map->Load();
 
-	//3ŒÂ‚©‚ç5ŒÂ‚Ì•”‰®‚ğì¬
+	//3å€‹ã‹ã‚‰5å€‹ã®éƒ¨å±‹ã‚’ä½œæˆ
 	if (Map->CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
 	Map->CreateCorridor();
 	Map->CreateStairs();
 	Map->CreateItem(STRAT_ITEM_NUM);
 
-	//“G‚ğì¬
+	//æ•µã‚’ä½œæˆ
 	CreateEnemy(STRAT_ENEMY_NUM);
 
 	CreatePlayer();
@@ -255,27 +279,27 @@ int CPlayScene::Loop()
 	
 	int m_ret = 0;
 
-	//ó‘Ô‘JˆÚ‚É‰‚¶‚Ä‹““®‚ğ•ÏX
+	//çŠ¶æ…‹é·ç§»ã«å¿œã˜ã¦æŒ™å‹•ã‚’å¤‰æ›´
 	switch (m_tagPlayScene)
 	{
 	case CPlayScene::PLAY_SCENE_INIT:
-		//‰Šú‰»
+		//åˆæœŸåŒ–
 		Init();
 		m_tagPlayScene = PLAY_SCENE_LOAD;
 		break;
 	case CPlayScene::PLAY_SCENE_LOAD:
-		//ƒ[ƒh
+		//ãƒ­ãƒ¼ãƒ‰
 		Load();
 		m_tagPlayScene = PLAY_SCENE_LOOP;
-		//BGM‚ğ–Â‚ç‚·
+		//BGMã‚’é³´ã‚‰ã™
 		RequestSound(BGMID_GAME, DX_PLAYTYPE_BACK);
 		break;
 	case CPlayScene::PLAY_SCENE_LOOP:
-		//ˆ—
+		//å‡¦ç†
 		if (Step() != 0)m_tagPlayScene = PLAY_SCENE_END;
 		break;
 	case CPlayScene::PLAY_SCENE_END:
-		//”jŠü
+		//ç ´æ£„
 		Exit();
 		StopAllSound();
 		m_tagPlayScene = PLAY_SCENE_INIT;
@@ -351,7 +375,7 @@ int CPlayScene::StepItemMenu()
 
 	int maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
 
-	// A‚Å‘O‚Ìƒy[ƒW‚Ö
+	// Aã§å‰ã®ãƒšãƒ¼ã‚¸ã¸
 	if (IsInputTrg(KEY_A))
 	{
 		m_ItemPage--;
@@ -364,7 +388,7 @@ int CPlayScene::StepItemMenu()
 		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
 	}
 
-	// D‚ÅŸ‚Ìƒy[ƒW‚Ö
+	// Dã§æ¬¡ã®ãƒšãƒ¼ã‚¸ã¸
 	if (IsInputTrg(KEY_D))
 	{
 		m_ItemPage++;
@@ -385,7 +409,7 @@ int CPlayScene::StepItemMenu()
 		pageEnd = itemCount;
 	}
 
-	// W‚Åã‚Ö
+	// Wã§ä¸Šã¸
 	if (IsInputTrg(KEY_W))
 	{
 		m_SelectItemIndex--;
@@ -396,7 +420,7 @@ int CPlayScene::StepItemMenu()
 		}
 	}
 
-	// S‚Å‰º‚Ö
+	// Sã§ä¸‹ã¸
 	if (IsInputTrg(KEY_S))
 	{
 		m_SelectItemIndex++;
@@ -407,14 +431,14 @@ int CPlayScene::StepItemMenu()
 		}
 	}
 
-	// SPACE‚Åg—p
+	// SPACEã§ä½¿ç”¨
 	if (IsInputTrg(KEY_SPACE))
 	{
-		//ƒAƒCƒeƒ€‚Ìg—p
+		//ã‚¢ã‚¤ãƒ†ãƒ ã®ä½¿ç”¨
 		/*m_Player->UseItem(m_SelectItemIndex);*/
 		UseItem(m_SelectItemIndex);
 
-		//g—p‚µ‚½‚çƒ^[ƒ“Œo‰ß‚³‚¹‚é
+		//ä½¿ç”¨ã—ãŸã‚‰ã‚¿ãƒ¼ãƒ³çµŒéã•ã›ã‚‹
 		m_PlayMode = MODE_PLAY;
 		m_PlayerTurn = false;
 	}
@@ -436,17 +460,17 @@ bool CPlayScene::UseItem(int index)
 	{
 	case ITEM_1:
 		m_Player->AddHeal(15);
-		std::cout << "15‰ñ•œ" << std::endl;
+		std::cout << "15å›å¾©" << std::endl;
 		break;
 
 	case ITEM_2:
 		m_Player->AddMaxHP(5);
-		std::cout << "Å‘åHP5ƒAƒbƒv" << std::endl;
+		std::cout << "æœ€å¤§HP5ã‚¢ãƒƒãƒ—" << std::endl;
 		break;
 
 	case ITEM_3:
 		m_Player->AddAtk(5);
-		std::cout << "UŒ‚—Í5ƒAƒbƒv" << std::endl;
+		std::cout << "æ”»æ’ƒåŠ›5ã‚¢ãƒƒãƒ—" << std::endl;
 		break;
 
 	case ITEM_4:
@@ -454,7 +478,7 @@ bool CPlayScene::UseItem(int index)
 		for (CObject* object : target) {
 			object->AddDamage(5);
 		}
-		std::cout << "“G‘S‘Ì‚É5ƒ_ƒ[ƒW" << std::endl;
+		std::cout << "æ•µå…¨ä½“ã«5ãƒ€ãƒ¡ãƒ¼ã‚¸" << std::endl;
 
 		DeleteDeadObject();
 		break;
@@ -465,7 +489,7 @@ bool CPlayScene::UseItem(int index)
 
 	m_Player->EraseItem(index);
 
-	// ƒAƒCƒeƒ€‚ğg‚Á‚½‚çƒvƒŒƒCƒ„[‚Ì1ƒ^[ƒ“‚Æ‚µ‚Äˆµ‚¤
+	// ã‚¢ã‚¤ãƒ†ãƒ ã‚’ä½¿ã£ãŸã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®1ã‚¿ãƒ¼ãƒ³ã¨ã—ã¦æ‰±ã†
 	m_PlayerTurn = false;
 
 	return true;
@@ -475,10 +499,10 @@ int CPlayScene::StepPlay() {
 	CMap* Map = CMap::GetInstance();
 
 
-	//ƒvƒŒƒCƒ„[‚Ìs“®‘Ò‚¿‚È‚ç
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•å¾…ã¡ãªã‚‰
 	if (m_PlayerTurn == true)
 	{
-		//ƒAƒCƒeƒ€‘I‘ğ‚ÉˆÚs
+		//ã‚¢ã‚¤ãƒ†ãƒ é¸æŠã«ç§»è¡Œ
 		if (IsInputTrg(KEY_K))
 		{
 			m_PlayMode = MODE_ITEM_MENU;
@@ -486,53 +510,53 @@ int CPlayScene::StepPlay() {
 			m_ItemPage = 0;
 			return 0;
 		}
-		//‘«“¥‚İ‚·‚é(‚È‚É‚à‚µ‚È‚¢)
+		//è¶³è¸ã¿ã™ã‚‹(ãªã«ã‚‚ã—ãªã„)
 		if (IsInputTrg(KEY_F))
 		{
 			m_PlayerTurn = false;
 		}
 		
-		//ƒIƒuƒWƒFƒNƒg‚ª“®‚¯‚éƒ}ƒX‚ğ’T‚·
+		//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå‹•ã‘ã‚‹ãƒã‚¹ã‚’æ¢ã™
 		CanMove C = GetCanMove(m_Player->GetPos());
 
-		//ƒvƒŒƒCƒ„[‚¾‚¯“®‚©‚·
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã ã‘å‹•ã‹ã™
 		if (m_Player->GetKind() == KIND_PLAYER)
 		{
 			m_Player->Step(C, m_Player->GetPos());
 
-			//ƒvƒŒƒCƒ„[‚ªˆÚ“®‚µ‚Ä‚¢‚½‚ç
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç§»å‹•ã—ã¦ã„ãŸã‚‰
 			if (m_Player->GetIsMove() == true)
 			{
 				Int2 move = DirectionToInt2(m_Player->GetDirection());
 				Int2 NextPos = AddInt2(m_Player->GetPos(), move);
-				//ˆÚ“®‚·‚é•ûŒü‚ÉƒIƒuƒWƒFƒNƒg‚ª‚¢‚È‚¢‚©ƒ`ƒFƒbƒN
+				//ç§»å‹•ã™ã‚‹æ–¹å‘ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯
 				int ObjectNum = CollsionObject(NextPos);
 				TILE NextTile = Map->GetTile(NextPos);
 				if (ObjectNum == -1)
 				{
 					//if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
 					{
-						//‰½‚à‚¢‚È‚¢‚È‚ç
-						//ƒvƒŒƒCƒ„[‚ğˆÚ“®‚³‚¹‚é
+						//ä½•ã‚‚ã„ãªã„ãªã‚‰
+						//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç§»å‹•ã•ã›ã‚‹
 						m_Player->AddPos(move);
 						m_Player->SetMove(false);
 					}
 				}
 				else
 				{
-					// ‰½‚©‚ª‚¢‚é‚È‚ç‘ã‚í‚è‚É‚»‚¢‚Â‚ÉUŒ‚
+					// ä½•ã‹ãŒã„ã‚‹ãªã‚‰ä»£ã‚ã‚Šã«ãã„ã¤ã«æ”»æ’ƒ
 					CObject* target = m_Object[ObjectNum];
 
-					// “G‚È‚çUŒ‚‚·‚é
+					// æ•µãªã‚‰æ”»æ’ƒã™ã‚‹
 					if (target->GetKind() == KIND_ENEMY)
 					{
-						int damage = m_Player->GetAtk(); // ƒvƒŒƒCƒ„[‚ÌUŒ‚—Í
-						target->AddDamage(damage);                // “G‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
-						std::cout << "“G‚É" << damage << "ƒ_ƒ[ƒW‚ğ—^‚¦‚½" << std::endl;
-						// HP‚ª0ˆÈ‰º‚È‚ç€–Sˆ—
+						int damage = m_Player->GetAtk(); // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒåŠ›
+						target->AddDamage(damage);                // æ•µã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
+						std::cout << "æ•µã«" << damage << "ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆãŸ" << std::endl;
+						// HPãŒ0ä»¥ä¸‹ãªã‚‰æ­»äº¡å‡¦ç†
 						if (target->GetHP() <= 0)
 						{
-							std::cout << "“GŒ‚”j" << std::endl;
+							std::cout << "æ•µæ’ƒç ´" << std::endl;
 							target->SetActive(false);
 						}
 					}
@@ -540,74 +564,74 @@ int CPlayScene::StepPlay() {
 
 				m_PlayerTurn = false;
 
-				//ˆÚ“®æ‚ÌƒAƒCƒeƒ€‚ğŒŸõ
+				//ç§»å‹•å…ˆã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¤œç´¢
 				Item item = {};
 				item.type = Map->IsItemExist(m_Player->GetPos());
 
-				//ƒAƒCƒeƒ€‚ª‚ ‚Á‚½‚ç
+				//ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚ã£ãŸã‚‰
 				if (item.type != ITEM_NON)
 				{
-					//‚»‚ÌƒAƒCƒeƒ€‚ğƒCƒ“ƒxƒ“ƒgƒŠ‚É“ü‚ê‚é
+					//ãã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã«å…¥ã‚Œã‚‹
 					if (m_Player->AddItem(item))
-						//“ü‚ê‚½ƒAƒCƒeƒ€‚ğÁ‚·
+						//å…¥ã‚ŒãŸã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¶ˆã™
 						Map->EraseItem(m_Player->GetPos());
 					else
-						std::cout << "ƒCƒ“ƒxƒ“ƒgƒŠ‚ª‚Ü‚ñ‚½‚ñ" << std::endl;
+						std::cout << "ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªãŒã¾ã‚“ãŸã‚“" << std::endl;
 				}
 			}
 
 		}
 
 
-		//€‚ñ‚Å‚é“G‚ÌÁ‹
+		//æ­»ã‚“ã§ã‚‹æ•µã®æ¶ˆå»
 		DeleteDeadObject();
 
 
 	}
-	//ƒvƒŒƒCƒ„[s“®‚ÌŒã
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¡Œå‹•ã®å¾Œ
 	else
 	{
 		for_each(m_Object.begin(), m_Object.end(), [&](CObject* object) {
-			//ƒvƒŒƒCƒ„[ˆÈŠO‚ğ“®‚©‚·
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ä»¥å¤–ã‚’å‹•ã‹ã™
 			if (object->GetKind() != KIND_PLAYER)
 			{
-				//ƒIƒuƒWƒFƒNƒg‚ª“®‚¯‚éƒ}ƒX‚ğ’T‚·
+				//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå‹•ã‘ã‚‹ãƒã‚¹ã‚’æ¢ã™
 				CanMove C = GetCanMove(object->GetPos());
 
 				object->Step(C, m_Player->GetPos());
 
-				//“G‚ªˆÚ“®‚µ‚Ä‚¢‚½‚ç
+				//æ•µãŒç§»å‹•ã—ã¦ã„ãŸã‚‰
 				if (object->GetDirection() != DIRECTION_NON)
 				{
 					Int2 move = DirectionToInt2(object->GetDirection());
 					Int2 NextPos = AddInt2(object->GetPos(), move);
-					//ˆÚ“®‚·‚é•ûŒü‚ÉƒIƒuƒWƒFƒNƒg‚ª‚¢‚È‚¢‚©ƒ`ƒFƒbƒN
+					//ç§»å‹•ã™ã‚‹æ–¹å‘ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯
 					int ObjectNum = CollsionObject(NextPos);
 					TILE NextTile = Map->GetTile(NextPos);
 					if (ObjectNum == -1)
 					{
 						if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
 						{
-							//‰½‚à‚¢‚È‚¢‚È‚ç
-							//ƒvƒŒƒCƒ„[‚ğˆÚ“®‚³‚¹‚é
+							//ä½•ã‚‚ã„ãªã„ãªã‚‰
+							//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç§»å‹•ã•ã›ã‚‹
 							object->AddPos(move);
 						}
 					}
 					else
 					{
-						// ‰½‚©‚ª‚¢‚é‚È‚ç‘ã‚í‚è‚É‚»‚¢‚Â‚ÉUŒ‚
+						// ä½•ã‹ãŒã„ã‚‹ãªã‚‰ä»£ã‚ã‚Šã«ãã„ã¤ã«æ”»æ’ƒ
 						CObject* target = m_Object[ObjectNum];
 
-						// “G‚È‚çUŒ‚‚·‚é
+						// æ•µãªã‚‰æ”»æ’ƒã™ã‚‹
 						if (target->GetKind() == KIND_PLAYER)
 						{
-							int damage = object->GetAtk(); //“G‚ÌUŒ‚—Í
-							target->AddDamage(damage);                // “G‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
-							std::cout << "ƒvƒŒƒCƒ„[‚Í" << damage << "ƒ_ƒ[ƒW‚ğó‚¯‚½" << std::endl;
-							// HP‚ª0ˆÈ‰º‚È‚ç€–Sˆ—
+							int damage = object->GetAtk(); //æ•µã®æ”»æ’ƒåŠ›
+							target->AddDamage(damage);                // æ•µã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
+							std::cout << "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¯" << damage << "ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸ" << std::endl;
+							// HPãŒ0ä»¥ä¸‹ãªã‚‰æ­»äº¡å‡¦ç†
 							if (target->GetHP() <= 0)
 							{
-								std::cout << "Œ‚”j‚³‚ê‚½" << std::endl;
+								std::cout << "æ’ƒç ´ã•ã‚ŒãŸ" << std::endl;
 								target->SetActive(false);
 							}
 						}
@@ -620,12 +644,12 @@ int CPlayScene::StepPlay() {
 			});
 		m_PlayerTurn = true;
 
-		//“G‚ğo‚·ˆ—
-		//“G‚ğ‚¾‚·‚Ü‚Å‚ÌƒJƒEƒ“ƒg‚ğ‰º‚°‚é
+		//æ•µã‚’å‡ºã™å‡¦ç†
+		//æ•µã‚’ã ã™ã¾ã§ã®ã‚«ã‚¦ãƒ³ãƒˆã‚’ä¸‹ã’ã‚‹
 		m_EnemySpwanWait--;
 		if (m_EnemySpwanWait <= 0)
 		{
-			//0‚É‚È‚Á‚½‚ç“G‚ğo‚µ‚ÄƒJƒEƒ“ƒg‚ğƒŠƒZƒbƒg
+			//0ã«ãªã£ãŸã‚‰æ•µã‚’å‡ºã—ã¦ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
 			m_EnemySpwanWait = 30;
 			CreateEnemy();
 		}
@@ -636,7 +660,7 @@ int CPlayScene::StepPlay() {
 	if (CheckHitKey(KEY_INPUT_L))
 		return 1;
 
-	//ƒvƒŒƒCƒ„[‚ª5ŠK‚ÅŠK’i‚Éæ‚Á‚½‚çI—¹
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒ5éšã§éšæ®µã«ä¹—ã£ãŸã‚‰çµ‚äº†
 	if (CollsionInt2(m_Player->GetPos(), Map->GetStairsPos()) == true)
 	{
 		if (m_Floor >= 5)
@@ -646,7 +670,7 @@ int CPlayScene::StepPlay() {
 	}
 		
 
-	//ƒvƒŒƒCƒ„[‚ª€‚ñ‚¾‚çI—¹
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ­»ã‚“ã ã‚‰çµ‚äº†
 	if (m_Player->GetHP() <= 0)
 		return 1;
 
@@ -654,7 +678,7 @@ int CPlayScene::StepPlay() {
 }
 
 void CPlayScene::DeleteDeadObject() {
-	//€‚ñ‚Å‚¢‚é“G‚ğÁ‹
+	//æ­»ã‚“ã§ã„ã‚‹æ•µã‚’æ¶ˆå»
 	auto newEnd = std::remove_if(m_Object.begin(),m_Object.end(),[](CObject* object){
 			if (!object->GetActive())
 			{
@@ -672,7 +696,7 @@ void CPlayScene::DeleteDeadObject() {
 void CPlayScene::Draw()
 {
 	CMap* Map = CMap::GetInstance();
-	//ƒvƒŒƒCƒ„[‚ªnull‚È‚çŒÄ‚Î‚È‚¢
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒnullãªã‚‰å‘¼ã°ãªã„
 	if (m_Player == nullptr)return;
 
 
@@ -684,11 +708,11 @@ void CPlayScene::Draw()
 
 	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Draw(); });
 
-	//•`‰æˆ—
+	//æç”»å‡¦ç†
 
-	DrawFormatString(32, 160, GetColor(255, 255, 255), "%d ŠK", m_Floor);
+	DrawFormatString(32, 160, GetColor(255, 255, 255), "%d éš", m_Floor);
 
-	DrawFormatString(32, 704, GetColor(255, 255, 255), "ƒvƒŒƒCƒV[ƒ“ F‚Å‘«“¥‚İAK‚ÅƒAƒCƒeƒ€ƒƒjƒ…[");
+	DrawFormatString(32, 704, GetColor(255, 255, 255), "ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ Fã§è¶³è¸ã¿ã€Kã§ã‚¢ã‚¤ãƒ†ãƒ ãƒ¡ãƒ‹ãƒ¥ãƒ¼");
 
 	m_CameraManager.Draw();
 
@@ -710,8 +734,8 @@ void CPlayScene::DrawItemMenu()
 
 	if (itemCount <= 0)
 	{
-		DrawFormatString(100, 140, GetColor(255, 255, 255), "ƒAƒCƒeƒ€‚ğ‚Á‚Ä‚¢‚Ü‚¹‚ñ");
-		DrawFormatString(100, 460, GetColor(255, 255, 255), "J/K: –ß‚é");
+		DrawFormatString(100, 140, GetColor(255, 255, 255), "ã‚¢ã‚¤ãƒ†ãƒ ã‚’æŒã£ã¦ã„ã¾ã›ã‚“");
+		DrawFormatString(100, 460, GetColor(255, 255, 255), "J/K: æˆ»ã‚‹");
 		return;
 	}
 
@@ -735,21 +759,21 @@ void CPlayScene::DrawItemMenu()
 			DrawFormatString(100, y, GetColor(255, 255, 0), ">");
 		}
 
-		const char* name = "•s–¾‚ÈƒAƒCƒeƒ€";
+		const char* name = "ä¸æ˜ãªã‚¢ã‚¤ãƒ†ãƒ ";
 
 		switch (inventory[i].type)
 		{
 		case ITEM_1:
-			name = "ƒAƒCƒeƒ€1";
+			name = "ã‚¢ã‚¤ãƒ†ãƒ 1";
 			break;
 		case ITEM_2:
-			name = "ƒAƒCƒeƒ€2";
+			name = "ã‚¢ã‚¤ãƒ†ãƒ 2";
 			break;
 		case ITEM_3:
-			name = "ƒAƒCƒeƒ€3";
+			name = "ã‚¢ã‚¤ãƒ†ãƒ 3";
 			break;
 		case ITEM_4:
-			name = "ƒAƒCƒeƒ€4";
+			name = "ã‚¢ã‚¤ãƒ†ãƒ 4";
 			break;
 		default:
 			break;
@@ -760,17 +784,17 @@ void CPlayScene::DrawItemMenu()
 
 	DrawFormatString(100,410,GetColor(255, 255, 255),"Page %d / %d",m_ItemPage + 1,maxPage);
 
-	DrawFormatString(100,460,GetColor(255, 255, 255),"W/S: ‘I‘ğ  A/D: ƒy[ƒW•ÏX  SPACE: g—p  J/K: –ß‚é");
+	DrawFormatString(100,460,GetColor(255, 255, 255),"W/S: é¸æŠ  A/D: ãƒšãƒ¼ã‚¸å¤‰æ›´  SPACE: ä½¿ç”¨  J/K: æˆ»ã‚‹");
 }
 
-//ƒvƒŒƒCƒ„[‚Æ“¯‚¶•”‰®‚É‚¢‚éObject‚ğ•Ô‚·
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨åŒã˜éƒ¨å±‹ã«ã„ã‚‹Objectã‚’è¿”ã™
 std::vector<CObject*> CPlayScene::FindPlayerLivingTogetherObject(Int2 i) {
 	CMap* Map = CMap::GetInstance();
 	std::vector<CObject*> res;
 
-	//ƒvƒŒƒCƒ„[‚Ì•”‰®”Ô†‚ğæ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®éƒ¨å±‹ç•ªå·ã‚’å–å¾—
 	int PlayerRoomNum = Map->GetRoomNum(i);
-	//-1(•”‰®‚É‚¢‚È‚¢)‚Ìê‡I—¹
+	//-1(éƒ¨å±‹ã«ã„ãªã„)ã®å ´åˆçµ‚äº†
 	if (PlayerRoomNum == -1)return {};
 
 	for (CObject* object : m_Object) {

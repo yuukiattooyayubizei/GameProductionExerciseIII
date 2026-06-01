@@ -48,8 +48,8 @@ int main(void)
 	}
 
 	//終了処理
-	DxLib_End();			// ＤＸライブラリ使用の終了処理
 	m_Scene.Exit();
+	DxLib_End();			// ＤＸライブラリ使用の終了処理
 
 	return 0;
 }
