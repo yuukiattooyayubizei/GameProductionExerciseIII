@@ -3,32 +3,26 @@
 #include "../../Object/Object.h"
 #include <iostream>
 
-CItem1::CItem1()
-{
-    Init();
+CItem1::CItem1() {
+
 }
 
-CItem1::~CItem1()
-{
+void CItem1::Init(){
+    m_FieldItem.item.type = ITEM_1;
 }
 
-void CItem1::InitItemType()
-{
-    m_ItemType = ITEM_1;
+void CItem1::Load() {
 }
 
-const char* CItem1::GetName() const
-{
-    return "アイテム1";
+void CItem1::Step() {
 }
 
-bool CItem1::Use(CPlayer* player, const std::vector<CObject*>& targets)
-{
-    if (player == nullptr)
-        return false;
+void CItem1::Draw() {
+}
 
-    player->AddHeal(15);
-    std::cout << "15回復" << std::endl;
+void CItem1::Exit() {
+}
 
+bool CItem1::Use(Int2* plPos,  std::vector<CObject*>& targets) {
     return true;
 }

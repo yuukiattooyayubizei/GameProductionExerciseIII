@@ -82,6 +82,9 @@
     <Filter Include="ソース ファイル\Game\Item\Weapon">
       <UniqueIdentifier>{b3aee689-7a02-4903-9b02-91272aae1142}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Item\Item1">
+      <UniqueIdentifier>{25332971-6100-4401-af2b-3af464f70368}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\common.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="Src\Game\Item\ItemModelManager.h">
       <Filter>ソース ファイル\Game\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Item\Item1\Item1.h">
+      <Filter>ソース ファイル\Game\Item\Item1</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -238,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Item\ItemModelManager.cpp">
       <Filter>ソース ファイル\Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Item\Item1\Item1.cpp">
+      <Filter>ソース ファイル\Game\Item\Item1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
