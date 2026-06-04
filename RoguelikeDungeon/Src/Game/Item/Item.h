@@ -21,8 +21,11 @@ struct FieldItem
 class CFieldItem {
 protected:
     FieldItem m_FieldItem;
+    bool m_Active;
 
 public:
+    CFieldItem();
+
     virtual void Init() = 0;
     virtual void Load() = 0;
     virtual void Step() = 0;
@@ -31,6 +34,9 @@ public:
 public:
     void SetPos(Int2 pos) { m_FieldItem.pos = pos; }
     Int2 GetPos() { return m_FieldItem.pos; }
+
+    void SetActive(bool is) { m_Active = is; }
+    bool GetActive() { return m_Active; }
 
     virtual bool Use(Int2* plPos, std::vector<CObject*>& targets) = 0;
 };
