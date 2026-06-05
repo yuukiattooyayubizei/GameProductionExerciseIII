@@ -1,2 +1,22 @@
-﻿  Item1.cpp
+﻿  CameraManager.cpp
+  EditCamera.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Camera\Edit\EditCamera.cpp(55,34): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Camera\Edit\EditCamera.cpp(57,34): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Camera\Edit\EditCamera.cpp(60,37): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Camera\Edit\EditCamera.cpp(62,37): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+  PlayCamera.cpp
+  Item.cpp
+  main.cpp
+  Map.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\Map.cpp(652,20): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\Map.cpp(687,20): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\Map.cpp(688,20): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\Map.cpp(971,11): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  Enemy.cpp
+  Player.cpp
+  PlayScene.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Scene\Play\PlayScene.cpp(339,34): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Scene\Play\PlayScene.cpp(341,33): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+  SceneManager.cpp
+  コードを生成中...
   RoguelikeDungeon.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\x64\Debug\RoguelikeDungeon.exe

@@ -14,7 +14,6 @@
 #include "../../Object/Enemy/Enemy3/Enemy3.h"
 #include "../../Object/Enemy/Enemy4/Enemy4.h"
 #include "../../../Lib/Input/input.h"
-#include "../../Item/ItemManager.h"
 
 
 using namespace std;
