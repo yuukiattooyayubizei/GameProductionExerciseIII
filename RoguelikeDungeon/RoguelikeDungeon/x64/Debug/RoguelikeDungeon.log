@@ -1,7 +1,10 @@
-﻿  PlayScene.cpp
+﻿  Item.cpp
+  Enemy.cpp
+  ObjectManager.cpp
+  PlayScene.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Object\ObjectManager.cpp(229,25): error C3861: 'CreateRandomEnemy': 識別子が見つかりませんでした
 C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Scene\Play\PlayScene.cpp(424,34): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
 C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Scene\Play\PlayScene.cpp(426,33): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
   SceneManager.cpp
   main.cpp
   コードを生成中...
-  RoguelikeDungeon.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\x64\Debug\RoguelikeDungeon.exe

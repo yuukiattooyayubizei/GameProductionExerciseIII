@@ -128,6 +128,7 @@ void CEnemy::Step(CanMove canmove, Int2 playerPos) {
 		//•”‰®‚ªˆá‚¤‚È‚ç‚Æ‚è‚ ‚¦‚¸ƒ‰ƒ“ƒ_ƒ€‚Å
 		std::vector<DIRECTION> dirs;
 
+		//s‚¯‚é•ûŒü‚ª‚ ‚Á‚½‚ç‚»‚ê‚¾‚¯“ü‚ê‚é
 		if (canmove.Up) dirs.push_back(DIRECTION_UP);
 		if (canmove.Down) dirs.push_back(DIRECTION_DOWN);
 		if (canmove.Left) dirs.push_back(DIRECTION_LEFT);
@@ -139,6 +140,7 @@ void CEnemy::Step(CanMove canmove, Int2 playerPos) {
 		}
 		else
 		{
+			//“ü‚ê‚ç‚ê‚½’†‚©‚çˆê‚Â‚¾‚¯‘I‘ğ
 			m_Direction = dirs[GetRand(static_cast<int>(dirs.size()) - 1)];
 		}
 	}

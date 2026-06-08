@@ -46,7 +46,20 @@ public:
     CObject* FindObjectAt(Int2 pos);
     ObjectKind GetKind(int id) const { return m_Object[id]->GetKind(); }
 
+    //死んでいる敵の消去
     void DeleteDeadObject();
     void ClearEnemy();
     void ClearAll();
+
+    //既に生成されているオブジェクトと座標が被っているかどうか
+    int CollsionObject(const Int2& pos) const;
+
+    //オブジェクト、アイテム、敵など全てと被っているかどうか
+    bool CollsionAll(Int2 pos);
+
+    //オブジェクトがスポーンする位置を探す
+    Int2 FindSpawnPos();
+    //敵生成
+    void CreateEnemy(int CreateNum = 1);
+
 };

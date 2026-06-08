@@ -667,8 +667,7 @@ int CPlayScene::StepPlay() {
 
 
 		//死んでる敵の消去
-		DeleteDeadObject();
-
+		m_ObjectManager.DeleteDeadObject();
 		
 	}
 	//プレイヤー行動の後
@@ -772,10 +771,7 @@ int CPlayScene::StepPlay() {
 	return 0;
 }
 
-void CPlayScene::DeleteDeadObject() {
-	//死んでいる敵を消去
-	m_ObjectManager.DeleteDeadObject();
-}
+
 
 void CPlayScene::Draw()
 {

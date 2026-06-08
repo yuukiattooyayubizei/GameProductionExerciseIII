@@ -1,4 +1,6 @@
 #include"ObjectManager.h"
+#include <iostream>
+#include "../Scene/Play/PlayScene.h"
 
 void CObjectManager::DeleteDeadObject()
 {
@@ -161,5 +163,76 @@ void CObjectManager::Draw() {
         {
             obj->Draw();
         }
+    }
+}
+
+int CObjectManager::CollsionObject(const Int2& pos) const
+{
+    int ret = 0;
+
+    for (CObject* obj : m_Object)
+    {
+        if (obj == nullptr)
+        {
+            ret++;
+            continue;
+        }
+
+        if (!obj->GetActive())
+        {
+            ret++;
+            continue;
+        }
+
+        if (obj->GetPos().x == pos.x && obj->GetPos().y == pos.y)
+        {
+            return ret;
+        }
+
+        ret++;
+    }
+
+    return -1;
+}
+
+bool CObjectManager::CollsionAll(Int2 pos)
+{
+    CMap* Map = CMap::GetInstance();
+    if (CollsionObject(pos) != -1)return true;
+    if (Map->CollisionItem(pos) == true)return true;
+    if (Map->CollisionStairs(pos) == true)return true;
+
+    return false;
+}
+
+Int2 CObjectManager::FindSpawnPos()
+{
+    CMap* Map = CMap::GetInstance();
+    for (int i = 0; i < RETRY_MAX; ++i)
+    {
+        Int2 pos = Map->GetRoomPos();
+
+        if (!CollsionAll(pos))
+        {
+            return pos;
+        }
+    }
+    return { -1, -1 };
+}
+
+void CObjectManager::CreateEnemy(int CreateNum)
+{
+    for (int i = 0; i < CreateNum; i++)
+    {
+        Int2 pos = FindSpawnPos();
+
+        CEnemy* enemy = CreateRandomEnemy();
+
+        enemy->Init();
+        enemy->SetPos(pos);
+
+        std::cout << pos.x << "," << pos.y << "‚É“G‚ð¶¬" << std::endl;
+
+        AddObject(enemy);
     }
 }

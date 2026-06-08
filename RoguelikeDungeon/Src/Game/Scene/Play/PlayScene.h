@@ -101,8 +101,6 @@ public:
 	//ŠK‘w‚ğ¶¬
 	void CreateFloor();
 
-	//€‚ñ‚Å‚¢‚éObject‚ğÁ‹
-	void DeleteDeadObject();
 
 	//ƒvƒŒƒCƒ„[‚Æ“¯‚¶•”‰®‚É‚¢‚éObject‚ğ•Ô‚·
 	std::vector<CObject*> FindPlayerLivingTogetherObject(Int2 i);
