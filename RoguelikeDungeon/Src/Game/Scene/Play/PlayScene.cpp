@@ -33,15 +33,29 @@ Int2 CPlayScene::FindSpawnPos()
 	return { -1, -1 };
 }
 
-int CPlayScene::CollsionObject(Int2& pos) const
+int CPlayScene::CollsionObject(const Int2& pos) const
 {
 	int ret = 0;
-	for (CObject* obj : m_Object)
+
+	for (CObject* obj : m_ObjectManager.GetObjects())
 	{
+		if (obj == nullptr)
+		{
+			ret++;
+			continue;
+		}
+
+		if (!obj->GetActive())
+		{
+			ret++;
+			continue;
+		}
+
 		if (obj->GetPos().x == pos.x && obj->GetPos().y == pos.y)
 		{
 			return ret;
 		}
+
 		ret++;
 	}
 
@@ -110,6 +124,78 @@ CanMove CPlayScene::GetCanMove(Int2 pos)
 	return C;
 }
 
+CanMove CPlayScene::GetCanMoveEnemy(Int2 pos)
+{
+	CMap* Map = CMap::GetInstance();
+	Int2 v = pos;
+	CanMove C;
+	Int2 NextPos{};
+	NextPos.x = static_cast<int>(v.x);
+	NextPos.y = static_cast<int>(v.y);
+
+	//一旦全部trueに
+	C.Down = true, C.Up = true, C.Left = true, C.Right = true;
+	//マス目の端だとマスの外側の方向には行けない
+	if (NextPos.x <= 0)
+		C.Left = false;
+	if (NextPos.x >= MAP_X - 1)
+		C.Right = false;
+	if (NextPos.y <= 0)
+		C.Up = false;
+	if (NextPos.y >= MAP_Y - 1)
+		C.Down = false;
+
+
+
+	//上下左右のマスを見て通れるマスでなければ行けない
+	//すでにfalseなら見る必要がない
+	TILE t = {};
+	if (C.Left == true)
+	{
+		NextPos.x--;
+		t = Map->GetTile(NextPos);
+		if (t == TILE_WALL)
+			C.Left = false;
+
+		
+		NextPos.x++;
+		if (GetAheadMoveObject(NextPos,DIRECTION_LEFT) == KIND_ENEMY)
+			C.Left = false;
+	}
+	if (C.Right == true)
+	{
+		NextPos.x++;
+		t = Map->GetTile(NextPos);
+		if (t == TILE_WALL)
+			C.Right = false;
+		NextPos.x--;
+		if (GetAheadMoveObject(NextPos, DIRECTION_RIGHT) == KIND_ENEMY)
+			C.Right = false;
+	}
+	if (C.Up == true)
+	{
+		NextPos.y--;
+		t = Map->GetTile(NextPos);
+		if (t == TILE_WALL)
+			C.Up = false;
+		NextPos.y++;
+		if (GetAheadMoveObject(NextPos, DIRECTION_UP) == KIND_ENEMY)
+			C.Up = false;
+	}
+	if (C.Down == true)
+	{
+		NextPos.y++;
+		t = Map->GetTile(NextPos);
+		if (t == TILE_WALL)
+			C.Down = false;
+		NextPos.y--;
+		if (GetAheadMoveObject(NextPos, DIRECTION_DOWN) == KIND_ENEMY)
+			C.Down = false;
+	}
+
+	return C;
+}
+
 bool CPlayScene::CollsionAll(Int2 pos) 
 {
 	CMap* Map = CMap::GetInstance();
@@ -135,38 +221,43 @@ CPlayScene::~CPlayScene()
 	Exit();
 }
 
+
 void CPlayScene::Init()
 {
 	CData* Data = CData::GetInstance();
 	CMap* Map = CMap::GetInstance();
+
 	Data->Init();
 
+	// 念のため前回の残りを消す
+	m_ObjectManager.ClearAll();
+	m_Player = nullptr;
+
 	m_Player = new CPlayer();
-	m_Object.push_back(m_Player);
+	m_Player->Init();
+
+	m_ObjectManager.AddObject(m_Player);
+
 	m_EnemySpwanWait = 30;
-
 	m_PlayMode = MODE_PLAY;
-
 	m_Floor = 1;
 
-	m_Player->Init();
 	m_SelectItemIndex = 0;
 	m_ItemPage = 0;
 
-	//カメラの初期化
+	m_PlayerTurn = true;
+
 	m_CameraManager.Init();
-	//カメラのNearFarの設定
 	m_CameraManager.SetNearFar(CAMERA_NEAR, CAMERA_FAR);
 }
+
 
 void CPlayScene::Exit()
 {
 	CMap* Map = CMap::GetInstance();
-	for (auto obj : m_Object) {
-		obj->Exit();
-		delete obj;
-	}
-	m_Object.clear();
+
+	m_ObjectManager.ClearAll();
+
 	Map->DeleteAll();
 	m_CameraManager.Exit();
 
@@ -174,7 +265,7 @@ void CPlayScene::Exit()
 }
 
 CEnemy* CPlayScene::CreateRandomEnemy() {
-	int enemyType = GetRand(3); // 0〜1
+	int enemyType = GetRand(3);
 
 	switch (enemyType) {
 	case 0:
@@ -193,16 +284,21 @@ CEnemy* CPlayScene::CreateRandomEnemy() {
 	}
 }
 
-void CPlayScene::CreateEnemy(int CreateNum) {
-	for (int i = 0; i < CreateNum; i++) {
+
+void CPlayScene::CreateEnemy(int CreateNum)
+{
+	for (int i = 0; i < CreateNum; i++)
+	{
 		Int2 pos = FindSpawnPos();
 
 		CEnemy* enemy = CreateRandomEnemy();
+
+		enemy->Init();
 		enemy->SetPos(pos);
 
 		std::cout << pos.x << "," << pos.y << "に敵を生成" << std::endl;
 
-		m_Object.push_back(enemy);
+		m_ObjectManager.AddObject(enemy);
 	}
 }
 
@@ -216,22 +312,13 @@ void CPlayScene::Load()
 	CMap* Map = CMap::GetInstance();
 	CData* Data = CData::GetInstance();
 
-	//Data->Load();
 
-	////3個から5個の部屋を作成
-	//if (Map->CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
-	//Map->CreateCorridor();
-	//Map->CreateStairs();
-	//Map->CreateItem(5);
-
-	////敵を作成
-	//CreateEnemy(5);
+	m_ObjectManager.Load();
 
 	CreateFloor();
 
 
-	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Load(); });
-	//m_Map.Draw(m_Player->GetPos().x, m_Player->GetPos().y);
+
 }
 
 void CPlayScene::CreateFloor() {
@@ -241,23 +328,7 @@ void CPlayScene::CreateFloor() {
 	//マップを消去
 	Map->Init();
 	//プレイヤー以外のオブジェクトを削除
-	auto newEnd = std::remove_if(
-		m_Object.begin(),
-		m_Object.end(),
-		[](CObject* object)
-		{
-			if (object->GetKind() != KIND_PLAYER)
-			{
-				object->Exit();
-				delete object;
-				return true;
-			}
-
-			return false;
-		}
-	);
-
-	m_Object.erase(newEnd, m_Object.end());
+	m_ObjectManager.ClearEnemy();
 
 	Data->Load();
 
@@ -269,10 +340,10 @@ void CPlayScene::CreateFloor() {
 	Map->CreateStairs();
 	Map->CreateItem(STRAT_ITEM_NUM);
 
+	//プレイヤーを作成
+	CreatePlayer();
 	//敵を作成
 	CreateEnemy(STRAT_ENEMY_NUM);
-
-	CreatePlayer();
 }
 
 int CPlayScene::Loop()
@@ -313,24 +384,38 @@ int CPlayScene::Loop()
 	return m_ret;
 }
 
-ObjectKind CPlayScene::GetAheadMoveObject(Int2 pos, DIRECTION dir){
+ObjectKind CPlayScene::GetAheadMoveObject(Int2 pos, DIRECTION dir)
+{
+	ObjectKind ret = KIND_NON;
+	Int2 p = pos;
+	int id = -1;
 
-	switch (dir){
+	switch (dir)
+	{
 	case DIRECTION_UP:
+		p.y--;
 		break;
 	case DIRECTION_DOWN:
+		p.y++;
 		break;
 	case DIRECTION_LEFT:
+		p.x--;
 		break;
 	case DIRECTION_RIGHT:
+		p.x++;
 		break;
 	default:
-		break;
+		return KIND_NON;
 	}
-	for_each(m_Object.begin(), m_Object.end(), [this](CObject* object) {
 
-	});
-	return KIND_PLAYER;
+	id = CollsionObject(p);
+
+	if (id != -1)
+	{
+		ret = m_ObjectManager.GetKind(id);
+	}
+
+	return ret;
 }
 
 int CPlayScene::Step()
@@ -435,18 +520,15 @@ int CPlayScene::StepItemMenu()
 	// SPACEで使用
 	if (IsInputTrg(KEY_SPACE))
 	{
-		//アイテムの使用
-		/*m_Player->UseItem(m_SelectItemIndex);*/
-		UseItem(m_SelectItemIndex);
-
-		//使用したらターン経過させる
-		m_PlayMode = MODE_PLAY;
-		m_PlayerTurn = false;
+		if (UseItem(m_SelectItemIndex))
+		{
+			m_PlayMode = MODE_PLAY;
+			m_PlayerTurn = false;
+		}
 	}
 
 	return 0;
 }
-
 
 
 bool CPlayScene::UseItem(int index)
@@ -454,46 +536,31 @@ bool CPlayScene::UseItem(int index)
 	const auto& inventory = m_Player->GetInventory();
 
 	if (index < 0 || index >= static_cast<int>(inventory.size()))
+	{
 		return false;
+	}
+
+	CMap* map = CMap::GetInstance();
+	if (map == nullptr)
+	{
+		return false;
+	}
 
 	Item item = inventory[index];
-	vector<CObject*> target{};
 
-	switch (item.type)
+	ItemUseContext context
 	{
-	case ITEM_1:
-		m_Player->AddHeal(15);
-		std::cout << "15回復" << std::endl;
-		break;
+		*m_Player,
+		*map,
+		m_ObjectManager
+	};
 
-	case ITEM_2:
-		m_Player->AddMaxHP(5);
-		std::cout << "最大HP5アップ" << std::endl;
-		break;
-
-	case ITEM_3:
-		m_Player->AddAtk(5);
-		std::cout << "攻撃力5アップ" << std::endl;
-		break;
-
-	case ITEM_4:
-		target = FindPlayerLivingTogetherObject(m_Player->GetPos());
-		for (CObject* object : target) {
-			object->AddDamage(5);
-		}
-		std::cout << "敵全体に5ダメージ" << std::endl;
-
-		DeleteDeadObject();
-		break;
-
-	default:
+	if (!item.Use(context))
+	{
 		return false;
 	}
 
 	m_Player->EraseItem(index);
-
-	// アイテムを使ったらプレイヤーの1ターンとして扱う
-	m_PlayerTurn = false;
 
 	return true;
 }
@@ -519,6 +586,8 @@ int CPlayScene::StepPlay() {
 		{
 			m_PlayerTurn = false;
 		}
+		//デバッグ用
+		if (IsInputTrg(KEY_Z))CreateEnemy();
 		
 		//オブジェクトが動けるマスを探す
 		CanMove C = GetCanMove(m_Player->GetPos());
@@ -549,19 +618,29 @@ int CPlayScene::StepPlay() {
 				else
 				{
 					// 何かがいるなら代わりにそいつに攻撃
-					CObject* target = m_Object[ObjectNum];
+					CObject* target = m_ObjectManager.FindObjectAt(NextPos);
 
-					// 敵なら攻撃する
-					if (target->GetKind() == KIND_ENEMY)
+					if (target != nullptr)
 					{
-						int damage = m_Player->GetAtk(); // プレイヤーの攻撃力
-						target->AddDamage(damage);                // 敵にダメージを与える
-						std::cout << "敵に" << damage << "ダメージを与えた" << std::endl;
-						// HPが0以下なら死亡処理
-						if (target->GetHP() <= 0)
+						// 敵なら攻撃する
+						if (target->GetKind() == KIND_ENEMY)
 						{
-							std::cout << "敵撃破" << std::endl;
-							target->SetActive(false);
+							int damage = m_Player->GetAtk();
+
+							target->AddDamage(damage);
+
+							std::cout << "敵に" << damage << "ダメージを与えた" << std::endl;
+
+							if (target->GetHP() <= 0)
+							{
+								std::cout << "敵撃破" << std::endl;
+								target->SetActive(false);
+							}
+
+							m_ObjectManager.DeleteDeadObject();
+
+							// 敵がいたので移動はしない
+							
 						}
 					}
 				}
@@ -590,49 +669,63 @@ int CPlayScene::StepPlay() {
 		//死んでる敵の消去
 		DeleteDeadObject();
 
-
+		
 	}
 	//プレイヤー行動の後
 	else
 	{
-		for_each(m_Object.begin(), m_Object.end(), [&](CObject* object) {
-			//プレイヤー以外を動かす
+
+		// プレイヤー行動の後
+		for (CObject* object : m_ObjectManager.GetObjects())
+		{
+			if (object == nullptr)
+			{
+				continue;
+			}
+
+			if (!object->GetActive())
+			{
+				continue;
+			}
+
+			// プレイヤー以外を動かす
 			if (object->GetKind() != KIND_PLAYER)
 			{
-				//オブジェクトが動けるマスを探す
-				CanMove C = GetCanMove(object->GetPos());
+				// オブジェクトが動けるマスを探す
+				CanMove C = GetCanMoveEnemy(object->GetPos());
 
 				object->Step(C, m_Player->GetPos());
 
-				//敵が移動していたら
+				// 敵が移動していたら
 				if (object->GetDirection() != DIRECTION_NON)
 				{
 					Int2 move = DirectionToInt2(object->GetDirection());
 					Int2 NextPos = AddInt2(object->GetPos(), move);
-					//移動する方向にオブジェクトがいないかチェック
-					int ObjectNum = CollsionObject(NextPos);
+
+					// 移動先にオブジェクトがいるかチェック
+					CObject* target = m_ObjectManager.FindObjectAt(NextPos);
+
 					TILE NextTile = Map->GetTile(NextPos);
-					if (ObjectNum == -1)
+
+					if (target == nullptr)
 					{
 						if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
 						{
-							//何もいないなら
-							//プレイヤーを移動させる
+							// 何もいないなら移動
 							object->AddPos(move);
 						}
 					}
 					else
 					{
-						// 何かがいるなら代わりにそいつに攻撃
-						CObject* target = m_Object[ObjectNum];
-
-						// 敵なら攻撃する
+						// 何かがいるなら攻撃
 						if (target->GetKind() == KIND_PLAYER)
 						{
-							int damage = object->GetAtk(); //敵の攻撃力
-							target->AddDamage(damage);                // 敵にダメージを与える
+							int damage = object->GetAtk();
+
+							target->AddDamage(damage);
+
 							std::cout << "プレイヤーは" << damage << "ダメージを受けた" << std::endl;
-							// HPが0以下なら死亡処理
+
 							if (target->GetHP() <= 0)
 							{
 								std::cout << "撃破された" << std::endl;
@@ -641,11 +734,9 @@ int CPlayScene::StepPlay() {
 						}
 					}
 				}
-
 			}
+		}
 
-
-			});
 		m_PlayerTurn = true;
 
 		//敵を出す処理
@@ -683,18 +774,7 @@ int CPlayScene::StepPlay() {
 
 void CPlayScene::DeleteDeadObject() {
 	//死んでいる敵を消去
-	auto newEnd = std::remove_if(m_Object.begin(),m_Object.end(),[](CObject* object){
-			if (!object->GetActive())
-			{
-				delete object;
-				return true;
-			}
-
-			return false;
-		}
-	);
-
-	m_Object.erase(newEnd, m_Object.end());
+	m_ObjectManager.DeleteDeadObject();
 }
 
 void CPlayScene::Draw()
@@ -709,8 +789,7 @@ void CPlayScene::Draw()
 	Map->Draw(m_Player->GetPos());
 
 
-
-	for_each(m_Object.begin(), m_Object.end(), [](CObject* object) {object->Draw(); });
+	m_ObjectManager.Draw();
 
 	//描画処理
 
@@ -801,7 +880,8 @@ std::vector<CObject*> CPlayScene::FindPlayerLivingTogetherObject(Int2 i) {
 	//-1(部屋にいない)の場合終了
 	if (PlayerRoomNum == -1)return {};
 
-	for (CObject* object : m_Object) {
+
+	for (CObject* object : m_ObjectManager.GetObjects()) {
 		if (object->GetKind() == KIND_PLAYER) {
 			continue;
 		}

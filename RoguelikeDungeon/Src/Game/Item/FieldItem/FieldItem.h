@@ -13,26 +13,25 @@ struct FieldItem
 class CFieldItem
 {
 private:
-    ITEM_TYPE m_Type;
-    Int2 m_Pos;
+    FieldItem m_FItem;
 
 public:
-    CFieldItem(ITEM_TYPE type, Int2 pos)
-        : m_Type(type), m_Pos(pos)
-    {
-    }
+    CFieldItem();
 
-    ITEM_TYPE GetType() const { return m_Type; }
-    Int2 GetPos() const { return m_Pos; }
+    ITEM_TYPE GetType() const { return m_FItem.item.type; }
+    Int2 GetPos() const { return m_FItem.pos; }
+
+    void SetType(ITEM_TYPE type) { m_FItem.item.type = type; }
+    void SetPos(Int2 pos) { m_FItem.pos = pos; }
 
     void Draw(const CItemModelManager& modelManager) const
     {
-        int hndl = modelManager.GetModel(static_cast<int>(m_Type));
+        int hndl = modelManager.GetModel(static_cast<int>(m_FItem.item.type));
         if (hndl == -1) return;
 
         MV1SetPosition(
             hndl,
-            VGet(-m_Pos.x * TILE_SIZE, 151, m_Pos.y * TILE_SIZE)
+            VGet(-m_FItem.pos.x * TILE_SIZE, 151, m_FItem.pos.y * TILE_SIZE)
         );
 
         MV1DrawModel(hndl);

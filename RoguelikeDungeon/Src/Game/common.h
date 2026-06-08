@@ -26,6 +26,7 @@ static Int2 DirectionToInt2(DIRECTION dir) {
 	else return { 0,0 };
 }
 
+
 //‚»‚Ì•ûŒü‚É“®‚¯‚é‚©‚Ç‚¤‚©
 typedef struct {
 	bool Up;

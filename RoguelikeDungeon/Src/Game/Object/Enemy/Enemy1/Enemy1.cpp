@@ -3,7 +3,7 @@
 CEnemy1::CEnemy1(CEnemyModelManager* modelManager)
     : CEnemy(modelManager)
 {
-    Init();
+    
 }
 
 CEnemy1::~CEnemy1() {

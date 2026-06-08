@@ -115,16 +115,17 @@ private:
 	std::vector<CRoom> m_Room;
 
 	// 落ちているアイテム
-	std::vector<FieldItem> m_Item;
+	std::vector<CFieldItem> m_Item;
+	CItemModelManager m_ItemManager;
 
 	// 階段の座標
 	Int2 m_StairsPos;
 
-	int m_Itemhndl[4];
-	int m_Corridorhndl;
-	int m_Roomhndl;
-	int m_Wallhndl;
-	int m_Stairshndl;
+	int m_Corridorhndl = -1;
+	int m_Roomhndl = -1;
+	int m_Wallhndl = -1;
+	int m_Stairshndl = -1;
+
 
 public:
 	CMap() { Init(); }
@@ -215,7 +216,7 @@ public:
 	ITEM_TYPE IsItemExist(Int2 i);
 
 	// アイテムどうしが同じ座標にあるかチェック
-	bool CollisionItemToItem(FieldItem& item);
+	bool CollisionItemToItem(CFieldItem& item);
 
 	// アイテムが同じ座標にあるかチェック
 	bool CollisionItem(Int2 i);

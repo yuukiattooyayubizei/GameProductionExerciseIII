@@ -162,6 +162,12 @@
     <ClInclude Include="Src\Game\Item\FieldItem\FieldItem.h">
       <Filter>ソース ファイル\Game\Item\FieldItem</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Item\ItemUseContext.h">
+      <Filter>ソース ファイル\Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Object\ObjectManager.h">
+      <Filter>ソース ファイル\Game\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -238,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Item\FieldItem\FieldItem.cpp">
       <Filter>ソース ファイル\Game\Item\FieldItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Object\ObjectManager.cpp">
+      <Filter>ソース ファイル\Game\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

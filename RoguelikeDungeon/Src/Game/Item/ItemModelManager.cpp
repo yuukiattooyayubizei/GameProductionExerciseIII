@@ -21,6 +21,11 @@ CItemModelManager::CItemModelManager() {
 
 
 void CItemModelManager::LoadModel() {
+	if (!m_hndl.empty())
+	{
+		return;
+	}
+
 	int hndl = MV1LoadModel("Data/Model/Item1.x");
 	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
 	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));

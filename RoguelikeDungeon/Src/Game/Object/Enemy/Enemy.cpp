@@ -126,21 +126,21 @@ void CEnemy::Step(CanMove canmove, Int2 playerPos) {
 	else
 	{
 		//•”‰®‚ªˆá‚¤‚È‚ç‚Æ‚è‚ ‚¦‚¸ƒ‰ƒ“ƒ_ƒ€‚Å
-		int rand = GetRand(3);
-		if (rand == 0 && canmove.Up == true) {
-			m_Direction = DIRECTION_UP;
-		}
-		else if (rand == 1 && canmove.Down == true) {
-			m_Direction = DIRECTION_DOWN;
-		}
-		else if (rand == 2 && canmove.Left == true) {
-			m_Direction = DIRECTION_LEFT;
-		}
-		else if (rand == 3 && canmove.Right == true) {
-			m_Direction = DIRECTION_RIGHT;
+		std::vector<DIRECTION> dirs;
+
+		if (canmove.Up) dirs.push_back(DIRECTION_UP);
+		if (canmove.Down) dirs.push_back(DIRECTION_DOWN);
+		if (canmove.Left) dirs.push_back(DIRECTION_LEFT);
+		if (canmove.Right) dirs.push_back(DIRECTION_RIGHT);
+
+		if (dirs.empty())
+		{
+			m_Direction = DIRECTION_NON;
 		}
 		else
-			m_Direction = DIRECTION_NON;
+		{
+			m_Direction = dirs[GetRand(static_cast<int>(dirs.size()) - 1)];
+		}
 	}
 
 }

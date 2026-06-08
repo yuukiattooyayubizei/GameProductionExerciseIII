@@ -53,29 +53,9 @@ void CMap::Init() {
 	m_Room.clear();
 	m_Item.clear();
 
-	m_StairsPos = {};
+	m_StairsPos = {-1,-1};
 
-	if (m_Corridorhndl != -1) {
-		MV1DeleteModel(m_Corridorhndl);
-		m_Corridorhndl = -1;
-	}
-	if (m_Roomhndl != -1) {
-		MV1DeleteModel(m_Roomhndl);
-		m_Roomhndl = -1;
-	}
-	if (m_Wallhndl != -1) {
-		MV1DeleteModel(m_Wallhndl);
-		m_Wallhndl = -1;
-	}
-	if (m_Stairshndl != -1) {
-		MV1DeleteModel(m_Stairshndl);
-		m_Stairshndl = -1;
-	}
 
-	for (int i = 0;i <= 3;i++) {
-		m_Itemhndl[i] = -1;
-
-	}
 
 	for (int i = 0;i < MAP_Y;i++)
 	{
@@ -95,19 +75,8 @@ void CMap::Init() {
 
 void CMap::Load() {
 
-	if(m_Itemhndl[0] == -1)
-		m_Itemhndl[0] = MV1LoadModel("Data/Model/Item1.x");
-	if (m_Itemhndl[1] == -1)
-		m_Itemhndl[1] = MV1LoadModel("Data/Model/Item2.x");
-	if (m_Itemhndl[2] == -1)
-		m_Itemhndl[2] = MV1LoadModel("Data/Model/Item3.x");
-	if (m_Itemhndl[3] == -1)
-		m_Itemhndl[3] = MV1LoadModel("Data/Model/Item4.x");
 
-	for (int index = 0;index <= 3;index++) {
-		MV1SetScale(m_Itemhndl[index], VGet(0.5f, 0.5f, 0.5f));
-		MV1SetRotationXYZ(m_Itemhndl[index], VGet(0.0f, DX_PI_F, 0.0f));
-	}
+	m_ItemManager.LoadModel();
 
 
 	if (m_Corridorhndl == -1)
@@ -128,7 +97,7 @@ void CMap::Load() {
 		MV1SetScale(m_Stairshndl, VGet(0.5f, 0.5f, 0.5f));
 	}
 
-	if (m_Wallhndl)
+	if (m_Wallhndl == -1)
 	{
 		m_Wallhndl = MV1LoadModel("Data/Model/WALL.x");
 		MV1SetScale(m_Wallhndl, VGet(0.5f, 0.5f, 0.5f));
@@ -246,10 +215,6 @@ void CMap::RoomSave (const CRoom& room) {
 	{
 		for (int k = 0;k < X;k++)
 		{
-			////端の部分は部屋に隣接する壁とする(通常の壁と機能は変わらず、部屋どうしが隣接しないために使う)
-			//if (i == 0 || i == Y - 1 || k == 0 || k == X - 1)
-			//	m_Map[StartY + i][StartX + k] = TILE_WALL_EDGE;
-			//else
 				m_Map[StartY + i][StartX + k] = TILE_ROOM;
 		}
 	}
@@ -282,11 +247,11 @@ bool CMap::CollisionRoomToRoom(const CRoom& room) {
 }
 
 ITEM_TYPE CMap::IsItemExist(Int2 i){
-		for (const FieldItem& fieldItem : m_Item)
+		for (const CFieldItem& fieldItem : m_Item)
 		{
-			if (fieldItem.pos.x == i.x && fieldItem.pos.y == i.y)
+			if (fieldItem.GetPos().x == i.x && fieldItem.GetPos().y == i.y)
 			{
-				return fieldItem.item.type;
+				return fieldItem.GetType();
 			}
 		}
 		return ITEM_NON;
@@ -304,9 +269,9 @@ bool CMap::CollisionStairs(Int2 i) {
 
 bool CMap::CollisionItem(Int2 i) {
 
-	for (const FieldItem& fieldItem : m_Item)
+	for (const CFieldItem& fieldItem : m_Item)
 	{
-		if (fieldItem.pos.x == i.x && fieldItem.pos.y == i.y)
+		if (fieldItem.GetPos().x == i.x && fieldItem.GetPos().y == i.y)
 		{
 			return true;
 		}
@@ -314,10 +279,10 @@ bool CMap::CollisionItem(Int2 i) {
 	return false;
 };
 
-bool CMap::CollisionItemToItem(FieldItem& item){
+bool CMap::CollisionItemToItem(CFieldItem& item){
 
 	// まず、現在の座標にアイテムがなければそのまま置ける
-	if (IsItemExist(item.pos) == ITEM_NON)
+	if (IsItemExist(item.GetPos()) == ITEM_NON)
 	{
 		return true;
 	}
@@ -342,8 +307,8 @@ bool CMap::CollisionItemToItem(FieldItem& item){
 	for (const Int2& move : movePos)
 	{
 		//調べる座標を決定
-		int nextX = item.pos.x + move.x;
-		int nextY = item.pos.y + move.y;
+		int nextX = item.GetPos().x + move.x;
+		int nextY = item.GetPos().y + move.y;
 		Int2 next;
 		next.x = nextX;
 		next.y = nextY;
@@ -368,8 +333,7 @@ bool CMap::CollisionItemToItem(FieldItem& item){
 		}
 
 		//ここまで来たらそのマスには置けるので移動
-		item.pos.x = nextX;
-		item.pos.y = nextY;
+		item.SetPos(next);
 
 		return true;
 	}
@@ -380,9 +344,9 @@ bool CMap::CollisionItemToItem(FieldItem& item){
 
 void CMap::EraseItem(Int2 pos) {
 	int i = 0;
-	for (const FieldItem& fieldItem : m_Item)
+	for (const CFieldItem& fieldItem : m_Item)
 	{
-		if (fieldItem.pos.x == (int)pos.x && fieldItem.pos.y == (int)pos.y)
+		if (fieldItem.GetPos().x == (int)pos.x && fieldItem.GetPos().y == (int)pos.y)
 		{
 			m_Item.erase(m_Item.begin() + i);
 		}
@@ -597,47 +561,9 @@ void CMap::Draw(Int2 playerPos) {
 	MV1SetPosition(m_Stairshndl, VGet(x, 150, z));
 	MV1DrawModel(m_Stairshndl);
 
-	for_each(m_Item.begin(), m_Item.end(), [this](FieldItem item) {
-		//床落ちアイテムの座標を取得
-		int X = 8 + item.pos.x * 16;
-		int Y = 8 + item.pos.y * 16;
-
-
-		float x = -item.pos.x * TILE_SIZE;
-		float z = item.pos.y * TILE_SIZE;
-
-		VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
-		VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
-
-
-		//種類によって色を変えておく
-		switch (item.item.type)
-		{
-		case ITEM_1:
-		//	DrawCube3D(pos1, pos2, GetColor(0, 128, 0), GetColor(128, 128, 128), TRUE);
-			MV1SetPosition(m_Itemhndl[0], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
-			MV1DrawModel(m_Itemhndl[0]);
-			break;
-		case ITEM_2:
-		//	DrawCube3D(pos1, pos2, GetColor(128, 0, 0), GetColor(128, 128, 128), TRUE);
-			MV1SetPosition(m_Itemhndl[1], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
-			MV1DrawModel(m_Itemhndl[1]);
-			break;
-		case ITEM_3:
-		//	DrawCube3D(pos1, pos2, GetColor(128, 128, 0), GetColor(128, 128, 128), TRUE);
-			MV1SetPosition(m_Itemhndl[2], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
-			MV1DrawModel(m_Itemhndl[2]);
-			break;
-		case ITEM_4:
-		//	DrawCube3D(pos1, pos2, GetColor(128, 0, 128), GetColor(128, 128, 128), TRUE);
-			MV1SetPosition(m_Itemhndl[3], VGet(-item.pos.x * TILE_SIZE, 151, item.pos.y * TILE_SIZE));
-			MV1DrawModel(m_Itemhndl[3]);
-			break;
-		default:
-			DrawCube3D(pos1, pos2, GetColor(0, 128, 128), GetColor(128, 128, 128), TRUE);
-			break;
-		}
-		
+	//アイテムの描画
+	for_each(m_Item.begin(), m_Item.end(), [this](CFieldItem item) {
+		item.Draw(m_ItemManager);	
 	});
 
 
@@ -905,7 +831,7 @@ void CMap::CreateItem(int CreateNum, int x, int y)
 {
 	for (int index = 0;index < CreateNum;index++)
 	{
-		FieldItem item{};
+		CFieldItem item{};
 
 		if (x == -1 && y == -1)
 		{
@@ -916,27 +842,28 @@ void CMap::CreateItem(int CreateNum, int x, int y)
 				return;
 
 			//座標を入力
-			item.pos.x = pos.x;
-			item.pos.y = pos.y;
+			item.SetPos(pos);
 		}
 		else
 		{
 			//座標を入力
-			item.pos.x = x;
-			item.pos.y = y;
+			Int2 pos{};
+			pos.x = x;
+			pos.y = y;
+			item.SetPos(pos);
 		}
 
 		// 置けなかった場合は追加しない
-		if (CollisionStairs(item.pos))
+		if (CollisionStairs(item.GetPos()))
 			continue;
 		if (!CollisionItemToItem(item))
 			continue;
 
 		//アイテムの種類をランダムで決定
 		int i = GetRand(ITEM_NUM - 1);
-		item.item.type = static_cast<ITEM_TYPE>(i);
+		item.SetType(static_cast<ITEM_TYPE>(i));
 
-		std::cout << item.pos.x << "," << item.pos.y << "にアイテムを生成" << std::endl;
+		std::cout << item.GetPos().x << "," << item.GetPos().y << "にアイテムを生成" << std::endl;
 		m_Item.push_back(item);
 	}
 }

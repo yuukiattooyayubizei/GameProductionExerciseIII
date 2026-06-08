@@ -7,6 +7,7 @@
 #include <vector>
 #include "../../Map/Map.h"
 #include "../../Camera/CameraManager.h"
+#include "../../Object/ObjectManager.h"
 
 //部屋の最小値
 static const int ROOM_MIN = 5;
@@ -44,7 +45,8 @@ private:
 	CCameraManager m_CameraManager;//カメラ
 
 	CEnemyModelManager m_EnemyModelManager;
-	std::vector<CObject*> m_Object;
+	//std::vector<CObject*> m_Object;
+	CObjectManager m_ObjectManager;
 	CPlayer* m_Player;
 //	CMap m_Map;
 
@@ -67,7 +69,7 @@ public:
 	~CPlayScene();
 
 	//既に生成されているオブジェクトと座標が被っているかどうか
-	int CollsionObject(Int2& pos) const;
+	int CollsionObject(const Int2& pos) const;
 
 	//オブジェクト、アイテム、敵など全てと被っているかどうか
 	bool CollsionAll(Int2 pos);
@@ -75,6 +77,9 @@ public:
 	Int2 FindSpawnPos();
 
 	CanMove GetCanMove(Int2 pos);
+
+	//敵の移動先決定
+	CanMove GetCanMoveEnemy(Int2 pos);
 
 	//移動先にObjectがいるかどうか
 	ObjectKind GetAheadMoveObject(Int2 pos, DIRECTION dir);
