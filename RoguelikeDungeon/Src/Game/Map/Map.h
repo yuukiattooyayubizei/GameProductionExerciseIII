@@ -126,7 +126,10 @@ private:
 	int m_Wallhndl = -1;
 	int m_Stairshndl = -1;
 
-
+	//アイテム選択時どれを選んでいるか
+	int m_SelectItemIndex;
+	//アイテム選択時のぺージ
+	int m_ItemPage;
 public:
 	CMap() { Init(); }
 
@@ -142,6 +145,10 @@ public:
 
 	// 描画
 	void Draw(Int2 playerPos);
+
+	void DrawItemMenu(const std::vector<Item>& Inventory);
+
+	int StepItemMenu(int itemCount);
 
 	void Exit();
 
@@ -161,6 +168,11 @@ public:
 	TILE GetTile(Int2 i);
 
 	CRoom GetStartRoom();
+
+	void SetSelectItemIndex(int i = 0) { m_SelectItemIndex = i; }
+
+	void SetItemPage(int i = 0) { m_ItemPage = i; }
+
 
 	// 座標に部屋があるかを調べる
 	// 返り値は部屋の番号

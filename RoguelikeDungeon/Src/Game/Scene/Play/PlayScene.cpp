@@ -15,196 +15,7 @@
 #include "../../Object/Enemy/Enemy4/Enemy4.h"
 #include "../../../Lib/Input/input.h"
 
-
 using namespace std;
-
-Int2 CPlayScene::FindSpawnPos()
-{
-	CMap* Map = CMap::GetInstance();
-	for (int i = 0; i < RETRY_MAX; ++i)
-	{
-		Int2 pos = Map->GetRoomPos();
-
-		if (!CollsionAll(pos))
-		{
-			return pos;
-		}
-	}
-	return { -1, -1 };
-}
-
-int CPlayScene::CollsionObject(const Int2& pos) const
-{
-	int ret = 0;
-
-	for (CObject* obj : m_ObjectManager.GetObjects())
-	{
-		if (obj == nullptr)
-		{
-			ret++;
-			continue;
-		}
-
-		if (!obj->GetActive())
-		{
-			ret++;
-			continue;
-		}
-
-		if (obj->GetPos().x == pos.x && obj->GetPos().y == pos.y)
-		{
-			return ret;
-		}
-
-		ret++;
-	}
-
-	return -1;
-}
-
-CanMove CPlayScene::GetCanMove(Int2 pos)
-{
-	CMap* Map = CMap::GetInstance();
-	Int2 v = pos;
-	CanMove C;
-	Int2 NextPos{};
-	NextPos.x = static_cast<int>(v.x);
-	NextPos.y = static_cast<int>(v.y);
-
-	//一旦全部trueに
-	C.Down = true, C.Up = true, C.Left = true, C.Right = true;
-	//マス目の端だとマスの外側の方向には行けない
-	if (NextPos.x <= 0)
-		C.Left = false;
-	if (NextPos.x >= MAP_X - 1)
-		C.Right = false;
-	if (NextPos.y <= 0)
-		C.Up = false;
-	if (NextPos.y >= MAP_Y - 1)
-		C.Down = false;
-
-
-
-	//上下左右のマスを見て通れるマスでなければ行けない
-	//すでにfalseなら見る必要がない
-	TILE t = {};
-	if (C.Left == true)
-	{
-		NextPos.x--;
-		t = Map->GetTile(NextPos);
-		if (t == TILE_WALL)
-			C.Left = false;
-		NextPos.x++;
-	}
-	if (C.Right == true)
-	{
-		NextPos.x++;
-		t = Map->GetTile(NextPos);
-		if (t == TILE_WALL)
-			C.Right = false;
-		NextPos.x--;
-	}
-	if (C.Up == true)
-	{
-		NextPos.y--;
-		t = Map->GetTile(NextPos);
-		if (t == TILE_WALL)
-			C.Up = false;
-		NextPos.y++;
-	}
-	if (C.Down == true)
-	{
-		NextPos.y++;
-		t = Map->GetTile(NextPos);
-		if (t == TILE_WALL)
-			C.Down = false;
-		NextPos.y--;
-	}
-
-	return C;
-}
-
-CanMove CPlayScene::GetCanMoveEnemy(Int2 pos)
-{
-	CMap* Map = CMap::GetInstance();
-	Int2 v = pos;
-	CanMove C;
-	Int2 NextPos{};
-	NextPos.x = static_cast<int>(v.x);
-	NextPos.y = static_cast<int>(v.y);
-
-	//一旦全部trueに
-	C.Down = true, C.Up = true, C.Left = true, C.Right = true;
-	//マス目の端だとマスの外側の方向には行けない
-	if (NextPos.x <= 0)
-		C.Left = false;
-	if (NextPos.x >= MAP_X - 1)
-		C.Right = false;
-	if (NextPos.y <= 0)
-		C.Up = false;
-	if (NextPos.y >= MAP_Y - 1)
-		C.Down = false;
-
-
-
-	//上下左右のマスを見て通れるマスでなければ行けない
-	//すでにfalseなら見る必要がない
-	TILE t = {};
-	if (C.Left == true)
-	{
-		NextPos.x--;
-		t = Map->GetTile(NextPos);
-		if (t == TILE_WALL)
-			C.Left = false;
-
-		
-		NextPos.x++;
-		if (GetAheadMoveObject(NextPos,DIRECTION_LEFT) == KIND_ENEMY)
-			C.Left = false;
-	}
-	if (C.Right == true)
-	{
-		NextPos.x++;
-		t = Map->GetTile(NextPos);
-		if (t == TILE_WALL)
-			C.Right = false;
-		NextPos.x--;
-		if (GetAheadMoveObject(NextPos, DIRECTION_RIGHT) == KIND_ENEMY)
-			C.Right = false;
-	}
-	if (C.Up == true)
-	{
-		NextPos.y--;
-		t = Map->GetTile(NextPos);
-		if (t == TILE_WALL)
-			C.Up = false;
-		NextPos.y++;
-		if (GetAheadMoveObject(NextPos, DIRECTION_UP) == KIND_ENEMY)
-			C.Up = false;
-	}
-	if (C.Down == true)
-	{
-		NextPos.y++;
-		t = Map->GetTile(NextPos);
-		if (t == TILE_WALL)
-			C.Down = false;
-		NextPos.y--;
-		if (GetAheadMoveObject(NextPos, DIRECTION_DOWN) == KIND_ENEMY)
-			C.Down = false;
-	}
-
-	return C;
-}
-
-bool CPlayScene::CollsionAll(Int2 pos) 
-{
-	CMap* Map = CMap::GetInstance();
-	if (CollsionObject(pos) != -1)return true;
-	if (Map->CollisionItem(pos) == true)return true;
-	if (Map->CollisionStairs(pos) == true)return true;
-
-	return false;
-}
 
 //コンストラクタ
 CPlayScene::CPlayScene()
@@ -242,9 +53,6 @@ void CPlayScene::Init()
 	m_PlayMode = MODE_PLAY;
 	m_Floor = 1;
 
-	m_SelectItemIndex = 0;
-	m_ItemPage = 0;
-
 	m_PlayerTurn = true;
 
 	m_CameraManager.Init();
@@ -264,46 +72,9 @@ void CPlayScene::Exit()
 	m_Player = nullptr;
 }
 
-CEnemy* CPlayScene::CreateRandomEnemy() {
-	int enemyType = GetRand(3);
-
-	switch (enemyType) {
-	case 0:
-		return new CEnemy1(&m_EnemyModelManager);
-
-	case 1:
-		return new CEnemy2(&m_EnemyModelManager);
-	case 2:
-		return new CEnemy3(&m_EnemyModelManager);
-
-	case 3:
-		return new CEnemy4(&m_EnemyModelManager);
-
-	default:
-		return new CEnemy1(&m_EnemyModelManager);
-	}
-}
-
-
-void CPlayScene::CreateEnemy(int CreateNum)
-{
-	for (int i = 0; i < CreateNum; i++)
-	{
-		Int2 pos = FindSpawnPos();
-
-		CEnemy* enemy = CreateRandomEnemy();
-
-		enemy->Init();
-		enemy->SetPos(pos);
-
-		std::cout << pos.x << "," << pos.y << "に敵を生成" << std::endl;
-
-		m_ObjectManager.AddObject(enemy);
-	}
-}
 
 void CPlayScene::CreatePlayer() {
-	Int2 v = FindSpawnPos();
+	Int2 v = m_ObjectManager.FindSpawnPos();
 	m_Player->SetPos(v);
 }
 
@@ -343,7 +114,7 @@ void CPlayScene::CreateFloor() {
 	//プレイヤーを作成
 	CreatePlayer();
 	//敵を作成
-	CreateEnemy(STRAT_ENEMY_NUM);
+	m_ObjectManager.CreateEnemy(STRAT_ENEMY_NUM);
 }
 
 int CPlayScene::Loop()
@@ -384,42 +155,10 @@ int CPlayScene::Loop()
 	return m_ret;
 }
 
-ObjectKind CPlayScene::GetAheadMoveObject(Int2 pos, DIRECTION dir)
-{
-	ObjectKind ret = KIND_NON;
-	Int2 p = pos;
-	int id = -1;
-
-	switch (dir)
-	{
-	case DIRECTION_UP:
-		p.y--;
-		break;
-	case DIRECTION_DOWN:
-		p.y++;
-		break;
-	case DIRECTION_LEFT:
-		p.x--;
-		break;
-	case DIRECTION_RIGHT:
-		p.x++;
-		break;
-	default:
-		return KIND_NON;
-	}
-
-	id = CollsionObject(p);
-
-	if (id != -1)
-	{
-		ret = m_ObjectManager.GetKind(id);
-	}
-
-	return ret;
-}
 
 int CPlayScene::Step()
 {
+	CMap* Map = CMap::GetInstance();
 	VECTOR plPos{};
 	plPos.x = -m_Player->GetPos().x * 100;
 	plPos.y = 0;
@@ -436,96 +175,18 @@ int CPlayScene::Step()
 		}
 		else if (m_PlayMode == MODE_ITEM_MENU)
 		{
-			return StepItemMenu();
+			int i =  Map->StepItemMenu(m_Player->GetInventorySize());
+			if(i == 1)
+				m_PlayMode = MODE_PLAY;
+			if(i >= 2)
+			{
+				if (UseItem(i - 2))
+				{
+					m_PlayMode = MODE_PLAY;
+					m_PlayerTurn = false;
+				}
+			}
 		}
-
-	return 0;
-}
-
-int CPlayScene::StepItemMenu()
-{
-	int itemCount = m_Player->GetInventorySize();
-
-	if (IsInputTrg(KEY_J) || IsInputTrg(KEY_K))
-	{
-		m_PlayMode = MODE_PLAY;
-		return 0;
-	}
-
-	if (itemCount <= 0)
-	{
-		m_SelectItemIndex = 0;
-		m_ItemPage = 0;
-		return 0;
-	}
-
-	int maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
-
-	// Aで前のページへ
-	if (IsInputTrg(KEY_A))
-	{
-		m_ItemPage--;
-
-		if (m_ItemPage < 0)
-		{
-			m_ItemPage = maxPage - 1;
-		}
-
-		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
-	}
-
-	// Dで次のページへ
-	if (IsInputTrg(KEY_D))
-	{
-		m_ItemPage++;
-
-		if (m_ItemPage >= maxPage)
-		{
-			m_ItemPage = 0;
-		}
-
-		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
-	}
-
-	int pageStart = m_ItemPage * ITEM_PER_PAGE;
-	int pageEnd = pageStart + ITEM_PER_PAGE;
-
-	if (pageEnd > itemCount)
-	{
-		pageEnd = itemCount;
-	}
-
-	// Wで上へ
-	if (IsInputTrg(KEY_W))
-	{
-		m_SelectItemIndex--;
-
-		if (m_SelectItemIndex < pageStart)
-		{
-			m_SelectItemIndex = pageEnd - 1;
-		}
-	}
-
-	// Sで下へ
-	if (IsInputTrg(KEY_S))
-	{
-		m_SelectItemIndex++;
-
-		if (m_SelectItemIndex >= pageEnd)
-		{
-			m_SelectItemIndex = pageStart;
-		}
-	}
-
-	// SPACEで使用
-	if (IsInputTrg(KEY_SPACE))
-	{
-		if (UseItem(m_SelectItemIndex))
-		{
-			m_PlayMode = MODE_PLAY;
-			m_PlayerTurn = false;
-		}
-	}
 
 	return 0;
 }
@@ -577,8 +238,8 @@ int CPlayScene::StepPlay() {
 		if (IsInputTrg(KEY_K))
 		{
 			m_PlayMode = MODE_ITEM_MENU;
-			m_SelectItemIndex = 0;
-			m_ItemPage = 0;
+			Map->SetSelectItemIndex();
+			Map->SetItemPage();
 			return 0;
 		}
 		//足踏みする(なにもしない)
@@ -587,10 +248,10 @@ int CPlayScene::StepPlay() {
 			m_PlayerTurn = false;
 		}
 		//デバッグ用
-		if (IsInputTrg(KEY_Z))CreateEnemy();
+		if (IsInputTrg(KEY_Z))m_ObjectManager.CreateEnemy();
 		
 		//オブジェクトが動けるマスを探す
-		CanMove C = GetCanMove(m_Player->GetPos());
+		CanMove C = m_ObjectManager.GetCanMove(m_Player->GetPos());
 
 		//プレイヤーだけ動かす
 		if (m_Player->GetKind() == KIND_PLAYER)
@@ -603,7 +264,7 @@ int CPlayScene::StepPlay() {
 				Int2 move = DirectionToInt2(m_Player->GetDirection());
 				Int2 NextPos = AddInt2(m_Player->GetPos(), move);
 				//移動する方向にオブジェクトがいないかチェック
-				int ObjectNum = CollsionObject(NextPos);
+				int ObjectNum = m_ObjectManager.CollsionObject(NextPos);
 				TILE NextTile = Map->GetTile(NextPos);
 				if (ObjectNum == -1)
 				{
@@ -691,7 +352,7 @@ int CPlayScene::StepPlay() {
 			if (object->GetKind() != KIND_PLAYER)
 			{
 				// オブジェクトが動けるマスを探す
-				CanMove C = GetCanMoveEnemy(object->GetPos());
+				CanMove C = m_ObjectManager.GetCanMoveEnemy(object->GetPos());
 
 				object->Step(C, m_Player->GetPos());
 
@@ -745,7 +406,7 @@ int CPlayScene::StepPlay() {
 		{
 			//0になったら敵を出してカウントをリセット
 			m_EnemySpwanWait = 30;
-			CreateEnemy();
+			m_ObjectManager.CreateEnemy();
 		}
 	}
 
@@ -797,95 +458,6 @@ void CPlayScene::Draw()
 
 	if (m_PlayMode == MODE_ITEM_MENU)
 	{
-		DrawItemMenu();
+		Map->DrawItemMenu(m_Player->GetInventory());
 	}
-}
-
-void CPlayScene::DrawItemMenu()
-{
-	DrawBox(80, 80, 500, 500, GetColor(0, 0, 0), TRUE);
-	DrawBox(80, 80, 500, 500, GetColor(255, 255, 255), FALSE);
-
-	DrawFormatString(100, 100, GetColor(255, 255, 255), "ITEM");
-
-	const auto& inventory = m_Player->GetInventory();
-	int itemCount = static_cast<int>(inventory.size());
-
-	if (itemCount <= 0)
-	{
-		DrawFormatString(100, 140, GetColor(255, 255, 255), "アイテムを持っていません");
-		DrawFormatString(100, 460, GetColor(255, 255, 255), "J/K: 戻る");
-		return;
-	}
-
-	int maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
-
-	int pageStart = m_ItemPage * ITEM_PER_PAGE;
-	int pageEnd = pageStart + ITEM_PER_PAGE;
-
-	if (pageEnd > itemCount)
-	{
-		pageEnd = itemCount;
-	}
-
-	for (int i = pageStart; i < pageEnd; i++)
-	{
-		int drawIndex = i - pageStart;
-		int y = 140 + drawIndex * 24;
-
-		if (i == m_SelectItemIndex)
-		{
-			DrawFormatString(100, y, GetColor(255, 255, 0), ">");
-		}
-
-		const char* name = "不明なアイテム";
-
-		switch (inventory[i].type)
-		{
-		case ITEM_1:
-			name = "アイテム1";
-			break;
-		case ITEM_2:
-			name = "アイテム2";
-			break;
-		case ITEM_3:
-			name = "アイテム3";
-			break;
-		case ITEM_4:
-			name = "アイテム4";
-			break;
-		default:
-			break;
-		}
-
-		DrawFormatString(130, y, GetColor(255, 255, 255), "%s", name);
-	}
-
-	DrawFormatString(100,410,GetColor(255, 255, 255),"Page %d / %d",m_ItemPage + 1,maxPage);
-
-	DrawFormatString(100,460,GetColor(255, 255, 255),"W/S: 選択  A/D: ページ変更  SPACE: 使用  J/K: 戻る");
-}
-
-//プレイヤーと同じ部屋にいるObjectを返す
-std::vector<CObject*> CPlayScene::FindPlayerLivingTogetherObject(Int2 i) {
-	CMap* Map = CMap::GetInstance();
-	std::vector<CObject*> res;
-
-	//プレイヤーの部屋番号を取得
-	int PlayerRoomNum = Map->GetRoomNum(i);
-	//-1(部屋にいない)の場合終了
-	if (PlayerRoomNum == -1)return {};
-
-
-	for (CObject* object : m_ObjectManager.GetObjects()) {
-		if (object->GetKind() == KIND_PLAYER) {
-			continue;
-		}
-
-		if (Map->GetRoomNum(object->GetPos()) == PlayerRoomNum) {
-			res.push_back(object);
-		}
-	}
-
-	return res;
 }

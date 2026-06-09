@@ -2,12 +2,15 @@
 #include <vector>
 #include "Object.h"
 #include "../Map/Map.h"
+#include"Enemy/EnemyModelManager.h"
+#include"Enemy/Enemy.h"
 
 class CObjectManager
 {
 private:
     std::vector<CObject*> m_Object;
-
+    CPlayer* m_Player;
+    CEnemyModelManager m_EnemyModelManager;
 public:
     void AddObject(CObject* object)
     {
@@ -59,7 +62,22 @@ public:
 
     //オブジェクトがスポーンする位置を探す
     Int2 FindSpawnPos();
+
+    //敵の種類を決定
+    CEnemy* CreateRandomEnemy();
+
     //敵生成
     void CreateEnemy(int CreateNum = 1);
+
+    //もらった座標と同じ部屋にいるObjectを返す
+    std::vector<CObject*> FindLiveTogetherObject(Int2 i);
+
+    CanMove GetCanMove(Int2 pos);
+
+    //敵の移動先決定
+    CanMove GetCanMoveEnemy(Int2 pos);
+
+    //移動先にObjectがいるかどうか
+    ObjectKind GetAheadMoveObject(Int2 pos, DIRECTION dir);
 
 };

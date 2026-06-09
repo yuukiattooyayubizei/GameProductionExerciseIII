@@ -18,8 +18,7 @@ static const int ROOM_MAX = 7;
 static const int STRAT_ITEM_NUM = 5;
 //最初に沸く敵の数
 static const int STRAT_ENEMY_NUM = 5;
-//インベントリの１ページい表示される数
-static const int ITEM_PER_PAGE = 10;
+
 
 enum PlayMode
 {
@@ -41,24 +40,19 @@ private:
 		PLAY_SCENE_NUM,
 	};
 	tagPlayScene m_tagPlayScene;//状態遷移
-
 	CCameraManager m_CameraManager;//カメラ
-
-	CEnemyModelManager m_EnemyModelManager;
-	//std::vector<CObject*> m_Object;
 	CObjectManager m_ObjectManager;
 	CPlayer* m_Player;
-//	CMap m_Map;
 
 	bool m_PlayerTurn;
 	int m_EnemySpwanWait;
 
 	PlayMode m_PlayMode;
 
-	//アイテム選択時どれを選んでいるか
-	int m_SelectItemIndex;
-	//アイテム選択時のぺージ
-	int m_ItemPage;
+	////アイテム選択時どれを選んでいるか
+	//int m_SelectItemIndex;
+	////アイテム選択時のぺージ
+	//int m_ItemPage;
 
 	//階層
 	int m_Floor;
@@ -68,26 +62,6 @@ public:
 	CPlayScene();
 	~CPlayScene();
 
-	//既に生成されているオブジェクトと座標が被っているかどうか
-	int CollsionObject(const Int2& pos) const;
-
-	//オブジェクト、アイテム、敵など全てと被っているかどうか
-	bool CollsionAll(Int2 pos);
-
-	Int2 FindSpawnPos();
-
-	CanMove GetCanMove(Int2 pos);
-
-	//敵の移動先決定
-	CanMove GetCanMoveEnemy(Int2 pos);
-
-	//移動先にObjectがいるかどうか
-	ObjectKind GetAheadMoveObject(Int2 pos, DIRECTION dir);
-
-	//敵の種類を決定
-	CEnemy* CreateRandomEnemy();
-	//敵生成
-	void CreateEnemy(int CreateNum = 1);
 	//プレイヤー生成
 	void CreatePlayer();
 
@@ -96,14 +70,10 @@ public:
 	//描画処理
 	void Draw();
 
-	void DrawItemMenu();
+	//void DrawItemMenu();
 
 	//階層を生成
 	void CreateFloor();
-
-
-	//プレイヤーと同じ部屋にいるObjectを返す
-	std::vector<CObject*> FindPlayerLivingTogetherObject(Int2 i);
 
 	//アイテムの使用
 	bool UseItem(int index);
@@ -122,5 +92,5 @@ private:
 	int Step();
 
 	int StepPlay();
-	int StepItemMenu();
+	//int StepItemMenu();
 };

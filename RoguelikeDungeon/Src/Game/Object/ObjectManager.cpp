@@ -1,6 +1,10 @@
 #include"ObjectManager.h"
 #include <iostream>
 #include "../Scene/Play/PlayScene.h"
+#include"Enemy/Enemy1/Enemy1.h"
+#include"Enemy/Enemy2/Enemy2.h"
+#include"Enemy/Enemy3/Enemy3.h"
+#include"Enemy/Enemy4/Enemy4.h"
 
 void CObjectManager::DeleteDeadObject()
 {
@@ -220,6 +224,26 @@ Int2 CObjectManager::FindSpawnPos()
     return { -1, -1 };
 }
 
+CEnemy* CObjectManager::CreateRandomEnemy() {
+    int enemyType = GetRand(3);
+
+    switch (enemyType) {
+    case 0:
+        return new CEnemy1(&m_EnemyModelManager);
+
+    case 1:
+        return new CEnemy2(&m_EnemyModelManager);
+    case 2:
+        return new CEnemy3(&m_EnemyModelManager);
+
+    case 3:
+        return new CEnemy4(&m_EnemyModelManager);
+
+    default:
+        return new CEnemy1(&m_EnemyModelManager);
+    }
+}
+
 void CObjectManager::CreateEnemy(int CreateNum)
 {
     for (int i = 0; i < CreateNum; i++)
@@ -235,4 +259,196 @@ void CObjectManager::CreateEnemy(int CreateNum)
 
         AddObject(enemy);
     }
+}
+
+//プレイヤーと同じ部屋にいるObjectを返す
+std::vector<CObject*> CObjectManager::FindLiveTogetherObject(Int2 i) {
+    CMap* Map = CMap::GetInstance();
+    std::vector<CObject*> res;
+
+    //プレイヤーの部屋番号を取得
+    int PlayerRoomNum = Map->GetRoomNum(i);
+    //-1(部屋にいない)の場合終了
+    if (PlayerRoomNum == -1)return {};
+
+
+    for (CObject* object : GetObjects()) {
+        if (object->GetKind() == KIND_PLAYER) {
+            continue;
+        }
+
+        if (Map->GetRoomNum(object->GetPos()) == PlayerRoomNum) {
+            res.push_back(object);
+        }
+    }
+
+    return res;
+}
+
+CanMove CObjectManager::GetCanMove(Int2 pos)
+{
+    CMap* Map = CMap::GetInstance();
+    Int2 v = pos;
+    CanMove C;
+    Int2 NextPos{};
+    NextPos.x = static_cast<int>(v.x);
+    NextPos.y = static_cast<int>(v.y);
+
+    //一旦全部trueに
+    C.Down = true, C.Up = true, C.Left = true, C.Right = true;
+    //マス目の端だとマスの外側の方向には行けない
+    if (NextPos.x <= 0)
+        C.Left = false;
+    if (NextPos.x >= MAP_X - 1)
+        C.Right = false;
+    if (NextPos.y <= 0)
+        C.Up = false;
+    if (NextPos.y >= MAP_Y - 1)
+        C.Down = false;
+
+
+
+    //上下左右のマスを見て通れるマスでなければ行けない
+    //すでにfalseなら見る必要がない
+    TILE t = {};
+    if (C.Left == true)
+    {
+        NextPos.x--;
+        t = Map->GetTile(NextPos);
+        if (t == TILE_WALL)
+            C.Left = false;
+        NextPos.x++;
+    }
+    if (C.Right == true)
+    {
+        NextPos.x++;
+        t = Map->GetTile(NextPos);
+        if (t == TILE_WALL)
+            C.Right = false;
+        NextPos.x--;
+    }
+    if (C.Up == true)
+    {
+        NextPos.y--;
+        t = Map->GetTile(NextPos);
+        if (t == TILE_WALL)
+            C.Up = false;
+        NextPos.y++;
+    }
+    if (C.Down == true)
+    {
+        NextPos.y++;
+        t = Map->GetTile(NextPos);
+        if (t == TILE_WALL)
+            C.Down = false;
+        NextPos.y--;
+    }
+
+    return C;
+}
+
+CanMove CObjectManager::GetCanMoveEnemy(Int2 pos)
+{
+    CMap* Map = CMap::GetInstance();
+    Int2 v = pos;
+    CanMove C;
+    Int2 NextPos{};
+    NextPos.x = static_cast<int>(v.x);
+    NextPos.y = static_cast<int>(v.y);
+
+    //一旦全部trueに
+    C.Down = true, C.Up = true, C.Left = true, C.Right = true;
+    //マス目の端だとマスの外側の方向には行けない
+    if (NextPos.x <= 0)
+        C.Left = false;
+    if (NextPos.x >= MAP_X - 1)
+        C.Right = false;
+    if (NextPos.y <= 0)
+        C.Up = false;
+    if (NextPos.y >= MAP_Y - 1)
+        C.Down = false;
+
+
+
+    //上下左右のマスを見て通れるマスでなければ行けない
+    //すでにfalseなら見る必要がない
+    TILE t = {};
+    if (C.Left == true)
+    {
+        NextPos.x--;
+        t = Map->GetTile(NextPos);
+        if (t == TILE_WALL)
+            C.Left = false;
+
+
+        NextPos.x++;
+        if (GetAheadMoveObject(NextPos, DIRECTION_LEFT) == KIND_ENEMY)
+            C.Left = false;
+    }
+    if (C.Right == true)
+    {
+        NextPos.x++;
+        t = Map->GetTile(NextPos);
+        if (t == TILE_WALL)
+            C.Right = false;
+        NextPos.x--;
+        if (GetAheadMoveObject(NextPos, DIRECTION_RIGHT) == KIND_ENEMY)
+            C.Right = false;
+    }
+    if (C.Up == true)
+    {
+        NextPos.y--;
+        t = Map->GetTile(NextPos);
+        if (t == TILE_WALL)
+            C.Up = false;
+        NextPos.y++;
+        if (GetAheadMoveObject(NextPos, DIRECTION_UP) == KIND_ENEMY)
+            C.Up = false;
+    }
+    if (C.Down == true)
+    {
+        NextPos.y++;
+        t = Map->GetTile(NextPos);
+        if (t == TILE_WALL)
+            C.Down = false;
+        NextPos.y--;
+        if (GetAheadMoveObject(NextPos, DIRECTION_DOWN) == KIND_ENEMY)
+            C.Down = false;
+    }
+
+    return C;
+}
+
+ObjectKind CObjectManager::GetAheadMoveObject(Int2 pos, DIRECTION dir)
+{
+    ObjectKind ret = KIND_NON;
+    Int2 p = pos;
+    int id = -1;
+
+    switch (dir)
+    {
+    case DIRECTION_UP:
+        p.y--;
+        break;
+    case DIRECTION_DOWN:
+        p.y++;
+        break;
+    case DIRECTION_LEFT:
+        p.x--;
+        break;
+    case DIRECTION_RIGHT:
+        p.x++;
+        break;
+    default:
+        return KIND_NON;
+    }
+
+    id = CollsionObject(p);
+
+    if (id != -1)
+    {
+        ret = GetKind(id);
+    }
+
+    return ret;
 }

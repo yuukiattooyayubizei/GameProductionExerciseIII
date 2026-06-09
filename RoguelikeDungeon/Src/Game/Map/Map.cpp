@@ -4,9 +4,21 @@
 #include"cmath"
 #include <algorithm>
 #include <random>
+#include "../../Lib/Input/input.h"
 
 using namespace std;
 
+static constexpr int DRAW_LENGTH_X = 12;					//描写するマスの幅
+static constexpr int DRAW_LENGTH_Y = 9;
+
+//インベントリの１ページい表示される数
+static const int ITEM_PER_PAGE = 10;
+
+enum ItemMenu {
+	ITEM_MENU_NORMAL,
+	ITEM_MENU_CANSEL,
+	ITEM_MENU_USE,
+};
 
 CMap* CMap::m_Instance = NULL;
 
@@ -43,7 +55,7 @@ CRoom::CRoom() {
 }
 
 bool CRoom::CollsionRoom(Int2 i) {
-	if (i.x >= m_Pos.x && i.x <= m_Pos.x + m_Size.x && i.y >= m_Pos.y && i.y <= m_Pos.y + m_Size.y)
+	if (i.x > m_Pos.x && i.x < m_Pos.x + m_Size.x && i.y > m_Pos.y && i.y < m_Pos.y + m_Size.y)
 		return true;
 	return false;
 }
@@ -71,6 +83,8 @@ void CMap::Init() {
 	m_Roomhndl = -1;
 	m_Wallhndl = -1;
 	m_Stairshndl = -1;
+	m_SelectItemIndex = 0;
+	m_ItemPage = 0;
 }
 
 void CMap::Load() {
@@ -480,39 +494,10 @@ void CMap::DrawTileCube(int mapX, int mapY, int color, float height)
 
 void CMap::Draw(Int2 playerPos) {
 
-	//for (int i = 0;i < MAP_Y;i++)
-	//{
-	//	for (int k = 0;k < MAP_X;k++)
-	//	{
-	//		int centerX = 8 + 16 * k;
-	//		int centerY = 8 + 16 * i;
-
-
-	//		switch (m_Map[i][k])
-	//		{
-	//		case TILE_WALL:
-	//		//	DrawTileCube(k, i, GetColor(255, 0, 0), 100);
-	//			MV1SetPosition(m_Wallhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
-	//			MV1DrawModel(m_Wallhndl);
-	//			break;
-	//		case TILE_ROOM:
-	//		//	DrawTileCube(k, i, GetColor(0, 0, 255), 100);
-	//			MV1SetPosition(m_Roomhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
-	//			MV1DrawModel(m_Roomhndl);
-	//			break;
-	//		case TILE_CORRIDOR:
-	//		//	DrawTileCube(k, i, GetColor(0, 255, 0), 100);
-	//			MV1SetPosition(m_Corridorhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
-	//			MV1DrawModel(m_Corridorhndl);
-	//			break;
-	//		default:
-	//			break;
-	//		}
-	//	}
-	//}
-	for (int i = playerPos.y - 8;i < playerPos.y + 8;i++)
+	//プレイヤーの近くだけ描写
+	for (int i = playerPos.y - DRAW_LENGTH_Y;i < playerPos.y + DRAW_LENGTH_Y;i++)
 	{
-		for (int k = playerPos.x - 10;k < playerPos.x + 10;k++)
+		for (int k = playerPos.x - DRAW_LENGTH_X;k < playerPos.x + DRAW_LENGTH_X;k++)
 		{
 
 			int tile = TILE_WALL;
@@ -869,7 +854,7 @@ void CMap::CreateItem(int CreateNum, int x, int y)
 }
 
 void CMap::DeleteAll() {
-	//やることはInitと変わらない
+	Exit();
 	Init();
 }
 
@@ -919,4 +904,153 @@ Int2 CMap::GetRoomPos()
 	SetPos.y = GetRand(Size.y - 1) + Pos.y;
 
 	return SetPos;
+}
+
+int CMap::StepItemMenu(int itemCount)
+{
+	
+
+	if (IsInputTrg(KEY_SPACE))
+	{
+		return 1;
+	}
+
+	if (itemCount <= 0)
+	{
+		m_SelectItemIndex = 0;
+		m_ItemPage = 0;
+		return 0;
+	}
+
+	int maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
+
+	// Aで前のページへ
+	if (IsInputTrg(KEY_A))
+	{
+		m_ItemPage--;
+
+		if (m_ItemPage < 0)
+		{
+			m_ItemPage = maxPage - 1;
+		}
+
+		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
+	}
+
+	// Dで次のページへ
+	if (IsInputTrg(KEY_D))
+	{
+		m_ItemPage++;
+
+		if (m_ItemPage >= maxPage)
+		{
+			m_ItemPage = 0;
+		}
+
+		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
+	}
+
+	int pageStart = m_ItemPage * ITEM_PER_PAGE;
+	int pageEnd = pageStart + ITEM_PER_PAGE;
+
+	if (pageEnd > itemCount)
+	{
+		pageEnd = itemCount;
+	}
+
+	// Wで上へ
+	if (IsInputTrg(KEY_W))
+	{
+		m_SelectItemIndex--;
+
+		if (m_SelectItemIndex < pageStart)
+		{
+			m_SelectItemIndex = pageEnd - 1;
+		}
+	}
+
+	// Sで下へ
+	if (IsInputTrg(KEY_S))
+	{
+		m_SelectItemIndex++;
+
+		if (m_SelectItemIndex >= pageEnd)
+		{
+			m_SelectItemIndex = pageStart;
+		}
+	}
+
+	// Kで使用
+	if (IsInputTrg(KEY_K))
+	{
+
+		return m_SelectItemIndex + 2;
+	}
+
+	return 0;
+}
+
+void CMap::DrawItemMenu(const std::vector<Item>& Inventory)
+{
+	DrawBox(80, 80, 500, 500, GetColor(0, 0, 0), TRUE);
+	DrawBox(80, 80, 500, 500, GetColor(255, 255, 255), FALSE);
+
+	DrawFormatString(100, 100, GetColor(255, 255, 255), "ITEM");
+
+	const auto& inventory = Inventory;
+	int itemCount = static_cast<int>(inventory.size());
+
+	if (itemCount <= 0)
+	{
+		DrawFormatString(100, 140, GetColor(255, 255, 255), "アイテムを持っていません");
+		DrawFormatString(100, 460, GetColor(255, 255, 255), "SPACE: 戻る");
+		return;
+	}
+
+	int maxPage = (itemCount + ITEM_PER_PAGE - 1) / ITEM_PER_PAGE;
+
+	int pageStart = m_ItemPage * ITEM_PER_PAGE;
+	int pageEnd = pageStart + ITEM_PER_PAGE;
+
+	if (pageEnd > itemCount)
+	{
+		pageEnd = itemCount;
+	}
+
+	for (int i = pageStart; i < pageEnd; i++)
+	{
+		int drawIndex = i - pageStart;
+		int y = 140 + drawIndex * 24;
+
+		if (i == m_SelectItemIndex)
+		{
+			DrawFormatString(100, y, GetColor(255, 255, 0), ">");
+		}
+
+		const char* name = "不明なアイテム";
+
+		switch (inventory[i].type)
+		{
+		case ITEM_1:
+			name = "アイテム1";
+			break;
+		case ITEM_2:
+			name = "アイテム2";
+			break;
+		case ITEM_3:
+			name = "アイテム3";
+			break;
+		case ITEM_4:
+			name = "アイテム4";
+			break;
+		default:
+			break;
+		}
+
+		DrawFormatString(130, y, GetColor(255, 255, 255), "%s", name);
+	}
+
+	DrawFormatString(100, 410, GetColor(255, 255, 255), "Page %d / %d", m_ItemPage + 1, maxPage);
+
+	DrawFormatString(100, 460, GetColor(255, 255, 255), "W/S: 選択  A/D: ページ変更  K: 使用  SPACE: 戻る");
 }
