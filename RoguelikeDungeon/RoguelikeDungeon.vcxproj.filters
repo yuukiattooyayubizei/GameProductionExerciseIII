@@ -82,6 +82,12 @@
     <Filter Include="ソース ファイル\Game\Item\FieldItem">
       <UniqueIdentifier>{f83fb44d-9258-402d-a185-9ba18639ac1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Map\MapItem">
+      <UniqueIdentifier>{3e865b8c-2d1a-4cb1-aa7d-1f90bcdee1f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Map\Room">
+      <UniqueIdentifier>{b687cee4-58b5-4503-8521-52700385b2af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\common.h">
@@ -168,6 +174,12 @@
     <ClInclude Include="Src\Game\Object\ObjectManager.h">
       <Filter>ソース ファイル\Game\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Map\MapItem\MapItem.h">
+      <Filter>ソース ファイル\Game\Map\MapItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Map\Room\Room.h">
+      <Filter>ソース ファイル\Game\Map\Room</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -247,6 +259,12 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Object\ObjectManager.cpp">
       <Filter>ソース ファイル\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Map\MapItem\MapItem.cpp">
+      <Filter>ソース ファイル\Game\Map\MapItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Map\Room\Room.cpp">
+      <Filter>ソース ファイル\Game\Map\Room</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

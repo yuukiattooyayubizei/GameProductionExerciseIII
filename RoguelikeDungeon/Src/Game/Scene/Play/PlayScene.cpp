@@ -8,11 +8,6 @@
 #include "../../../Lib/Input/PadInput.h"
 #include "../../../Lib/Sound/sound.h"
 #include "../../Data/Data.h"
-#include "../../Object/Enemy/Enemy.h"
-#include "../../Object/Enemy/Enemy1/Enemy1.h"
-#include "../../Object/Enemy/Enemy2/Enemy2.h"
-#include "../../Object/Enemy/Enemy3/Enemy3.h"
-#include "../../Object/Enemy/Enemy4/Enemy4.h"
 #include "../../../Lib/Input/input.h"
 
 using namespace std;
@@ -96,20 +91,13 @@ void CPlayScene::CreateFloor() {
 	CMap* Map = CMap::GetInstance();
 	CData* Data = CData::GetInstance();
 
-	//マップを消去
-	Map->Init();
 	//プレイヤー以外のオブジェクトを削除
 	m_ObjectManager.ClearEnemy();
 
 	Data->Load();
 
-	Map->Load();
 
-	//3個から5個の部屋を作成
-	if (Map->CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
-	Map->CreateCorridor();
-	Map->CreateStairs();
-	Map->CreateItem(STRAT_ITEM_NUM);
+	Map->CreateFloor();
 
 	//プレイヤーを作成
 	CreatePlayer();

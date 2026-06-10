@@ -72,6 +72,7 @@ public:
     //‚à‚ç‚Á‚½À•W‚Æ“¯‚¶•”‰®‚É‚¢‚éObject‚ğ•Ô‚·
     std::vector<CObject*> FindLiveTogetherObject(Int2 i);
 
+
     CanMove GetCanMove(Int2 pos);
 
     //“G‚ÌˆÚ“®æŒˆ’è

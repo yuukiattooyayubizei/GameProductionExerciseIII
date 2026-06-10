@@ -42,24 +42,6 @@ void CMap::DeleteInstance() {
 
 }
 
-CRoom::CRoom() {
-	m_Center.x = 0;
-	m_Center.y = 0;
-	m_Pos.x = 0;
-	m_Pos.y = 0;
-	m_Size.x = 0;
-	m_Size.y = 0;
-	m_CloseRoom = -1;
-
-	m_IsConnectRoom = false;
-}
-
-bool CRoom::CollsionRoom(Int2 i) {
-	if (i.x > m_Pos.x && i.x < m_Pos.x + m_Size.x && i.y > m_Pos.y && i.y < m_Pos.y + m_Size.y)
-		return true;
-	return false;
-}
-
 void CMap::Init() {
 	//部屋情報を消去
 	m_Room.clear();
@@ -181,10 +163,29 @@ bool CMap::CreateRoom(int CreateNum) {
 	return true;
 }
 
+void CMap::RoomSave (const CRoom& room) {
+	//他の部屋と衝突していないので現在の作成した部屋の情報を保存
+	m_Room.push_back(room);
+
+	int X = room.GetSize().x;
+	int Y = room.GetSize().y;
+	int StartX = room.GetPos().x;
+	int StartY = room.GetPos().y;
+
+	//部屋を生成
+	for (int i = 0;i < Y;i++)
+	{
+		for (int k = 0;k < X;k++)
+		{
+				m_Map[StartY + i][StartX + k] = TILE_ROOM;
+		}
+	}
+}
+
 CRoom CMap::RoomSizeDecision() {
 
-	int X, Y, StartX, StartY,  EndX, EndY;
-	X = Y = StartX = StartY =  EndX = EndY =  0;
+	int X, Y, StartX, StartY, EndX, EndY;
+	X = Y = StartX = StartY = EndX = EndY = 0;
 
 	float CenterX, CenterY;
 	CenterX = CenterY = 0.0f;
@@ -208,30 +209,11 @@ CRoom CMap::RoomSizeDecision() {
 	CenterY = (EndY + StartY) / 2.0f;
 
 	CRoom R;
-	R.SetSize(X,Y);
+	R.SetSize(X, Y);
 	R.SetPos(StartX, StartY);
 	R.SetCenter(CenterX, CenterY);
 
 	return R;
-}
-
-void CMap::RoomSave (const CRoom& room) {
-	//他の部屋と衝突していないので現在の作成した部屋の情報を保存
-	m_Room.push_back(room);
-
-	int X = room.GetSize().x;
-	int Y = room.GetSize().y;
-	int StartX = room.GetPos().x;
-	int StartY = room.GetPos().y;
-
-	//部屋を生成
-	for (int i = 0;i < Y;i++)
-	{
-		for (int k = 0;k < X;k++)
-		{
-				m_Map[StartY + i][StartX + k] = TILE_ROOM;
-		}
-	}
 }
 
 
@@ -1053,4 +1035,21 @@ void CMap::DrawItemMenu(const std::vector<Item>& Inventory)
 	DrawFormatString(100, 410, GetColor(255, 255, 255), "Page %d / %d", m_ItemPage + 1, maxPage);
 
 	DrawFormatString(100, 460, GetColor(255, 255, 255), "W/S: 選択  A/D: ページ変更  K: 使用  SPACE: 戻る");
+}
+
+void CMap::CreateFloor() {
+	
+
+	//マップを消去
+	Init();
+	//プレイヤー以外のオブジェクトを削除
+
+	Load();
+
+	//3個から5個の部屋を作成
+	if (CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
+	CreateCorridor();
+	CreateStairs();
+	CreateItem(STRAT_ITEM_NUM);
+
 }

@@ -9,15 +9,7 @@
 #include "../../Camera/CameraManager.h"
 #include "../../Object/ObjectManager.h"
 
-//•”‰®‚ÌÅ¬’l
-static const int ROOM_MIN = 5;
-//•”‰®‚ÌÅ‘å’l
-static const int ROOM_MAX = 7;
 
-//Å‰‚É•¦‚­ƒAƒCƒeƒ€‚Ì”
-static const int STRAT_ITEM_NUM = 5;
-//Å‰‚É•¦‚­“G‚Ì”
-static const int STRAT_ENEMY_NUM = 5;
 
 
 enum PlayMode
@@ -70,8 +62,6 @@ public:
 	//•`‰æˆ—
 	void Draw();
 
-	//void DrawItemMenu();
-
 	//ŠK‘w‚ğ¶¬
 	void CreateFloor();
 
@@ -92,5 +82,4 @@ private:
 	int Step();
 
 	int StepPlay();
-	//int StepItemMenu();
 };

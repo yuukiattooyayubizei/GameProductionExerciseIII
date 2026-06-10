@@ -65,8 +65,6 @@ void CEnemy::Step(CanMove canmove, Int2 playerPos) {
 	//-1‚Í•”‰®‚É‚¢‚È‚¢‚Æ‚¢‚¤ˆÓ–¡‚É‚È‚é‚Ì‚ÅœŠO
 	else if (PlayerRoomNum != -1 && PlayerRoomNum == EnemyRoomNum)
 	{
-		
-
 		//x‚©y‚Ì‚Ç‚¿‚ç‚©‚ª“¯‚¶‚È‚ç’¼ü“I‚Éi‚Ş
 		if (SubPos.x == 0)
 		{

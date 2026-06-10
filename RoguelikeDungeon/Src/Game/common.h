@@ -6,6 +6,16 @@ static constexpr float CAMERA_FAR = 15000.0f;					//カメラの映す距離の上限
 
 static constexpr float TILE_SIZE = 100.0f;						//マップチップ1枚ごとのサイズ
 
+//部屋の最小値
+static const int ROOM_MIN = 5;
+//部屋の最大値
+static const int ROOM_MAX = 7;
+
+//最初に沸くアイテムの数
+static const int STRAT_ITEM_NUM = 5;
+//最初に沸く敵の数
+static const int STRAT_ENEMY_NUM = 5;
+
 struct Int2 {
 	int x, y;
 };
