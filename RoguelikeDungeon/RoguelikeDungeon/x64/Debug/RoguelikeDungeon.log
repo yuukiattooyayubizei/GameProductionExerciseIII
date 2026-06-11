@@ -1,14 +1,17 @@
-﻿  Item.cpp
-  Enemy.cpp
-  Enemy1.cpp
-  Enemy2.cpp
-  Enemy3.cpp
-  Enemy4.cpp
-  ObjectManager.cpp
-  PlayScene.cpp
+﻿  FieldItemManager.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\MapData\MapData.h(37,39): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  (ソース ファイル 'Src/Game/Map/FieldItemManager/FieldItemManager.cpp' をコンパイルしています)
+  
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\FieldItemManager\FieldItemManager.cpp(70,15): error C3861: 'GetRoomPos': 識別子が見つかりませんでした
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\FieldItemManager\FieldItemManager.cpp(88,7): error C3861: 'CollisionStairs': 識別子が見つかりませんでした
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\FieldItemManager\FieldItemManager.cpp(144,7): error C3861: 'GetTile': 識別子が見つかりませんでした
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\FieldItemManager\FieldItemManager.cpp(144,21): error C2677: 二項演算子 '!=': 型 'TILE' を扱うグローバルな演算子が見つかりません (または変換できません) (新しい動作; ヘルプを参照)。
+  Map.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\MapData\MapData.h(37,39): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  (ソース ファイル 'Src/Game/Map/Map.cpp' をコンパイルしています)
+  
   SceneManager.cpp
-C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Scene\Play\PlayScene.cpp(151,34): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Scene\Play\PlayScene.cpp(153,33): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-  main.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\MapData\MapData.h(37,39): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  (ソース ファイル 'Src/Game/Scene/SceneManager.cpp' をコンパイルしています)
+  
   コードを生成中...
-  RoguelikeDungeon.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\x64\Debug\RoguelikeDungeon.exe

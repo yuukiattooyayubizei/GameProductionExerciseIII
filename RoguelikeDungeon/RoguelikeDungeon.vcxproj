@@ -145,7 +145,10 @@
     <ClInclude Include="Src\Game\Item\Item.h" />
     <ClInclude Include="Src\Game\Item\ItemModelManager.h" />
     <ClInclude Include="Src\Game\Item\ItemUseContext.h" />
+    <ClInclude Include="Src\Game\Map\FieldItemManager\FieldItemManager.h" />
+    <ClInclude Include="Src\Game\Map\MapCommon.h" />
     <ClInclude Include="Src\Game\Map\Map.h" />
+    <ClInclude Include="Src\Game\Map\MapData\MapData.h" />
     <ClInclude Include="Src\Game\Map\MapItem\MapItem.h" />
     <ClInclude Include="Src\Game\Map\Room\Room.h" />
     <ClInclude Include="Src\Game\Object\ObjectManager.h" />
@@ -176,7 +179,9 @@
     <ClCompile Include="Src\Game\Item\Item.cpp" />
     <ClCompile Include="Src\Game\Item\ItemModelManager.cpp" />
     <ClCompile Include="Src\Game\main.cpp" />
+    <ClCompile Include="Src\Game\Map\FieldItemManager\FieldItemManager.cpp" />
     <ClCompile Include="Src\Game\Map\Map.cpp" />
+    <ClCompile Include="Src\Game\Map\MapData\MapData.cpp" />
     <ClCompile Include="Src\Game\Map\MapItem\MapItem.cpp" />
     <ClCompile Include="Src\Game\Map\Room\Room.cpp" />
     <ClCompile Include="Src\Game\Object\ObjectManager.cpp" />

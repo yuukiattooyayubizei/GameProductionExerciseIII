@@ -43,22 +43,13 @@ void CMap::DeleteInstance() {
 }
 
 void CMap::Init() {
-	//部屋情報を消去
-	m_Room.clear();
-	m_Item.clear();
 
-	m_StairsPos = {-1,-1};
+	
 
+	m_MapData.Init();
 
 
-	for (int i = 0;i < MAP_Y;i++)
-	{
-		for (int k = 0;k < MAP_X;k++)
-		{
-			//最初は壁で埋める
-			m_Map[i][k] = TILE_WALL;
-		}
-	}
+
 
 
 	m_Corridorhndl = -1;
@@ -70,11 +61,6 @@ void CMap::Init() {
 }
 
 void CMap::Load() {
-
-
-	m_ItemManager.LoadModel();
-
-
 	if (m_Corridorhndl == -1)
 	{
 		m_Corridorhndl = MV1LoadModel("Data/Model/Corridor.x");
@@ -101,10 +87,8 @@ void CMap::Load() {
 }
 
 void CMap::Exit() {
-	m_Room.clear();
-	m_Item.clear();
+	m_MapData.Exit();
 
-	m_StairsPos = {};
 
 	if(m_Corridorhndl != -1) {
 		MV1DeleteModel(m_Corridorhndl);
@@ -121,16 +105,6 @@ void CMap::Exit() {
 	if (m_Stairshndl != -1) {
 		MV1DeleteModel(m_Stairshndl);
 		m_Stairshndl = -1;
-	}
-
-
-	for (int i = 0; i < MAP_Y; i++)
-	{
-		for (int k = 0; k < MAP_X; k++)
-		{
-			//最初は壁で埋める
-			m_Map[i][k] = TILE_WALL;
-		}
 	}
 }
 
@@ -164,22 +138,7 @@ bool CMap::CreateRoom(int CreateNum) {
 }
 
 void CMap::RoomSave (const CRoom& room) {
-	//他の部屋と衝突していないので現在の作成した部屋の情報を保存
-	m_Room.push_back(room);
-
-	int X = room.GetSize().x;
-	int Y = room.GetSize().y;
-	int StartX = room.GetPos().x;
-	int StartY = room.GetPos().y;
-
-	//部屋を生成
-	for (int i = 0;i < Y;i++)
-	{
-		for (int k = 0;k < X;k++)
-		{
-				m_Map[StartY + i][StartX + k] = TILE_ROOM;
-		}
-	}
+	m_MapData.RoomSave(room);
 }
 
 CRoom CMap::RoomSizeDecision() {
@@ -218,61 +177,20 @@ CRoom CMap::RoomSizeDecision() {
 
 
 bool CMap::CollisionRoomToRoom(const CRoom& room) {
-	for (std::vector<CRoom>::iterator ite = m_Room.begin(); ite != m_Room.end();ite++)
-	{
-		CRoom& room2 = *ite;
-
-		//座標を指定
-		int room1Left = room.GetPos().x - ROOM_MARGIN;
-		int room1Right = room.GetPos().x + room.GetSize().x - 1 + ROOM_MARGIN;
-		int room1Up = room.GetPos().y - ROOM_MARGIN;
-		int room1Down = room.GetPos().y + room.GetSize().y - 1 + ROOM_MARGIN;
-
-		int room2Left = room2.GetPos().x;
-		int room2Right = room2.GetPos().x + room2.GetSize().x - 1;
-		int room2Up = room2.GetPos().y;
-		int room2Down = room2.GetPos().y + room2.GetSize().y - 1;
-
-		//部屋どうしが衝突しているかの判定
-		if (room1Left <= room2Right &&
-			room2Left <= room1Right &&
-			room1Up <= room2Down &&
-			room2Up <= room1Down) return true;
-	}
-	return false;
+	return m_MapData.CollisionRoomToRoom(room);
 }
 
-ITEM_TYPE CMap::IsItemExist(Int2 i){
-		for (const CFieldItem& fieldItem : m_Item)
-		{
-			if (fieldItem.GetPos().x == i.x && fieldItem.GetPos().y == i.y)
-			{
-				return fieldItem.GetType();
-			}
-		}
-		return ITEM_NON;
-	};
+ITEM_TYPE CMap::IsItemExist(Int2 i) {
+	return m_FieldItemManager.IsItemExist(i);
+}
 
 bool CMap::CollisionStairs(Int2 i) {
-
-		if (m_StairsPos.x == i.x && m_StairsPos.y == i.y)
-		{
-			return true;
-		}
-	
-		return false;
+	return m_MapData.CollisionStairs(i);
 };
 
 bool CMap::CollisionItem(Int2 i) {
 
-	for (const CFieldItem& fieldItem : m_Item)
-	{
-		if (fieldItem.GetPos().x == i.x && fieldItem.GetPos().y == i.y)
-		{
-			return true;
-		}
-	}
-	return false;
+	return m_FieldItemManager.CollisionItem(i);
 };
 
 bool CMap::CollisionItemToItem(CFieldItem& item){
@@ -317,7 +235,7 @@ bool CMap::CollisionItemToItem(CFieldItem& item){
 		}
 
 		//部屋以外のマスには置けない
-		if (m_Map[nextY][nextX] != TILE_ROOM)
+		if (GetTile(next) != TILE_ROOM)
 		{
 			continue;
 		}
@@ -339,126 +257,17 @@ bool CMap::CollisionItemToItem(CFieldItem& item){
 }
 
 void CMap::EraseItem(Int2 pos) {
-	int i = 0;
-	for (const CFieldItem& fieldItem : m_Item)
-	{
-		if (fieldItem.GetPos().x == (int)pos.x && fieldItem.GetPos().y == (int)pos.y)
-		{
-			m_Item.erase(m_Item.begin() + i);
-		}
-		i++;
-	}
+	m_FieldItemManager.EraseItem(pos);
 }
 
 void CMap::DigCorridor(Int2 a, Int2 b)
 {
-	int x = a.x;
-	int y = a.y;
-
-	// 横方向に掘る
-	while (x != b.x)
-	{
-		if (m_Map[y][x] != TILE_ROOM)
-			m_Map[y][x] = TILE_CORRIDOR;
-		//目標が右か左か調べ、その方向に1マス移動
-		x += (b.x > x) ? 1 : -1;
-	}
-
-	// 縦方向に掘る
-	while (y != b.y)
-	{
-		if (m_Map[y][x] != TILE_ROOM)
-			m_Map[y][x] = TILE_CORRIDOR;
-		//目標が上か下か調べ、その方向に1マス移動
-		y += (b.y > y) ? 1 : -1;
-	}
-
-	// 最後のマス
-	if (m_Map[y][x] != TILE_ROOM)
-		m_Map[y][x] = TILE_CORRIDOR;
+	m_MapData.DigCorridor(a,b);
 }
 
 bool CMap::CreateCorridor()
 {
-	if (m_Room.size() < 2)
-		return false;
-
-	std::vector<RoomEdge> edges;
-
-	int roomCount = static_cast<int>(m_Room.size());
-
-	for (int i = 0; i < roomCount; i++)
-	{
-		for (int k = i + 1; k < roomCount; k++)
-		{
-			int ax = static_cast<int>(m_Room[i].GetCenter().x);
-			int ay = static_cast<int>(m_Room[i].GetCenter().y);
-
-			int bx = static_cast<int>(m_Room[k].GetCenter().x);
-			int by = static_cast<int>(m_Room[k].GetCenter().y);
-
-			int dx = ax - bx;
-			int dy = ay - by;
-
-			RoomEdge edge;
-			edge.roomA = i;
-			edge.roomB = k;
-			edge.distance = dx * dx + dy * dy;
-
-			edges.push_back(edge);
-		}
-	}
-
-	std::sort(edges.begin(), edges.end(),
-		[](const RoomEdge& a, const RoomEdge& b)
-		{
-			return a.distance < b.distance;
-		});
-
-	UnionFind uf(roomCount);
-
-	int corridorCount = 0;
-
-	for (const RoomEdge& edge : edges)
-	{
-		if (uf.Same(edge.roomA, edge.roomB))
-			continue;
-
-		uf.Unite(edge.roomA, edge.roomB);
-
-		const CRoom& roomA = m_Room[edge.roomA];
-		const CRoom& roomB = m_Room[edge.roomB];
-
-		Int2 centerA{
-			static_cast<int>(roomA.GetCenter().x),
-			static_cast<int>(roomA.GetCenter().y)
-		};
-
-		Int2 centerB{
-			static_cast<int>(roomB.GetCenter().x),
-			static_cast<int>(roomB.GetCenter().y)
-		};
-
-		if (GetRand(1) == 0)
-		{
-			Int2 mid{ centerB.x, centerA.y };
-			DigCorridor(centerA, mid);
-			DigCorridor(mid, centerB);
-		}
-		else
-		{
-			Int2 mid{ centerA.x, centerB.y };
-			DigCorridor(centerA, mid);
-			DigCorridor(mid, centerB);
-		}
-
-		corridorCount++;
-
-		if (corridorCount >= roomCount - 1)
-			break;
-	}
-
-	return true;
+	return m_MapData.CreateCorridor();
 }
 
 void CMap::DrawTileCube(int mapX, int mapY, int color, float height)
@@ -488,7 +297,7 @@ void CMap::Draw(Int2 playerPos) {
 			// 配列内なら実際のマップを参照
 			if (InvestigationMapOutside(nextPos) == false)
 			{
-				tile = m_Map[i][k];
+				tile = m_MapData.GetTile(nextPos);
 			}
 
 			switch (tile)
@@ -515,12 +324,12 @@ void CMap::Draw(Int2 playerPos) {
 	}
 
 	//階段の描画
-	int centerX = 8 + 16 * m_StairsPos.x;
-	int centerY = 8 + 16 * m_StairsPos.y;
+	int centerX = 8 + 16 * GetStairsPos().x;
+	int centerY = 8 + 16 * GetStairsPos().y;
 	//DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
 
-	float x = -m_StairsPos.x * TILE_SIZE;
-	float z = m_StairsPos.y * TILE_SIZE;
+	float x = -GetStairsPos().x * TILE_SIZE;
+	float z = GetStairsPos().y * TILE_SIZE;
 
 	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
 	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
@@ -528,10 +337,7 @@ void CMap::Draw(Int2 playerPos) {
 	MV1SetPosition(m_Stairshndl, VGet(x, 150, z));
 	MV1DrawModel(m_Stairshndl);
 
-	//アイテムの描画
-	for_each(m_Item.begin(), m_Item.end(), [this](CFieldItem item) {
-		item.Draw(m_ItemManager);	
-	});
+	m_FieldItemManager.Draw();
 
 
 
@@ -540,179 +346,12 @@ void CMap::Draw(Int2 playerPos) {
 
 SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
 {
-	//最初は何があってもこれより距離が短くなる値を入れる
-	//マップの端から端までの長さが最も長くなる
-	float MinDistance = sqrt(MAP_X * MAP_X + MAP_Y * MAP_Y);
-	int MinNum = -1;
-	int num = 0;
-	float DistanceX = 0, DistanceY = 0, Distance = 0, BestDistanceX = 0, BestDistanceY = 0;
-	//それぞれの部屋との距離を全て調べる
-	for (std::vector<CRoom>::iterator ite = m_Room.begin(); ite != m_Room.end();ite++,num++)
-	{
-		CRoom& room2 = *ite;
-
-		//調べる部屋の座標が一致していたらそれは同じ部屋を調べているから調べない
-		if (room2.GetCenter().x == room.GetCenter().x && room2.GetCenter().y == room.GetCenter().y)continue;
-
-		//すでに廊下がある部屋は、そこにつなげるとつながらない部屋がでる可能性があるため調べない
-		if (room2.GetConnectRoom() == true)continue;
-
-		//マイナスの値になる可能性もあるが、このあと2乗するので問題ない
-		DistanceX = room2.GetCenter().x - room.GetCenter().x;
-		DistanceY = room2.GetCenter().y - room.GetCenter().y;
-
-		Distance =  sqrt(DistanceX * DistanceX + DistanceY * DistanceY);
-
-		//今までで最短が見つかったら最短の所を変更
-		if (MinDistance > Distance)
-		{
-			MinDistance = Distance;
-			MinNum = num;
-			BestDistanceX = DistanceX;
-			BestDistanceY = DistanceY;
-		}
-			
-	}
-
-	SpecifiedRoomInformation ret;
-
-	ret.m_CloseRoomID = MinNum;
-	ret.m_DistanceX = BestDistanceX;
-	ret.m_DistanceY = BestDistanceY;
-
-	//Xがマイナスなら東にあり、Yがマイナスなら北にある
-	if (BestDistanceX >= 0)
-	{
-		//南西にある
-		if (BestDistanceY >= 0)
-		{
-			if (BestDistanceY >= BestDistanceX)
-				ret.m_Direction = DIRECTION_DOWN;
-			else
-				ret.m_Direction = DIRECTION_RIGHT;
-		}
-		//北西にある
-		else
-		{
-			if (abs(BestDistanceY) >= BestDistanceX)
-				ret.m_Direction = DIRECTION_UP;
-			else
-				ret.m_Direction = DIRECTION_RIGHT;
-		}
-	}
-	else
-	{
-		//南東にある
-		if (BestDistanceY >= 0)
-		{
-			if (abs(BestDistanceY) >= BestDistanceX)
-				ret.m_Direction = DIRECTION_DOWN;
-			else
-				ret.m_Direction = DIRECTION_LEFT;
-		}
-		//北東にある
-		else
-		{
-			if (abs(BestDistanceY) >= abs(BestDistanceX))
-				ret.m_Direction = DIRECTION_UP;
-			else
-				ret.m_Direction = DIRECTION_LEFT;
-		}
-	}
-
-
-	return ret;
+	return m_MapData.SpecifiedRoom(room);
 }
 
 CorridorInfo CMap::ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformation close)
 {
-	Int2 StartPos{};
-	CorridorInfo i{};
-	for (int Retry = 0;Retry < RETRY_MAX;Retry++)
-	{
-		switch (close.m_Direction)
-		{
-		case DIRECTION_UP:
-			//部屋の北に作成
-			StartPos.y = room.GetPos().y;
-			//どのマスにするかはランダム
-			//roomの端は壁なので端にならないように調整
-			StartPos.x = GetRand(room.GetSize().x) + room.GetPos().x;
-			break;
-		case DIRECTION_LEFT:
-			//部屋の西に作成
-			//どのマスにするかはランダム
-			StartPos.y = GetRand(room.GetSize().y) + room.GetPos().y;
-			StartPos.x = room.GetPos().x;
-			break;
-		case DIRECTION_DOWN:
-			//部屋の南に作成
-			StartPos.y = room.GetPos().y + room.GetSize().y - 1;
-			//どのマスにするかはランダム
-			StartPos.x = GetRand(room.GetSize().x) + room.GetPos().x;
-			break;
-		case DIRECTION_RIGHT:
-			//部屋の東に作成
-			//どのマスにするかはランダム
-			StartPos.y = GetRand(room.GetSize().y) + room.GetPos().y;
-			StartPos.x = room.GetPos().x + room.GetSize().x - 1;
-			break;
-		default:
-			break;
-		}
-
-		//部屋マスが隣接していたら返す
-		if (StartPos.y < MAP_Y - 1)
-		{
-			if (m_Map[StartPos.y + 1][StartPos.x] == TILE_ROOM)
-			{
-				i.StratPos = StartPos;
-				i.MovePos.x = close.m_DistanceX;
-				i.MovePos.y = close.m_DistanceY;
-				return i;
-			}
-		}
-		if (StartPos.y > 0)
-		{
-			if (m_Map[StartPos.y - 1][StartPos.x] == TILE_ROOM)
-			{
-				i.StratPos = StartPos;
-				i.MovePos.x = close.m_DistanceX;
-				i.MovePos.y = close.m_DistanceY;
-				return i;
-			}
-		}
-		if (StartPos.x < MAP_X - 1)
-		{
-			if (m_Map[StartPos.y][StartPos.x + 1] == TILE_ROOM)
-			{
-				i.StratPos = StartPos;
-				i.MovePos.x = close.m_DistanceX;
-				i.MovePos.y = close.m_DistanceY;
-				return i;
-			}
-		}
-		if (StartPos.x > 0)
-		{
-			if (m_Map[StartPos.y][StartPos.x - 1] == TILE_ROOM)
-			{
-				i.StratPos = StartPos;
-				i.MovePos.x = close.m_DistanceX;
-				i.MovePos.y = close.m_DistanceY;
-				return i;
-			}
-		}
-	}
-
-	Int2 j;
-	j.x = 0;
-	j.y = 0;
-	Int2 k;
-	k.x = 0;
-	k.y = 0;
-	i.MovePos = j;
-	i.StratPos = k;
-	return i;
+	return m_MapData.ConnectHallwayToRoom(room,close);
 }
 
 void CMap::CreateStairs()
@@ -724,67 +363,17 @@ void CMap::CreateStairs()
 		return;
 
 	//階段を置く
-	m_StairsPos.x = pos.x;
-	m_StairsPos.y = pos.y;
+	SetStairsPos(pos);
 
 	std::cout <<pos.x << "," << pos.y << "に階段を生成" << std::endl;
 }
 
 int CMap::GetRoomNum(Int2 i) {
-
-	int num = 0;
-
-	for (std::vector<CRoom>::iterator ite = m_Room.begin(); ite != m_Room.end();ite++, num++)
-	{
-		CRoom& room2 = *ite;
-
-
-		if (room2.CollsionRoom(i) == true)
-		{
-			return num;
-		}
-
-	}
-	return -1;
+	return m_MapData.GetRoomNum(i);
 }
 
 int CMap::GetFieldOfVision(Int2 i, DIRECTION dir) {
-	int num = 0;
-	Int2 NextPos = i;
-	while (true)
-	{
-		switch (dir)
-		{
-		case DIRECTION_NON:
-			return -1;
-		case DIRECTION_UP:
-			NextPos.y--;
-			break;
-		case DIRECTION_LEFT:
-			NextPos.x--;
-			break;
-		case DIRECTION_DOWN:
-			NextPos.y++;
-			break;
-		case DIRECTION_RIGHT:
-			NextPos.x++;
-			break;
-		default:
-			return -1;
-		}
-
-		//NextPosがマップ外かチェック
-		if (InvestigationMapOutside(NextPos) == true)return num;
-
-		//マップ内ならその座標が部屋もしくは廊下かチェック
-		if (GetTile(NextPos) == TILE_ROOM || GetTile(NextPos) == TILE_CORRIDOR) {
-			//部屋か廊下なら次に進む
-			num++;
-		}
-		else
-			//違うなら終了
-			return num;
-	}
+	return m_MapData.GetFieldOfVision(i,dir);
 }
 
 bool CMap::InvestigationMapOutside(Int2 i) {
@@ -796,43 +385,7 @@ bool CMap::InvestigationMapOutside(Int2 i) {
 
 void CMap::CreateItem(int CreateNum, int x, int y)
 {
-	for (int index = 0;index < CreateNum;index++)
-	{
-		CFieldItem item{};
-
-		if (x == -1 && y == -1)
-		{
-			//ランダムな部屋マスを取得
-			Int2 pos = GetRoomPos();
-			//エラーの場合-1が帰ってくる
-			if (pos.x == -1)
-				return;
-
-			//座標を入力
-			item.SetPos(pos);
-		}
-		else
-		{
-			//座標を入力
-			Int2 pos{};
-			pos.x = x;
-			pos.y = y;
-			item.SetPos(pos);
-		}
-
-		// 置けなかった場合は追加しない
-		if (CollisionStairs(item.GetPos()))
-			continue;
-		if (!CollisionItemToItem(item))
-			continue;
-
-		//アイテムの種類をランダムで決定
-		int i = GetRand(ITEM_NUM - 1);
-		item.SetType(static_cast<ITEM_TYPE>(i));
-
-		std::cout << item.GetPos().x << "," << item.GetPos().y << "にアイテムを生成" << std::endl;
-		m_Item.push_back(item);
-	}
+	m_FieldItemManager.CreateItem(CreateNum,  x,  y);
 }
 
 void CMap::DeleteAll() {
@@ -841,51 +394,16 @@ void CMap::DeleteAll() {
 }
 
 CRoom CMap::GetStartRoom() {
-	//もしRoomが存在しないなら初期化されたRoomで返す
-	if (m_Room.empty()) {
-		return CRoom{};
-	}
-	//最初ののRoomで返す
-	return m_Room.front();
+	return m_MapData.GetStartRoom();
 }
 
 TILE CMap::GetTile(Int2 i) {
-	//配列外にアクセスしようとしていたら
-	if (i.x < 0 || i.x >= MAP_X || i.y < 0 || i.y >= MAP_Y) {
-		//無を返す
-		return TILE_NON;
-	}
-	return m_Map[i.y][i.x];
+	return m_MapData.GetTile(i);
 }
 
 Int2 CMap::GetRoomPos()
 {
-	//どの部屋に階段を置くかランダムで決定
-
-	int size = m_Room.size();
-	int choiceCreateRoom;
-
-	if (size <= 1) {
-		Int2 p{};
-		p.x = -1;
-		p.y = -1;
-		return p;
-	}
-	choiceCreateRoom = GetRand(size - 1);
-
-	//階段を億部屋の位置と大きさを取得
-	Int2 Pos = m_Room.at(choiceCreateRoom).GetPos();
-	Int2 Size = m_Room.at(choiceCreateRoom).GetSize();
-
-	//どこに置くかを決定
-	Int2 SetPos;
-	//部屋の端には置けないようにする
-	//GetRand(Size.x) + Pos.x;だと部屋の外に飛び出る可能性があるため1だけ減らす
-	//yの方も同様
-	SetPos.x = GetRand(Size.x - 1) + Pos.x;
-	SetPos.y = GetRand(Size.y - 1) + Pos.y;
-
-	return SetPos;
+	return m_MapData.GetRoomPos();
 }
 
 int CMap::StepItemMenu(int itemCount)
@@ -1047,7 +565,7 @@ void CMap::CreateFloor() {
 	Load();
 
 	//3個から5個の部屋を作成
-	if (CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + 3) == false)return;
+	if (CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + ROOM_MIN) == false)return;
 	CreateCorridor();
 	CreateStairs();
 	CreateItem(STRAT_ITEM_NUM);

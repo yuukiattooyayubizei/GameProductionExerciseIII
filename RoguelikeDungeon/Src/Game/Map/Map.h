@@ -3,101 +3,11 @@
 #include<DxLib.h>
 #include "../common.h"
 #include "../Item/FieldItem/FieldItem.h"
+#include"Room/Room.h"
+#include "MapCommon.h"
+#include "MapData/MapData.h"
+#include "FieldItemManager/FieldItemManager.h"
 
-static constexpr int MAP_X = 50;			//マップの最大横幅
-static constexpr int MAP_Y = 30;			//マップの最大縦幅
-static constexpr int MAP_SIZE_MIN = 5;		//部屋の最小の大きさ
-static constexpr int MAP_SIZE_MAX = 9;		//部屋の最大の大きさ
-static constexpr int ROOM_MARGIN = 3;		//部屋どうしの最低距離
-
-struct RoomEdge
-{
-	int roomA;
-	int roomB;
-	int distance;
-};
-
-struct CorridorInfo
-{
-	Int2 StratPos;
-	Int2 MovePos;
-};
-
-struct SpecifiedRoomInformation {
-	int m_CloseRoomID;			//どの部屋が一番近いか
-	DIRECTION m_Direction;		//一番近い部屋の方角	
-	int m_DistanceX;			//中心までのX座標の距離
-	int m_DistanceY;			//中心までのY座標の距離
-};
-
-class UnionFind
-{
-private:
-	std::vector<int> m_Parent;
-
-public:
-	UnionFind(int size)
-	{
-		m_Parent.resize(size);
-
-		for (int i = 0; i < size; i++)
-		{
-			m_Parent[i] = i;
-		}
-	}
-
-	int Find(int x)
-	{
-		if (m_Parent[x] == x)
-			return x;
-
-		m_Parent[x] = Find(m_Parent[x]);
-		return m_Parent[x];
-	}
-
-	bool Same(int a, int b)
-	{
-		return Find(a) == Find(b);
-	}
-
-	void Unite(int a, int b)
-	{
-		int rootA = Find(a);
-		int rootB = Find(b);
-
-		if (rootA == rootB)
-			return;
-
-		m_Parent[rootB] = rootA;
-	}
-};
-
-//class CRoom {
-//private:
-//	Int2 m_Size;			//部屋の大きさ
-//	Int2 m_Pos;				//部屋の座標(左上座標)
-//	Float2 m_Center;		//部屋の中心座標
-//	int m_CloseRoom;		//最も近い部屋の番号
-//	bool m_IsConnectRoom;	//他の部屋とつながっているか
-//
-//public:
-//	CRoom();
-//
-//	void SetSize(int x, int y) {m_Size.x = x;
-//								m_Size.y = y;}
-//	void SetPos(int x, int y) {	m_Pos.x = x;
-//								m_Pos.y = y;}
-//	void SetCenter(float x, float y) {	m_Center.x = x;
-//									m_Center.y = y;}
-//	void SetConnect(bool is) { m_IsConnectRoom = is; }
-//
-//	const Int2& GetSize() const { return m_Size; }
-//	const Int2& GetPos() const { return m_Pos; }
-//	const Float2& GetCenter() const { return m_Center; }
-//	bool GetConnectRoom() const { return m_IsConnectRoom; }
-//
-//	bool CollsionRoom(Int2 i);
-//};
 
 class CMap {
 private:
@@ -108,18 +18,13 @@ public:
 	static void DeleteInstance();
 
 private:
-	// マップチップ
-	TILE m_Map[MAP_Y][MAP_X];
+	//// 落ちているアイテム
+	//std::vector<CFieldItem> m_Item;
+	//CItemModelManager m_ItemManager;
 
-	// 部屋
-	std::vector<CRoom> m_Room;
+	CMapData m_MapData;
 
-	// 落ちているアイテム
-	std::vector<CFieldItem> m_Item;
-	CItemModelManager m_ItemManager;
-
-	// 階段の座標
-	Int2 m_StairsPos;
+	CFieldItemManager m_FieldItemManager;
 
 	int m_Corridorhndl = -1;
 	int m_Roomhndl = -1;
@@ -166,7 +71,8 @@ public:
 	Int2 GetRoomPos();
 
 	// 階段の座標を返す
-	Int2 GetStairsPos() const { return m_StairsPos; }
+	Int2 GetStairsPos() const { return m_MapData.GetStairsPos(); }
+	void SetStairsPos(Int2 pos) { m_MapData.SetStairsPos(pos); }
 
 	TILE GetTile(Int2 i);
 
@@ -176,10 +82,9 @@ public:
 
 	void SetItemPage(int i = 0) { m_ItemPage = i; }
 
-
 	// 座標に部屋があるかを調べる
-	// 返り値は部屋の番号
-	// 部屋がない場合は -1 を返す
+// 返り値は部屋の番号
+// 部屋がない場合は -1 を返す
 	int GetRoomNum(Int2 i);
 
 	// 座標から特定の向きを見たらどこまで見れるかを返す
@@ -250,8 +155,5 @@ public:
 	SpecifiedRoomInformation SpecifiedRoom(const CRoom& room);
 
 	// 廊下につながる部屋のマスを決定
-	CorridorInfo ConnectHallwayToRoom(
-		const CRoom& room,
-		SpecifiedRoomInformation close
-	);
+	CorridorInfo ConnectHallwayToRoom(const CRoom& room,SpecifiedRoomInformation close);
 };
