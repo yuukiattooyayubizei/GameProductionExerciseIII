@@ -34,6 +34,7 @@ void CPlayScene::Init()
 	CMap* Map = CMap::GetInstance();
 
 	Data->Init();
+	Map->Init();
 
 	// 念のため前回の残りを消す
 	m_ObjectManager.ClearAll();
@@ -76,15 +77,9 @@ void CPlayScene::CreatePlayer() {
 void CPlayScene::Load()
 {
 	CMap* Map = CMap::GetInstance();
-	CData* Data = CData::GetInstance();
-
-
+	Map->Load();
 	m_ObjectManager.Load();
-
 	CreateFloor();
-
-
-
 }
 
 void CPlayScene::CreateFloor() {
@@ -163,7 +158,9 @@ int CPlayScene::Step()
 		}
 		else if (m_PlayMode == MODE_ITEM_MENU)
 		{
-			int i =  Map->StepItemMenu(m_Player->GetInventorySize());
+			int InventorySize = m_Player->GetInventorySize();
+			int i =  Map->StepItemMenu(InventorySize);
+			Map->UpDateItemMenu(InventorySize);
 			if(i == 1)
 				m_PlayMode = MODE_PLAY;
 			if(i >= 2)
@@ -387,6 +384,7 @@ int CPlayScene::StepPlay() {
 
 		m_PlayerTurn = true;
 
+
 		//敵を出す処理
 		//敵をだすまでのカウントを下げる
 		m_EnemySpwanWait--;
@@ -397,8 +395,6 @@ int CPlayScene::StepPlay() {
 			m_ObjectManager.CreateEnemy();
 		}
 	}
-
-
 
 	if (CheckHitKey(KEY_INPUT_L))
 		return 1;
@@ -419,7 +415,6 @@ int CPlayScene::StepPlay() {
 
 	return 0;
 }
-
 
 
 void CPlayScene::Draw()

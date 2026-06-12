@@ -1,5 +1,7 @@
 #include "MapCreate.h"
 #include <iostream>
+#include <algorithm>
+#include <random>
 #include <DxLib.h>
 
 void CMapCreate::DigCorridor(CMapData& mapData, Int2 a, Int2 b)

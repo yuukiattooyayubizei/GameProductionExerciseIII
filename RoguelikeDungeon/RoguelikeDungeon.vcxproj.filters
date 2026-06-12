@@ -97,6 +97,12 @@
     <Filter Include="ソース ファイル\Game\Map\MapCreate">
       <UniqueIdentifier>{fce4425a-9eb1-48d1-9667-48f4cb1e2a9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Map\ItemMenu">
+      <UniqueIdentifier>{e4b3bd40-0eeb-43cf-92ce-14cc7090898c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Map\MapDraw">
+      <UniqueIdentifier>{8b8be648-2b81-4215-9f87-24099d56f59c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\common.h">
@@ -201,6 +207,12 @@
     <ClInclude Include="Src\Game\Map\MapCreate\MapCreate.h">
       <Filter>ソース ファイル\Game\Map\MapCreate</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Map\ItemMenu\ItemMenu.h">
+      <Filter>ソース ファイル\Game\Map\ItemMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Map\MapDraw\MapDraw.h">
+      <Filter>ソース ファイル\Game\Map\MapDraw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -295,6 +307,12 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Map\MapCreate\MapCreate.cpp">
       <Filter>ソース ファイル\Game\Map\MapCreate</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Map\ItemMenu\ItemMenu.cpp">
+      <Filter>ソース ファイル\Game\Map\ItemMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Map\MapDraw\MapDraw.cpp">
+      <Filter>ソース ファイル\Game\Map\MapDraw</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

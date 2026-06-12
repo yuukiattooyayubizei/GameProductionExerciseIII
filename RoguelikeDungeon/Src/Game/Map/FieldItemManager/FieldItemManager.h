@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Item/ItemModelManager.h"
 #include "../../Item/FieldItem/FieldItem.h"
+#include"../MapData/MapData.h"
 
 class CFieldItemManager {
 	private:
@@ -26,8 +27,8 @@ public:
 	// 床落ちアイテムを作成
 	// xとyを入力したらその座標に、
 	// しなかったら置けるランダムなマスから選択
-	void CreateItem(int CreateNum, int x = -1, int y = -1);
+	void CreateItem(CMapData& mapData, int CreateNum, int x = -1, int y = -1);
 
 	// アイテムどうしが同じ座標にあるかチェック
-	bool CollisionItemToItem(CFieldItem& item);
+	bool CollisionItemToItem(CMapData& mapData, CFieldItem& item);
 };

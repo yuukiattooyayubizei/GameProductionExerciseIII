@@ -58,7 +58,7 @@ void CFieldItemManager::EraseItem(Int2 pos) {
 	}
 }
 
-void CFieldItemManager::CreateItem(int CreateNum, int x, int y)
+void CFieldItemManager::CreateItem(CMapData& mapData, int CreateNum, int x, int y)
 {
 	for (int index = 0;index < CreateNum;index++)
 	{
@@ -67,7 +67,7 @@ void CFieldItemManager::CreateItem(int CreateNum, int x, int y)
 		if (x == -1 && y == -1)
 		{
 			//ランダムな部屋マスを取得
-			Int2 pos = GetRoomPos();
+			Int2 pos = mapData.GetRoomPos();
 			//エラーの場合-1が帰ってくる
 			if (pos.x == -1)
 				return;
@@ -85,9 +85,9 @@ void CFieldItemManager::CreateItem(int CreateNum, int x, int y)
 		}
 
 		// 置けなかった場合は追加しない
-		if (CollisionStairs(item.GetPos()))
+		if (mapData.CollisionStairs(item.GetPos()))
 			continue;
-		if (!CollisionItemToItem(item))
+		if (!CollisionItemToItem(mapData,item))
 			continue;
 
 		//アイテムの種類をランダムで決定
@@ -99,7 +99,7 @@ void CFieldItemManager::CreateItem(int CreateNum, int x, int y)
 	}
 }
 
-bool CFieldItemManager::CollisionItemToItem(CFieldItem& item) {
+bool CFieldItemManager::CollisionItemToItem(CMapData& mapData, CFieldItem& item) {
 
 	// まず、現在の座標にアイテムがなければそのまま置ける
 	if (IsItemExist(item.GetPos()) == ITEM_NON)
@@ -141,7 +141,7 @@ bool CFieldItemManager::CollisionItemToItem(CFieldItem& item) {
 		}
 
 		//部屋以外のマスには置けない
-		if (GetTile(next) != TILE_ROOM)
+		if (mapData.GetTile(next) != TILE_ROOM)
 		{
 			continue;
 		}

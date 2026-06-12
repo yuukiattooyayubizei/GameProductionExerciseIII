@@ -7,6 +7,9 @@
 #include "MapCommon.h"
 #include "MapData/MapData.h"
 #include "FieldItemManager/FieldItemManager.h"
+#include "MapCreate/MapCreate.h"
+#include "ItemMenu/ItemMenu.h"
+#include "MapDraw/MapDraw.h"
 
 
 class CMap {
@@ -18,25 +21,38 @@ public:
 	static void DeleteInstance();
 
 private:
-	//// 落ちているアイテム
-	//std::vector<CFieldItem> m_Item;
-	//CItemModelManager m_ItemManager;
-
 	CMapData m_MapData;
-
+	CMapDraw m_MapDraw;
+	CMapCreate m_MapCreate;
+	CItemMenu m_ItemMenu;
 	CFieldItemManager m_FieldItemManager;
-
-	int m_Corridorhndl = -1;
-	int m_Roomhndl = -1;
-	int m_Wallhndl = -1;
-	int m_Stairshndl = -1;
-
-	//アイテム選択時どれを選んでいるか
-	int m_SelectItemIndex;
-	//アイテム選択時のぺージ
-	int m_ItemPage;
 public:
+
+
+	void CreateItem(int CreateNum, int x = -1, int y = -1) { m_FieldItemManager.CreateItem(m_MapData,CreateNum, x, y); }
+	// 廊下とかぶっているかを判定
+	bool CollisionStairs(Int2 i) { return m_MapData.CollisionStairs(i); }
+	ITEM_TYPE IsItemExist(Int2 i) { return m_FieldItemManager.IsItemExist(i); }
+	// 指定した座標のアイテムを消去
+	void EraseItem(Int2 pos) { m_FieldItemManager.EraseItem(pos); }
+	// アイテムが同じ座標にあるかチェック
+	bool CollisionItem(Int2 i) { return m_FieldItemManager.CollisionItem(i); }
+	// 部屋の中のランダムな座標を取得
+	Int2 GetRoomPos() { return m_MapData.GetRoomPos(); }
+	void DrawItemMenu(const std::vector<Item>& Inventory) { m_ItemMenu.DrawItemMenu(Inventory); }
+
+	int StepItemMenu(int itemCount) { return m_ItemMenu.StepItemMenu(itemCount); }
+	void UpDateItemMenu(int itemCount) { m_ItemMenu.UpdatePage(itemCount); }
+	// 座標がマップ外かチェック
+	// trueならマップ外
+	bool InvestigationMapOutside(Int2 i) { return m_MapData.InvestigationMapOutside(i); }
+
+	// アイテムどうしが同じ座標にあるかチェック
+	bool CollisionItemToItem(CFieldItem& item) { return m_FieldItemManager.CollisionItemToItem(m_MapData, item); }
+
 	CMap() { Init(); }
+
+
 
 	//----------------------------------------------
 	// 基本処理
@@ -46,14 +62,8 @@ public:
 
 	void Load();
 
-	void DrawTileCube(int mapX, int mapY, int color, float height);
-
 	// 描画
 	void Draw(Int2 playerPos);
-
-	void DrawItemMenu(const std::vector<Item>& Inventory);
-
-	int StepItemMenu(int itemCount);
 
 	void Exit();
 
@@ -69,20 +79,16 @@ public:
 
 	// 階段の座標を返す
 	Int2 GetStairsPos() const { return m_MapData.GetStairsPos(); }
+	TILE GetTile(Int2 pos) { return m_MapData.GetTile(pos); }
+	int GetRoomNum(Int2 pos) { return m_MapData.GetRoomNum(pos); }
+	CRoom GetStartRoom() { return m_MapData.GetStartRoom(); }
+	void SetSelectItemIndex(int i = 0) { m_ItemMenu.SetSelectItemIndex(i); }
+	void SetItemPage(int i = 0) { m_ItemMenu.SetItemPage(i); }
 	void SetStairsPos(Int2 pos) { m_MapData.SetStairsPos(pos); }
-
-	void SetSelectItemIndex(int i = 0) { m_SelectItemIndex = i; }
-
-	void SetItemPage(int i = 0) { m_ItemPage = i; }
-
 
 	//----------------------------------------------
 	// 判定系
 	//----------------------------------------------
-
-	// 座標がマップ外かチェック
-	// trueならマップ外
-	bool InvestigationMapOutside(Int2 i);
 
 	//----------------------------------------------
 	// 部屋・階段生成系
@@ -92,13 +98,6 @@ public:
 	// アイテム関連
 	//----------------------------------------------
 
-	// 床落ちアイテムを作成
-	// xとyを入力したらその座標に、
-	// しなかったら置けるランダムなマスから選択
-	void CreateItem(int CreateNum, int x = -1, int y = -1);
-
-	// アイテムどうしが同じ座標にあるかチェック
-	bool CollisionItemToItem(CFieldItem& item);
 
 	//----------------------------------------------
 	// 廊下関連
