@@ -94,6 +94,9 @@
     <Filter Include="ソース ファイル\Game\Map\FieldItemManager">
       <UniqueIdentifier>{83cc6370-c3ce-44bc-8338-cf4707d2e25a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Map\MapCreate">
+      <UniqueIdentifier>{fce4425a-9eb1-48d1-9667-48f4cb1e2a9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\common.h">
@@ -195,6 +198,9 @@
     <ClInclude Include="Src\Game\Map\FieldItemManager\FieldItemManager.h">
       <Filter>ソース ファイル\Game\Map\FieldItemManager</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Map\MapCreate\MapCreate.h">
+      <Filter>ソース ファイル\Game\Map\MapCreate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -286,6 +292,9 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Map\FieldItemManager\FieldItemManager.cpp">
       <Filter>ソース ファイル\Game\Map\FieldItemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Map\MapCreate\MapCreate.cpp">
+      <Filter>ソース ファイル\Game\Map\MapCreate</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

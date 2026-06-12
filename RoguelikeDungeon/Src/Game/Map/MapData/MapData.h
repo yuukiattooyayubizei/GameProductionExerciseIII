@@ -18,8 +18,13 @@ public:
 	void Draw();
 	void Exit();
 public:
+	void SetTile(Int2 pos, TILE tile) { m_Map[pos.y][pos.x] = tile; }
+	TILE GetTile(Int2 pos) const { return m_Map[pos.y][pos.x]; }
+
 	Int2 GetStairsPos() const { return m_StairsPos; }
 	void SetStairsPos(Int2 pos) { m_StairsPos = pos; }
+
+	CRoom GetRoom(int i) { return m_Room[i]; }
 
 	// À•W‚É•”‰®‚ª‚ ‚é‚©‚ğ’²‚×‚é
 	// •Ô‚è’l‚Í•”‰®‚Ì”Ô†

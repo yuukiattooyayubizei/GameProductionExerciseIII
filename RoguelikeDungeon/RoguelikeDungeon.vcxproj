@@ -148,6 +148,7 @@
     <ClInclude Include="Src\Game\Map\FieldItemManager\FieldItemManager.h" />
     <ClInclude Include="Src\Game\Map\MapCommon.h" />
     <ClInclude Include="Src\Game\Map\Map.h" />
+    <ClInclude Include="Src\Game\Map\MapCreate\MapCreate.h" />
     <ClInclude Include="Src\Game\Map\MapData\MapData.h" />
     <ClInclude Include="Src\Game\Map\MapItem\MapItem.h" />
     <ClInclude Include="Src\Game\Map\Room\Room.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Src\Game\main.cpp" />
     <ClCompile Include="Src\Game\Map\FieldItemManager\FieldItemManager.cpp" />
     <ClCompile Include="Src\Game\Map\Map.cpp" />
+    <ClCompile Include="Src\Game\Map\MapCreate\MapCreate.cpp" />
     <ClCompile Include="Src\Game\Map\MapData\MapData.cpp" />
     <ClCompile Include="Src\Game\Map\MapItem\MapItem.cpp" />
     <ClCompile Include="Src\Game\Map\Room\Room.cpp" />

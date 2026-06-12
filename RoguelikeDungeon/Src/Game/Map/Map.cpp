@@ -109,94 +109,10 @@ void CMap::Exit() {
 }
 
 
-
-bool CMap::CreateRoom(int CreateNum) {
-	for (int index = 0;index < CreateNum;index++)
-	{
-		CRoom room{};
-		bool CreateSuccess = false;
-
-
-		for (int Retry = 0;Retry < RETRY_MAX;Retry++)
-		{
-			room = RoomSizeDecision();
-
-			//ここで他の部屋との当たり判定を行い、衝突していたら作り直し
-			if (CollisionRoomToRoom(room))
-				continue;
-
-			RoomSave(room);
-			//ここまで来たら、部屋の作成は完了している
-			CreateSuccess = true;
-			break;
-		}
-		if (CreateSuccess == false)
-			//ここに来たら、もう部屋の置き場がないと判断
-			return false;
-	}
-	return true;
-}
-
-void CMap::RoomSave (const CRoom& room) {
-	m_MapData.RoomSave(room);
-}
-
-CRoom CMap::RoomSizeDecision() {
-
-	int X, Y, StartX, StartY, EndX, EndY;
-	X = Y = StartX = StartY = EndX = EndY = 0;
-
-	float CenterX, CenterY;
-	CenterX = CenterY = 0.0f;
-
-	//部屋の大きさをランダムで決定
-	//大きさは5~9マスだが、端の2マスは壁と同じなため、
-	//縦も横も3~7マスの間になる
-	//同時に部屋の隣の壁の判別も行う
-
-	X = GetRand(MAP_SIZE_MAX - MAP_SIZE_MIN) + MAP_SIZE_MIN;
-	Y = GetRand(MAP_SIZE_MAX - MAP_SIZE_MIN) + MAP_SIZE_MIN;
-
-	//どこに生成するかを決定
-	StartX = GetRand(MAP_X - X);
-	StartY = GetRand(MAP_Y - Y);
-
-	EndX = StartX + X;
-	EndY = StartY + Y;
-
-	CenterX = (EndX + StartX) / 2.0f;
-	CenterY = (EndY + StartY) / 2.0f;
-
-	CRoom R;
-	R.SetSize(X, Y);
-	R.SetPos(StartX, StartY);
-	R.SetCenter(CenterX, CenterY);
-
-	return R;
-}
-
-
-bool CMap::CollisionRoomToRoom(const CRoom& room) {
-	return m_MapData.CollisionRoomToRoom(room);
-}
-
-ITEM_TYPE CMap::IsItemExist(Int2 i) {
-	return m_FieldItemManager.IsItemExist(i);
-}
-
-bool CMap::CollisionStairs(Int2 i) {
-	return m_MapData.CollisionStairs(i);
-};
-
-bool CMap::CollisionItem(Int2 i) {
-
-	return m_FieldItemManager.CollisionItem(i);
-};
-
 bool CMap::CollisionItemToItem(CFieldItem& item){
 
 	// まず、現在の座標にアイテムがなければそのまま置ける
-	if (IsItemExist(item.GetPos()) == ITEM_NON)
+	if (m_FieldItemManager.IsItemExist(item.GetPos()) == ITEM_NON)
 	{
 		return true;
 	}
@@ -235,13 +151,13 @@ bool CMap::CollisionItemToItem(CFieldItem& item){
 		}
 
 		//部屋以外のマスには置けない
-		if (GetTile(next) != TILE_ROOM)
+		if (m_MapData.GetTile(next) != TILE_ROOM)
 		{
 			continue;
 		}
 
 		//そこにもアイテムが落ちていたら置けない
-		if (IsItemExist(next) != ITEM_NON)
+		if (m_FieldItemManager.IsItemExist(next) != ITEM_NON)
 		{
 			continue;
 		}
@@ -254,20 +170,6 @@ bool CMap::CollisionItemToItem(CFieldItem& item){
 
 	//周囲8マスすべて置けなかったらfalseを返す
 	return false;
-}
-
-void CMap::EraseItem(Int2 pos) {
-	m_FieldItemManager.EraseItem(pos);
-}
-
-void CMap::DigCorridor(Int2 a, Int2 b)
-{
-	m_MapData.DigCorridor(a,b);
-}
-
-bool CMap::CreateCorridor()
-{
-	return m_MapData.CreateCorridor();
 }
 
 void CMap::DrawTileCube(int mapX, int mapY, int color, float height)
@@ -344,38 +246,6 @@ void CMap::Draw(Int2 playerPos) {
 						
 }
 
-SpecifiedRoomInformation CMap::SpecifiedRoom(const CRoom& room)
-{
-	return m_MapData.SpecifiedRoom(room);
-}
-
-CorridorInfo CMap::ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformation close)
-{
-	return m_MapData.ConnectHallwayToRoom(room,close);
-}
-
-void CMap::CreateStairs()
-{
-	//ランダムな部屋マスを取得
-	Int2 pos = GetRoomPos();
-	//エラーの場合-1が帰ってくる
-	if (pos.x == -1)
-		return;
-
-	//階段を置く
-	SetStairsPos(pos);
-
-	std::cout <<pos.x << "," << pos.y << "に階段を生成" << std::endl;
-}
-
-int CMap::GetRoomNum(Int2 i) {
-	return m_MapData.GetRoomNum(i);
-}
-
-int CMap::GetFieldOfVision(Int2 i, DIRECTION dir) {
-	return m_MapData.GetFieldOfVision(i,dir);
-}
-
 bool CMap::InvestigationMapOutside(Int2 i) {
 	if (i.y >= 0 && i.y < MAP_Y && i.x >= 0 && i.x < MAP_X) return false;
 
@@ -391,19 +261,6 @@ void CMap::CreateItem(int CreateNum, int x, int y)
 void CMap::DeleteAll() {
 	Exit();
 	Init();
-}
-
-CRoom CMap::GetStartRoom() {
-	return m_MapData.GetStartRoom();
-}
-
-TILE CMap::GetTile(Int2 i) {
-	return m_MapData.GetTile(i);
-}
-
-Int2 CMap::GetRoomPos()
-{
-	return m_MapData.GetRoomPos();
 }
 
 int CMap::StepItemMenu(int itemCount)
@@ -566,7 +423,7 @@ void CMap::CreateFloor() {
 
 	//3個から5個の部屋を作成
 	if (CreateRoom(GetRand(ROOM_MAX - ROOM_MIN) + ROOM_MIN) == false)return;
-	CreateCorridor();
+	m_MapData.CreateCorridor();
 	CreateStairs();
 	CreateItem(STRAT_ITEM_NUM);
 
