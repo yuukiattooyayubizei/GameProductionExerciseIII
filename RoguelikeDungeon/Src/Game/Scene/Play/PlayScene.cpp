@@ -7,7 +7,6 @@
 #include "../../Common.h"
 #include "../../../Lib/Input/PadInput.h"
 #include "../../../Lib/Sound/sound.h"
-#include "../../Data/Data.h"
 #include "../../../Lib/Input/input.h"
 
 using namespace std;
@@ -33,20 +32,12 @@ CPlayScene::~CPlayScene()
 
 void CPlayScene::Init()
 {
-	CData* Data = CData::GetInstance();
 	CMap* Map = CMap::GetInstance();
 
-	Data->Init();
 	Map->Init();
 
 	// 念のため前回の残りを消す
 	m_ObjectManager.ClearAll();
-	m_Player = nullptr;
-
-	m_Player = new CPlayer();
-	m_Player->Init();
-
-	m_ObjectManager.AddObject(m_Player);
 
 	m_EnemySpwanWait = 30;
 	m_PlayMode = MODE_PLAY;
@@ -67,40 +58,31 @@ void CPlayScene::Exit()
 
 	Map->DeleteAll();
 	m_CameraManager.Exit();
-
-	m_Player = nullptr;
-}
-
-
-void CPlayScene::CreatePlayer() {
-	Int2 v = m_ObjectManager.FindSpawnPos();
-	m_Player->SetPos(v);
 }
 
 void CPlayScene::Load()
 {
+	m_ObjectManager.Load();
+
 	CMap* Map = CMap::GetInstance();
 	Map->Load();
-	m_ObjectManager.Load();
+
+	//プレイヤーを作成
+	m_ObjectManager.CreatePlayer();
+
 	CreateFloor();
 }
 
 void CPlayScene::CreateFloor() {
 	CMap* Map = CMap::GetInstance();
-	CData* Data = CData::GetInstance();
-
 	//プレイヤー以外のオブジェクトを削除
 	m_ObjectManager.ClearEnemy();
-
-	Data->Load();
-
-
 	Map->CreateFloor();
-
-	//プレイヤーを作成
-	CreatePlayer();
 	//敵を作成
 	m_ObjectManager.CreateEnemy(STRAT_ENEMY_NUM);
+
+	//プレイヤーを作成
+	m_ObjectManager.CreatePlayerPos();
 }
 
 int CPlayScene::Loop()
@@ -146,9 +128,9 @@ int CPlayScene::Step()
 {
 	CMap* Map = CMap::GetInstance();
 	VECTOR plPos{};
-	plPos.x = (float)-m_Player->GetPos().x * 100.0f;
+	plPos.x = -(float)m_ObjectManager.GetPlayer()->GetPos().x * 100.0f;
 	plPos.y = 0;
-	plPos.z = (float)m_Player->GetPos().y * 100.0f;
+	plPos.z = (float)m_ObjectManager.GetPlayer()->GetPos().y * 100.0f;
 	m_CameraManager.Step(plPos, 0, 0, 0);
 
 
@@ -161,7 +143,7 @@ int CPlayScene::Step()
 		}
 		else if (m_PlayMode == MODE_ITEM_MENU)
 		{
-			int i =  Map->StepItemMenu(m_Player->GetInventorySize());
+			int i =  Map->StepItemMenu(m_ObjectManager.GetPlayer()->GetInventorySize());
 			if(i == 1)
 				m_PlayMode = MODE_PLAY;
 			if(i >= 2)
@@ -180,7 +162,7 @@ int CPlayScene::Step()
 
 bool CPlayScene::UseItem(int index)
 {
-	const auto& inventory = m_Player->GetInventory();
+	const auto& inventory = m_ObjectManager.GetPlayer()->GetInventory();
 
 	if (index < 0 || index >= static_cast<int>(inventory.size()))
 	{
@@ -197,7 +179,7 @@ bool CPlayScene::UseItem(int index)
 
 	ItemUseContext context
 	{
-		*m_Player,
+		*m_ObjectManager.GetPlayer(),
 		*map,
 		m_ObjectManager
 	};
@@ -207,202 +189,27 @@ bool CPlayScene::UseItem(int index)
 		return false;
 	}
 
-	m_Player->EraseItem(index);
+	m_ObjectManager.GetPlayer()->EraseItem(index);
 
 	return true;
 }
 
 int CPlayScene::StepPlay() {
-	CData* Data = CData::GetInstance();
 	CMap* Map = CMap::GetInstance();
-
-	//プレイヤーの行動待ちなら
-	if (m_PlayerTurn == true)
-	{
-		//アイテム選択に移行
-		if (IsInputTrg(KEY_K))
-		{
-			m_PlayMode = MODE_ITEM_MENU;
-			Map->SetSelectItemIndex();
-			Map->SetItemPage();
-			int InventorySize = m_Player->GetInventorySize();
-			Map->UpDateItemMenu(InventorySize);
-			return 0;
-		}
-		//足踏みする(なにもしない)
-		if (IsInputTrg(KEY_F))
-		{
-			m_PlayerTurn = false;
-		}
-		//デバッグ用
-		if (IsInputTrg(KEY_Z))m_ObjectManager.CreateEnemy();
-		
-		//オブジェクトが動けるマスを探す
-		CanMove C = m_ObjectManager.GetCanMove(m_Player->GetPos());
-
-		//プレイヤーだけ動かす
-		if (m_Player->GetKind() == KIND_PLAYER)
-		{
-			m_Player->Step(C, m_Player->GetPos());
-
-			//プレイヤーが移動していたら
-			if (m_Player->GetIsMove() == true)
-			{
-				Int2 move = DirectionToInt2(m_Player->GetDirection());
-				Int2 NextPos = AddInt2(m_Player->GetPos(), move);
-				//移動する方向にオブジェクトがいないかチェック
-				int ObjectNum = m_ObjectManager.CollisionObject(NextPos);
-				TILE NextTile = Map->GetTile(NextPos);
-				if (ObjectNum == -1)
-				{
-					/*if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)*/
-					{
-						//何もいないなら
-						//プレイヤーを移動させる
-						m_Player->AddPos(move);
-						m_Player->SetMove(false);
-					}
-				}
-				else
-				{
-					// 何かがいるなら代わりにそいつに攻撃
-					CObject* target = m_ObjectManager.FindObjectAt(NextPos);
-
-					if (target != nullptr)
-					{
-						// 敵なら攻撃する
-						if (target->GetKind() == KIND_ENEMY)
-						{
-							int damage = m_Player->GetAtk();
-
-							target->AddDamage(damage);
-
-							std::cout << "敵に" << damage << "ダメージを与えた" << std::endl;
-
-							if (target->GetHP() <= 0)
-							{
-								std::cout << "敵撃破" << std::endl;
-								target->SetActive(false);
-							}
-
-							m_ObjectManager.DeleteDeadObject();
-
-							// 敵がいたので移動はしない
-							
-						}
-					}
-				}
-
-				m_PlayerTurn = false;
-
-				//移動先のアイテムを検索
-				Item item = {};
-				item.type = Map->IsItemExist(m_Player->GetPos());
-
-				//アイテムがあったら
-				if (item.type != ITEM_NON)
-				{
-					//そのアイテムをインベントリに入れる
-					if (m_Player->AddItem(item))
-						//入れたアイテムを消す
-						Map->EraseItem(m_Player->GetPos());
-					else
-						std::cout << "インベントリがまんたん" << std::endl;
-				}
-			}
-
-		}
-
-
-		//死んでる敵の消去
-		m_ObjectManager.DeleteDeadObject();
-		
-	}
-	//プレイヤー行動の後
-	else
-	{
-
-		// プレイヤー行動の後
-		for (CObject* object : m_ObjectManager.GetObjects())
-		{
-			if (object == nullptr)
-			{
-				continue;
-			}
-
-			if (!object->GetActive())
-			{
-				continue;
-			}
-
-			// プレイヤー以外を動かす
-			if (object->GetKind() != KIND_PLAYER)
-			{
-				// オブジェクトが動けるマスを探す
-				CanMove C = m_ObjectManager.GetCanMoveEnemy(object->GetPos());
-
-				object->Step(C, m_Player->GetPos());
-
-				// 敵が移動していたら
-				if (object->GetDirection() != DIRECTION_NON)
-				{
-					Int2 move = DirectionToInt2(object->GetDirection());
-					Int2 NextPos = AddInt2(object->GetPos(), move);
-
-					// 移動先にオブジェクトがいるかチェック
-					CObject* target = m_ObjectManager.FindObjectAt(NextPos);
-
-					TILE NextTile = Map->GetTile(NextPos);
-
-					if (target == nullptr)
-					{
-						if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
-						{
-							// 何もいないなら移動
-							object->AddPos(move);
-						}
-					}
-					else
-					{
-						// 何かがいるなら攻撃
-						if (target->GetKind() == KIND_PLAYER)
-						{
-							int damage = object->GetAtk();
-
-							target->AddDamage(damage);
-
-							std::cout << "プレイヤーは" << damage << "ダメージを受けた" << std::endl;
-
-							if (target->GetHP() <= 0)
-							{
-								std::cout << "撃破された" << std::endl;
-								target->SetActive(false);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		m_PlayerTurn = true;
-
-
-		//敵を出す処理
-		//敵をだすまでのカウントを下げる
-		m_EnemySpwanWait--;
-		if (m_EnemySpwanWait <= 0)
-		{
-			//0になったら敵を出してカウントをリセット
-			m_EnemySpwanWait = 30;
-			m_ObjectManager.CreateEnemy();
-		}
+	if (m_ObjectManager.Step() == 1) {
+		m_PlayMode = MODE_ITEM_MENU;
+		Map->SetSelectItemIndex();
+		Map->SetItemPage();
+		int InventorySize = m_ObjectManager.GetPlayer()->GetInventorySize();
+		Map->UpDateItemMenu(InventorySize);
+		return 0;
 	}
 
 	if (CheckHitKey(KEY_INPUT_L))
 		return 1;
 
 	//プレイヤーが5階で階段に乗ったら終了
-	if (CollsionInt2(m_Player->GetPos(), Map->GetStairsPos()) == true)
+	if (CollsionInt2(m_ObjectManager.GetPlayer()->GetPos(), Map->GetStairsPos()) == true)
 	{
 		if (m_Floor >= 5)
 			return 1;
@@ -412,7 +219,7 @@ int CPlayScene::StepPlay() {
 		
 
 	//プレイヤーが死んだら終了
-	if (m_Player->GetHP() <= 0)
+	if (m_ObjectManager.GetPlayer()->GetHP() <= 0)
 		return 1;
 
 	return 0;
@@ -423,12 +230,9 @@ void CPlayScene::Draw()
 {
 	CMap* Map = CMap::GetInstance();
 	//プレイヤーがnullなら呼ばない
-	if (m_Player == nullptr)return;
+	if (m_ObjectManager.GetPlayer() == nullptr)return;
 
-
-	CData* Data = CData::GetInstance();
-
-	Map->Draw(m_Player->GetPos());
+	Map->Draw(m_ObjectManager.GetPlayer()->GetPos());
 
 
 	m_ObjectManager.Draw();
@@ -443,6 +247,6 @@ void CPlayScene::Draw()
 
 	if (m_PlayMode == MODE_ITEM_MENU)
 	{
-		Map->DrawItemMenu(m_Player->GetInventory());
+		Map->DrawItemMenu(m_ObjectManager.GetPlayer()->GetInventory());
 	}
 }

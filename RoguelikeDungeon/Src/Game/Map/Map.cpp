@@ -50,5 +50,6 @@ void CMap::DeleteAll() {
 
 void CMap::CreateFloor() {
 	m_MapCreate.CreateFloor(m_MapData);
+	m_FieldItemManager.EraseAllItem();
 	CreateItem(STRAT_ITEM_NUM);
 }

@@ -13,10 +13,6 @@ void CFieldItemManager::Load() {
 }
 
 void CFieldItemManager::Draw() {
-	//ƒAƒCƒeƒ€‚Ì•`‰æ
-	//for_each(m_Item.begin(), m_Item.end(), [this](CFieldItem item) {
-	//	item.Draw(m_ItemManager);
-	//	});
 	for (const CFieldItem& item : m_Item) {
 		item.Draw(m_ItemManager);
 	}
@@ -63,6 +59,10 @@ void CFieldItemManager::EraseItem(Int2 pos) {
 		}
 		i++;
 	}
+}
+
+void CFieldItemManager::EraseAllItem() {
+	m_Item.clear();
 }
 
 void CFieldItemManager::CreateItem(CMapData& mapData, int CreateNum, int x, int y)

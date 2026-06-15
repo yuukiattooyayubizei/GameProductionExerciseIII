@@ -9,8 +9,13 @@ class CObjectManager
 {
 private:
     std::vector<CObject*> m_Object;
-    CPlayer* m_Player = {};
+    CPlayer* m_Player;
     CEnemyModelManager m_EnemyModelManager;
+
+    bool m_PlayerTurn;
+    int m_EnemySpwanWait;
+
+    PlayMode m_PlayMode;
 public:
     void AddObject(CObject* object)
     {
@@ -30,20 +35,20 @@ public:
         return m_Object;
     }
 
-    // これは「deleteせずvectorだけ空にする」ので基本的にはあまり使わない方がいい
-    void Clear()
-    {
-        m_Object.clear();
-    }
+   
+
 
     void Init();
 
 
     void Load();
 
-    void Step(CanMove cmove, Int2 pos);
+    int Step();
     
     void Draw();
+
+    void CreatePlayer();
+    void CreatePlayerPos();
 
     std::vector<CObject*> FindObjectsInSameRoom(Int2 pos, CMap& map);
     CObject* FindObjectAt(Int2 pos);
@@ -80,5 +85,7 @@ public:
 
     //移動先にObjectがいるかどうか
     ObjectKind GetAheadMoveObject(Int2 pos, DIRECTION dir);
+
+    CPlayer* GetPlayer() { return m_Player; }
 
 };

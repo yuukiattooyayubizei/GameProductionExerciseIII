@@ -12,11 +12,7 @@
 
 
 
-enum PlayMode
-{
-	MODE_PLAY,
-	MODE_ITEM_MENU,
-};
+
 
 class CPlayScene 
 {
@@ -34,17 +30,12 @@ private:
 	tagPlayScene m_tagPlayScene;//状態遷移
 	CCameraManager m_CameraManager;//カメラ
 	CObjectManager m_ObjectManager;
-	CPlayer* m_Player;
+//	CPlayer* m_Player;
 
 	bool m_PlayerTurn;
 	int m_EnemySpwanWait;
 
 	PlayMode m_PlayMode;
-
-	////アイテム選択時どれを選んでいるか
-	//int m_SelectItemIndex;
-	////アイテム選択時のぺージ
-	//int m_ItemPage;
 
 	//階層
 	int m_Floor;
@@ -53,9 +44,6 @@ public:
 	//コンストラクタ・デストラクタ
 	CPlayScene();
 	~CPlayScene();
-
-	//プレイヤー生成
-	void CreatePlayer();
 
 	//メイン処理
 	int Loop();

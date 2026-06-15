@@ -24,6 +24,8 @@ public:
 	// 指定した座標のアイテムを消去
 	void EraseItem(Int2 pos);
 
+	void EraseAllItem();
+
 	// 床落ちアイテムを作成
 	// xとyを入力したらその座標に、
 	// しなかったら置けるランダムなマスから選択

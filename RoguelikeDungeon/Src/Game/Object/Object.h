@@ -10,8 +10,6 @@ enum ObjectKind {
     KIND_NUM,
 };
 
-
-
 class CObject {
 protected:
     ObjectKind m_Kind;

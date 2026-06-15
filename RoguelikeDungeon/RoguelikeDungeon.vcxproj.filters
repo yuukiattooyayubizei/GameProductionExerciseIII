@@ -43,9 +43,6 @@
     <Filter Include="ソース ファイル\Game\Item">
       <UniqueIdentifier>{8be94e02-e9a3-494b-89b0-a82964ad4763}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Data">
-      <UniqueIdentifier>{faf9db46-3c19-4775-99cf-f66d495d39f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Lib">
       <UniqueIdentifier>{b51eb1f0-c99c-4425-a206-1a1fc6a51ec1}</UniqueIdentifier>
     </Filter>
@@ -135,9 +132,6 @@
     <ClInclude Include="Src\Game\Item\Item.h">
       <Filter>ソース ファイル\Game\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Data\Data.h">
-      <Filter>ソース ファイル\Game\Data</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Lib\Sound\sound.h">
       <Filter>ソース ファイル\Lib\Sound</Filter>
     </ClInclude>
@@ -221,7 +215,7 @@
     <ClCompile Include="Src\Game\Scene\Title\TitleScene.cpp">
       <Filter>ソース ファイル\Game\Scene\Title</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Scene\Result\Result.cpp">
+    <ClCompile Include="Src\Game\Scene\Result\ResultScene.cpp">
       <Filter>ソース ファイル\Game\Scene\Result</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Scene\Play\PlayScene.cpp">
@@ -241,9 +235,6 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Item\Item.cpp">
       <Filter>ソース ファイル\Game\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Game\Data\Data.cpp">
-      <Filter>ソース ファイル\Game\Data</Filter>
     </ClCompile>
     <ClCompile Include="Src\Lib\Sound\sound.cpp">
       <Filter>ソース ファイル\Lib\Sound</Filter>

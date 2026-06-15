@@ -1,5 +1,6 @@
 #include"ItemModelManager.h"
 #include <DxLib.h>
+#include "../Common.h"
 
 CItemModelManager::CItemModelManager() {
 	m_hndl.clear();
@@ -26,24 +27,18 @@ void CItemModelManager::LoadModel() {
 		return;
 	}
 
-	int hndl = MV1LoadModel("Data/Model/Item1.x");
-	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
-	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));
+	VECTOR Scale = VGet(0.5f, 0.5f, 0.5f);
+	VECTOR Rotation = VGet(0.0f, DX_PI_F, 0.0f);
+	int hndl = LoadModelWithScale("Data/Model/Item1.x", Scale, Rotation);
 	m_hndl.push_back(hndl);
 
-	hndl = MV1LoadModel("Data/Model/Item2.x");
-	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
-	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));
+	hndl = LoadModelWithScale("Data/Model/Item2.x", Scale, Rotation);
 	m_hndl.push_back(hndl);
 
-	hndl = MV1LoadModel("Data/Model/Item3.x");
-	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
-	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));
+	hndl = LoadModelWithScale("Data/Model/Item3.x", Scale, Rotation);
 	m_hndl.push_back(hndl);
 
-	hndl = MV1LoadModel("Data/Model/Item4.x");
-	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
-	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));
+	hndl = LoadModelWithScale("Data/Model/Item4.x", Scale, Rotation);
 	m_hndl.push_back(hndl);
 
 

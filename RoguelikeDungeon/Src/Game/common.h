@@ -16,6 +16,12 @@ static constexpr int STRAT_ITEM_NUM = 5;
 //ç≈èâÇ…ï¶Ç≠ìGÇÃêî
 static constexpr int STRAT_ENEMY_NUM = 5;
 
+enum PlayMode
+{
+	MODE_PLAY,
+	MODE_ITEM_MENU,
+};
+
 static int LoadModelWithScale(const char* path, VECTOR scale = VGet(1.0f,1.0f,1.0f), VECTOR rotation = VGet(0.0f, 0.0f, 0.0f))
 {
 	int hndl = MV1LoadModel(path);

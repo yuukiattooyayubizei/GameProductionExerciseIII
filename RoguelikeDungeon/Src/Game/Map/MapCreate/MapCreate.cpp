@@ -107,8 +107,6 @@ bool CMapCreate::CreateRoom(CMapData& mapData,int CreateNum) {
 }
 
 void CMapCreate::CreateFloor(CMapData& mapData) {
-
-
 	//ƒ}ƒbƒv‚ğÁ‹
 	mapData.Init();
 
@@ -116,7 +114,6 @@ void CMapCreate::CreateFloor(CMapData& mapData) {
 	if (CreateRoom(mapData,GetRand(ROOM_MAX - ROOM_MIN) + ROOM_MIN) == false)return;
 	CreateCorridor(mapData);
 	CreateStairs(mapData);
-
 }
 
 bool CMapCreate::CreateCorridor(CMapData& mapData)

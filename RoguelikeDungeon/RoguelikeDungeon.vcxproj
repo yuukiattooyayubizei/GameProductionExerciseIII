@@ -140,7 +140,6 @@
     <ClInclude Include="Src\Game\Camera\Edit\EditCamera.h" />
     <ClInclude Include="Src\Game\Camera\Play\PlayCamera.h" />
     <ClInclude Include="Src\Game\Common.h" />
-    <ClInclude Include="Src\Game\Data\Data.h" />
     <ClInclude Include="Src\Game\Item\FieldItem\FieldItem.h" />
     <ClInclude Include="Src\Game\Item\Item.h" />
     <ClInclude Include="Src\Game\Item\ItemModelManager.h" />
@@ -177,7 +176,6 @@
     <ClCompile Include="Src\Game\Camera\Debug\DebugCamera.cpp" />
     <ClCompile Include="Src\Game\Camera\Edit\EditCamera.cpp" />
     <ClCompile Include="Src\Game\Camera\Play\PlayCamera.cpp" />
-    <ClCompile Include="Src\Game\Data\Data.cpp" />
     <ClCompile Include="Src\Game\Item\FieldItem\FieldItem.cpp" />
     <ClCompile Include="Src\Game\Item\Item.cpp" />
     <ClCompile Include="Src\Game\Item\ItemModelManager.cpp" />
@@ -199,7 +197,7 @@
     <ClCompile Include="Src\Game\Object\Object.cpp" />
     <ClCompile Include="Src\Game\Object\Player\Player.cpp" />
     <ClCompile Include="Src\Game\Scene\Play\PlayScene.cpp" />
-    <ClCompile Include="Src\Game\Scene\Result\Result.cpp" />
+    <ClCompile Include="Src\Game\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="Src\Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Src\Game\Scene\Title\TitleScene.cpp" />
     <ClCompile Include="Src\Lib\Input\input.cpp" />
