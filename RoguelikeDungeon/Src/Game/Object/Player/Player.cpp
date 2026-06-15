@@ -15,9 +15,9 @@ void CPlayer::Init(){
 	m_Pos.x = 0;
 	m_Pos.y = 0;
 	m_Kind = KIND_PLAYER;
-	m_HP = HP_MAX;
-	m_MaxHP = HP_MAX;
-	m_Atk = 5;
+	m_HP = INITIAL_HP;
+	m_MaxHP = INITIAL_HP;
+	m_Atk = INITIAL_ATK;
 	m_IsStomping = false;
 	m_IsMove = false;
 	m_hndl = -1;
@@ -48,28 +48,9 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		m_Direction = DIRECTION_RIGHT;
 		m_IsMove = true;
 	}
-	//if (IsInputTrg(KEY_W)) {
-	//	m_Direction = DIRECTION_UP;
-	//	m_IsMove = true;
-	//}
-	//if (IsInputTrg(KEY_S)) {
-	//	m_Direction = DIRECTION_DOWN;
-	//	m_IsMove = true;
-	//}
-	//if (IsInputTrg(KEY_A)) {
-	//	m_Direction = DIRECTION_LEFT;
-	//	m_IsMove = true;
-	//}
-	//if (IsInputTrg(KEY_D)) {
-	//	m_Direction = DIRECTION_RIGHT;
-	//	m_IsMove = true;
-	//}
 
 	if (IsInputRep(KEY_G))
 		m_IsMove = false;
-
-	if (IsInputTrg(KEY_SPACE))
-		DrawInventoryDebug();
 
 	if (IsInputTrg(KEY_F))
 		m_IsStomping = true;
@@ -86,19 +67,15 @@ void CPlayer::Draw() {
 	DrawFormatString(32, 64, GetColor(255, 255, 255), "posy = %d", m_Pos.y);
 	DrawFormatString(32, 96, GetColor(255, 255, 255), "HP = %d / %d", m_HP, m_MaxHP);
 
-
 	//プレイヤーの描画
 	int centerX = 8 + m_Pos.x * 16;
 	int centerY = 8 + m_Pos.y * 16;
-//	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
 
 	float x = -m_Pos.x * TILE_SIZE;
 	float z = m_Pos.y * TILE_SIZE;
 
 	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
 	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
-
-//	DrawCube3D(pos1, pos2, GetColor(128,128,128), GetColor(128, 128, 128), TRUE);
 
 	MV1DrawModel(m_hndl);
 }
@@ -145,32 +122,6 @@ bool CPlayer::AddItem(const Item& item)
 bool CPlayer::IsInventoryFull() const
 {
 	return static_cast<int>(m_Inventory.size()) >= INVENTORY_MAX;
-}
-
-void CPlayer::DrawInventoryDebug()
-{
-	std::cout << "Inventory" << std::endl;
-	for_each(m_Inventory.begin(), m_Inventory.end(), [&](Item invectory) {
-
-		switch (invectory.type)
-		{
-		case ITEM_1:
-			std::cout << "アイテム1" << std::endl;
-			break;
-		case ITEM_2:
-			std::cout << "アイテム2" << std::endl;
-			break;
-		case ITEM_3:
-			std::cout << "アイテム3" << std::endl;
-			break;
-		case ITEM_4:
-			std::cout << "アイテム4" << std::endl;
-			break;
-		default:
-			break;
-		}
-
-	});
 }
 
 //アイテムの消去

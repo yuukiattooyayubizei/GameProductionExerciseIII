@@ -7,7 +7,6 @@
 #include "../../Common.h"
 #include "../../../Lib/Input/PadInput.h"
 #include "../../../Lib/Sound/sound.h"
-#include "../../Data/Data.h"
 #include "../../../Lib/Input/input.h"
 
 using namespace std;
@@ -33,10 +32,8 @@ CPlayScene::~CPlayScene()
 
 void CPlayScene::Init()
 {
-	CData* Data = CData::GetInstance();
 	CMap* Map = CMap::GetInstance();
 
-	Data->Init();
 	Map->Init();
 
 	// 念のため前回の残りを消す
@@ -87,13 +84,9 @@ void CPlayScene::Load()
 
 void CPlayScene::CreateFloor() {
 	CMap* Map = CMap::GetInstance();
-	CData* Data = CData::GetInstance();
 
 	//プレイヤー以外のオブジェクトを削除
 	m_ObjectManager.ClearEnemy();
-
-	Data->Load();
-
 
 	Map->CreateFloor();
 
@@ -213,7 +206,6 @@ bool CPlayScene::UseItem(int index)
 }
 
 int CPlayScene::StepPlay() {
-	CData* Data = CData::GetInstance();
 	CMap* Map = CMap::GetInstance();
 
 	//プレイヤーの行動待ちなら
@@ -424,9 +416,6 @@ void CPlayScene::Draw()
 	CMap* Map = CMap::GetInstance();
 	//プレイヤーがnullなら呼ばない
 	if (m_Player == nullptr)return;
-
-
-	CData* Data = CData::GetInstance();
 
 	Map->Draw(m_Player->GetPos());
 

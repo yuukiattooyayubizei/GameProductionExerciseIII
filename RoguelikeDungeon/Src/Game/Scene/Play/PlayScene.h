@@ -9,15 +9,6 @@
 #include "../../Camera/CameraManager.h"
 #include "../../Object/ObjectManager.h"
 
-
-
-
-enum PlayMode
-{
-	MODE_PLAY,
-	MODE_ITEM_MENU,
-};
-
 class CPlayScene 
 {
 private:
@@ -40,11 +31,6 @@ private:
 	int m_EnemySpwanWait;
 
 	PlayMode m_PlayMode;
-
-	////アイテム選択時どれを選んでいるか
-	//int m_SelectItemIndex;
-	////アイテム選択時のぺージ
-	//int m_ItemPage;
 
 	//階層
 	int m_Floor;

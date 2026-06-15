@@ -5,7 +5,8 @@
 #include "../../Item/Item.h"
 #include <vector>
 
-static constexpr int HP_MAX = 15;               //初期の体力最大値
+static constexpr int INITIAL_HP = 15;               //体力の初期値
+static constexpr int INITIAL_ATK = 5;           //攻撃力の初期値
 static constexpr int INVENTORY_MAX = 20;        //所持できるアイテム数の限界
 
 class CPlayer : public CObject {
@@ -35,10 +36,6 @@ public:
 
     //インベントリの閲覧
     const std::vector<Item>& GetInventory() const { return m_Inventory; }
-
-    //デバッグ用の表示
-    void DrawInventoryDebug();
-
 
     bool EraseItem(int index);
 

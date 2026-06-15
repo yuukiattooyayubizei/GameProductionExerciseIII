@@ -3,7 +3,6 @@
 #include "../../Common.h"
 #include "../../../Lib/Input/PadInput.h"
 #include "../../../Lib/Sound/sound.h"
-#include "../../Data/Data.h"
 
 
 //コンストラクタ
@@ -33,8 +32,6 @@ void CResultScene::Exit()
 
 void CResultScene::Load()
 {
-	CData* Data = CData::GetInstance();
-
 
 }
 

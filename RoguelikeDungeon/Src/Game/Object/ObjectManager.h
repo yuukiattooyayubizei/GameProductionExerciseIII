@@ -11,6 +11,11 @@ private:
     std::vector<CObject*> m_Object;
     CPlayer* m_Player = {};
     CEnemyModelManager m_EnemyModelManager;
+
+    bool m_PlayerTurn;
+    int m_EnemySpwanWait;
+
+    PlayMode m_PlayMode;
 public:
     void AddObject(CObject* object)
     {

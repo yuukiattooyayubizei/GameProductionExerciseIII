@@ -1,5 +1,4 @@
 #pragma once
-
 #include<DxLib.h>
 #include "Play/PlayScene.h"
 #include "Title/TitleScene.h"

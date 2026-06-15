@@ -27,8 +27,6 @@ private:
 	CItemMenu m_ItemMenu;
 	CFieldItemManager m_FieldItemManager;
 public:
-
-
 	void CreateItem(int CreateNum, int x = -1, int y = -1) { m_FieldItemManager.CreateItem(m_MapData,CreateNum, x, y); }
 	// ˜L‰º‚Æ‚©‚Ô‚Á‚Ä‚¢‚é‚©‚ð”»’è
 	bool CollisionStairs(Int2 i) { return m_MapData.CollisionStairs(i); }
