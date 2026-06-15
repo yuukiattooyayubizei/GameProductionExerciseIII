@@ -242,8 +242,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\ObjectManager.h",
               "ViewState": "AgIAABgAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-08T01:32:29.712Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-08T01:32:29.712Z"
             },
             {
               "$type": "Document",
@@ -251,12 +250,11 @@
               "Title": "ObjectManager.cpp",
               "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager.cpp",
               "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager.cpp",
-              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager.cpp*",
-              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager.cpp*",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager.cpp",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager.cpp",
               "ViewState": "AgIAALgBAAAAAAAAAAAewJ8BAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-08T01:32:38.363Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-08T01:32:38.363Z"
             },
             {
               "$type": "Document",
@@ -268,8 +266,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\Map.cpp",
               "ViewState": "AgIAABQAAAAAAAAAAAAewCgAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-25T05:01:04.979Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T05:01:04.979Z"
             },
             {
               "$type": "Document",
@@ -281,8 +278,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\FieldItemManager\\FieldItemManager.cpp",
               "ViewState": "AgIAACQAAAAAAAAAAADwv0AAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-11T03:20:34.064Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-11T03:20:34.064Z"
             },
             {
               "$type": "Document",
@@ -294,8 +290,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Enemy\\Enemy1\\Enemy1.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-01T02:36:44.054Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T02:36:44.054Z"
             },
             {
               "$type": "Document",
@@ -303,12 +298,11 @@
               "Title": "PlayScene.cpp",
               "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Scene\\Play\\PlayScene.cpp",
               "RelativeDocumentMoniker": "Src\\Game\\Scene\\Play\\PlayScene.cpp",
-              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Scene\\Play\\PlayScene.cpp*",
-              "RelativeToolTip": "Src\\Game\\Scene\\Play\\PlayScene.cpp*",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Scene\\Play\\PlayScene.cpp",
+              "RelativeToolTip": "Src\\Game\\Scene\\Play\\PlayScene.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-25T05:39:48.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T05:39:48.128Z"
             },
             {
               "$type": "Document",
@@ -320,8 +314,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Enemy\\EnemyModelManager.cpp",
               "ViewState": "AgIAABAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-01T01:33:22.629Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T01:33:22.629Z"
             },
             {
               "$type": "Document",
@@ -333,8 +326,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\ObjectCommon.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-15T03:09:44.628Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-15T03:09:44.628Z"
             },
             {
               "$type": "Document",
@@ -342,8 +334,8 @@
               "Title": "Object.h",
               "DocumentMoniker": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\Object.h",
               "RelativeDocumentMoniker": "Src\\Game\\Object\\Object.h",
-              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\Object.h*",
-              "RelativeToolTip": "Src\\Game\\Object\\Object.h*",
+              "ToolTip": "C:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\Object.h",
+              "RelativeToolTip": "Src\\Game\\Object\\Object.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-15T03:36:32.628Z",
@@ -359,8 +351,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Object.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-15T02:34:51.029Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-15T02:34:51.029Z"
             },
             {
               "$type": "Document",
@@ -372,8 +363,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\FieldItemManager\\FieldItemManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-11T03:20:39.88Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-11T03:20:39.88Z"
             },
             {
               "$type": "Document",
@@ -385,8 +375,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\Room\\Room.h",
               "ViewState": "AgIAAAcAAAAAAAAAAAAawB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-10T03:57:35.097Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-10T03:57:35.097Z"
             },
             {
               "$type": "Document",
@@ -398,8 +387,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Player\\Player.h",
               "ViewState": "AgIAACEAAAAAAAAAAAAAABEAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-05-26T01:48:57.283Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-26T01:48:57.283Z"
             },
             {
               "$type": "Document",
@@ -411,8 +399,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Enemy\\EnemyModelManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-01T01:33:31.9Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T01:33:31.9Z"
             },
             {
               "$type": "Document",
@@ -424,8 +411,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Enemy\\Enemy.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-05-26T02:12:39.789Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-26T02:12:39.789Z"
             },
             {
               "$type": "Document",
@@ -437,8 +423,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Enemy\\Enemy4\\Enemy4.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-01T03:06:35.889Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T03:06:35.889Z"
             },
             {
               "$type": "Document",
@@ -450,8 +435,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\MapCreate\\MapCreate.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-12T03:28:22.186Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-12T03:28:22.186Z"
             },
             {
               "$type": "Document",
@@ -463,8 +447,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\ItemMenu\\ItemMenu.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-12T07:36:12.108Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-12T07:36:12.108Z"
             },
             {
               "$type": "Document",
@@ -476,8 +459,7 @@
               "RelativeToolTip": "Src\\Game\\Item\\FieldItem\\FieldItem.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-05T03:46:58.406Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-05T03:46:58.406Z"
             },
             {
               "$type": "Document",
@@ -489,8 +471,7 @@
               "RelativeToolTip": "Src\\Game\\Item\\Item.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-01T05:40:27.206Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T05:40:27.206Z"
             },
             {
               "$type": "Document",
@@ -502,8 +483,7 @@
               "RelativeToolTip": "Src\\Game\\Item\\ItemModelManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-01T05:19:23.259Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-01T05:19:23.259Z"
             },
             {
               "$type": "Document",
@@ -515,8 +495,7 @@
               "RelativeToolTip": "Src\\Game\\Item\\ItemUseContext.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-08T01:15:37.153Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-08T01:15:37.153Z"
             },
             {
               "$type": "Document",
@@ -528,8 +507,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\Map.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-05-25T05:27:18.322Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T05:27:18.322Z"
             },
             {
               "$type": "Document",
@@ -541,8 +519,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\MapCreate\\MapCreate.cpp",
               "ViewState": "AgIAAFQAAAAAAAAAAAAewGwAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-12T03:28:16.852Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-12T03:28:16.852Z"
             },
             {
               "$type": "Document",
@@ -554,8 +531,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Player\\Player.cpp",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-26T01:04:20.896Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-26T01:04:20.896Z"
             },
             {
               "$type": "Document",
@@ -567,8 +543,7 @@
               "RelativeToolTip": "Src\\Game\\Object\\Enemy\\Enemy.cpp",
               "ViewState": "AgIAAC0AAAAAAAAAAAAAAHoAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-25T05:02:15.111Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T05:02:15.111Z"
             },
             {
               "$type": "Document",
@@ -580,8 +555,7 @@
               "RelativeToolTip": "Src\\Game\\Scene\\Play\\PlayScene.h",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-05-25T05:02:26.949Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T05:02:26.949Z"
             },
             {
               "$type": "Document",
@@ -593,8 +567,7 @@
               "RelativeToolTip": "Src\\Game\\main.cpp",
               "ViewState": "AgIAAA8AAAAAAAAAAAAawCYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-25T06:19:05.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T06:19:05.92Z"
             },
             {
               "$type": "Document",
@@ -606,8 +579,7 @@
               "RelativeToolTip": "Src\\Game\\Camera\\CameraManager.cpp",
               "ViewState": "AgIAACYAAAAAAAAAAAAawD0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-25T05:53:17.327Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T05:53:17.327Z"
             },
             {
               "$type": "Document",
@@ -619,8 +591,7 @@
               "RelativeToolTip": "Src\\Game\\Map\\MapData\\MapData.cpp",
               "ViewState": "AgIAAHUAAAAAAAAAAAAawI0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-11T01:20:54.501Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-11T01:20:54.501Z"
             },
             {
               "$type": "Document",
@@ -656,8 +627,7 @@
               "RelativeToolTip": "Src\\Game\\Common.h",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-05-25T05:41:19.153Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T05:41:19.153Z"
             },
             {
               "$type": "Document",
