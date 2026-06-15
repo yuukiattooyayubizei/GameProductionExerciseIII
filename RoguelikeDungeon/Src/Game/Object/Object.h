@@ -6,6 +6,8 @@ enum ObjectKind {
     KIND_NON,
     KIND_PLAYER,
     KIND_ENEMY,
+
+    KIND_NUM,
 };
 
 

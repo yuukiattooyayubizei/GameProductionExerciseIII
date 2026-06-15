@@ -1,30 +1,11 @@
 #include"MapDraw.h"
-#include <DxLib.h>
 
 void CMapDraw::Load() {
-	if (m_Corridorhndl == -1)
-	{
-		m_Corridorhndl = MV1LoadModel("Data/Model/Corridor.x");
-		MV1SetScale(m_Corridorhndl, VGet(0.5f, 0.5f, 0.5f));
-	}
-
-	if (m_Roomhndl == -1)
-	{
-		m_Roomhndl = MV1LoadModel("Data/Model/Room.x");
-		MV1SetScale(m_Roomhndl, VGet(0.5f, 0.5f, 0.5f));
-	}
-
-	if (m_Stairshndl == -1)
-	{
-		m_Stairshndl = MV1LoadModel("Data/Model/STAIRS.x");
-		MV1SetScale(m_Stairshndl, VGet(0.5f, 0.5f, 0.5f));
-	}
-
-	if (m_Wallhndl == -1)
-	{
-		m_Wallhndl = MV1LoadModel("Data/Model/WALL.x");
-		MV1SetScale(m_Wallhndl, VGet(0.5f, 0.5f, 0.5f));
-	}
+	VECTOR scale = VGet(0.5f, 0.5f, 0.5f);
+	m_Corridorhndl = LoadModelWithScale("Data/Model/Corridor.x", scale);
+	m_Roomhndl = LoadModelWithScale("Data/Model/Room.x", scale);
+	m_Stairshndl = LoadModelWithScale("Data/Model/STAIRS.x", scale);
+	m_Wallhndl = LoadModelWithScale("Data/Model/WALL.x", scale);
 }
 
 void CMapDraw::Exit() {

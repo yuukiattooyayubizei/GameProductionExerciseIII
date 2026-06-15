@@ -4,6 +4,8 @@
 #include <random>
 #include <DxLib.h>
 
+static constexpr int ROOM_COUNT_MIN = 2;
+
 void CMapCreate::DigCorridor(CMapData& mapData, Int2 a, Int2 b)
 {
 	int x = a.x;
@@ -55,9 +57,6 @@ CRoom CMapCreate::RoomSizeDecision() {
 	CenterX = CenterY = 0.0f;
 
 	//部屋の大きさをランダムで決定
-	//大きさは5~9マスだが、端の2マスは壁と同じなため、
-	//縦も横も3~7マスの間になる
-	//同時に部屋の隣の壁の判別も行う
 
 	X = GetRand(MAP_SIZE_MAX - MAP_SIZE_MIN) + MAP_SIZE_MIN;
 	Y = GetRand(MAP_SIZE_MAX - MAP_SIZE_MIN) + MAP_SIZE_MIN;
@@ -115,7 +114,7 @@ void CMapCreate::CreateFloor(CMapData& mapData) {
 
 	//3個から5個の部屋を作成
 	if (CreateRoom(mapData,GetRand(ROOM_MAX - ROOM_MIN) + ROOM_MIN) == false)return;
-	mapData.CreateCorridor();
+	CreateCorridor(mapData);
 	CreateStairs(mapData);
 
 }
@@ -124,7 +123,7 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 {
 	int roomCount = static_cast<int>(mapData.GetRoomNum());
 
-	if (roomCount < 2)
+	if (roomCount < ROOM_COUNT_MIN)
 		return false;
 
 	std::vector<RoomEdge> edges;

@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "../ObjectCommon.h"
 
 class CEnemyModelManager
 {
@@ -8,7 +9,7 @@ public:
     ~CEnemyModelManager();
 
     void LoadModel();
-    int GetModel(int Modelid)const;
+    int GetModel(EnemyType Modelid)const;
 
 
 

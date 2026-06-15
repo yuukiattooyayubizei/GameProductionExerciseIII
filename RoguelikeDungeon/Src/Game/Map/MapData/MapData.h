@@ -7,9 +7,9 @@
 class CMapData {
 private:
 	// 階段の座標
-	Int2 m_StairsPos;
+	Int2 m_StairsPos = {};
 	// マップチップ
-	TILE m_Map[MAP_Y][MAP_X];
+	TILE m_Map[MAP_Y][MAP_X] = {};
 
 	// 部屋
 	std::vector<CRoom> m_Room;
@@ -39,7 +39,7 @@ public:
 	CRoom GetStartRoom();
 
 	//部屋の数を返す
-	int GetRoomNum() { return m_Room.size(); }
+	int GetRoomNum() { return (int)m_Room.size(); }
 
 	// 部屋の中のランダムな座標を取得
 	Int2 GetRoomPos();
@@ -56,9 +56,6 @@ public:
 	// 座標がマップ外かチェック
 	// trueならマップ外
 	bool InvestigationMapOutside(Int2 i);
-
-	// 廊下の生成
-	bool CreateCorridor();
 
 	// 廊下につながる部屋のマスを決定
 	CorridorInfo ConnectHallwayToRoom(const CRoom& room, SpecifiedRoomInformation close);

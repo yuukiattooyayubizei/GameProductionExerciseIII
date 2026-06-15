@@ -25,13 +25,8 @@ void CPlayer::Init(){
 
 void CPlayer::Load() {
 	if (m_hndl == -1) {
-
-		m_hndl = MV1LoadModel("Data/Model/Player.x");
-
-		MV1SetScale(m_hndl, VGet(0.5f, 0.5f, 0.5f));
-
-		}
-	
+		m_hndl = LoadModelWithScale("Data/Model/Player.x", VGet(0.5f, 0.5f, 0.5f));
+	}	
 }
 
 void CPlayer::Step(CanMove canmove, Int2 playerPos) {

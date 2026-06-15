@@ -52,14 +52,14 @@ void EditCamera::Init(VECTOR camPos, VECTOR targetPos, VECTOR upVec)
 void EditCamera::Step(VECTOR focus, float rota)
 {
 
-	m_camPos.x = m_TarGetPosX * 200 + 100;
-	m_camPos.y = 1000;
-	m_camPos.z = m_TarGetPosZ * 200 + 100;
+	m_camPos.x = (float)m_TarGetPosX * 200.0f + 100.0f;
+	m_camPos.y = 1000.0f;
+	m_camPos.z = (float)m_TarGetPosZ * 200.0f + 100.0f;
 
 
-	m_targetPos.x = m_TarGetPosX * 200 + 101;
-	m_targetPos.y = 0;
-	m_targetPos.z = m_TarGetPosZ * 200 + 101;
+	m_targetPos.x = (float)m_TarGetPosX * 200.0f + 101.0f;
+	m_targetPos.y = 0.0f;
+	m_targetPos.z = (float)m_TarGetPosZ * 200.0f + 101.0f;
 
 
 

@@ -14,9 +14,12 @@ void CFieldItemManager::Load() {
 
 void CFieldItemManager::Draw() {
 	//アイテムの描画
-	for_each(m_Item.begin(), m_Item.end(), [this](CFieldItem item) {
+	//for_each(m_Item.begin(), m_Item.end(), [this](CFieldItem item) {
+	//	item.Draw(m_ItemManager);
+	//	});
+	for (const CFieldItem& item : m_Item) {
 		item.Draw(m_ItemManager);
-		});
+	}
 }
 
 void CFieldItemManager::Exit() {
@@ -50,9 +53,13 @@ void CFieldItemManager::EraseItem(Int2 pos) {
 	int i = 0;
 	for (const CFieldItem& fieldItem : m_Item)
 	{
+		//指定された座標と同じ位置にアイテムがあったら
 		if (fieldItem.GetPos().x == (int)pos.x && fieldItem.GetPos().y == (int)pos.y)
 		{
+			//そのアイテムを消す
 			m_Item.erase(m_Item.begin() + i);
+			//アイテムが同じ座標に生成されることはないので、終了させる
+			break;
 		}
 		i++;
 	}

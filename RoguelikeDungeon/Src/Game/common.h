@@ -1,5 +1,5 @@
 #pragma once
-
+#include"DxLib.h"
 
 static constexpr float CAMERA_NEAR = 3.0f;						//カメラの映す距離の下限
 static constexpr float CAMERA_FAR = 15000.0f;					//カメラの映す距離の上限
@@ -7,14 +7,26 @@ static constexpr float CAMERA_FAR = 15000.0f;					//カメラの映す距離の上限
 static constexpr float TILE_SIZE = 100.0f;						//マップチップ1枚ごとのサイズ
 
 //部屋の最小値
-static const int ROOM_MIN = 5;
+static constexpr int ROOM_MIN = 5;
 //部屋の最大値
-static const int ROOM_MAX = 7;
+static constexpr int ROOM_MAX = 7;
 
 //最初に沸くアイテムの数
-static const int STRAT_ITEM_NUM = 5;
+static constexpr int STRAT_ITEM_NUM = 5;
 //最初に沸く敵の数
-static const int STRAT_ENEMY_NUM = 5;
+static constexpr int STRAT_ENEMY_NUM = 5;
+
+static int LoadModelWithScale(const char* path, VECTOR scale = VGet(1.0f,1.0f,1.0f), VECTOR rotation = VGet(0.0f, 0.0f, 0.0f))
+{
+	int hndl = MV1LoadModel(path);
+	if (hndl != -1)
+	{
+		MV1SetScale(hndl, scale);
+		MV1SetRotationXYZ(hndl, rotation);
+	}
+
+	return hndl;
+}
 
 struct Int2 {
 	int x, y;

@@ -139,7 +139,7 @@
     <ClInclude Include="Src\Game\Camera\Debug\DebugCamera.h" />
     <ClInclude Include="Src\Game\Camera\Edit\EditCamera.h" />
     <ClInclude Include="Src\Game\Camera\Play\PlayCamera.h" />
-    <ClInclude Include="Src\Game\common.h" />
+    <ClInclude Include="Src\Game\Common.h" />
     <ClInclude Include="Src\Game\Data\Data.h" />
     <ClInclude Include="Src\Game\Item\FieldItem\FieldItem.h" />
     <ClInclude Include="Src\Game\Item\Item.h" />
@@ -152,8 +152,8 @@
     <ClInclude Include="Src\Game\Map\MapCreate\MapCreate.h" />
     <ClInclude Include="Src\Game\Map\MapData\MapData.h" />
     <ClInclude Include="Src\Game\Map\MapDraw\MapDraw.h" />
-    <ClInclude Include="Src\Game\Map\MapItem\MapItem.h" />
     <ClInclude Include="Src\Game\Map\Room\Room.h" />
+    <ClInclude Include="Src\Game\Object\ObjectCommon.h" />
     <ClInclude Include="Src\Game\Object\ObjectManager.h" />
     <ClInclude Include="Src\Game\Object\Enemy\Enemy.h" />
     <ClInclude Include="Src\Game\Object\Enemy\Enemy1\Enemy1.h" />
@@ -188,7 +188,6 @@
     <ClCompile Include="Src\Game\Map\MapCreate\MapCreate.cpp" />
     <ClCompile Include="Src\Game\Map\MapData\MapData.cpp" />
     <ClCompile Include="Src\Game\Map\MapDraw\MapDraw.cpp" />
-    <ClCompile Include="Src\Game\Map\MapItem\MapItem.cpp" />
     <ClCompile Include="Src\Game\Map\Room\Room.cpp" />
     <ClCompile Include="Src\Game\Object\ObjectManager.cpp" />
     <ClCompile Include="Src\Game\Object\Enemy\Enemy.cpp" />

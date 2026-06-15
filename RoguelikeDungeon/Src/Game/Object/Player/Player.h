@@ -12,12 +12,12 @@ class CPlayer : public CObject {
 private:
     std::vector<Item> m_Inventory;
     //ˆÚ“®‚·‚é‚©‚Ç‚¤‚©
-    bool m_IsMove;
+    bool m_IsMove = true;
 
     //‘«“¥‚Ý‚µ‚½‚©‚Ç‚¤‚©
-    bool m_IsStomping;
+    bool m_IsStomping = false;
 
-    int m_hndl;
+    int m_hndl = -1;
 public:
     ~CPlayer()override;
 

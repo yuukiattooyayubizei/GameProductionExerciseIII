@@ -12,8 +12,8 @@ CRoom::CRoom() {
 	m_IsConnectRoom = false;
 }
 
-bool CRoom::CollsionRoom(Int2 i) {
-	if (i.x > m_Pos.x && i.x < m_Pos.x + m_Size.x && i.y > m_Pos.y && i.y < m_Pos.y + m_Size.y)
+bool CRoom::CollisionRoom(Int2 i) {
+	if (i.x >= m_Pos.x && i.x < m_Pos.x + m_Size.x && i.y >= m_Pos.y && i.y < m_Pos.y + m_Size.y)
 		return true;
 	return false;
 }

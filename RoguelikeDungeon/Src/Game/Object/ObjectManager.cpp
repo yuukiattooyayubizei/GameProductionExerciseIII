@@ -5,6 +5,7 @@
 #include"Enemy/Enemy2/Enemy2.h"
 #include"Enemy/Enemy3/Enemy3.h"
 #include"Enemy/Enemy4/Enemy4.h"
+#include <algorithm>
 
 void CObjectManager::DeleteDeadObject()
 {
@@ -20,6 +21,7 @@ void CObjectManager::DeleteDeadObject()
             }
             if (!object->GetActive())
             {
+                object->Exit();
                 delete object;
                 return true;
             }
@@ -170,7 +172,7 @@ void CObjectManager::Draw() {
     }
 }
 
-int CObjectManager::CollsionObject(const Int2& pos) const
+int CObjectManager::CollisionObject(const Int2& pos) const
 {
     int ret = 0;
 
@@ -199,10 +201,10 @@ int CObjectManager::CollsionObject(const Int2& pos) const
     return -1;
 }
 
-bool CObjectManager::CollsionAll(Int2 pos)
+bool CObjectManager::CollisionAll(Int2 pos)
 {
     CMap* Map = CMap::GetInstance();
-    if (CollsionObject(pos) != -1)return true;
+    if (CollisionObject(pos) != -1)return true;
     if (Map->CollisionItem(pos) == true)return true;
     if (Map->CollisionStairs(pos) == true)return true;
 
@@ -216,7 +218,7 @@ Int2 CObjectManager::FindSpawnPos()
     {
         Int2 pos = Map->GetRoomPos();
 
-        if (!CollsionAll(pos))
+        if (!CollisionAll(pos))
         {
             return pos;
         }
@@ -443,7 +445,7 @@ ObjectKind CObjectManager::GetAheadMoveObject(Int2 pos, DIRECTION dir)
         return KIND_NON;
     }
 
-    id = CollsionObject(p);
+    id = CollisionObject(p);
 
     if (id != -1)
     {
@@ -451,4 +453,12 @@ ObjectKind CObjectManager::GetAheadMoveObject(Int2 pos, DIRECTION dir)
     }
 
     return ret;
+}
+
+ObjectKind CObjectManager::GetKind(int id)const {
+    //オブジェクトの範囲外ならNONを返す
+    if (id < 0 || id >= static_cast<int>(m_Object.size())) return KIND_NON;
+    if (m_Object[id] == nullptr) return KIND_NON;
+    
+    return m_Object[id]->GetKind();
 }

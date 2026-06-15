@@ -3,11 +3,23 @@
 #include <iostream>
 #include "../../Map/Map.h"
 
-
+bool CanMoveDir(CanMove canmove, DIRECTION dir)
+{
+	switch (dir)
+	{
+	case DIRECTION_UP:    return canmove.Up;
+	case DIRECTION_DOWN:  return canmove.Down;
+	case DIRECTION_LEFT:  return canmove.Left;
+	case DIRECTION_RIGHT: return canmove.Right;
+	default:              return false;
+	}
+}
 
 CEnemy::CEnemy(CEnemyModelManager* modelManager)
     : m_ModelManager(modelManager)
 {
+	m_EnemyType = ENEMY_NON;
+	m_MoveType = MOVE_WALK;
 }
 
 
@@ -53,72 +65,42 @@ void CEnemy::Step(CanMove canmove, Int2 playerPos) {
 	Int2 SubPos = SubInt2(playerPos, m_Pos);
 
 	//プレイヤーが隣にいるならそっちに移動(攻撃)
-	if(SubPos.x == 1 && SubPos.y == 0)
-		m_Direction = DIRECTION_RIGHT;
-	else if (SubPos.x == -1 && SubPos.y == 0)
-		m_Direction = DIRECTION_LEFT;
-	else if (SubPos.x== 0 && SubPos.y == 1)
-		m_Direction = DIRECTION_DOWN;
-	else if (SubPos.x == 0 && SubPos.y == -1)
-		m_Direction = DIRECTION_UP;
+	if(SubPos.x == 1 && SubPos.y == 0)			m_Direction = DIRECTION_RIGHT;
+	else if (SubPos.x == -1 && SubPos.y == 0)	m_Direction = DIRECTION_LEFT;
+	else if (SubPos.x== 0 && SubPos.y == 1)		m_Direction = DIRECTION_DOWN;
+	else if (SubPos.x == 0 && SubPos.y == -1)	m_Direction = DIRECTION_UP;
 	//同じ部屋にいるなら、プレイヤーの方向に向かう
-	//-1は部屋にいないという意味になるので除外
+	//PlayerRoomNumの-1はプレイヤーが部屋にいないという意味になるので除外
 	else if (PlayerRoomNum != -1 && PlayerRoomNum == EnemyRoomNum)
 	{
-		//xかyのどちらかが同じなら直線的に進む
-		if (SubPos.x == 0)
+		std::vector<DIRECTION> chaseDirs;
+
+		// プレイヤーとの距離を縮める方向だけ候補に入れる
+		if (SubPos.x > 0) chaseDirs.push_back(DIRECTION_RIGHT);
+		if (SubPos.x < 0) chaseDirs.push_back(DIRECTION_LEFT);
+		if (SubPos.y > 0) chaseDirs.push_back(DIRECTION_DOWN);
+		if (SubPos.y < 0) chaseDirs.push_back(DIRECTION_UP);
+
+		// 移動可能な追跡方向だけ残す
+		std::vector<DIRECTION> movableChaseDirs;
+
+		for (DIRECTION dir : chaseDirs)
 		{
-			if (SubPos.y >= 0)
-				m_Direction = DIRECTION_DOWN;
-			else
-				m_Direction = DIRECTION_UP;
+			if (CanMoveDir(canmove, dir))
+			{
+				movableChaseDirs.push_back(dir);
+			}
 		}
-		else if (SubPos.y == 0)
+
+		if (!movableChaseDirs.empty())
 		{
-			if (SubPos.x >= 0)
-				m_Direction = DIRECTION_RIGHT;
-			else
-				m_Direction = DIRECTION_LEFT;
+			// 追跡可能な方向から選ぶ
+			m_Direction = movableChaseDirs[GetRand(static_cast<int>(movableChaseDirs.size()) - 1)];
 		}
-		//ここまで来たら、xとyどちらも合っていない
 		else
 		{
-			if (SubPos.x > 0 && SubPos.y > 0)
-			{
-				//プレイヤーが右下にいるとき
-				//ランダムで右か下に
-				if(GetRand(1) == 0)
-					m_Direction = DIRECTION_RIGHT;
-				else
-					m_Direction = DIRECTION_DOWN;
-			}
-			if (SubPos.x < 0 && SubPos.y > 0)
-			{
-				//プレイヤーが左下にいるとき
-				//ランダムで左か下に
-				if (GetRand(1) == 0)
-					m_Direction = DIRECTION_LEFT;
-				else
-					m_Direction = DIRECTION_DOWN;
-			}
-			if (SubPos.x > 0 && SubPos.y < 0)
-			{
-				//プレイヤーが右上にいるとき
-				//ランダムで右か上に
-				if (GetRand(1) == 0)
-					m_Direction = DIRECTION_RIGHT;
-				else
-					m_Direction = DIRECTION_UP;
-			}
-			if (SubPos.x < 0 && SubPos.y < 0)
-			{
-				//プレイヤーが左上にいるとき
-				//ランダムで左か上に
-				if (GetRand(1) == 0)
-					m_Direction = DIRECTION_LEFT;
-				else
-					m_Direction = DIRECTION_UP;
-			}
+			// 追跡方向に進めない場合
+			m_Direction = DIRECTION_NON;
 		}
 	}
 	else

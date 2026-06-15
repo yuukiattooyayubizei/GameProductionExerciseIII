@@ -32,5 +32,5 @@ public:
 	const Float2& GetCenter() const { return m_Center; }
 	bool GetConnectRoom() const { return m_IsConnectRoom; }
 
-	bool CollsionRoom(Int2 i);
+	bool CollisionRoom(Int2 i);
 };

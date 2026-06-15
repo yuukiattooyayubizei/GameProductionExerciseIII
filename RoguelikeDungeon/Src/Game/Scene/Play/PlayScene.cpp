@@ -17,8 +17,11 @@ CPlayScene::CPlayScene()
 {
 	m_tagPlayScene = PLAY_SCENE_INIT;
 
-
+	m_EnemySpwanWait = 0;
+	m_PlayMode = MODE_PLAY;
+	m_Floor = 1;
 	m_PlayerTurn = true;
+	Init();
 }
 
 //デストラクタ
@@ -143,9 +146,9 @@ int CPlayScene::Step()
 {
 	CMap* Map = CMap::GetInstance();
 	VECTOR plPos{};
-	plPos.x = -m_Player->GetPos().x * 100;
+	plPos.x = (float)-m_Player->GetPos().x * 100.0f;
 	plPos.y = 0;
-	plPos.z = m_Player->GetPos().y * 100;
+	plPos.z = (float)m_Player->GetPos().y * 100.0f;
 	m_CameraManager.Step(plPos, 0, 0, 0);
 
 
@@ -158,9 +161,7 @@ int CPlayScene::Step()
 		}
 		else if (m_PlayMode == MODE_ITEM_MENU)
 		{
-			int InventorySize = m_Player->GetInventorySize();
-			int i =  Map->StepItemMenu(InventorySize);
-			Map->UpDateItemMenu(InventorySize);
+			int i =  Map->StepItemMenu(m_Player->GetInventorySize());
 			if(i == 1)
 				m_PlayMode = MODE_PLAY;
 			if(i >= 2)
@@ -215,7 +216,6 @@ int CPlayScene::StepPlay() {
 	CData* Data = CData::GetInstance();
 	CMap* Map = CMap::GetInstance();
 
-
 	//プレイヤーの行動待ちなら
 	if (m_PlayerTurn == true)
 	{
@@ -225,6 +225,8 @@ int CPlayScene::StepPlay() {
 			m_PlayMode = MODE_ITEM_MENU;
 			Map->SetSelectItemIndex();
 			Map->SetItemPage();
+			int InventorySize = m_Player->GetInventorySize();
+			Map->UpDateItemMenu(InventorySize);
 			return 0;
 		}
 		//足踏みする(なにもしない)
@@ -249,7 +251,7 @@ int CPlayScene::StepPlay() {
 				Int2 move = DirectionToInt2(m_Player->GetDirection());
 				Int2 NextPos = AddInt2(m_Player->GetPos(), move);
 				//移動する方向にオブジェクトがいないかチェック
-				int ObjectNum = m_ObjectManager.CollsionObject(NextPos);
+				int ObjectNum = m_ObjectManager.CollisionObject(NextPos);
 				TILE NextTile = Map->GetTile(NextPos);
 				if (ObjectNum == -1)
 				{

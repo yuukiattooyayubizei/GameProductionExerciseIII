@@ -4,6 +4,8 @@
 
 using namespace std;
 
+static constexpr int ROOM_SIZE_MIN = 2;
+
 void CMapData::Init() {
 	//部屋情報を消去
 	m_Room.clear();
@@ -62,7 +64,7 @@ int CMapData::GetRoomNum(Int2 i) {
 		CRoom& room2 = *ite;
 
 
-		if (room2.CollsionRoom(i) == true)
+		if (room2.CollisionRoom(i) == true)
 		{
 			return num;
 		}
@@ -114,10 +116,10 @@ Int2 CMapData::GetRoomPos()
 {
 	//どの部屋に階段を置くかランダムで決定
 
-	int size = m_Room.size();
+	int size = (int)m_Room.size();
 	int choiceCreateRoom;
 
-	if (size <= 1) {
+	if (size <= 0) {
 		Int2 p{};
 		p.x = -1;
 		p.y = -1;
@@ -131,7 +133,6 @@ Int2 CMapData::GetRoomPos()
 
 	//どこに置くかを決定
 	Int2 SetPos;
-	//部屋の端には置けないようにする
 	//GetRand(Size.x) + Pos.x;だと部屋の外に飛び出る可能性があるため1だけ減らす
 	//yの方も同様
 	SetPos.x = GetRand(Size.x - 1) + Pos.x;
@@ -214,89 +215,6 @@ void CMapData::DigCorridor(Int2 a, Int2 b)
 
 bool CMapData::InvestigationMapOutside(Int2 i) {
 	if (i.y >= 0 && i.y < MAP_Y && i.x >= 0 && i.x < MAP_X) return false;
-
-	return true;
-}
-
-bool CMapData::CreateCorridor()
-{
-	if (m_Room.size() < 2)
-		return false;
-
-	std::vector<RoomEdge> edges;
-
-	int roomCount = static_cast<int>(m_Room.size());
-
-	for (int i = 0; i < roomCount; i++)
-	{
-		for (int k = i + 1; k < roomCount; k++)
-		{
-			int ax = static_cast<int>(m_Room[i].GetCenter().x);
-			int ay = static_cast<int>(m_Room[i].GetCenter().y);
-
-			int bx = static_cast<int>(m_Room[k].GetCenter().x);
-			int by = static_cast<int>(m_Room[k].GetCenter().y);
-
-			int dx = ax - bx;
-			int dy = ay - by;
-
-			RoomEdge edge;
-			edge.roomA = i;
-			edge.roomB = k;
-			edge.distance = dx * dx + dy * dy;
-
-			edges.push_back(edge);
-		}
-	}
-
-	std::sort(edges.begin(), edges.end(),
-		[](const RoomEdge& a, const RoomEdge& b)
-		{
-			return a.distance < b.distance;
-		});
-
-	UnionFind uf(roomCount);
-
-	int corridorCount = 0;
-
-	for (const RoomEdge& edge : edges)
-	{
-		if (uf.Same(edge.roomA, edge.roomB))
-			continue;
-
-		uf.Unite(edge.roomA, edge.roomB);
-
-		const CRoom& roomA = m_Room[edge.roomA];
-		const CRoom& roomB = m_Room[edge.roomB];
-
-		Int2 centerA{
-			static_cast<int>(roomA.GetCenter().x),
-			static_cast<int>(roomA.GetCenter().y)
-		};
-
-		Int2 centerB{
-			static_cast<int>(roomB.GetCenter().x),
-			static_cast<int>(roomB.GetCenter().y)
-		};
-
-		if (GetRand(1) == 0)
-		{
-			Int2 mid{ centerB.x, centerA.y };
-			DigCorridor(centerA, mid);
-			DigCorridor(mid, centerB);
-		}
-		else
-		{
-			Int2 mid{ centerA.x, centerB.y };
-			DigCorridor(centerA, mid);
-			DigCorridor(mid, centerB);
-		}
-
-		corridorCount++;
-
-		if (corridorCount >= roomCount - 1)
-			break;
-	}
 
 	return true;
 }
@@ -396,7 +314,7 @@ SpecifiedRoomInformation CMapData::SpecifiedRoom(const CRoom& room)
 {
 	//最初は何があってもこれより距離が短くなる値を入れる
 	//マップの端から端までの長さが最も長くなる
-	float MinDistance = sqrt(MAP_X * MAP_X + MAP_Y * MAP_Y);
+	float MinDistance = (float)sqrt(MAP_X * MAP_X + MAP_Y * MAP_Y);
 	int MinNum = -1;
 	int num = 0;
 	float DistanceX = 0, DistanceY = 0, Distance = 0, BestDistanceX = 0, BestDistanceY = 0;
@@ -431,8 +349,8 @@ SpecifiedRoomInformation CMapData::SpecifiedRoom(const CRoom& room)
 	SpecifiedRoomInformation ret;
 
 	ret.m_CloseRoomID = MinNum;
-	ret.m_DistanceX = BestDistanceX;
-	ret.m_DistanceY = BestDistanceY;
+	ret.m_DistanceX = (int)BestDistanceX;
+	ret.m_DistanceY = (int)BestDistanceY;
 
 	//Xがマイナスなら東にあり、Yがマイナスなら北にある
 	if (BestDistanceX >= 0)

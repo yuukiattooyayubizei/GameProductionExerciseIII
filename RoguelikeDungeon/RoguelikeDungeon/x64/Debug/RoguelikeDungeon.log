@@ -1,7 +1,2 @@
 ﻿  PlayScene.cpp
-C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Map\MapData\MapData.h(42,39): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  (ソース ファイル 'Src/Game/Scene/Play/PlayScene.cpp' をコンパイルしています)
-  
-C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Scene\Play\PlayScene.cpp(146,34): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Scene\Play\PlayScene.cpp(148,33): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
   RoguelikeDungeon.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\x64\Debug\RoguelikeDungeon.exe

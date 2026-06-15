@@ -2,15 +2,6 @@
 #include "../Object.h"
 #include "EnemyModelManager.h"
 
-enum EnemyType {
-    ENEMY_1,  
-    ENEMY_2,  
-    ENEMY_3, 
-    ENEMY_4,  
-
-    ENEMY_TYPE_NUM,
-};
-
 enum EnemyMoveType {
     MOVE_WALK,
     MOVE_TRACK,

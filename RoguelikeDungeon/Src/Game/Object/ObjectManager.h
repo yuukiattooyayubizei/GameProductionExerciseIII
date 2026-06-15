@@ -9,7 +9,7 @@ class CObjectManager
 {
 private:
     std::vector<CObject*> m_Object;
-    CPlayer* m_Player;
+    CPlayer* m_Player = {};
     CEnemyModelManager m_EnemyModelManager;
 public:
     void AddObject(CObject* object)
@@ -47,7 +47,7 @@ public:
 
     std::vector<CObject*> FindObjectsInSameRoom(Int2 pos, CMap& map);
     CObject* FindObjectAt(Int2 pos);
-    ObjectKind GetKind(int id) const { return m_Object[id]->GetKind(); }
+    ObjectKind GetKind(int id)const;
 
     //死んでいる敵の消去
     void DeleteDeadObject();
@@ -55,10 +55,10 @@ public:
     void ClearAll();
 
     //既に生成されているオブジェクトと座標が被っているかどうか
-    int CollsionObject(const Int2& pos) const;
+    int CollisionObject(const Int2& pos) const;
 
     //オブジェクト、アイテム、敵など全てと被っているかどうか
-    bool CollsionAll(Int2 pos);
+    bool CollisionAll(Int2 pos);
 
     //オブジェクトがスポーンする位置を探す
     Int2 FindSpawnPos();

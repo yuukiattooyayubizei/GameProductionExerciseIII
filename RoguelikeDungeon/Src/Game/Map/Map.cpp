@@ -24,15 +24,18 @@ void CMap::DeleteInstance() {
 void CMap::Init() {
 	m_MapData.Init();
 	m_FieldItemManager.Init();
+	m_ItemMenu.Init();
 }
 
 void CMap::Load() {
+	m_FieldItemManager.Load();
 	m_MapDraw.Load();
 }
 
 void CMap::Exit() {
 	m_MapData.Exit();
 	m_MapDraw.Exit();
+	m_FieldItemManager.Exit();
 }
 
 void CMap::Draw(Int2 playerPos) {

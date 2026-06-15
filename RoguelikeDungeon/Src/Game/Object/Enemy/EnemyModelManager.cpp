@@ -1,5 +1,6 @@
 #include"EnemyModelManager.h"
 #include <DxLib.h>
+#include "../../common.h"
 
 CEnemyModelManager::CEnemyModelManager() {
 	m_hndl.clear();
@@ -21,31 +22,24 @@ CEnemyModelManager::CEnemyModelManager() {
 
 
 void CEnemyModelManager::LoadModel() {
-	int hndl = MV1LoadModel("Data/Model/Enemy1.x");
-	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
-	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));
+	VECTOR Scale = VGet(0.5f, 0.5f, 0.5f);
+	VECTOR Rotation = VGet(0.0f, DX_PI_F, 0.0f);
+	int hndl = LoadModelWithScale("Data/Model/Enemy1.x", Scale, Rotation);
 	m_hndl.push_back(hndl);
 
-	hndl = MV1LoadModel("Data/Model/Enemy2.x");
-	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
-	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));
+	hndl = LoadModelWithScale("Data/Model/Enemy2.x", Scale, Rotation);
 	m_hndl.push_back(hndl);
 
-	hndl = MV1LoadModel("Data/Model/Enemy3.x");
-	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
-	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));
+	hndl = LoadModelWithScale("Data/Model/Enemy3.x", Scale, Rotation);
 	m_hndl.push_back(hndl);
 
-	hndl = MV1LoadModel("Data/Model/Enemy4.x");
-	MV1SetScale(hndl, VGet(0.5f, 0.5f, 0.5f));
-	MV1SetRotationXYZ(hndl, VGet(0.0f, DX_PI_F, 0.0f));
+	hndl = LoadModelWithScale("Data/Model/Enemy4.x", Scale, Rotation);
 	m_hndl.push_back(hndl);
 }
 
-int CEnemyModelManager::GetModel(int modelId) const {
-	if (modelId < 0 || modelId >= static_cast<int>(m_hndl.size())) {
+int CEnemyModelManager::GetModel(EnemyType modelId) const {
+	if (modelId > ENEMY_NON && modelId < ENEMY_TYPE_NUM)
+		return m_hndl[modelId];
+	else
 		return -1;
-	}
-
-	return m_hndl[modelId];
 }
