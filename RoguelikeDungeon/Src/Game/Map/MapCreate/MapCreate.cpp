@@ -147,9 +147,7 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 		}
 	}
 
-	std::sort(edges.begin(), edges.end(),
-		[](const RoomEdge& a, const RoomEdge& b)
-		{
+	std::sort(edges.begin(), edges.end(),[](const RoomEdge& a, const RoomEdge& b){
 			return a.distance < b.distance;
 		});
 

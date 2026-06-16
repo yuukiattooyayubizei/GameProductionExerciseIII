@@ -29,7 +29,6 @@ int main(void)
 		// 「escキー」が押されたら終了
 		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1) break;
 
-
 		// 画面を一度何もない状態へ
 		ClearDrawScreen();
 

@@ -14,8 +14,6 @@ private:
 		RESULT_SCENE_NUM,
 	};
 	tagResultScene m_tagResultScene;//状態遷移
-
-
 public:
 	//コンストラクタ・デストラクタ
 	CResultScene();
@@ -28,13 +26,10 @@ public:
 private:
 	//初期化
 	void Init(void);
-
 	//破棄
 	void Exit();
-
 	//ロード
 	void Load();
-
 	//制御
 	int Step();
 };

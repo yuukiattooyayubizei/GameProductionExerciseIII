@@ -6,8 +6,6 @@
 #include<algorithm>
 using namespace std;
 
-
-
 CPlayer::~CPlayer(){
 }
 
@@ -48,22 +46,6 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		m_Direction = DIRECTION_RIGHT;
 		m_IsMove = true;
 	}
-	//if (IsInputTrg(KEY_W)) {
-	//	m_Direction = DIRECTION_UP;
-	//	m_IsMove = true;
-	//}
-	//if (IsInputTrg(KEY_S)) {
-	//	m_Direction = DIRECTION_DOWN;
-	//	m_IsMove = true;
-	//}
-	//if (IsInputTrg(KEY_A)) {
-	//	m_Direction = DIRECTION_LEFT;
-	//	m_IsMove = true;
-	//}
-	//if (IsInputTrg(KEY_D)) {
-	//	m_Direction = DIRECTION_RIGHT;
-	//	m_IsMove = true;
-	//}
 
 	if (IsInputRep(KEY_G))
 		m_IsMove = false;
@@ -76,9 +58,7 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 	else
 		m_IsStomping = false;
 
-
-		MV1SetPosition(m_hndl, VGet(-m_Pos.x * TILE_SIZE,151, m_Pos.y * TILE_SIZE));
-	
+	MV1SetPosition(m_hndl, VGet(-m_Pos.x * TILE_SIZE,151, m_Pos.y * TILE_SIZE));
 }
 
 void CPlayer::Draw() {
@@ -86,19 +66,15 @@ void CPlayer::Draw() {
 	DrawFormatString(32, 64, GetColor(255, 255, 255), "posy = %d", m_Pos.y);
 	DrawFormatString(32, 96, GetColor(255, 255, 255), "HP = %d / %d", m_HP, m_MaxHP);
 
-
 	//ÉvÉåÉCÉÑÅ[ÇÃï`âÊ
 	int centerX = 8 + m_Pos.x * 16;
 	int centerY = 8 + m_Pos.y * 16;
-//	DrawBox(centerX + 4, centerY + 4, centerX - 4, centerY - 4, GetColor(255, 255, 255), TRUE);
 
 	float x = -m_Pos.x * TILE_SIZE;
 	float z = m_Pos.y * TILE_SIZE;
 
 	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
 	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
-
-//	DrawCube3D(pos1, pos2, GetColor(128,128,128), GetColor(128, 128, 128), TRUE);
 
 	MV1DrawModel(m_hndl);
 }
@@ -169,7 +145,6 @@ void CPlayer::DrawInventoryDebug()
 		default:
 			break;
 		}
-
 	});
 }
 

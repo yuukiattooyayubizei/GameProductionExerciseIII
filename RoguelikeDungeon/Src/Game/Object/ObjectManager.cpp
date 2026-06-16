@@ -27,8 +27,6 @@ void CObjectManager::DeleteDeadObject()
                 delete object;
                 return true;
             }
-
-
             return false;
         }
     );
@@ -114,7 +112,6 @@ CObject* CObjectManager::FindObjectAt(Int2 pos)
             return object;
         }
     }
-
     return nullptr;
 }
 
@@ -126,11 +123,9 @@ void CObjectManager::ClearAll()
         {
             continue;
         }
-
         object->Exit();
         delete object;
     }
-
     m_Object.clear();
 }
 
@@ -480,8 +475,6 @@ CanMove CObjectManager::GetCanMove(Int2 pos)
         C.Up = false;
     if (NextPos.y >= MAP_Y - 1)
         C.Down = false;
-
-
 
     //上下左右のマスを見て通れるマスでなければ行けない
     //すでにfalseなら見る必要がない

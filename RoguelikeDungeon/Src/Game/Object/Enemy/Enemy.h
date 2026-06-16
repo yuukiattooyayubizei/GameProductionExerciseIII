@@ -12,7 +12,6 @@ protected:
     EnemyType m_EnemyType;
     CEnemyModelManager* m_ModelManager = nullptr;
     EnemyMoveType m_MoveType;
-
 public:
     CEnemy(CEnemyModelManager* modelManager);
     virtual ~CEnemy() override;
@@ -22,7 +21,6 @@ public:
     virtual void Step(CanMove canmove, Int2 playerPos) override;
     virtual void Draw() override;
     virtual void Exit() override;
-
 protected:
     virtual void InitStatus() = 0;
     virtual void InitModelType() = 0;

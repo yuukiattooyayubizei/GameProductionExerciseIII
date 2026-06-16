@@ -8,18 +8,15 @@ CItemModelManager::CItemModelManager() {
 	LoadModel();
 }
 
-
-	CItemModelManager::~CItemModelManager() {
-		for (int hndl : m_hndl) {
-			if (hndl != -1) {
-				MV1DeleteModel(hndl);
-			}
+CItemModelManager::~CItemModelManager() {
+	for (int hndl : m_hndl) {
+		if (hndl != -1) {
+			MV1DeleteModel(hndl);
 		}
-
-		m_hndl.clear();
 	}
 
-
+	m_hndl.clear();
+}
 
 void CItemModelManager::LoadModel() {
 	if (!m_hndl.empty())

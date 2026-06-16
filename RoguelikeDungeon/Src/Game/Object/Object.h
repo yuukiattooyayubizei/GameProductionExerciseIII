@@ -17,9 +17,7 @@ protected:
 
     int m_HP;
     int m_MaxHP;
-
     int m_Atk;
-
     bool m_IsActive = true;
 public:
     CObject();

@@ -13,17 +13,14 @@ public:
 	void Load();
 	void Draw();
 	void Exit();
-
 public:
 
 	ITEM_TYPE IsItemExist(Int2 i);
-
 	// アイテムが同じ座標にあるかチェック
 	bool CollisionItem(Int2 i);
 
 	// 指定した座標のアイテムを消去
 	void EraseItem(Int2 pos);
-
 	void EraseAllItem();
 
 	// 床落ちアイテムを作成

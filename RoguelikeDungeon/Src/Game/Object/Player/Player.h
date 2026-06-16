@@ -37,7 +37,6 @@ public:
     //デバッグ用の表示
     void DrawInventoryDebug();
 
-
     bool EraseItem(int index);
 
     int GetInventorySize() const { return static_cast<int>(m_Inventory.size()); }

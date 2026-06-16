@@ -16,7 +16,6 @@ private:
 	tagTitleScene m_tagTitleScene;//状態遷移
 
 	int m_Titlehndl;
-
 public:
 	//コンストラクタ・デストラクタ
 	CTitleScene();

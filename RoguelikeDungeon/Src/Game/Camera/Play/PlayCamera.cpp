@@ -30,8 +30,6 @@ void PlayerCamera::Init(VECTOR camPos, VECTOR targetPos, VECTOR upVec)
 	m_upVec = upVec;
 }
 
-
-
 void PlayerCamera::Step(VECTOR focus, float rotY, float spd, bool zoomin)
 {
 	m_targetPos = focus;

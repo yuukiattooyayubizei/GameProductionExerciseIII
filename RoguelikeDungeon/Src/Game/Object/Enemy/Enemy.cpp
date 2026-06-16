@@ -20,8 +20,6 @@ CEnemy::CEnemy(CEnemyModelManager* modelManager)
 	m_MoveType = MOVE_WALK;
 }
 
-
-
 CEnemy::~CEnemy() {
 }
 

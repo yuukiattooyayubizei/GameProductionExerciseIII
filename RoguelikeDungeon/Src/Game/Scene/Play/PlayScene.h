@@ -2,11 +2,6 @@
 #include"../../Camera/CameraManager.h"
 #include"../../Object/ObjectManager.h"
 
-
-
-
-
-
 class CPlayScene 
 {
 private:
@@ -23,13 +18,10 @@ private:
 	tagPlayScene m_tagPlayScene;//ó‘Ô‘JˆÚ
 	CCameraManager m_CameraManager;//ƒJƒƒ‰
 	CObjectManager m_ObjectManager;
-//	CPlayer* m_Player;
 
 	bool m_PlayerTurn;
 	int m_EnemySpwanWait;
-
 	PlayMode m_PlayMode;
-
 	//ŠK‘w
 	int m_Floor;
 

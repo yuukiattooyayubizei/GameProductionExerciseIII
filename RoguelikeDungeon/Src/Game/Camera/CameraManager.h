@@ -24,7 +24,6 @@ public:
 		CAMERA_ID_NUM,
 	};
 
-
 	tagCAMERA_ID m_CPLayCamID;//カメラのID
 	PlayerCamera m_CPlayCam;//通常のカメラ
 	DebugCamera m_CDebugCam;//デバッグ用のカメラ
@@ -51,10 +50,8 @@ public:
 	//使うカメラの変更
 	void ChengeCamera(tagCAMERA_ID ID) { m_CPLayCamID = ID; }
 
-
 	//セット関連
 	void SetNearFar(float n, float f);
-
 
 	//ゲット関連
 	tagCAMERA_ID GetCameraID() { return m_CPLayCamID; }

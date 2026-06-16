@@ -23,7 +23,6 @@ CPlayScene::~CPlayScene()
 	Exit();
 }
 
-
 void CPlayScene::Init()
 {
 	CMap* Map = CMap::GetInstance();
@@ -42,7 +41,6 @@ void CPlayScene::Init()
 	m_CameraManager.Init();
 	m_CameraManager.SetNearFar(CAMERA_NEAR, CAMERA_FAR);
 }
-
 
 void CPlayScene::Exit()
 {
@@ -81,7 +79,6 @@ void CPlayScene::CreateFloor() {
 
 int CPlayScene::Loop()
 {
-	
 	int m_ret = 0;
 
 	//状態遷移に応じて挙動を変更
@@ -117,7 +114,6 @@ int CPlayScene::Loop()
 	return m_ret;
 }
 
-
 int CPlayScene::Step()
 {
 	CMap* Map = CMap::GetInstance();
@@ -149,7 +145,6 @@ int CPlayScene::Step()
 
 	return 0;
 }
-
 
 bool CPlayScene::UseItem(int index)
 {
@@ -215,7 +210,6 @@ int CPlayScene::StepPlay() {
 
 	return 0;
 }
-
 
 void CPlayScene::Draw()
 {

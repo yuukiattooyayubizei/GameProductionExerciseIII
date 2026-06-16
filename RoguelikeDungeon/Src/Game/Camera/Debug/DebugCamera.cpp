@@ -29,9 +29,6 @@ void DebugCamera::Init(VECTOR camPos, VECTOR targetPos, VECTOR upVec)
 
 }
 
-
-
-
 void DebugCamera::Step(VECTOR focus, float rota)
 {
 

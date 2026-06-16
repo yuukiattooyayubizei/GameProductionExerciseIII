@@ -2,18 +2,6 @@
 #include"../MapCommon.h"
 #include"../../../Lib/Input/Input.h"
 
-static constexpr int ITEM_MENU_FRAME_START_X = 80;
-static constexpr int ITEM_MENU_FRAME_START_Y = 80;
-static constexpr int ITEM_MENU_FRAME_END_X = 500;
-static constexpr int ITEM_MENU_FRAME_END_Y = 500;
-static constexpr int ITEM_MENU_DRAW_START_X = 100;
-static constexpr int ITEM_NAME_DRAW_START_X = 130;
-static constexpr int ITEM_OPERATION_DRAW_STRAT_Y = 460;
-static constexpr int ITEM_PAGE_DRAW_START_Y = 410;
-static constexpr int ITEM_ITEM_DRAW_START_Y = 100;
-static constexpr int ITEM_NAME_DRAW_START_Y = 140;
-static constexpr int ITEM_NAME_DRAW_INTERVAL_Y = 24;
-
 void CItemMenu::Init() {
 	//ÉAÉCÉeÉÄÇÃèÛãµÇèâä˙âª
 	UpdatePage(0);

@@ -14,7 +14,6 @@ private:
 
     bool m_PlayerTurn;
     int m_EnemySpwanWait;
-
     PlayMode m_PlayMode;
 public:
     void AddObject(CObject* object)
@@ -35,16 +34,9 @@ public:
         return m_Object;
     }
 
-   
-
-
     void Init();
-
-
     void Load();
-
     int Step();
-    
     void Draw();
 
     void CreatePlayer();
@@ -76,7 +68,6 @@ public:
 
     //‚à‚ç‚Á‚½À•W‚Æ“¯‚¶•”‰®‚É‚¢‚éObject‚ğ•Ô‚·
     std::vector<CObject*> FindLiveTogetherObject(Int2 i);
-
 
     CanMove GetCanMove(Int2 pos);
 

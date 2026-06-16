@@ -10,7 +10,6 @@ struct FieldItem
     Int2 pos;    // マップ上の位置
 };
 
-
 class CFieldItem
 {
 private:

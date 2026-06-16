@@ -9,7 +9,6 @@ SceneManager::SceneManager()
 {
 	//初期化
 	m_TagScene = SCENE_TITLE;
-
 	InitSound();
 }
 
@@ -39,8 +38,6 @@ int SceneManager::Loop()
 		{
 			m_TagScene = SCENE_RESULT;
 		}
-		
-
 	}
 	break;
 	//リザルトシーンの制御

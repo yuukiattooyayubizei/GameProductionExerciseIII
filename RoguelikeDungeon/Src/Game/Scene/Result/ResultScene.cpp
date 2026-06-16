@@ -2,13 +2,10 @@
 #include"../../../Lib/Sound/Sound.h"
 #include"../../../Lib/Input/Input.h"
 
-
 //コンストラクタ
 CResultScene::CResultScene()
 {
 	m_tagResultScene = RESULT_SCENE_INIT;
-
-
 }
 
 //デストラクタ
@@ -20,7 +17,6 @@ CResultScene::~CResultScene()
 void CResultScene::Init()
 {
 	m_tagResultScene = RESULT_SCENE_INIT;
-
 }
 
 void CResultScene::Exit()
@@ -83,6 +79,4 @@ int CResultScene::Step()
 
 void CResultScene::Draw()
 {
-
-
 }

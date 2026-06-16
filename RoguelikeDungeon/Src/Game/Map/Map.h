@@ -14,11 +14,9 @@
 class CMap {
 private:
 	static CMap* m_Instance;
-
 public:
 	static CMap* GetInstance();
 	static void DeleteInstance();
-
 private:
 	CMapData m_MapData;
 	CMapDraw m_MapDraw;
@@ -26,8 +24,6 @@ private:
 	CItemMenu m_ItemMenu;
 	CFieldItemManager m_FieldItemManager;
 public:
-
-
 	void CreateItem(int CreateNum, int x = -1, int y = -1) { m_FieldItemManager.CreateItem(m_MapData,CreateNum, x, y); }
 	// 廊下とかぶっているかを判定
 	bool CollisionStairs(Int2 i) { return m_MapData.CollisionStairs(i); }
@@ -50,8 +46,6 @@ public:
 	bool CollisionItemToItem(CFieldItem& item) { return m_FieldItemManager.CollisionItemToItem(m_MapData, item); }
 
 	CMap() { Init(); }
-
-
 
 	//----------------------------------------------
 	// 基本処理
@@ -96,7 +90,6 @@ public:
 	//----------------------------------------------
 	// アイテム関連
 	//----------------------------------------------
-
 
 	//----------------------------------------------
 	// 廊下関連

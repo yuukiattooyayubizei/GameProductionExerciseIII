@@ -5,7 +5,6 @@
 #include"../MapData/MapData.h"
 #include"../Room/Room.h"
 
-
 class CMapCreate {
 public:
 	// ŠK’i‚ğì¬
