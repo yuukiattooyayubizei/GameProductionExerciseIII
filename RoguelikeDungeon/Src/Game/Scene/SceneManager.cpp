@@ -1,6 +1,6 @@
-#include"sceneManager.h"
+#include"SceneManager.h"
 #include"math.h"
-#include "../../Lib/Sound/sound.h"
+#include"../../Lib/Sound/Sound.h"
 
 //’è‹`ŠÖ˜A
 

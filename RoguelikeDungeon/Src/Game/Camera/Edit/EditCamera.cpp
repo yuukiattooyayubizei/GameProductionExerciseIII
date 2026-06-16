@@ -1,8 +1,6 @@
 #include<DxLib.h>
 #include"Editcamera.h"
-#include<math.h>
-#include "../../Common.h"
-#include "../../../Lib/Input/input.h"
+#include"../../../Lib/Input/Input.h"
 
 #define ZERO (VGet(0.0f,0.0f,0.0f))
 static const float ROT_SPEED = 0.05f;

@@ -1,8 +1,6 @@
 #include"TitleScene.h"
-#include"math.h"
-#include "../../Common.h"
-#include "../../../Lib/Input/PadInput.h"
-#include "../../../Lib/Sound/sound.h"
+#include"../../../Lib/Sound/Sound.h"
+#include"../../../Lib/Input/Input.h"
 
 //コンストラクタ
 CTitleScene::CTitleScene()

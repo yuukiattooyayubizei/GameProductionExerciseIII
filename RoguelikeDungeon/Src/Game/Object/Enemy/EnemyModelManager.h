@@ -1,6 +1,6 @@
 #pragma once
-#include <vector>
-#include "../ObjectCommon.h"
+#include<vector>
+#include"../ObjectCommon.h"
 
 class CEnemyModelManager
 {

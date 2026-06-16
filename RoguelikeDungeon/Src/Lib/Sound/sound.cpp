@@ -1,6 +1,5 @@
-#include "sound.h"
-#include<math.h>
-#include <DxLib.h>
+#include"Sound.h"
+#include<DxLib.h>
 
 static const char* SOUND_PATH[SOUND_NUM] = {
 	"../Data/Musics/BGM01.mp3",

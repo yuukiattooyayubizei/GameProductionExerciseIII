@@ -132,10 +132,10 @@
     <ClInclude Include="Src\Game\Item\Item.h">
       <Filter>ソース ファイル\Game\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Lib\Sound\sound.h">
+    <ClInclude Include="Src\Lib\Sound\Sound.h">
       <Filter>ソース ファイル\Lib\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Lib\Input\input.h">
+    <ClInclude Include="Src\Lib\Input\Input.h">
       <Filter>ソース ファイル\Lib\Input</Filter>
     </ClInclude>
     <ClInclude Include="Src\Lib\Input\PadInput.h">
@@ -236,10 +236,10 @@
     <ClCompile Include="Src\Game\Item\Item.cpp">
       <Filter>ソース ファイル\Game\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Lib\Sound\sound.cpp">
+    <ClCompile Include="Src\Lib\Sound\Sound.cpp">
       <Filter>ソース ファイル\Lib\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Lib\Input\input.cpp">
+    <ClCompile Include="Src\Lib\Input\Input.cpp">
       <Filter>ソース ファイル\Lib\Input</Filter>
     </ClCompile>
     <ClCompile Include="Src\Lib\Input\PadInput.cpp">

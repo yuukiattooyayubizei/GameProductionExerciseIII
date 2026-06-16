@@ -1,12 +1,13 @@
 #include"ObjectManager.h"
-#include <iostream>
-#include "../Scene/Play/PlayScene.h"
+#include<iostream>
+#include"../Scene/Play/PlayScene.h"
 #include"Enemy/Enemy1/Enemy1.h"
 #include"Enemy/Enemy2/Enemy2.h"
 #include"Enemy/Enemy3/Enemy3.h"
 #include"Enemy/Enemy4/Enemy4.h"
-#include <algorithm>
-#include "../../Lib/Input/input.h"
+#include<algorithm>
+#include"../../Lib/Input/Input.h"
+#include"Player/Player.h"
 
 void CObjectManager::DeleteDeadObject()
 {

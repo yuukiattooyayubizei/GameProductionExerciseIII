@@ -1,6 +1,5 @@
 #include"MapData.h"
-#include <DxLib.h>
-#include <random>
+#include<DxLib.h>
 
 using namespace std;
 
@@ -333,7 +332,7 @@ SpecifiedRoomInformation CMapData::SpecifiedRoom(const CRoom& room)
 		DistanceX = room2.GetCenter().x - room.GetCenter().x;
 		DistanceY = room2.GetCenter().y - room.GetCenter().y;
 
-		Distance = sqrt(DistanceX * DistanceX + DistanceY * DistanceY);
+		Distance = (float)sqrt(DistanceX * DistanceX + DistanceY * DistanceY);
 
 		//¡‚Ü‚Å‚ÅÅ’Z‚ªŒ©‚Â‚©‚Á‚½‚çÅ’Z‚ÌŠ‚ð•ÏX
 		if (MinDistance > Distance)

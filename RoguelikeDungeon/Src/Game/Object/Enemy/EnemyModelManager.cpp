@@ -1,6 +1,6 @@
 #include"EnemyModelManager.h"
-#include <DxLib.h>
-#include "../../common.h"
+#include<DxLib.h>
+#include"../../Common.h"
 
 CEnemyModelManager::CEnemyModelManager() {
 	m_hndl.clear();

@@ -1,8 +1,7 @@
-#include "MapCreate.h"
-#include <iostream>
-#include <algorithm>
-#include <random>
-#include <DxLib.h>
+#include"MapCreate.h"
+#include<iostream>
+#include<algorithm>
+#include<DxLib.h>
 
 static constexpr int ROOM_COUNT_MIN = 2;
 

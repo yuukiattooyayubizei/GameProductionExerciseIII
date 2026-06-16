@@ -1,8 +1,7 @@
 #include"FieldItemManager.h"
-#include <algorithm>
-#include "../MapCommon.h"
-#include "../MapData/MapData.h"
-#include <iostream>
+#include"../MapCommon.h"
+#include"../MapData/MapData.h"
+#include<iostream>
 
 void CFieldItemManager::Init() {
 	m_Item.clear();

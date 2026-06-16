@@ -1,4 +1,4 @@
-#include "Enemy2.h"
+#include"Enemy2.h"
 
 CEnemy2::CEnemy2(CEnemyModelManager* modelManager)
     : CEnemy(modelManager)

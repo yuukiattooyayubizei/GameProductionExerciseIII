@@ -1,7 +1,7 @@
 #pragma once
-#include <vector>
-#include "Object.h"
-#include "../Map/Map.h"
+#include<vector>
+#include"Object.h"
+#include"../Map/Map.h"
 #include"Enemy/EnemyModelManager.h"
 #include"Enemy/Enemy.h"
 

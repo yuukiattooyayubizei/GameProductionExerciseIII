@@ -1,8 +1,5 @@
 #include<DxLib.h>
 #include"PlayCamera.h"
-#include<math.h>
-#include "../../Common.h"
-#include "../CameraManager.h"
 
 PlayerCamera::PlayerCamera()
 {

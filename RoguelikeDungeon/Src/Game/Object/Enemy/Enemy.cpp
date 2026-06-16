@@ -1,7 +1,5 @@
 #include"Enemy.h"
-#include "../../../lib/Input/input.h"
-#include <iostream>
-#include "../../Map/Map.h"
+#include"../../Map/Map.h"
 
 bool CanMoveDir(CanMove canmove, DIRECTION dir)
 {

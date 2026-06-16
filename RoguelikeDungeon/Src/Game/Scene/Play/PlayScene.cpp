@@ -1,13 +1,7 @@
 ﻿#include"PlayScene.h"
-#include"math.h"
-#include <iostream>
-#include <vector>
-#include<algorithm>
-#include<list>
-#include "../../Common.h"
-#include "../../../Lib/Input/PadInput.h"
-#include "../../../Lib/Sound/sound.h"
-#include "../../../Lib/Input/input.h"
+#include"../../Common.h"
+#include"../../../Lib/Sound/Sound.h"
+#include"../../Object/Player/Player.h"
 
 using namespace std;
 
@@ -132,29 +126,26 @@ int CPlayScene::Step()
 	plPos.y = 0;
 	plPos.z = (float)m_ObjectManager.GetPlayer()->GetPos().y * 100.0f;
 	m_CameraManager.Step(plPos, 0, 0, 0);
-
-
-
 	m_CameraManager.UpDate();
 
-		if (m_PlayMode == MODE_PLAY)
+	if (m_PlayMode == MODE_PLAY)
+	{
+		return StepPlay();
+	}
+	else if (m_PlayMode == MODE_ITEM_MENU)
+	{
+		int i = Map->StepItemMenu(m_ObjectManager.GetPlayer()->GetInventorySize());
+		if (i == 1)
+			m_PlayMode = MODE_PLAY;
+		if (i >= 2)
 		{
-			return StepPlay();
-		}
-		else if (m_PlayMode == MODE_ITEM_MENU)
-		{
-			int i =  Map->StepItemMenu(m_ObjectManager.GetPlayer()->GetInventorySize());
-			if(i == 1)
-				m_PlayMode = MODE_PLAY;
-			if(i >= 2)
+			if (UseItem(i - 2))
 			{
-				if (UseItem(i - 2))
-				{
-					m_PlayMode = MODE_PLAY;
-					m_PlayerTurn = false;
-				}
+				m_PlayMode = MODE_PLAY;
+				m_PlayerTurn = false;
 			}
 		}
+	}
 
 	return 0;
 }

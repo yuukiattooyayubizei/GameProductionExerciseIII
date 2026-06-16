@@ -1,4 +1,4 @@
-#include "Object.h"
+#include"Object.h"
 
 CObject::CObject() {
 	m_Atk = 0;

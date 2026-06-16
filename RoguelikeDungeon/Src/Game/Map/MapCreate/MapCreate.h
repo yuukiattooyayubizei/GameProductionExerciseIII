@@ -1,8 +1,8 @@
 #pragma once
-#include <vector>
-#include "../MapCommon.h"
-#include "../../common.h"
-#include "../MapData/MapData.h"
+#include<vector>
+#include"../MapCommon.h"
+#include"../../Common.h"
+#include"../MapData/MapData.h"
 #include"../Room/Room.h"
 
 

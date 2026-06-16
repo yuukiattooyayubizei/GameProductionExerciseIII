@@ -1,9 +1,9 @@
 #include"Player.h"
-#include "../../../lib/Input/input.h"
+#include "../../../lib/Input/Input.h"
 #include "../../Common.h"
-#include "../../Item/Item.h"
-#include <iostream>
-#include <algorithm>
+#include"../../Item/Item.h"
+#include<iostream>
+#include<algorithm>
 using namespace std;
 
 

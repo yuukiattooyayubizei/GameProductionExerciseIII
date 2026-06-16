@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 enum tagSound{
 	BGMID_TITLE, //タイトルBGM
 	BGMID_GAME, //本編BGM

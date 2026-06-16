@@ -1,5 +1,5 @@
 #pragma once
-#include "DxLib.h"
+#include"DxLib.h"
 
 constexpr int USE_PAD_NUM = 3;		//使用するコントローラーの数
 

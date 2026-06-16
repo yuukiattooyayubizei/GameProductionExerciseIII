@@ -1,6 +1,4 @@
 #pragma once
-#include<DxLib.h>
-#include"../Scene.h"
 
 class CResultScene 
 {

@@ -1,13 +1,6 @@
 #pragma once
-#include<DxLib.h>
-#include"../Scene.h"
-#include "../../Object/Player/Player.h"
-#include "../../Object/Enemy/EnemyModelManager.h"
-#include "../../Object/Enemy/Enemy.h"
-#include <vector>
-#include "../../Map/Map.h"
-#include "../../Camera/CameraManager.h"
-#include "../../Object/ObjectManager.h"
+#include"../../Camera/CameraManager.h"
+#include"../../Object/ObjectManager.h"
 
 
 

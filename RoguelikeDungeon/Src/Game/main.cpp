@@ -1,4 +1,3 @@
-#include"iostream"
 #include<DxLib.h>
 #include "../Lib/Input/input.h"
 #include "Scene/SceneManager.h"

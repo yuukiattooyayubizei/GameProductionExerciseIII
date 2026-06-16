@@ -1,6 +1,6 @@
 #pragma once
-#include "../Object.h"
-#include "EnemyModelManager.h"
+#include"../Object.h"
+#include"EnemyModelManager.h"
 
 enum EnemyMoveType {
     MOVE_WALK,

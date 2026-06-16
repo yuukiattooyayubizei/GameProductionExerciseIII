@@ -1,6 +1,5 @@
 #pragma once
-#include <DxLib.h>
-#include"../common.h"
+#include"../Common.h"
 
 enum ObjectKind {
     KIND_NON,

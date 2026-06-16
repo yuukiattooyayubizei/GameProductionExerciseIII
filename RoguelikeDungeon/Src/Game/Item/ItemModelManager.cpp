@@ -1,6 +1,6 @@
 #include"ItemModelManager.h"
-#include <DxLib.h>
-#include "../Common.h"
+#include<DxLib.h>
+#include"../Common.h"
 
 CItemModelManager::CItemModelManager() {
 	m_hndl.clear();

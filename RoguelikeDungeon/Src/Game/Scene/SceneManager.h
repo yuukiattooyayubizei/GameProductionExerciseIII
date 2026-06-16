@@ -1,9 +1,8 @@
 #pragma once
 
-#include<DxLib.h>
-#include "Play/PlayScene.h"
-#include "Title/TitleScene.h"
-#include "Result/ResultScene.h"
+#include"Play/PlayScene.h"
+#include"Title/TitleScene.h"
+#include"Result/ResultScene.h"
 
 class SceneManager
 {

@@ -1,6 +1,5 @@
 #include<DxLib.h>
-#include"debugcamera.h"
-#include<math.h>
+#include"DebugCamera.h"
 
 #define ZERO (VGet(0.0f,0.0f,0.0f))
 static const float ROT_SPEED = 0.05f;

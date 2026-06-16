@@ -1,7 +1,7 @@
 #pragma once
 #include"../Room/Room.h"
-#include <vector>
-#include "../MapCommon.h"
+#include<vector>
+#include"../MapCommon.h"
 
 
 class CMapData {

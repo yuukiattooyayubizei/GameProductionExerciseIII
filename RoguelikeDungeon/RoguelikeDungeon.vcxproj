@@ -167,9 +167,9 @@
     <ClInclude Include="Src\Game\Scene\Scene.h" />
     <ClInclude Include="Src\Game\Scene\SceneManager.h" />
     <ClInclude Include="Src\Game\Scene\Title\TitleScene.h" />
-    <ClInclude Include="Src\Lib\Input\input.h" />
+    <ClInclude Include="Src\Lib\Input\Input.h" />
     <ClInclude Include="Src\Lib\Input\PadInput.h" />
-    <ClInclude Include="Src\Lib\Sound\sound.h" />
+    <ClInclude Include="Src\Lib\Sound\Sound.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\Camera\CameraManager.cpp" />
@@ -200,9 +200,9 @@
     <ClCompile Include="Src\Game\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="Src\Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Src\Game\Scene\Title\TitleScene.cpp" />
-    <ClCompile Include="Src\Lib\Input\input.cpp" />
+    <ClCompile Include="Src\Lib\Input\Input.cpp" />
     <ClCompile Include="Src\Lib\Input\PadInput.cpp" />
-    <ClCompile Include="Src\Lib\Sound\sound.cpp" />
+    <ClCompile Include="Src\Lib\Sound\Sound.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,7 @@
 #pragma once
 #include<DxLib.h>
-#include "../../Common.h"
-#include "../../Map/Map.h"
+#include"../../Common.h"
+#include"../../Map/Map.h"
 
 class EditCamera
 {

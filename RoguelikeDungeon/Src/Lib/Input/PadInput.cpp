@@ -1,5 +1,5 @@
-#include "DxLib.h"
-#include "PadInput.h"
+#include"DxLib.h"
+#include"PadInput.h"
 
 
 XINPUT_STATE PadInput::input[USE_PAD_NUM];

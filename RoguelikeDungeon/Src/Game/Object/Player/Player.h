@@ -1,9 +1,7 @@
 #pragma once
 #include"../Object.h"
-#include <DxLib.h>
-#include "../../Common.h"
-#include "../../Item/Item.h"
-#include <vector>
+#include"../../Item/Item.h"
+#include<vector>
 
 static constexpr int HP_MAX = 15;               //初期の体力最大値
 static constexpr int INVENTORY_MAX = 20;        //所持できるアイテム数の限界

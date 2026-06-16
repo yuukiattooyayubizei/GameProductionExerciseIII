@@ -1,5 +1,5 @@
 #pragma once
-#include "../common.h"
+#include"../Common.h"
 
 static constexpr int MAP_X = 50;			//マップの最大横幅
 static constexpr int MAP_Y = 30;			//マップの最大縦幅

@@ -1,6 +1,5 @@
 #pragma once
-#include "../MapData/MapData.h"
-#include <DxLib.h>
+#include"../MapData/MapData.h"
 
 class CMapDraw {
 private:

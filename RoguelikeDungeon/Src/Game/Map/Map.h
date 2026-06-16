@@ -1,15 +1,14 @@
 #pragma once
-#include <vector>
-#include<DxLib.h>
-#include "../common.h"
-#include "../Item/FieldItem/FieldItem.h"
+#include<vector>
+#include"../Common.h"
+#include"../Item/FieldItem/FieldItem.h"
 #include"Room/Room.h"
-#include "MapCommon.h"
-#include "MapData/MapData.h"
-#include "FieldItemManager/FieldItemManager.h"
-#include "MapCreate/MapCreate.h"
-#include "ItemMenu/ItemMenu.h"
-#include "MapDraw/MapDraw.h"
+#include"MapCommon.h"
+#include"MapData/MapData.h"
+#include"FieldItemManager/FieldItemManager.h"
+#include"MapCreate/MapCreate.h"
+#include"ItemMenu/ItemMenu.h"
+#include"MapDraw/MapDraw.h"
 
 
 class CMap {

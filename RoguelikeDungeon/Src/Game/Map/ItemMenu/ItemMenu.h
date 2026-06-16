@@ -1,7 +1,6 @@
 #pragma once
-#include <vector>
-#include "../MapCommon.h"
-#include "../../Item/Item.h"
+#include<vector>
+#include"../../Item/Item.h"
 
 
 class CItemMenu {

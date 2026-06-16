@@ -1,6 +1,7 @@
 #pragma once
-#include "../../common.h"
-#include "../Item.h"
+#include"../../Common.h"
+#include"../Item.h"
+#include"../ItemModelManager.h"
 
 // マップ上に落ちているアイテム
 struct FieldItem

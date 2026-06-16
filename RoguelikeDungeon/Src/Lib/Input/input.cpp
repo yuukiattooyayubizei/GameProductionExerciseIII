@@ -1,4 +1,4 @@
-#include "input.h"
+#include"Input.h"
 #include<DxLib.h>
 
 CMouce* CMouce::m_Instance = NULL;
