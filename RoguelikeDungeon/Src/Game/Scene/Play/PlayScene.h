@@ -1,6 +1,7 @@
 #pragma once
 #include"../../Camera/CameraManager.h"
 #include"../../Object/ObjectManager.h"
+#include"../../UI/UI.h"
 
 class CPlayScene 
 {
@@ -18,6 +19,7 @@ private:
 	tagPlayScene m_tagPlayScene;//ó‘Ô‘JˆÚ
 	CCameraManager m_CameraManager;//ƒJƒƒ‰
 	CObjectManager m_ObjectManager;
+	CUI m_UI;
 
 	bool m_PlayerTurn;
 	int m_EnemySpwanWait;

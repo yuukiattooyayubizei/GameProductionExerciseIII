@@ -97,6 +97,9 @@
     <Filter Include="ソース ファイル\Game\Map\MapDraw">
       <UniqueIdentifier>{8b8be648-2b81-4215-9f87-24099d56f59c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\UI">
+      <UniqueIdentifier>{b359e093-346b-470a-bd1a-4626439df1d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Common.h">
@@ -204,6 +207,12 @@
     <ClInclude Include="Src\Game\Object\ObjectCommon.h">
       <Filter>ソース ファイル\Game\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\UI\UI.h">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\UI\Log.h">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -298,6 +307,12 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Map\MapDraw\MapDraw.cpp">
       <Filter>ソース ファイル\Game\Map\MapDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\UI\UI.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\UI\Log.cpp">
+      <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

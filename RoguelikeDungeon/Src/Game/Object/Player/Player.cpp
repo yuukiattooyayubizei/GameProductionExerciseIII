@@ -4,6 +4,9 @@
 #include"../../Item/Item.h"
 #include<iostream>
 #include<algorithm>
+#include"../../UI/UI.h"
+#include<string>
+#include "../../UI/Log.h"
 using namespace std;
 
 CPlayer::~CPlayer(){
@@ -89,6 +92,7 @@ void CPlayer::Exit() {
 
 bool CPlayer::AddItem(const Item& item)
 {
+	CLog* Log = CLog::GetInstance();
 	// 最大数以上は持てない
 	if (IsInventoryFull())
 		return false;
@@ -97,19 +101,24 @@ bool CPlayer::AddItem(const Item& item)
 	m_Inventory.push_back(item);
 
 	std::cout << "アイテム追加完了" << std::endl;
+	std::string rog;
 	switch (item.type)
 	{
 	case ITEM_1:
-		std::cout << "アイテム1" << std::endl;
+		rog = "アイテム1を入手した";
+		Log->AddLog(rog);
 		break;
 	case ITEM_2:
-		std::cout << "アイテム2" << std::endl;
+		rog = "アイテム2を入手した";
+		Log->AddLog(rog);
 		break;
 	case ITEM_3:
-		std::cout << "アイテム3" << std::endl;
+		rog = "アイテム3を入手した";
+		Log->AddLog(rog);
 		break;
 	case ITEM_4:
-		std::cout << "アイテム4" << std::endl;
+		rog = "アイテム4を入手した";
+		Log->AddLog(rog);
 		break;
 	default:
 		break;

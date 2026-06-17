@@ -1,2 +1,6 @@
-﻿  EnemyModelManager.cpp
+﻿  Player.cpp
+  PlayScene.cpp
+  UI.cpp
+C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\UI\UI.cpp(18,52): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  コードを生成中...
   RoguelikeDungeon.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\x64\Debug\RoguelikeDungeon.exe

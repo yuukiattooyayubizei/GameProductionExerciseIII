@@ -64,4 +64,7 @@ public:
 
 	// 廊下とかぶっているかを判定
 	bool CollisionStairs(Int2 i);
+
+	// プレイヤーがいない部屋の中からランダムな座標を取得
+	Int2 GetNotHerePlayerRoomPos(Int2 PlPos);
 };

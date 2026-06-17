@@ -24,26 +24,6 @@ private:
 	CItemMenu m_ItemMenu;
 	CFieldItemManager m_FieldItemManager;
 public:
-	void CreateItem(int CreateNum, int x = -1, int y = -1) { m_FieldItemManager.CreateItem(m_MapData,CreateNum, x, y); }
-	// 廊下とかぶっているかを判定
-	bool CollisionStairs(Int2 i) { return m_MapData.CollisionStairs(i); }
-	ITEM_TYPE IsItemExist(Int2 i) { return m_FieldItemManager.IsItemExist(i); }
-	// 指定した座標のアイテムを消去
-	void EraseItem(Int2 pos) { m_FieldItemManager.EraseItem(pos); }
-	// アイテムが同じ座標にあるかチェック
-	bool CollisionItem(Int2 i) { return m_FieldItemManager.CollisionItem(i); }
-	// 部屋の中のランダムな座標を取得
-	Int2 GetRoomPos() { return m_MapData.GetRoomPos(); }
-	void DrawItemMenu(const std::vector<Item>& Inventory) { m_ItemMenu.DrawItemMenu(Inventory); }
-
-	int StepItemMenu(int itemCount) { return m_ItemMenu.StepItemMenu(itemCount); }
-	void UpDateItemMenu(int itemCount) { m_ItemMenu.UpdatePage(itemCount); }
-	// 座標がマップ外かチェック
-	// trueならマップ外
-	bool InvestigationMapOutside(Int2 i) { return m_MapData.InvestigationMapOutside(i); }
-
-	// アイテムどうしが同じ座標にあるかチェック
-	bool CollisionItemToItem(CFieldItem& item) { return m_FieldItemManager.CollisionItemToItem(m_MapData, item); }
 
 	CMap() { Init(); }
 
@@ -52,17 +32,12 @@ public:
 	//----------------------------------------------
 
 	void Init();
-
 	void Load();
-
-	// 描画
 	void Draw(Int2 playerPos);
-
 	void Exit();
 
 	// 全部消す
 	void DeleteAll();
-
 	//階層を生成
 	void CreateFloor();
 
@@ -70,28 +45,42 @@ public:
 	// 取得系
 	//----------------------------------------------
 
-	// 階段の座標を返す
-	Int2 GetStairsPos() const { return m_MapData.GetStairsPos(); }
-	TILE GetTile(Int2 pos) { return m_MapData.GetTile(pos); }
-	int GetRoomNum(Int2 pos) { return m_MapData.GetRoomNum(pos); }
-	CRoom GetStartRoom() { return m_MapData.GetStartRoom(); }
+	Int2 GetStairsPos() const { return m_MapData.GetStairsPos(); }									//階段の座標を返す
+	TILE GetTile(Int2 pos) { return m_MapData.GetTile(pos); }										//指定された座標のタイルの種類を返す
+	int GetRoomNum(Int2 pos) { return m_MapData.GetRoomNum(pos); }									//座標の部屋のIDを返す
+	CRoom GetStartRoom() { return m_MapData.GetStartRoom(); }										//始めの部屋を返す
+	Int2 GetRoomPos() { return m_MapData.GetRoomPos(); }											//部屋の中のランダムな座標を取得
+	Int2 GetNotHerePlayerRoomPos(Int2 PlPos) { return m_MapData.GetNotHerePlayerRoomPos(PlPos); }	//部屋の中のランダムな座標を取得
+
+
 	void SetSelectItemIndex(int i = 0) { m_ItemMenu.SetSelectItemIndex(i); }
 	void SetItemPage(int i = 0) { m_ItemMenu.SetItemPage(i); }
 	void SetStairsPos(Int2 pos) { m_MapData.SetStairsPos(pos); }
 
+
 	//----------------------------------------------
 	// 判定系
 	//----------------------------------------------
-
-	//----------------------------------------------
-	// 部屋・階段生成系
-	//----------------------------------------------
+	
+	// 座標がマップ外かチェック
+	// trueならマップ外
+	bool InvestigationMapOutside(Int2 i) { return m_MapData.InvestigationMapOutside(i); }
+	// アイテムどうしが同じ座標にあるかチェック
+	bool CollisionItemToItem(CFieldItem& item) { return m_FieldItemManager.CollisionItemToItem(m_MapData, item); }
+	// 廊下とかぶっているかを判定
+	bool CollisionStairs(Int2 i) { return m_MapData.CollisionStairs(i); }
 
 	//----------------------------------------------
 	// アイテム関連
 	//----------------------------------------------
 
-	//----------------------------------------------
-	// 廊下関連
-	//----------------------------------------------
+	void CreateItem(int CreateNum, int x = -1, int y = -1) { m_FieldItemManager.CreateItem(m_MapData, CreateNum, x, y); }
+	// 指定した座標のアイテムを消去
+	void EraseItem(Int2 pos) { m_FieldItemManager.EraseItem(pos); }
+	// アイテムが同じ座標にあるかチェック
+	bool CollisionItem(Int2 i) { return m_FieldItemManager.CollisionItem(i); }
+	void DrawItemMenu(const std::vector<Item>& Inventory) { m_ItemMenu.DrawItemMenu(Inventory); }
+	int StepItemMenu(int itemCount) { return m_ItemMenu.StepItemMenu(itemCount); }
+	void UpDateItemMenu(int itemCount) { m_ItemMenu.UpdatePage(itemCount); }
+	ITEM_TYPE IsItemExist(Int2 i) { return m_FieldItemManager.IsItemExist(i); }
 };

@@ -34,6 +34,7 @@ public:
     DIRECTION GetDirection() const { return m_Direction; }
     int GetAtk() const { return m_Atk; }
     int GetHP() const { return m_HP; }
+    int GetMaxHP() const { return m_MaxHP; }
     bool GetActive() const { return m_IsActive; }
 
 

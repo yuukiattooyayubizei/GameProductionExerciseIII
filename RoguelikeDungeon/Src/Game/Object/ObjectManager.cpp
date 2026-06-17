@@ -8,6 +8,7 @@
 #include<algorithm>
 #include"../../Lib/Input/Input.h"
 #include"Player/Player.h"
+#include "../UI/Log.h"
 
 void CObjectManager::DeleteDeadObject()
 {
@@ -140,6 +141,10 @@ void CObjectManager::Init() {
 
     // 念のため前回の残りを消す
     ClearAll();
+    m_PlayerTurn = true;
+    m_Player = {};
+    m_EnemySpwanWait = 30;
+    m_PlayMode = MODE_PLAY;
 }
 
 void CObjectManager::Load() {
@@ -154,6 +159,7 @@ void CObjectManager::Load() {
 
 int CObjectManager::Step() {
     CMap* Map = CMap::GetInstance();
+    CLog* Log = CLog::GetInstance();
     //プレイヤーの行動待ちなら
     if (m_PlayerTurn == true)
     {
@@ -215,11 +221,13 @@ int CObjectManager::Step() {
 
                             target->AddDamage(damage);
 
-                            std::cout << "敵に" << damage << "ダメージを与えた" << std::endl;
+                            std::string rog = "敵に" + std::to_string(damage) + "ダメージを与えた";
+                            Log->AddLog(rog);
 
                             if (target->GetHP() <= 0)
                             {
-                                std::cout << "敵撃破" << std::endl;
+                                std::string rog = "敵撃破";
+                                Log->AddLog(rog);
                                 target->SetActive(false);
                             }
 
@@ -244,8 +252,10 @@ int CObjectManager::Step() {
                     if (m_Player->AddItem(item))
                         //入れたアイテムを消す
                         Map->EraseItem(m_Player->GetPos());
-                    else
-                        std::cout << "インベントリがまんたん" << std::endl;
+                    else {
+                        std::string rog = "インベントリがまんたん";
+                        Log->AddLog(rog);
+                    }
                 }
             }
 
@@ -309,7 +319,8 @@ int CObjectManager::Step() {
 
                             target->AddDamage(damage);
 
-                            std::cout << "プレイヤーは" << damage << "ダメージを受けた" << std::endl;
+                            std::string rog = "プレイヤーは" + std::to_string(damage) + "ダメージを受けた";
+                            Log->AddLog(rog);
 
                             if (target->GetHP() <= 0)
                             {
@@ -392,7 +403,7 @@ Int2 CObjectManager::FindSpawnPos()
     CMap* Map = CMap::GetInstance();
     for (int i = 0; i < RETRY_MAX; ++i)
     {
-        Int2 pos = Map->GetRoomPos();
+        Int2 pos = Map->GetNotHerePlayerRoomPos(m_Player->GetPos());
 
         if (!CollisionAll(pos))
         {

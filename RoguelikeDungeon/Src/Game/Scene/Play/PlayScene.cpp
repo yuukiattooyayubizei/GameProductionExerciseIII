@@ -2,6 +2,7 @@
 #include"../../Common.h"
 #include"../../../Lib/Sound/Sound.h"
 #include"../../Object/Player/Player.h"
+#include "../../UI/UI.h"
 
 using namespace std;
 
@@ -25,8 +26,10 @@ CPlayScene::~CPlayScene()
 
 void CPlayScene::Init()
 {
+	
 	CMap* Map = CMap::GetInstance();
 
+	m_UI.Init();
 	Map->Init();
 
 	// 念のため前回の残りを消す
@@ -219,14 +222,15 @@ void CPlayScene::Draw()
 
 	Map->Draw(m_ObjectManager.GetPlayer()->GetPos());
 
-
 	m_ObjectManager.Draw();
 
 	//描画処理
 
-	DrawFormatString(32, 160, GetColor(255, 255, 255), "%d 階", m_Floor);
+	DrawFormatString(32, 176, GetColor(255, 255, 255), "%d 階", m_Floor);
 
 	DrawFormatString(32, 704, GetColor(255, 255, 255), "プレイシーン Fで足踏み、Kでアイテムメニュー");
+
+	m_UI.Draw(m_ObjectManager.GetPlayer()->GetHP(), m_ObjectManager.GetPlayer()->GetMaxHP());
 
 	m_CameraManager.Draw();
 

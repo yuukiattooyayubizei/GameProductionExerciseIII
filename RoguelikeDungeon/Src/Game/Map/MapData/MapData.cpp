@@ -404,3 +404,21 @@ bool CMapData::CollisionStairs(Int2 i) {
 
 	return false;
 };
+
+Int2 CMapData::GetNotHerePlayerRoomPos(Int2 PlPos)
+{
+	//部屋が1つしかないなら無限ループして落ちるからやめる
+	if (m_Room.size() <= 1) {
+		Int2 i = { -1,-1 };
+		return i;
+	}
+
+	//ランダムで座標を取得
+	Int2 ret = GetRoomPos();
+	//プレイヤーと同じ部屋なら再抽選
+	while (GetRoomNum(ret) == GetRoomNum(PlPos))
+	{
+		ret = GetRoomPos();
+	}
+	return ret;
+}

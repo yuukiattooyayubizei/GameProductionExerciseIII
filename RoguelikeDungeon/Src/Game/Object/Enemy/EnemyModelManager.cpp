@@ -34,17 +34,6 @@ void CEnemyModelManager::LoadModel() {
 		int hndl = LoadModelWithScale(path.c_str(), Scale, Rotation);
 		m_hndl.push_back(hndl);
 	}
-	//int hndl = LoadModelWithScale("Data/Model/Enemy1.x", Scale, Rotation);
-	//m_hndl.push_back(hndl);
-
-	//hndl = LoadModelWithScale("Data/Model/Enemy2.x", Scale, Rotation);
-	//m_hndl.push_back(hndl);
-
-	//hndl = LoadModelWithScale("Data/Model/Enemy3.x", Scale, Rotation);
-	//m_hndl.push_back(hndl);
-
-	//hndl = LoadModelWithScale("Data/Model/Enemy4.x", Scale, Rotation);
-	//m_hndl.push_back(hndl);
 }
 
 int CEnemyModelManager::GetModel(EnemyType modelId) const {
