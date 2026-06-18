@@ -9,6 +9,7 @@ static constexpr int ROOM_MARGIN = 3;		//部屋どうしの最低距離
 static constexpr int DRAW_LENGTH_X = 12;	//描写するマスの幅
 static constexpr int DRAW_LENGTH_Y = 9;		
 static const int ITEM_PER_PAGE = 10;		//インベントリの１ページに表示される数
+static constexpr int ROOM_COUNT_MIN = 2;
 
 class UnionFind
 {

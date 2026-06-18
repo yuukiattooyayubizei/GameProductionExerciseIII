@@ -3,8 +3,6 @@
 
 using namespace std;
 
-static constexpr int ROOM_SIZE_MIN = 2;
-
 void CMapData::Init() {
 	//•”‰®î•ñ‚ğÁ‹
 	m_Room.clear();

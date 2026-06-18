@@ -3,8 +3,6 @@
 #include<vector>
 #include"../MapCommon.h"
 
-
-
 class CMapData {
 private:
 	// ŠK’i‚ÌÀ•W

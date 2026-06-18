@@ -3,8 +3,6 @@
 #include<algorithm>
 #include<DxLib.h>
 
-static constexpr int ROOM_COUNT_MIN = 2;
-
 void CMapCreate::DigCorridor(CMapData& mapData, Int2 a, Int2 b)
 {
 	int x = a.x;

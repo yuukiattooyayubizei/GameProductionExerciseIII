@@ -178,8 +178,6 @@ int CObjectManager::Step() {
         {
             m_PlayerTurn = false;
         }
-        //デバッグ用
-        if (IsInputTrg(KEY_Z))CreateEnemy();
 
         //オブジェクトが動けるマスを探す
         CanMove C = GetCanMove(m_Player->GetPos());
@@ -199,7 +197,7 @@ int CObjectManager::Step() {
                 TILE NextTile = Map->GetTile(NextPos);
                 if (ObjectNum == -1)
                 {
-                    /*if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)*/
+                    if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
                     {
                         //何もいないなら
                         //プレイヤーを移動させる
@@ -337,7 +335,7 @@ int CObjectManager::Step() {
 
 
         //敵を出す処理
-        //敵をだすまでのカウントを下げる
+        //敵を出すまでのカウントを下げる
         m_EnemySpwanWait--;
         if (m_EnemySpwanWait <= 0)
         {
@@ -546,8 +544,6 @@ CanMove CObjectManager::GetCanMoveEnemy(Int2 pos)
         C.Up = false;
     if (NextPos.y >= MAP_Y - 1)
         C.Down = false;
-
-
 
     //上下左右のマスを見て通れるマスでなければ行けない
     //すでにfalseなら見る必要がない
