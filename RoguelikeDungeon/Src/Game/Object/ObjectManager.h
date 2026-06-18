@@ -9,12 +9,12 @@ class CObjectManager
 {
 private:
     std::vector<CObject*> m_Object;
-    CPlayer* m_Player;
+    CPlayer* m_Player = {};
     CEnemyModelManager m_EnemyModelManager;
 
-    bool m_PlayerTurn;
-    int m_EnemySpwanWait;
-    PlayMode m_PlayMode;
+    bool m_PlayerTurn = true;
+    int m_EnemySpwanWait = 30;
+    PlayMode m_PlayMode = MODE_PLAY;
 public:
     void AddObject(CObject* object)
     {

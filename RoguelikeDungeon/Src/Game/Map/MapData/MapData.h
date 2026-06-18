@@ -3,6 +3,8 @@
 #include<vector>
 #include"../MapCommon.h"
 
+
+
 class CMapData {
 private:
 	// ŠK’i‚ÌÀ•W
@@ -36,6 +38,7 @@ public:
 	TILE GetTile(Int2 i);
 
 	CRoom GetStartRoom();
+	std::vector<CRoom> GetAllRoom() { return m_Room; }
 
 	//•”‰®‚Ì”‚ğ•Ô‚·
 	int GetRoomNum() { return (int)m_Room.size(); }
