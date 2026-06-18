@@ -143,7 +143,7 @@ void CObjectManager::Init() {
     ClearAll();
     m_PlayerTurn = true;
     m_Player = {};
-    m_EnemySpwanWait = 30;
+    m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
     m_PlayMode = MODE_PLAY;
 }
 
@@ -342,7 +342,7 @@ int CObjectManager::Step() {
         if (m_EnemySpwanWait <= 0)
         {
             //0になったら敵を出してカウントをリセット
-            m_EnemySpwanWait = 30;
+            m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
             CreateEnemy();
         }
     }

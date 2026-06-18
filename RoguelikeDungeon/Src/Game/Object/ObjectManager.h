@@ -8,12 +8,14 @@
 class CObjectManager
 {
 private:
+    static constexpr int ENEMY_SPWAN_WAIT = 30;
+private:
     std::vector<CObject*> m_Object;
     CPlayer* m_Player = {};
     CEnemyModelManager m_EnemyModelManager;
 
     bool m_PlayerTurn = true;
-    int m_EnemySpwanWait = 30000;
+    int m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
     PlayMode m_PlayMode = MODE_PLAY;
 public:
     void AddObject(CObject* object)
