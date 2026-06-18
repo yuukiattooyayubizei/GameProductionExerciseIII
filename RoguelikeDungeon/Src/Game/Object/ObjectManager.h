@@ -13,7 +13,7 @@ private:
     CEnemyModelManager m_EnemyModelManager;
 
     bool m_PlayerTurn = true;
-    int m_EnemySpwanWait = 30;
+    int m_EnemySpwanWait = 30000;
     PlayMode m_PlayMode = MODE_PLAY;
 public:
     void AddObject(CObject* object)

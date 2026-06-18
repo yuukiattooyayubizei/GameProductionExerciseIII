@@ -14,7 +14,7 @@ static constexpr int ROOM_MAX = 7;
 //Å‰‚É•¦‚­ƒAƒCƒeƒ€‚Ì”
 static constexpr int STRAT_ITEM_NUM = 5;
 //Å‰‚É•¦‚­“G‚Ì”
-static constexpr int STRAT_ENEMY_NUM = 5;
+static constexpr int STRAT_ENEMY_NUM = 1;
 
 enum PlayMode
 {

@@ -12,6 +12,8 @@ protected:
     EnemyType m_EnemyType;
     CEnemyModelManager* m_ModelManager = nullptr;
     EnemyMoveType m_MoveType;
+
+    int m_DestinationRoomID;        //ŽŸ‚É‚Ç‚±‚Ì•”‰®‚ÉŒü‚©‚¢‚½‚¢‚©
 public:
     CEnemy(CEnemyModelManager* modelManager);
     virtual ~CEnemy() override;
