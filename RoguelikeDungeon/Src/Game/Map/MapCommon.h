@@ -26,25 +26,33 @@ public:
 		}
 	}
 
+	//親を探す
 	int Find(int x)
 	{
+		//親が自分自身なら自分自身を返す
 		if (m_Parent[x] == x)
 			return x;
 
+		//親が自分自身じゃないなら、その親の親を探す
 		m_Parent[x] = Find(m_Parent[x]);
 		return m_Parent[x];
 	}
 
+	//2つが同じグループかどうかを返す
 	bool Same(int a, int b)
 	{
-		return Find(a) == Find(b);
+		if (Find(a) == Find(b))return true;
+		return false;
 	}
 
+	//2つを同じグループにする
+	//Aが親としてつなぐ
 	void Unite(int a, int b)
 	{
 		int rootA = Find(a);
 		int rootB = Find(b);
 
+		//既に同じグループなら(親が同じなら)つながない
 		if (rootA == rootB)
 			return;
 
@@ -61,9 +69,9 @@ struct SpecifiedRoomInformation {
 
 struct RoomEdge
 {
-	int roomA;
-	int roomB;
-	int distance;
+	int roomA;		//部屋AのID
+	int roomB;		//部屋BのID
+	int distance;	//2部屋間の距離
 };
 
 struct CorridorInfo

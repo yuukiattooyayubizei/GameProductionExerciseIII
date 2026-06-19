@@ -3,32 +3,38 @@
 #include<algorithm>
 #include<DxLib.h>
 
-void CMapCreate::DigCorridor(CMapData& mapData, Int2 a, Int2 b)
+void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 {
-	int x = a.x;
-	int y = a.y;
+	int x = start.x;
+	int y = start.y;
 
 	// 横方向に掘る
-	while (a.x != b.x)
+	while (start.x != end.x)
 	{
-		if (mapData.GetTile(a) != TILE_ROOM)
-			mapData.SetTile(a, TILE_CORRIDOR);
+		if (mapData.GetTile(start) != TILE_ROOM)
+			mapData.SetTile(start, TILE_CORRIDOR);
 		//目標が右か左か調べ、その方向に1マス移動
-		a.x += (b.x > x) ? 1 : -1;
+		if (start.x < end.x)
+			start.x++;
+		else
+			start.x--;
 	}
 
 	// 縦方向に掘る
-	while (a.y != b.y)
+	while (start.y != end.y)
 	{
-		if (mapData.GetTile(a) != TILE_ROOM)
-			mapData.SetTile(a, TILE_CORRIDOR);
+		if (mapData.GetTile(start) != TILE_ROOM)
+			mapData.SetTile(start, TILE_CORRIDOR);
 		//目標が上か下か調べ、その方向に1マス移動
-		a.y += (b.y > a.y) ? 1 : -1;
+		if (start.y < end.y)
+			start.y++;
+		else
+			start.y--;
 	}
 
 	// 最後のマス
-	if (mapData.GetTile(a) != TILE_ROOM)
-		mapData.SetTile(a, TILE_CORRIDOR);
+	if (mapData.GetTile(start) != TILE_ROOM)
+		mapData.SetTile(start, TILE_CORRIDOR);
 }
 
 void CMapCreate::CreateStairs(CMapData& mapData)
@@ -54,7 +60,6 @@ CRoom CMapCreate::RoomSizeDecision() {
 	CenterX = CenterY = 0.0f;
 
 	//部屋の大きさをランダムで決定
-
 	X = GetRand(MAP_SIZE_MAX - MAP_SIZE_MIN) + MAP_SIZE_MIN;
 	Y = GetRand(MAP_SIZE_MAX - MAP_SIZE_MIN) + MAP_SIZE_MIN;
 
@@ -65,6 +70,7 @@ CRoom CMapCreate::RoomSizeDecision() {
 	EndX = StartX + X;
 	EndY = StartY + Y;
 
+	//中心点を計算
 	CenterX = (EndX + StartX) / 2.0f;
 	CenterY = (EndY + StartY) / 2.0f;
 
@@ -107,16 +113,19 @@ void CMapCreate::CreateFloor(CMapData& mapData) {
 	//マップを消去
 	mapData.Init();
 
-	//3個から5個の部屋を作成
+	//5個から7個の部屋を作成
 	if (CreateRoom(mapData,GetRand(ROOM_MAX - ROOM_MIN) + ROOM_MIN) == false)return;
 	CreateCorridor(mapData);
 	CreateStairs(mapData);
 }
 
+//廊下の作成
 bool CMapCreate::CreateCorridor(CMapData& mapData)
 {
+	//部屋の数を取得
 	int roomCount = static_cast<int>(mapData.GetRoomNum());
 
+	//部屋の数が少なすぎたらやめる
 	if (roomCount < ROOM_COUNT_MIN)
 		return false;
 
@@ -127,24 +136,23 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 	{
 		for (int k = i + 1; k < roomCount; k++)
 		{
-			int ax = static_cast<int>(mapData.GetRoom(i).GetCenter().x);
-			int ay = static_cast<int>(mapData.GetRoom(i).GetCenter().y);
-
-			int bx = static_cast<int>(mapData.GetRoom(k).GetCenter().x);
-			int by = static_cast<int>(mapData.GetRoom(k).GetCenter().y);
-
-			int dx = ax - bx;
-			int dy = ay - by;
+			//部屋の中心座標を取得
+			Int2 RoomA{ ChangeInt2ToFloat2(mapData.GetRoom(i).GetCenter()) };
+			Int2 RoomB{ ChangeInt2ToFloat2(mapData.GetRoom(k).GetCenter()) };
+			Int2 distance{ SubInt2(RoomA,RoomB) };
 
 			RoomEdge edge;
 			edge.roomA = i;
 			edge.roomB = k;
-			edge.distance = dx * dx + dy * dy;
+			//直線距離でどれくらい距離が離れているか計算
+			//edge.distance = distanceX * distanceX + distanceY * distanceY;
+			edge.distance = distance.x * distance.x + distance.y * distance.y;
 
 			edges.push_back(edge);
 		}
 	}
 
+	//直線距離が短い順に並べ替える
 	std::sort(edges.begin(), edges.end(),[](const RoomEdge& a, const RoomEdge& b){
 			return a.distance < b.distance;
 		});
@@ -153,26 +161,23 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 
 	int corridorCount = 0;
 
+	//直線距離が短い順に計算
 	for (const RoomEdge& edge : edges)
 	{
+		//2つがすでに同じグループだったら計算しない
 		if (uf.Same(edge.roomA, edge.roomB))
 			continue;
 
+		//2つの部屋を結びつける
 		uf.Unite(edge.roomA, edge.roomB);
 
 		const CRoom& roomA = mapData.GetRoom(edge.roomA);
 		const CRoom& roomB = mapData.GetRoom(edge.roomB);
 
-		Int2 centerA{
-			static_cast<int>(roomA.GetCenter().x),
-			static_cast<int>(roomA.GetCenter().y)
-		};
+		Int2 centerA{ ChangeInt2ToFloat2(roomA.GetCenter()) };
+		Int2 centerB{ ChangeInt2ToFloat2(roomB.GetCenter()) };
 
-		Int2 centerB{
-			static_cast<int>(roomB.GetCenter().x),
-			static_cast<int>(roomB.GetCenter().y)
-		};
-
+		//上下→左右の順にそうかを作るか左右→上下の順にそうかを作るかをランダムで決定
 		if (GetRand(1) == 0)
 		{
 			Int2 mid{ centerB.x, centerA.y };
@@ -186,8 +191,9 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 			DigCorridor(mapData,mid, centerB);
 		}
 
+		//作り終わったらカウントを進める
 		corridorCount++;
-
+		//規定数まで作ったら終わる
 		if (corridorCount >= roomCount - 1)
 			break;
 	}

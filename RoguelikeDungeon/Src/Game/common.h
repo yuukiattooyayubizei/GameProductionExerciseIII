@@ -111,6 +111,13 @@ struct Float2 {
 	float x, y;
 };
 
+static Int2 ChangeInt2ToFloat2(Float2 f) {
+	Int2 ret = {};
+	ret.x = (int)f.x;
+	ret.y = (int)f.y;
+	return ret;
+}
+
 //boolŒ^‚Ìtrue‚Æfalse‚ð‹t“]‚³‚¹‚é
 static bool ReverseBool(bool is) {
 	if (is == true)
