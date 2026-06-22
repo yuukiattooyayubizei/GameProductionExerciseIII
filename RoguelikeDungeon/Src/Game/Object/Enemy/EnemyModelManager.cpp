@@ -26,10 +26,7 @@ void CEnemyModelManager::LoadModel() {
 	VECTOR Scale = VGet(0.5f, 0.5f, 0.5f);
 	VECTOR Rotation = VGet(0.0f, DX_PI_F, 0.0f);
 	for (int i = 1;i < 5;i++) {
-		std::string path =
-			std::string(ENEMY_MODEL_PATH_FRONT) +
-			std::to_string(i) +
-			ENEMY_MODEL_PATH_BACK;
+		std::string path = ENEMY_MODEL_PATH_FRONT + std::to_string(i) + ENEMY_MODEL_PATH_BACK;
 
 		int hndl = LoadModelWithScale(path.c_str(), Scale, Rotation);
 		m_hndl.push_back(hndl);

@@ -141,7 +141,7 @@ void CObjectManager::Init() {
 
     // 念のため前回の残りを消す
     ClearAll();
-    m_PlayerTurn = true;
+  //  m_PlayerTurn = true;
     m_Player = {};
     m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
     m_PlayMode = MODE_PLAY;
@@ -157,194 +157,202 @@ void CObjectManager::Load() {
     }
 }
 
-int CObjectManager::Step() {
+PlayerAction CObjectManager::PlayerStep(int floor) {
     CMap* Map = CMap::GetInstance();
     CLog* Log = CLog::GetInstance();
-    //プレイヤーの行動待ちなら
-    if (m_PlayerTurn == true)
-    {
+
         //アイテム選択に移行
-        if (IsInputTrg(KEY_K))
-        {
-            m_PlayMode = MODE_ITEM_MENU;
-            Map->SetSelectItemIndex();
-            Map->SetItemPage();
-            int InventorySize = m_Player->GetInventorySize();
-            Map->UpDateItemMenu(InventorySize);
-            return 1;
-        }
+    if (IsInputTrg(KEY_K))
+    {
+        m_PlayMode = MODE_ITEM_MENU;
+        Map->SetSelectItemIndex();
+        Map->SetItemPage();
+        int InventorySize = m_Player->GetInventorySize();
+        Map->UpDateItemMenu(InventorySize);
+        return ACTION_ITEM_MENU;
+    }
         //足踏みする(なにもしない)
-        if (IsInputTrg(KEY_F))
+    if (IsInputTrg(KEY_F))
+    {
+        return ACTION_END;
+    }
+
+    if (IsInputTrg(KEY_Z))
+        CreateEnemy(floor);
+
+    //オブジェクトが動けるマスを探す
+    CanMove C = GetCanMove(m_Player->GetPos());
+
+    //プレイヤーだけ動かす
+    if (m_Player->GetKind() == KIND_PLAYER)
+    {
+        m_Player->Step(C, m_Player->GetPos());
+
+        //プレイヤーが移動していたら
+        if (m_Player->GetIsMove() == true)
         {
-            m_PlayerTurn = false;
+            Int2 move = DirectionToInt2(m_Player->GetDirection());
+            Int2 NextPos = AddInt2(m_Player->GetPos(), move);
+            //移動する方向にオブジェクトがいないかチェック
+            int ObjectNum = CollisionObject(NextPos);
+            TILE NextTile = Map->GetTile(NextPos);
+            if (ObjectNum == -1)
+            {
+                if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
+                {
+                    //何もいないなら
+                    //プレイヤーを移動させる
+                    m_Player->AddPos(move);
+                    m_Player->SetMove(false);
+                }
+            }
+            else
+            {
+                // 何かがいるなら代わりにそいつに攻撃
+                CObject* target = FindObjectAt(NextPos);
+
+                if (target != nullptr)
+                {
+                    // 敵なら攻撃する
+                    if (target->GetKind() == KIND_ENEMY)
+                    {
+                        int damage = m_Player->GetAtk();
+
+                        target->AddDamage(damage);
+
+                        std::string rog = "敵に" + std::to_string(damage) + "ダメージを与えた";
+                        Log->AddLog(rog);
+
+                        if (target->GetHP() <= 0)
+                        {
+                            std::string rog = "敵撃破";
+                            Log->AddLog(rog);
+                            target->SetActive(false);
+                            //経験値の付与
+                            int exp = target->GetAddExp();
+                            m_Player->AddExp(exp);
+                            rog = std::to_string(exp) + "の経験値を獲得";
+                            Log->AddLog(rog);
+                        }
+
+                        DeleteDeadObject();
+
+                        // 敵がいたので移動はしない
+
+                    }
+                }
+            }
+
+            //移動先のアイテムを検索
+            Item item = {};
+            item.type = Map->IsItemExist(m_Player->GetPos());
+
+            //アイテムがあったら
+            if (item.type != ITEM_NON)
+            {
+                //そのアイテムをインベントリに入れる
+                if (m_Player->AddItem(item))
+                    //入れたアイテムを消す
+                    Map->EraseItem(m_Player->GetPos());
+                else {
+                    std::string rog = "インベントリがまんたん";
+                    Log->AddLog(rog);
+                }
+            }
+            return ACTION_END;
         }
 
-        //オブジェクトが動けるマスを探す
-        CanMove C = GetCanMove(m_Player->GetPos());
+    }
 
-        //プレイヤーだけ動かす
-        if (m_Player->GetKind() == KIND_PLAYER)
+
+    //死んでる敵の消去
+    DeleteDeadObject();
+
+   
+    return ACTION_NON;
+}
+
+void CObjectManager::EnemyStep(int floor) {
+    CMap* Map = CMap::GetInstance();
+    CLog* Log = CLog::GetInstance();
+
+    // プレイヤー行動の後
+    for (CObject* object : GetObjects())
+    {
+        if (object == nullptr)
         {
-            m_Player->Step(C, m_Player->GetPos());
+            continue;
+        }
 
-            //プレイヤーが移動していたら
-            if (m_Player->GetIsMove() == true)
+        if (!object->GetActive())
+        {
+            continue;
+        }
+
+        // プレイヤー以外を動かす
+        if (object->GetKind() != KIND_PLAYER)
+        {
+            // オブジェクトが動けるマスを探す
+            CanMove C = GetCanMoveEnemy(object->GetPos());
+
+            object->Step(C, m_Player->GetPos());
+
+            // 敵が移動していたら
+            if (object->GetDirection() != DIRECTION_NON)
             {
-                Int2 move = DirectionToInt2(m_Player->GetDirection());
-                Int2 NextPos = AddInt2(m_Player->GetPos(), move);
-                //移動する方向にオブジェクトがいないかチェック
-                int ObjectNum = CollisionObject(NextPos);
+                Int2 move = DirectionToInt2(object->GetDirection());
+                Int2 NextPos = AddInt2(object->GetPos(), move);
+
+                // 移動先にオブジェクトがいるかチェック
+                CObject* target = FindObjectAt(NextPos);
+
                 TILE NextTile = Map->GetTile(NextPos);
-                if (ObjectNum == -1)
+
+                if (target == nullptr)
                 {
                     if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
                     {
-                        //何もいないなら
-                        //プレイヤーを移動させる
-                        m_Player->AddPos(move);
-                        m_Player->SetMove(false);
+                        // 何もいないなら移動
+                        object->AddPos(move);
                     }
                 }
                 else
                 {
-                    // 何かがいるなら代わりにそいつに攻撃
-                    CObject* target = FindObjectAt(NextPos);
-
-                    if (target != nullptr)
+                    // 何かがいるなら攻撃
+                    if (target->GetKind() == KIND_PLAYER)
                     {
-                        // 敵なら攻撃する
-                        if (target->GetKind() == KIND_ENEMY)
-                        {
-                            int damage = m_Player->GetAtk();
+                        int damage = object->GetAtk();
 
-                            target->AddDamage(damage);
+                        target->AddDamage(damage);
 
-                            std::string rog = "敵に" + std::to_string(damage) + "ダメージを与えた";
-                            Log->AddLog(rog);
-
-                            if (target->GetHP() <= 0)
-                            {
-                                std::string rog = "敵撃破";
-                                Log->AddLog(rog);
-                                target->SetActive(false);
-                            }
-
-                            DeleteDeadObject();
-
-                            // 敵がいたので移動はしない
-
-                        }
-                    }
-                }
-
-                m_PlayerTurn = false;
-
-                //移動先のアイテムを検索
-                Item item = {};
-                item.type = Map->IsItemExist(m_Player->GetPos());
-
-                //アイテムがあったら
-                if (item.type != ITEM_NON)
-                {
-                    //そのアイテムをインベントリに入れる
-                    if (m_Player->AddItem(item))
-                        //入れたアイテムを消す
-                        Map->EraseItem(m_Player->GetPos());
-                    else {
-                        std::string rog = "インベントリがまんたん";
+                        std::string rog = "プレイヤーは" + std::to_string(damage) + "ダメージを受けた";
                         Log->AddLog(rog);
+
+                        if (target->GetHP() <= 0)
+                        {
+                            std::cout << "撃破された" << std::endl;
+                            target->SetActive(false);
+                        }
                     }
                 }
             }
-
         }
-
-
-        //死んでる敵の消去
-        DeleteDeadObject();
-
     }
-    //プレイヤー行動の後
-    else
+
+  //  m_PlayerTurn = true;
+
+
+    //敵を出す処理
+    //敵を出すまでのカウントを下げる
+    m_EnemySpwanWait--;
+    if (m_EnemySpwanWait <= 0)
     {
-
-        // プレイヤー行動の後
-        for (CObject* object : GetObjects())
-        {
-            if (object == nullptr)
-            {
-                continue;
-            }
-
-            if (!object->GetActive())
-            {
-                continue;
-            }
-
-            // プレイヤー以外を動かす
-            if (object->GetKind() != KIND_PLAYER)
-            {
-                // オブジェクトが動けるマスを探す
-                CanMove C = GetCanMoveEnemy(object->GetPos());
-
-                object->Step(C, m_Player->GetPos());
-
-                // 敵が移動していたら
-                if (object->GetDirection() != DIRECTION_NON)
-                {
-                    Int2 move = DirectionToInt2(object->GetDirection());
-                    Int2 NextPos = AddInt2(object->GetPos(), move);
-
-                    // 移動先にオブジェクトがいるかチェック
-                    CObject* target = FindObjectAt(NextPos);
-
-                    TILE NextTile = Map->GetTile(NextPos);
-
-                    if (target == nullptr)
-                    {
-                        if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
-                        {
-                            // 何もいないなら移動
-                            object->AddPos(move);
-                        }
-                    }
-                    else
-                    {
-                        // 何かがいるなら攻撃
-                        if (target->GetKind() == KIND_PLAYER)
-                        {
-                            int damage = object->GetAtk();
-
-                            target->AddDamage(damage);
-
-                            std::string rog = "プレイヤーは" + std::to_string(damage) + "ダメージを受けた";
-                            Log->AddLog(rog);
-
-                            if (target->GetHP() <= 0)
-                            {
-                                std::cout << "撃破された" << std::endl;
-                                target->SetActive(false);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        m_PlayerTurn = true;
-
-
-        //敵を出す処理
-        //敵を出すまでのカウントを下げる
-        m_EnemySpwanWait--;
-        if (m_EnemySpwanWait <= 0)
-        {
-            //0になったら敵を出してカウントをリセット
-            m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
-            CreateEnemy();
-        }
+        //0になったら敵を出してカウントをリセット
+        m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
+        CreateEnemy(floor);
     }
-    return 0;
+    
+    return;
 }
 
 void CObjectManager::Draw() {
@@ -411,8 +419,15 @@ Int2 CObjectManager::FindSpawnPos()
     return { -1, -1 };
 }
 
-CEnemy* CObjectManager::CreateRandomEnemy() {
-    int enemyType = GetRand(3);
+CEnemy* CObjectManager::CreateRandomEnemy(int floor) {
+
+    int enemyType = GetRand(1);
+    if (floor <= 3)
+        ;
+    else  if (floor <= 7)
+        enemyType += 1;
+    else
+        enemyType += 2;
 
     switch (enemyType) {
     case 0:     return new CEnemy1(&m_EnemyModelManager);
@@ -423,13 +438,13 @@ CEnemy* CObjectManager::CreateRandomEnemy() {
     }
 }
 
-void CObjectManager::CreateEnemy(int CreateNum)
+void CObjectManager::CreateEnemy(int floor, int CreateNum)
 {
     for (int i = 0; i < CreateNum; i++)
     {
         Int2 pos = FindSpawnPos();
 
-        CEnemy* enemy = CreateRandomEnemy();
+        CEnemy* enemy = CreateRandomEnemy(floor);
 
         enemy->Init();
         enemy->SetPos(pos);

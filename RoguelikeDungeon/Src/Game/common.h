@@ -38,6 +38,12 @@ struct Int2 {
 	int x, y;
 };
 
+enum PlayerAction {
+	ACTION_NON,
+	ACTION_ITEM_MENU,
+	ACTION_END
+};
+
 enum DIRECTION {
 	DIRECTION_NON,	//à⁄ìÆÇµÇ»Ç¢
 	DIRECTION_UP,	//è„

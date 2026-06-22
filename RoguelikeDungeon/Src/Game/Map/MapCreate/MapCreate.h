@@ -13,8 +13,10 @@ private:
 public:
 	UnionFind(int size)
 	{
+		//要素数を部屋数と同じにする
 		m_Parent.resize(size);
 
+		//自分自身を親にする
 		for (int i = 0; i < size; i++)
 		{
 			m_Parent[i] = i;
@@ -30,6 +32,7 @@ public:
 
 		//親が自分自身じゃないなら、その親の親を探す
 		//これを、自分自身が親のものが出るまで繰り返す
+		//さらに、その自分自身が親のものが出た時にそれを保存して、次回以降の探索を短縮
 		m_Parent[x] = Find(m_Parent[x]);
 		return m_Parent[x];
 	}

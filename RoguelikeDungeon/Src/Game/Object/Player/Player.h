@@ -17,6 +17,11 @@ private:
 
     int m_hndl = -1;
 
+    int m_Exp = 0;
+    int m_NextNecessaryExp = 0;
+    int m_Lv = 1;
+
+    int m_MoveLongPress = 0;//長押し
 public:
     ~CPlayer()override;
 
@@ -35,6 +40,9 @@ public:
     //アイテム追加
     bool AddItem(const Item& item);
 
+    //経験値追加
+    void AddExp(int expnum) { m_Exp += expnum; }
+
     //インベントリの閲覧
     const std::vector<Item>& GetInventory() const { return m_Inventory; }
 
@@ -44,4 +52,6 @@ public:
     bool GetIsMove() const { return m_IsMove; }
 
     void SetMove(bool is) { m_IsMove = is; }
+
+    void LvUp();
 };

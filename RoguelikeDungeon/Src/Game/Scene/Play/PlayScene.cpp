@@ -141,7 +141,6 @@ int CPlayScene::Step()
 			if (UseItem(i - 2))
 			{
 				m_PlayMode = MODE_PLAY;
-				m_PlayerTurn = false;
 			}
 		}
 	}
@@ -185,7 +184,8 @@ bool CPlayScene::UseItem(int index)
 
 int CPlayScene::StepPlay() {
 	CMap* Map = CMap::GetInstance();
-	if (m_ObjectManager.Step() == 1) {
+	PlayerAction action = m_ObjectManager.PlayerStep(m_Floor);
+	if (action == ACTION_ITEM_MENU) {
 		m_PlayMode = MODE_ITEM_MENU;
 		Map->SetSelectItemIndex();
 		Map->SetItemPage();
@@ -193,14 +193,16 @@ int CPlayScene::StepPlay() {
 		Map->UpDateItemMenu(InventorySize);
 		return 0;
 	}
+	else if(action == ACTION_END)
+		m_ObjectManager.EnemyStep(m_Floor);
 
 	if (CheckHitKey(KEY_INPUT_L))
 		return 1;
 
-	//プレイヤーが5階で階段に乗ったら終了
+	//プレイヤーがゴールのあるフロアで階段に乗ったら終了
 	if (CollsionInt2(m_ObjectManager.GetPlayer()->GetPos(), Map->GetStairsPos()) == true)
 	{
-		if (m_Floor >= 5)
+		if (m_Floor >= GOAL_FLOOR)
 			return 1;
 		m_Floor++;
 		CreateFloor();

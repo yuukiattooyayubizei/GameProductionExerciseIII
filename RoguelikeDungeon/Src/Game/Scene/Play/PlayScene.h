@@ -6,6 +6,8 @@
 class CPlayScene 
 {
 private:
+	static constexpr int GOAL_FLOOR = 10;
+private:
 	//ƒvƒŒƒC‚Ìó‘Ô‘JˆÚ
 	enum tagPlayScene
 	{

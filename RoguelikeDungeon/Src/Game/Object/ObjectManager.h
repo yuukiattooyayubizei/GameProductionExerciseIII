@@ -14,7 +14,6 @@ private:
     CPlayer* m_Player = {};
     CEnemyModelManager m_EnemyModelManager;
 
-    bool m_PlayerTurn = true;
     int m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
     PlayMode m_PlayMode = MODE_PLAY;
 private:
@@ -44,7 +43,7 @@ private:
     Int2 FindSpawnPos();
 
     //“G‚Ìí—Ş‚ğŒˆ’è
-    CEnemy* CreateRandomEnemy();
+    CEnemy* CreateRandomEnemy(int floor);
 
     //‚à‚ç‚Á‚½À•W‚Æ“¯‚¶•”‰®‚É‚¢‚éObject‚ğ•Ô‚·
     std::vector<CObject*> FindLiveTogetherObject(Int2 i);
@@ -65,7 +64,9 @@ public:
 
     void Init();
     void Load();
-    int Step();
+    int Step(int floor);
+    PlayerAction PlayerStep(int floor);
+    void EnemyStep(int floor);
     void Draw();
 
     void CreatePlayer();
@@ -79,7 +80,7 @@ public:
     void ClearAll();
 
     //“G¶¬
-    void CreateEnemy(int CreateNum = 1);
+    void CreateEnemy(int floor, int CreateNum = 1);
 
     CPlayer* GetPlayer() { return m_Player; }
 

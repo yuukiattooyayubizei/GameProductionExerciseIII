@@ -19,9 +19,13 @@ void CPlayer::Init(){
 	m_HP = HP_MAX;
 	m_MaxHP = HP_MAX;
 	m_Atk = 5;
+	m_Exp = 0;
+	m_Lv = 1;
 	m_IsStomping = false;
 	m_IsMove = false;
 	m_hndl = -1;
+	m_NextNecessaryExp = 20;
+	m_MoveLongPress = 0;
 }
 
 void CPlayer::Load() {
@@ -50,6 +54,36 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		m_IsMove = true;
 	}
 
+	//移動キーを押していたら
+	if (IsInputRep(KEY_W) || IsInputRep(KEY_A) || IsInputRep(KEY_S) || IsInputRep(KEY_D))
+		//長押しの判定が溜まる
+		m_MoveLongPress++;
+	else
+		m_MoveLongPress = 0;
+	//長押しが続いたらその方向に移動
+	if (m_MoveLongPress >= 30){
+		if (IsInputRep(KEY_W) && canmove.Up == true) {
+			m_Direction = DIRECTION_UP;
+			m_IsMove = true;
+			m_MoveLongPress = 20;
+		}
+		if (IsInputRep(KEY_S) && canmove.Down == true) {
+			m_Direction = DIRECTION_DOWN;
+			m_IsMove = true;
+			m_MoveLongPress = 20;
+		}
+		if (IsInputRep(KEY_A) && canmove.Left == true) {
+			m_Direction = DIRECTION_LEFT;
+			m_IsMove = true;
+			m_MoveLongPress = 20;
+		}
+		if (IsInputRep(KEY_D) && canmove.Right == true) {
+			m_Direction = DIRECTION_RIGHT;
+			m_IsMove = true;
+			m_MoveLongPress = 20;
+		}
+	}
+
 	if (IsInputRep(KEY_G))
 		m_IsMove = false;
 
@@ -62,6 +96,9 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		m_IsStomping = false;
 
 	MV1SetPosition(m_hndl, VGet(-m_Pos.x * TILE_SIZE,151, m_Pos.y * TILE_SIZE));
+
+	if (m_Exp >= m_NextNecessaryExp)
+		LvUp();
 }
 
 void CPlayer::Draw() {
@@ -165,4 +202,19 @@ bool CPlayer::EraseItem(int index) {
 
 	m_Inventory.erase(m_Inventory.begin() + index);
 	return true;
+}
+
+//レベルアップ時の処理
+void CPlayer::LvUp() {
+	CLog* Log = CLog::GetInstance();
+
+	m_Lv++;
+	m_MaxHP += 3;
+	m_HP += 3;
+	m_Atk += 1;
+	m_Exp = m_NextNecessaryExp;
+	m_NextNecessaryExp += 10;
+
+	std::string rog = std::to_string(m_Lv) + "レベルになった";
+	Log->AddLog(rog);
 }

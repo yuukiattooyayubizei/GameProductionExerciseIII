@@ -173,7 +173,7 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 		Int2 centerA{ ChangeInt2ToFloat2(roomA.GetCenter()) };
 		Int2 centerB{ ChangeInt2ToFloat2(roomB.GetCenter()) };
 
-		//上下→左右の順にそうかを作るか左右→上下の順にそうかを作るかをランダムで決定
+		//左右→上下の順に廊下を作るか上下→左右の順に廊下を作るかをランダムで決定
 		if (GetRand(1) == 0)
 		{
 			Int2 mid{ centerB.x, centerA.y };

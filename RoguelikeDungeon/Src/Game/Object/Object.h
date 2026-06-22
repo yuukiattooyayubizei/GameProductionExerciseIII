@@ -19,6 +19,7 @@ protected:
     int m_MaxHP;
     int m_Atk;
     bool m_IsActive = true;
+    int m_Addexp;                   //ì|ÇµÇΩÇÁÇ‡ÇÁÇ¶ÇÈåoå±íló 
 public:
     CObject();
     virtual ~CObject() {}
@@ -36,6 +37,7 @@ public:
     int GetHP() const { return m_HP; }
     int GetMaxHP() const { return m_MaxHP; }
     bool GetActive() const { return m_IsActive; }
+    int GetAddExp() { return m_Addexp; }
 
 
     void SetPos(Int2 pos) {m_Pos.x = pos.x;m_Pos.y = pos.y;}

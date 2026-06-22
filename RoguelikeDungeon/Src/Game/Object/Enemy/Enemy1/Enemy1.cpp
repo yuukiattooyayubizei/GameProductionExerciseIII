@@ -17,4 +17,5 @@ void CEnemy1::InitStatus() {
     m_HP = 5;
     m_MaxHP = 5;
     m_Atk = 2;
+    m_Addexp = 3;
 }
