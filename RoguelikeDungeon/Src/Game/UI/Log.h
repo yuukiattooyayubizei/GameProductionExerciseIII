@@ -15,12 +15,10 @@ private:
     std::string m_Log[LOG_LINE_NUM];
 
     CLog() = default;
-
 public:
     CLog(const CLog&) = delete;
 
     void Init();
     void Draw();
     void AddLog(const std::string& log);
-    const std::string* GetLogs() const { return m_Log; }
 };

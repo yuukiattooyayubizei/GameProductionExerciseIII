@@ -69,14 +69,12 @@ void CMapDraw::Draw(CMapData& mapData,Int2 playerpos) {
 	//ŠK’i‚Ì•`‰æ
 	int centerX = 8 + 16 * mapData.GetStairsPos().x;
 	int centerY = 8 + 16 * mapData.GetStairsPos().y;
-	//DrawBox(centerX + 8, centerY + 8, centerX - 8, centerY - 8, GetColor(255, 0, 0), TRUE);
 
 	float x = -mapData.GetStairsPos().x * TILE_SIZE;
 	float z = mapData.GetStairsPos().y * TILE_SIZE;
 
 	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
 	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
-	//DrawCube3D(pos1, pos2, GetColor(0, 0, 128), GetColor(128, 128, 128), TRUE);
 	MV1SetPosition(m_Stairshndl, VGet(x, 150, z));
 	MV1DrawModel(m_Stairshndl);
 }

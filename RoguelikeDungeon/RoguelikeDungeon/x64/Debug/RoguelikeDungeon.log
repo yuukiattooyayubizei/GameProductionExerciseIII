@@ -1,14 +1,10 @@
 ﻿  CameraManager.cpp
   EditCamera.cpp
   Item.cpp
-  FieldItemManager.cpp
-  ItemMenu.cpp
   Map.cpp
-  MapCreate.cpp
-  MapData.cpp
-  MapDraw.cpp
   Enemy.cpp
   ObjectManager.cpp
+  Player.cpp
   PlayScene.cpp
   SceneManager.cpp
   main.cpp

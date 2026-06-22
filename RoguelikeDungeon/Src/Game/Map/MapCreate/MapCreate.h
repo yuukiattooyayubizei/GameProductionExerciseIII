@@ -5,8 +5,59 @@
 #include"../MapData/MapData.h"
 #include"../Room/Room.h"
 
-class CMapCreate {
+//廊下を作成するときに使う、部屋と部屋が行き来できるか調べるためのクラス
+class UnionFind
+{
+private:
+	std::vector<int> m_Parent;
 public:
+	UnionFind(int size)
+	{
+		m_Parent.resize(size);
+
+		for (int i = 0; i < size; i++)
+		{
+			m_Parent[i] = i;
+		}
+	}
+
+	//親を探す
+	int Find(int x)
+	{
+		//親が自分自身なら自分自身を返す
+		if (m_Parent[x] == x)
+			return x;
+
+		//親が自分自身じゃないなら、その親の親を探す
+		//これを、自分自身が親のものが出るまで繰り返す
+		m_Parent[x] = Find(m_Parent[x]);
+		return m_Parent[x];
+	}
+
+	//2つが同じグループかどうかを返す
+	bool Same(int a, int b)
+	{
+		if (Find(a) == Find(b))return true;
+		return false;
+	}
+
+	//2つを同じグループにする
+	//Aが親としてつなぐ
+	void Unite(int a, int b)
+	{
+		int rootA = Find(a);
+		int rootB = Find(b);
+
+		//既に同じグループなら(親が同じなら)つながない
+		if (rootA == rootB)
+			return;
+
+		m_Parent[rootB] = rootA;
+	}
+};
+
+class CMapCreate {
+private:
 	// 階段を作成
 	void CreateStairs(CMapData& mapData);
 
@@ -19,9 +70,9 @@ public:
 	// 部屋のサイズ決定
 	CRoom RoomSizeDecision();
 
-	//階層を生成
-	void CreateFloor(CMapData& mapData);
-
 	// 廊下の生成
 	bool CreateCorridor(CMapData& mapData);
+public:
+	//階層を生成
+	void CreateFloor(CMapData& mapData);
 };

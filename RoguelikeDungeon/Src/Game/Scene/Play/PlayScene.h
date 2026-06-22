@@ -26,7 +26,12 @@ private:
 	PlayMode m_PlayMode;
 	//階層
 	int m_Floor;
+private:
+	//階層を生成
+	void CreateFloor();
 
+	//アイテムの使用
+	bool UseItem(int index);
 public:
 	//コンストラクタ・デストラクタ
 	CPlayScene();
@@ -36,13 +41,6 @@ public:
 	int Loop();
 	//描画処理
 	void Draw();
-
-	//階層を生成
-	void CreateFloor();
-
-	//アイテムの使用
-	bool UseItem(int index);
-
 private:
 	//初期化
 	void Init(void);

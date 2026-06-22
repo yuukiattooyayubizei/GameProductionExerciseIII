@@ -9,7 +9,9 @@ private:
 	Float2 m_Center;										//•”‰®‚Ì’†SÀ•W
 	int m_CloseRoom;										//Å‚à‹ß‚¢•”‰®‚Ì”Ô†
 	bool m_IsConnectRoom;									//‘¼‚Ì•”‰®‚Æ‚Â‚È‚ª‚Á‚Ä‚¢‚é‚©
-
+private:
+	bool GetConnectRoom() const { return m_IsConnectRoom; }
+	void SetConnect(bool is) { m_IsConnectRoom = is; }
 public:
 	CRoom();
 
@@ -25,12 +27,10 @@ public:
 		m_Center.x = x;
 		m_Center.y = y;
 	}
-	void SetConnect(bool is) { m_IsConnectRoom = is; }
 
 	const Int2& GetSize() const { return m_Size; }
 	const Int2& GetPos() const { return m_Pos; }
 	const Float2& GetCenter() const { return m_Center; }
-	bool GetConnectRoom() const { return m_IsConnectRoom; }
 
 	bool CollisionRoom(Int2 i);
 };

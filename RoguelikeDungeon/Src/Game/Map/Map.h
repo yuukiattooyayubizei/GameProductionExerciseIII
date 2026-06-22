@@ -10,7 +10,6 @@
 #include"ItemMenu/ItemMenu.h"
 #include"MapDraw/MapDraw.h"
 
-
 class CMap {
 private:
 	static CMap* m_Instance;
@@ -24,7 +23,6 @@ private:
 	CItemMenu m_ItemMenu;
 	CFieldItemManager m_FieldItemManager;
 public:
-
 	CMap() { Init(); }
 
 	//----------------------------------------------
@@ -48,25 +46,15 @@ public:
 	Int2 GetStairsPos() const { return m_MapData.GetStairsPos(); }									//階段の座標を返す
 	TILE GetTile(Int2 pos) { return m_MapData.GetTile(pos); }										//指定された座標のタイルの種類を返す
 	int GetRoomNum(Int2 pos) { return m_MapData.GetRoomNum(pos); }									//座標の部屋のIDを返す
-	CRoom GetStartRoom() { return m_MapData.GetStartRoom(); }										//始めの部屋を返す
-	Int2 GetRoomPos() { return m_MapData.GetRoomPos(); }											//部屋の中のランダムな座標を取得
-	Int2 GetNotHerePlayerRoomPos(Int2 PlPos) { return m_MapData.GetNotHerePlayerRoomPos(PlPos); }	//部屋の中のランダムな座標を取得
-
+	Int2 GetNotHerePlayerRoomPos(Int2 PlPos) { return m_MapData.GetNotHerePlayerRoomPos(PlPos); }	//部屋の中のプレイヤーがいないランダムな座標を取得
 
 	void SetSelectItemIndex(int i = 0) { m_ItemMenu.SetSelectItemIndex(i); }
 	void SetItemPage(int i = 0) { m_ItemMenu.SetItemPage(i); }
-	void SetStairsPos(Int2 pos) { m_MapData.SetStairsPos(pos); }
-
 
 	//----------------------------------------------
 	// 判定系
 	//----------------------------------------------
-	
-	// 座標がマップ外かチェック
-	// trueならマップ外
-	bool InvestigationMapOutside(Int2 i) { return m_MapData.InvestigationMapOutside(i); }
-	// アイテムどうしが同じ座標にあるかチェック
-	bool CollisionItemToItem(CFieldItem& item) { return m_FieldItemManager.CollisionItemToItem(m_MapData, item); }
+
 	// 廊下とかぶっているかを判定
 	bool CollisionStairs(Int2 i) { return m_MapData.CollisionStairs(i); }
 

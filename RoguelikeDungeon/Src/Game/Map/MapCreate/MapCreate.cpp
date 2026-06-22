@@ -110,7 +110,7 @@ bool CMapCreate::CreateRoom(CMapData& mapData,int CreateNum) {
 }
 
 void CMapCreate::CreateFloor(CMapData& mapData) {
-	//マップを消去
+	//新しくマップを作り直すため、マップを消去
 	mapData.Init();
 
 	//5個から7個の部屋を作成
@@ -145,7 +145,6 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 			edge.roomA = i;
 			edge.roomB = k;
 			//直線距離でどれくらい距離が離れているか計算
-			//edge.distance = distanceX * distanceX + distanceY * distanceY;
 			edge.distance = distance.x * distance.x + distance.y * distance.y;
 
 			edges.push_back(edge);
@@ -167,9 +166,6 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 		//2つがすでに同じグループだったら計算しない
 		if (uf.Same(edge.roomA, edge.roomB))
 			continue;
-
-		//2つの部屋を結びつける
-		uf.Unite(edge.roomA, edge.roomB);
 
 		const CRoom& roomA = mapData.GetRoom(edge.roomA);
 		const CRoom& roomB = mapData.GetRoom(edge.roomB);
@@ -193,6 +189,10 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 
 		//作り終わったらカウントを進める
 		corridorCount++;
+
+		//作成が終わったら、2つの部屋を結びつける
+		uf.Unite(edge.roomA, edge.roomB);
+
 		//規定数まで作ったら終わる
 		if (corridorCount >= roomCount - 1)
 			break;

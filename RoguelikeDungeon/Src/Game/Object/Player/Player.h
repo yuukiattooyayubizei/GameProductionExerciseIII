@@ -16,6 +16,7 @@ private:
     bool m_IsStomping = false;
 
     int m_hndl = -1;
+
 public:
     ~CPlayer()override;
 
@@ -24,23 +25,22 @@ public:
     void Step(CanMove canmove, Int2 playerPos)override;
     void Draw()override;
     void Exit()override;
+private:
+    //インベントリが埋まっているかそうか
+    bool IsInventoryFull() const;
+
+    //デバッグ用の表示
+    void DrawInventoryDebug();
 public:
     //アイテム追加
     bool AddItem(const Item& item);
 
-    //インベントリが埋まっているかそうか
-    bool IsInventoryFull() const;
-
     //インベントリの閲覧
     const std::vector<Item>& GetInventory() const { return m_Inventory; }
-
-    //デバッグ用の表示
-    void DrawInventoryDebug();
 
     bool EraseItem(int index);
 
     int GetInventorySize() const { return static_cast<int>(m_Inventory.size()); }
-    bool GetIsStomping() const { return m_IsStomping; }
     bool GetIsMove() const { return m_IsMove; }
 
     void SetMove(bool is) { m_IsMove = is; }

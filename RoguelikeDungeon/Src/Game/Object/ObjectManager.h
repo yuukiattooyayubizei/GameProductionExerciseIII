@@ -17,7 +17,7 @@ private:
     bool m_PlayerTurn = true;
     int m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
     PlayMode m_PlayMode = MODE_PLAY;
-public:
+private:
     void AddObject(CObject* object)
     {
         if (object != nullptr)
@@ -26,32 +26,13 @@ public:
         }
     }
 
-    std::vector<CObject*>& GetObjects()
-    {
-        return m_Object;
-    }
-
     const std::vector<CObject*>& GetObjects() const
     {
         return m_Object;
     }
 
-    void Init();
-    void Load();
-    int Step();
-    void Draw();
-
-    void CreatePlayer();
-    void CreatePlayerPos();
-
-    std::vector<CObject*> FindObjectsInSameRoom(Int2 pos, CMap& map);
     CObject* FindObjectAt(Int2 pos);
     ObjectKind GetKind(int id)const;
-
-    //死んでいる敵の消去
-    void DeleteDeadObject();
-    void ClearEnemy();
-    void ClearAll();
 
     //既に生成されているオブジェクトと座標が被っているかどうか
     int CollisionObject(const Int2& pos) const;
@@ -65,9 +46,6 @@ public:
     //敵の種類を決定
     CEnemy* CreateRandomEnemy();
 
-    //敵生成
-    void CreateEnemy(int CreateNum = 1);
-
     //もらった座標と同じ部屋にいるObjectを返す
     std::vector<CObject*> FindLiveTogetherObject(Int2 i);
 
@@ -78,6 +56,30 @@ public:
 
     //移動先にObjectがいるかどうか
     ObjectKind GetAheadMoveObject(Int2 pos, DIRECTION dir);
+public:
+
+    std::vector<CObject*>& GetObjects()
+    {
+        return m_Object;
+    }
+
+    void Init();
+    void Load();
+    int Step();
+    void Draw();
+
+    void CreatePlayer();
+    void CreatePlayerPos();
+
+    std::vector<CObject*> FindObjectsInSameRoom(Int2 pos, CMap& map);
+
+    //死んでいる敵の消去
+    void DeleteDeadObject();
+    void ClearEnemy();
+    void ClearAll();
+
+    //敵生成
+    void CreateEnemy(int CreateNum = 1);
 
     CPlayer* GetPlayer() { return m_Player; }
 
