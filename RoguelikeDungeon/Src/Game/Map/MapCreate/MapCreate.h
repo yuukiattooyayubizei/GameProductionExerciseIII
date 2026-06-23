@@ -1,9 +1,15 @@
 #pragma once
 #include<vector>
-#include"../MapCommon.h"
 #include"../../Common.h"
 #include"../MapData/MapData.h"
 #include"../Room/Room.h"
+
+struct RoomEdge
+{
+	int roomA;		//部屋AのID
+	int roomB;		//部屋BのID
+	int distance;	//2部屋間の距離
+};
 
 //廊下を作成するときに使う、部屋と部屋が行き来できるか調べるためのクラス
 class UnionFind

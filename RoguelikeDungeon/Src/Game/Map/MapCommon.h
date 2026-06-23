@@ -10,16 +10,3 @@ static constexpr int DRAW_LENGTH_X = 12;	//描写するマスの幅
 static constexpr int DRAW_LENGTH_Y = 9;		
 static constexpr int ITEM_PER_PAGE = 10;	//インベントリの１ページに表示される数
 static constexpr int ROOM_COUNT_MIN = 2;
-
-struct RoomEdge
-{
-	int roomA;		//部屋AのID
-	int roomB;		//部屋BのID
-	int distance;	//2部屋間の距離
-};
-
-struct CorridorInfo
-{
-	Int2 StratPos;
-	Int2 MovePos;
-};
