@@ -26,6 +26,7 @@ void CPlayer::Init(){
 	m_hndl = -1;
 	m_NextNecessaryExp = 20;
 	m_MoveLongPress = 0;
+	m_CanLongPress = true;
 }
 
 void CPlayer::Load() {
@@ -40,26 +41,56 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 	if (IsInputTrg(KEY_W) && canmove.Up == true) {
 		m_Direction = DIRECTION_UP;
 		m_IsMove = true;
+		//押し直したから長押しの判定を復活
+		m_CanLongPress = true;
+		//こっちでも動いたら長押しの判定を戻す
+		if(m_MoveLongPress >= 20)
+			m_MoveLongPress = 20;
+		else
+			m_MoveLongPress = 0;
 	}
 	if (IsInputTrg(KEY_S) && canmove.Down == true) {
 		m_Direction = DIRECTION_DOWN;
 		m_IsMove = true;
+		m_CanLongPress = true;
+		if (m_MoveLongPress >= 20)
+			m_MoveLongPress = 20;
+		else
+			m_MoveLongPress = 0;
 	}
 	if (IsInputTrg(KEY_A) && canmove.Left == true) {
 		m_Direction = DIRECTION_LEFT;
 		m_IsMove = true;
+		m_CanLongPress = true;
+		if (m_MoveLongPress >= 20)
+			m_MoveLongPress = 20;
+		else
+			m_MoveLongPress = 0;
 	}
 	if (IsInputTrg(KEY_D) && canmove.Right == true) {
 		m_Direction = DIRECTION_RIGHT;
 		m_IsMove = true;
+		m_CanLongPress = true;
+		if (m_MoveLongPress >= 20)
+			m_MoveLongPress = 20;
+		else
+			m_MoveLongPress = 0;
 	}
 
+	//長押しで判定できる状況なら(敵に攻撃した時などにm_CanLongPressがfalseになる)
+	//一度移動キーから離して、もう一度押し直しなら長押しの判定がたまるようになる
 	//移動キーを押していたら
-	if (IsInputRep(KEY_W) || IsInputRep(KEY_A) || IsInputRep(KEY_S) || IsInputRep(KEY_D))
-		//長押しの判定が溜まる
-		m_MoveLongPress++;
+	if(m_CanLongPress == true)
+	{
+		if (IsInputRep(KEY_W) || IsInputRep(KEY_A) || IsInputRep(KEY_S) || IsInputRep(KEY_D))
+			//長押しの判定が溜まる
+			m_MoveLongPress++;
+		else
+			m_MoveLongPress = 0;
+	}
 	else
 		m_MoveLongPress = 0;
+
 	//長押しが続いたらその方向に移動
 	if (m_MoveLongPress >= 30){
 		if (IsInputRep(KEY_W) && canmove.Up == true) {
@@ -139,7 +170,7 @@ bool CPlayer::AddItem(const Item& item)
 
 	std::cout << "アイテム追加完了" << std::endl;
 	std::string rog;
-	switch (item.type)
+	switch (item.m_Type)
 	{
 	case ITEM_1:
 		rog = "アイテム1を入手した";
@@ -174,7 +205,7 @@ void CPlayer::DrawInventoryDebug()
 	std::cout << "Inventory" << std::endl;
 	for_each(m_Inventory.begin(), m_Inventory.end(), [&](Item invectory) {
 
-		switch (invectory.type)
+		switch (invectory.m_Type)
 		{
 		case ITEM_1:
 			std::cout << "アイテム1" << std::endl;

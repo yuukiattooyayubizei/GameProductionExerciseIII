@@ -6,7 +6,8 @@
 
 bool Item::Use(ItemUseContext& context) const
 {
-    switch (type)
+    //使用されるアイテムによって挙動を変える
+    switch (m_Type)
     {
     case ITEM_1:
         context.player.AddHeal(15);
@@ -26,10 +27,7 @@ bool Item::Use(ItemUseContext& context) const
     case ITEM_4:
     {
         std::vector<CObject*> targets =
-            context.objectManager.FindObjectsInSameRoom(
-                context.player.GetPos(),
-                context.map
-            );
+            context.objectManager.FindObjectsInSameRoom(context.player.GetPos(),context.map);
 
         for (CObject* object : targets)
         {

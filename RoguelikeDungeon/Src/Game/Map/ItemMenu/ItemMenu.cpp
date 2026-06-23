@@ -161,7 +161,7 @@ void CItemMenu::DrawItemMenu(const std::vector<Item>& Inventory)
 
 		const char* name = "不明なアイテム";
 
-		switch (inventory[i].type)
+		switch (inventory[i].m_Type)
 		{
 		case ITEM_1:
 			name = "アイテム1";

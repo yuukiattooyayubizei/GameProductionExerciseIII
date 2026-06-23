@@ -219,6 +219,8 @@ PlayerAction CObjectManager::PlayerStep(int floor) {
                         int damage = m_Player->GetAtk();
 
                         target->AddDamage(damage);
+                        //ダメージを与えたら長押しできるかの判定を一旦消す
+                        m_Player->SetCanLongPress();
 
                         std::string rog = "敵に" + std::to_string(damage) + "ダメージを与えた";
                         Log->AddLog(rog);
@@ -245,10 +247,10 @@ PlayerAction CObjectManager::PlayerStep(int floor) {
 
             //移動先のアイテムを検索
             Item item = {};
-            item.type = Map->IsItemExist(m_Player->GetPos());
+            item.m_Type = Map->IsItemExist(m_Player->GetPos());
 
             //アイテムがあったら
-            if (item.type != ITEM_NON)
+            if (item.m_Type != ITEM_NON)
             {
                 //そのアイテムをインベントリに入れる
                 if (m_Player->AddItem(item))
@@ -327,6 +329,8 @@ void CObjectManager::EnemyStep(int floor) {
 
                         std::string rog = "プレイヤーは" + std::to_string(damage) + "ダメージを受けた";
                         Log->AddLog(rog);
+                        //ダメージを受けたら長押しできるかの判定を一旦消す
+                        m_Player->SetCanLongPress();
 
                         if (target->GetHP() <= 0)
                         {

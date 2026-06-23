@@ -21,7 +21,8 @@ private:
     int m_NextNecessaryExp = 0;
     int m_Lv = 1;
 
-    int m_MoveLongPress = 0;//’·‰Ÿ‚µ
+    int m_MoveLongPress = 0;        //’·‰Ÿ‚µ‚µ‚½ƒtƒŒ[ƒ€”
+    bool m_CanLongPress = true;     //’·‰Ÿ‚µ‚Å”½‰‚·‚é‚©
 public:
     ~CPlayer()override;
 
@@ -52,6 +53,7 @@ public:
     bool GetIsMove() const { return m_IsMove; }
 
     void SetMove(bool is) { m_IsMove = is; }
+    void SetCanLongPress(bool is = false) { m_CanLongPress = is; }
 
     void LvUp();
 };
