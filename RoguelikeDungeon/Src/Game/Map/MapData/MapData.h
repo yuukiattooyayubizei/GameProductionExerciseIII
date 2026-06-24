@@ -59,4 +59,7 @@ public:
 
 	// 部屋どうしがかぶっているかを判定
 	bool CollisionRoomToRoom(const CRoom& room);
+
+	//指定されたマスに隣接しているマスに指定されたタイルがあるかどうか調べる
+	bool IsAdjacentTile(Int2 pos,TILE tile);
 };

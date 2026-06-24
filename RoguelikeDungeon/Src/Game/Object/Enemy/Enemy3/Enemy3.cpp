@@ -14,8 +14,8 @@ void CEnemy3::InitModelType() {
 }
 
 void CEnemy3::InitStatus() {
-    m_HP = 5;
-    m_MaxHP = 5;
+    m_HP = 8;
+    m_MaxHP = 8;
     m_Atk = 3;
     m_Addexp = 6;
 }

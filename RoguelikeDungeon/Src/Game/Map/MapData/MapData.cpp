@@ -136,6 +136,10 @@ Int2 CMapData::GetRoomPos()
 	SetPos.x = GetRand(Size.x - 1) + Pos.x;
 	SetPos.y = GetRand(Size.y - 1) + Pos.y;
 
+	//廊下に隣接していたらやり直し
+	if (GetTile(SetPos) == TILE_CORRIDOR_ADJACENT_ROOM)
+		SetPos = GetRoomPos();
+
 	return SetPos;
 }
 
@@ -210,10 +214,47 @@ Int2 CMapData::GetNotHerePlayerRoomPos(Int2 PlPos)
 
 	//ランダムで座標を取得
 	Int2 ret = GetRoomPos();
-	//プレイヤーと同じ部屋なら再抽選
-	while (GetRoomNum(ret) == GetRoomNum(PlPos))
+	//プレイヤーと同じ部屋か、廊下と隣接しているなら再抽選
+	while (GetRoomNum(ret) == GetRoomNum(PlPos) || GetTile(ret) == TILE_CORRIDOR_ADJACENT_ROOM)
 	{
 		ret = GetRoomPos();
 	}
 	return ret;
+}
+
+bool CMapData::IsAdjacentTile(Int2 pos, TILE tile) {
+
+	//範囲外はWALLとみなす
+	if (tile == TILE_WALL) {
+		if (pos.x <= 0 || pos.x >= MAP_X || pos.y <= 0 || pos.y >= MAP_X) {
+			return true;
+		}
+	}
+
+	if (pos.x > 0) {
+		pos.x--;
+		if (GetTile(pos) == tile)
+			return true;
+		pos.x++;
+	}
+	if (pos.x < MAP_X) {
+		pos.x++;
+		if (GetTile(pos) == tile)
+			return true;
+		pos.x--;
+	}
+	if (pos.y > 0) {
+		pos.y--;
+		if (GetTile(pos) == tile)
+			return true;
+		pos.y++;
+	}
+	if (pos.y < MAP_Y) {
+		pos.y++;
+		if (GetTile(pos) == tile)
+			return true;
+		pos.y--;
+	}
+
+	return false;
 }

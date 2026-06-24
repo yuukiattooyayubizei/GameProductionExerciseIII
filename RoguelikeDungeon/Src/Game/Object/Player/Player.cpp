@@ -24,7 +24,7 @@ void CPlayer::Init(){
 	m_IsStomping = false;
 	m_IsMove = false;
 	m_hndl = -1;
-	m_NextNecessaryExp = 20;
+	m_NextNecessaryExp = 30;
 	m_MoveLongPress = 0;
 	m_CanLongPress = true;
 }
@@ -243,8 +243,8 @@ void CPlayer::LvUp() {
 	m_MaxHP += 3;
 	m_HP += 3;
 	m_Atk += 1;
-	m_Exp = m_NextNecessaryExp;
-	m_NextNecessaryExp += 10;
+	m_Exp -= m_NextNecessaryExp;
+	m_NextNecessaryExp *= 1.2;
 
 	std::string rog = std::to_string(m_Lv) + "ƒŒƒxƒ‹‚É‚È‚Á‚½";
 	Log->AddLog(rog);

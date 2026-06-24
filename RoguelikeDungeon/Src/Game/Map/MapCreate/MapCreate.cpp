@@ -5,14 +5,14 @@
 
 void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 {
-	int x = start.x;
-	int y = start.y;
+	Int2 startpos = start;
 
 	// 横方向に掘る
 	while (start.x != end.x)
 	{
 		if (mapData.GetTile(start) != TILE_ROOM && mapData.GetTile(start) != TILE_CORRIDOR_ADJACENT_ROOM)
 			mapData.SetTile(start, TILE_CORRIDOR);
+
 		//目標が右か左か調べ、その方向に1マス移動
 		if (start.x < end.x)
 			start.x++;
@@ -35,6 +35,33 @@ void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 	// 最後のマス
 	if (mapData.GetTile(start) != TILE_ROOM)
 		mapData.SetTile(start, TILE_CORRIDOR);
+
+	//廊下を作ったら、もう一度作った廊下を確認し、部屋のまま変わっていないかつ隣に廊下があるならそこを廊下に新設した部屋マスに変える
+	start = startpos;
+
+	while (start.x != end.x)
+	{
+		if (mapData.GetTile(start) == TILE_ROOM && mapData.IsAdjacentTile(start, TILE_CORRIDOR) == true)
+			mapData.SetTile(start, TILE_CORRIDOR_ADJACENT_ROOM);
+
+		//目標が右か左か調べ、その方向に1マス移動
+		if (start.x < end.x)
+			start.x++;
+		else
+			start.x--;
+	}
+
+	while (start.y != end.y)
+	{
+		if (mapData.GetTile(start) == TILE_ROOM && mapData.IsAdjacentTile(start, TILE_CORRIDOR) == true)
+			mapData.SetTile(start, TILE_CORRIDOR_ADJACENT_ROOM);
+
+		//目標が上か下か調べ、その方向に1マス移動
+		if (start.y < end.y)
+			start.y++;
+		else
+			start.y--;
+	}
 }
 
 void CMapCreate::CreateStairs(CMapData& mapData)

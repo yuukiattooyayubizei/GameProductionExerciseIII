@@ -312,7 +312,7 @@ void CObjectManager::EnemyStep(int floor) {
 
                 if (target == nullptr)
                 {
-                    if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
+                    if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR || NextTile == TILE_CORRIDOR_ADJACENT_ROOM)
                     {
                         // ‰½‚à‚¢‚È‚¢‚È‚çˆÚ“®
                         object->AddPos(move);
