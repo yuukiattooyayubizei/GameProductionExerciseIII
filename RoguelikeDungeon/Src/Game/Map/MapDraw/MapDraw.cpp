@@ -51,6 +51,8 @@ void CMapDraw::Draw(CMapData& mapData,Int2 playerpos) {
 				break;
 
 			case TILE_ROOM:
+				//˜L‰º‚É—×Ú‚µ‚½•”‰®‚à•`‰æ‚Í•’Ê‚Ì•”‰®‚Æ“¯‚¶
+			//case TILE_CORRIDOR_ADJACENT_ROOM:
 				MV1SetPosition(m_Roomhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
 				MV1DrawModel(m_Roomhndl);
 				break;

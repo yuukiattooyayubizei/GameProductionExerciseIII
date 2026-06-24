@@ -198,7 +198,7 @@ PlayerAction CObjectManager::PlayerStep(int floor) {
             TILE NextTile = Map->GetTile(NextPos);
             if (ObjectNum == -1)
             {
-                if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR)
+                if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR || NextTile == TILE_CORRIDOR_ADJACENT_ROOM)
                 {
                     //âΩÇ‡Ç¢Ç»Ç¢Ç»ÇÁ
                     //ÉvÉåÉCÉÑÅ[Çà⁄ìÆÇ≥ÇπÇÈ

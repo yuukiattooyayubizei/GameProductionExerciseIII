@@ -70,10 +70,11 @@ typedef struct {
 }CanMove;
 
 enum TILE {
-	TILE_NON,			//無(バグった時にしか出ない)
-	TILE_WALL,			//壁
-	TILE_ROOM,			//部屋
-	TILE_CORRIDOR,		//廊下
+	TILE_NON,						//無(バグった時にしか出ない)
+	TILE_WALL,						//壁
+	TILE_ROOM,						//部屋
+	TILE_CORRIDOR_ADJACENT_ROOM,	//廊下に隣接した部屋
+	TILE_CORRIDOR,					//廊下
 };
 
 enum ITEM_TYPE

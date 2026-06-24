@@ -99,7 +99,8 @@ int CMapData::GetFieldOfVision(Int2 i, DIRECTION dir) {
 		if (InvestigationMapOutside(NextPos) == true)return num;
 
 		//マップ内ならその座標が部屋もしくは廊下かチェック
-		if (GetTile(NextPos) == TILE_ROOM || GetTile(NextPos) == TILE_CORRIDOR) {
+		TILE tile = GetTile(NextPos);
+		if (tile == TILE_ROOM || tile == TILE_CORRIDOR || tile == TILE_CORRIDOR_ADJACENT_ROOM) {
 			//部屋か廊下なら次に進む
 			num++;
 		}
@@ -152,7 +153,8 @@ void CMapData::RoomSave(const CRoom& room) {
 	{
 		for (int k = 0;k < X;k++)
 		{
-			m_Map[StartY + i][StartX + k] = TILE_ROOM;
+			if (m_Map[StartY + i][StartX + k] != TILE_CORRIDOR_ADJACENT_ROOM)
+				m_Map[StartY + i][StartX + k] = TILE_ROOM;
 		}
 	}
 }

@@ -11,7 +11,7 @@ void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 	// 横方向に掘る
 	while (start.x != end.x)
 	{
-		if (mapData.GetTile(start) != TILE_ROOM)
+		if (mapData.GetTile(start) != TILE_ROOM && mapData.GetTile(start) != TILE_CORRIDOR_ADJACENT_ROOM)
 			mapData.SetTile(start, TILE_CORRIDOR);
 		//目標が右か左か調べ、その方向に1マス移動
 		if (start.x < end.x)
@@ -23,7 +23,7 @@ void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 	// 縦方向に掘る
 	while (start.y != end.y)
 	{
-		if (mapData.GetTile(start) != TILE_ROOM)
+		if (mapData.GetTile(start) != TILE_ROOM && mapData.GetTile(start) != TILE_CORRIDOR_ADJACENT_ROOM)
 			mapData.SetTile(start, TILE_CORRIDOR);
 		//目標が上か下か調べ、その方向に1マス移動
 		if (start.y < end.y)
