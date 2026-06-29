@@ -1,4 +1,8 @@
-﻿  Enemy3.cpp
-  Enemy4.cpp
+﻿  Item.cpp
+  main.cpp
+  ObjectManager.cpp
+  CObjectStore.cpp
+  PlayScene.cpp
+  SceneManager.cpp
   コードを生成中...
   RoguelikeDungeon.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\x64\Debug\RoguelikeDungeon.exe

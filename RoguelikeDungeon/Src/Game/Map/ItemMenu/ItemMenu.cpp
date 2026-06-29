@@ -83,6 +83,9 @@ int CItemMenu::StepItemMenu(int itemCount)
 		}
 
 		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
+		m_PageStart -= 10;
+		m_PageEnd -= 10;
+
 	}
 
 	//Dで次のページへ
@@ -96,6 +99,8 @@ int CItemMenu::StepItemMenu(int itemCount)
 		}
 
 		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
+		m_PageStart += 10;
+		m_PageEnd += 10;
 	}
 
 	//Wで上へ
@@ -181,6 +186,32 @@ void CItemMenu::DrawItemMenu(const std::vector<Item>& Inventory)
 
 		DrawFormatString(ITEM_NAME_DRAW_START_X, y, GetColor(255, 255, 255), "%s", name);
 	}
+	DrawBox(ITEM_MENU_DESCRIPTION_FRAME_START_X, ITEM_MENU_DESCRIPTION_FRAME_START_Y,
+		ITEM_MENU_DESCRIPTION_FRAME_END_X, ITEM_MENU_DESCRIPTION_FRAME_END_Y, GetColor(0, 0, 0), TRUE);
+
+	DrawBox(ITEM_MENU_DESCRIPTION_FRAME_START_X, ITEM_MENU_DESCRIPTION_FRAME_START_Y,
+		ITEM_MENU_DESCRIPTION_FRAME_END_X, ITEM_MENU_DESCRIPTION_FRAME_END_Y, GetColor(255, 255, 255), FALSE);
+
+	const char* description = "";
+	switch (inventory[/*m_ItemPage * 10 + */m_SelectItemIndex].m_Type)
+	{
+	case ITEM_1:
+		description = "自身の体力を15回復";
+		break;
+	case ITEM_2:
+		description = "自身の最大体力を5上昇";
+		break;
+	case ITEM_3:
+		description = "前方向一直線の敵に20ダメージ";
+		break;
+	case ITEM_4:
+		description = "自身と同じ部屋の敵に5ダメージ";
+		break;
+	default:
+		break;
+	}
+
+	DrawFormatString(ITEM_DESCRIPTION_DRAW_START_X, ITEM_DESCRIPTION_DRAW_START_Y, GetColor(255, 255, 255), "%s", description);
 
 	DrawFormatString(ITEM_MENU_DRAW_START_X, ITEM_PAGE_DRAW_START_Y, GetColor(255, 255, 255), "Page %d / %d", m_ItemPage + 1, m_MaxPage);
 

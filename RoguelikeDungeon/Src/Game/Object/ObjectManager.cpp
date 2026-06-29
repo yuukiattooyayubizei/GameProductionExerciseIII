@@ -12,11 +12,8 @@
 
 void CObjectManager::DeleteDeadObject()
 {
-    auto newEnd = std::remove_if(
-        m_Object.begin(),
-        m_Object.end(),
-        [](CObject* object)
-        {
+    auto newEnd = std::remove_if(m_Object.begin(),m_Object.end(),[this](CObject* object){
+        CLog* Log = CLog::GetInstance();
             // プレイヤーはここでは削除しない
             if (object->GetKind() == KIND_PLAYER)
             {
@@ -24,6 +21,19 @@ void CObjectManager::DeleteDeadObject()
             }
             if (!object->GetActive())
             {
+                if (object->GetHP() <= 0)
+                {
+                    std::string rog = "敵撃破";
+                    Log->AddLog(rog);
+                    object->SetActive(false);
+                    //経験値の付与
+                    int exp = object->GetAddExp();
+                    m_Player->AddExp(exp);
+                    rog = std::to_string(exp) + "の経験値を獲得";
+                    Log->AddLog(rog);
+                }
+
+
                 object->Exit();
                 delete object;
                 return true;
@@ -33,6 +43,29 @@ void CObjectManager::DeleteDeadObject()
     );
 
     m_Object.erase(newEnd, m_Object.end());
+}
+
+CObject* CObjectManager::FindObjectAt(Int2 pos)
+{
+    for (CObject* object : m_Object)
+    {
+        if (object == nullptr)
+        {
+            continue;
+        }
+
+        if (!object->GetActive())
+        {
+            continue;
+        }
+
+        if (object->GetPos().x == pos.x &&
+            object->GetPos().y == pos.y)
+        {
+            return object;
+        }
+    }
+    return nullptr;
 }
 
 std::vector<CObject*> CObjectManager::FindObjectsInSameRoom(Int2 pos,CMap& map){
@@ -67,6 +100,31 @@ std::vector<CObject*> CObjectManager::FindObjectsInSameRoom(Int2 pos,CMap& map){
     return result;
 }
 
+//指定された座標から指定された方向を見るときに映るオブジェクトを返す
+//isClosestObjectがtrueなら、一番近い一つだけ返す
+std::vector<CObject*> CObjectManager::FindObjectsInSeeDirection(Int2 pos, DIRECTION dir, CMap& map, bool isClosestObject) {
+    Int2 nextpos = pos;
+    Int2 movepos = DirectionToInt2(dir);
+    std::vector<CObject*> result;
+
+    for (int i = 0;i < map.GetFieldOfVision(pos, dir);i++) {
+        //次のマスを見る
+        nextpos = AddInt2(nextpos, movepos);
+        //次のマスにオブジェクトがいるか見る
+        CObject* target = FindObjectAt(nextpos);
+
+        //なにかいたら、そいつを返り値に加える
+        if (target != nullptr)
+        {
+            result.push_back(target);
+
+            //1体見つけて終わりなら、ここで終わる
+            if (isClosestObject == true)return result;
+        }
+    }
+    return result;
+}
+
 void CObjectManager::ClearEnemy() {
     //プレイヤー以外のオブジェクトを削除
     auto newEnd = std::remove_if(
@@ -91,29 +149,6 @@ void CObjectManager::ClearEnemy() {
     );
 
     m_Object.erase(newEnd, m_Object.end());
-}
-
-CObject* CObjectManager::FindObjectAt(Int2 pos)
-{
-    for (CObject* object : m_Object)
-    {
-        if (object == nullptr)
-        {
-            continue;
-        }
-
-        if (!object->GetActive())
-        {
-            continue;
-        }
-
-        if (object->GetPos().x == pos.x &&
-            object->GetPos().y == pos.y)
-        {
-            return object;
-        }
-    }
-    return nullptr;
 }
 
 void CObjectManager::ClearAll()
@@ -142,8 +177,8 @@ void CObjectManager::Init() {
     // 念のため前回の残りを消す
     ClearAll();
   //  m_PlayerTurn = true;
+    m_EnemySpawnWait = ENEMY_SPAWN_WAIT;
     m_Player = {};
-    m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
     m_PlayMode = MODE_PLAY;
 }
 
@@ -177,8 +212,36 @@ PlayerAction CObjectManager::PlayerStep(int floor) {
         return ACTION_END;
     }
 
+    //Zキーでランダム敵召喚
     if (IsInputTrg(KEY_Z))
         CreateEnemy(floor);
+    //Xキーでランダムアイテム入手
+    if (IsInputTrg(KEY_X))
+    {
+        int i = GetRand(ITEM_NUM);
+        Item item = {};
+        switch (i)
+        {
+        case 0:
+            item.m_Type = ITEM_1;
+            m_Player->AddItem(item);
+            break;
+        case 1:
+            item.m_Type = ITEM_2;
+            m_Player->AddItem(item);
+            break;
+        case 2:
+            item.m_Type = ITEM_3;
+            m_Player->AddItem(item);
+            break;
+        case 3:
+            item.m_Type = ITEM_4;
+            m_Player->AddItem(item);
+            break;
+        default:
+            break;
+        }
+    }
 
     //オブジェクトが動けるマスを探す
     CanMove C = GetCanMove(m_Player->GetPos());
@@ -211,38 +274,8 @@ PlayerAction CObjectManager::PlayerStep(int floor) {
                 // 何かがいるなら代わりにそいつに攻撃
                 CObject* target = FindObjectAt(NextPos);
 
-                if (target != nullptr)
-                {
-                    // 敵なら攻撃する
-                    if (target->GetKind() == KIND_ENEMY)
-                    {
-                        int damage = m_Player->GetAtk();
+                m_CombatResolver.PlayerAttack(*m_Player,*target);
 
-                        target->AddDamage(damage);
-                        //ダメージを与えたら長押しできるかの判定を一旦消す
-                        m_Player->SetCanLongPress();
-
-                        std::string rog = "敵に" + std::to_string(damage) + "ダメージを与えた";
-                        Log->AddLog(rog);
-
-                        if (target->GetHP() <= 0)
-                        {
-                            std::string rog = "敵撃破";
-                            Log->AddLog(rog);
-                            target->SetActive(false);
-                            //経験値の付与
-                            int exp = target->GetAddExp();
-                            m_Player->AddExp(exp);
-                            rog = std::to_string(exp) + "の経験値を獲得";
-                            Log->AddLog(rog);
-                        }
-
-                        DeleteDeadObject();
-
-                        // 敵がいたので移動はしない
-
-                    }
-                }
             }
 
             //移動先のアイテムを検索
@@ -310,6 +343,7 @@ void CObjectManager::EnemyStep(int floor) {
 
                 TILE NextTile = Map->GetTile(NextPos);
 
+                //移動先にオブジェクトがいない時
                 if (target == nullptr)
                 {
                     if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR || NextTile == TILE_CORRIDOR_ADJACENT_ROOM)
@@ -320,39 +354,25 @@ void CObjectManager::EnemyStep(int floor) {
                 }
                 else
                 {
-                    // 何かがいるなら攻撃
+                    // プレイヤーがいるなら攻撃
                     if (target->GetKind() == KIND_PLAYER)
                     {
                         int damage = object->GetAtk();
 
-                        target->AddDamage(damage);
-
-                        std::string rog = "プレイヤーは" + std::to_string(damage) + "ダメージを受けた";
-                        Log->AddLog(rog);
-                        //ダメージを受けたら長押しできるかの判定を一旦消す
-                        m_Player->SetCanLongPress();
-
-                        if (target->GetHP() <= 0)
-                        {
-                            std::cout << "撃破された" << std::endl;
-                            target->SetActive(false);
-                        }
+                        m_CombatResolver.EnemyAttack(*m_Player, damage);
                     }
                 }
             }
         }
     }
 
-  //  m_PlayerTurn = true;
-
-
     //敵を出す処理
     //敵を出すまでのカウントを下げる
-    m_EnemySpwanWait--;
-    if (m_EnemySpwanWait <= 0)
+    m_EnemySpawnWait--;
+    if (m_EnemySpawnWait <= 0)
     {
         //0になったら敵を出してカウントをリセット
-        m_EnemySpwanWait = ENEMY_SPWAN_WAIT;
+        m_EnemySpawnWait = ENEMY_SPAWN_WAIT;
         CreateEnemy(floor);
     }
     
@@ -481,66 +501,6 @@ std::vector<CObject*> CObjectManager::FindLiveTogetherObject(Int2 i) {
     }
 
     return res;
-}
-
-CanMove CObjectManager::GetCanMove(Int2 pos)
-{
-    CMap* Map = CMap::GetInstance();
-    Int2 v = pos;
-    CanMove C;
-    Int2 NextPos{};
-    NextPos.x = static_cast<int>(v.x);
-    NextPos.y = static_cast<int>(v.y);
-
-    //一旦全部trueに
-    C.Down = true, C.Up = true, C.Left = true, C.Right = true;
-    //マス目の端だとマスの外側の方向には行けない
-    if (NextPos.x <= 0)
-        C.Left = false;
-    if (NextPos.x >= MAP_X - 1)
-        C.Right = false;
-    if (NextPos.y <= 0)
-        C.Up = false;
-    if (NextPos.y >= MAP_Y - 1)
-        C.Down = false;
-
-    //上下左右のマスを見て通れるマスでなければ行けない
-    //すでにfalseなら見る必要がない
-    TILE t = {};
-    if (C.Left == true)
-    {
-        NextPos.x--;
-        t = Map->GetTile(NextPos);
-        if (t == TILE_WALL)
-            C.Left = false;
-        NextPos.x++;
-    }
-    if (C.Right == true)
-    {
-        NextPos.x++;
-        t = Map->GetTile(NextPos);
-        if (t == TILE_WALL)
-            C.Right = false;
-        NextPos.x--;
-    }
-    if (C.Up == true)
-    {
-        NextPos.y--;
-        t = Map->GetTile(NextPos);
-        if (t == TILE_WALL)
-            C.Up = false;
-        NextPos.y++;
-    }
-    if (C.Down == true)
-    {
-        NextPos.y++;
-        t = Map->GetTile(NextPos);
-        if (t == TILE_WALL)
-            C.Down = false;
-        NextPos.y--;
-    }
-
-    return C;
 }
 
 CanMove CObjectManager::GetCanMoveEnemy(Int2 pos)

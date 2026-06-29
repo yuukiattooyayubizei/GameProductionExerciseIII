@@ -3,9 +3,11 @@
 #include"../Object/ObjectManager.h"
 #include <iostream>
 #include <vector>
+#include "../UI/Log.h"
 
 bool Item::Use(ItemUseContext& context) const
 {
+
     //使用されるアイテムによって挙動を変える
     switch (m_Type)
     {
@@ -20,9 +22,27 @@ bool Item::Use(ItemUseContext& context) const
         break;
 
     case ITEM_3:
-        context.player.AddAtk(5);
-        std::cout << "攻撃力5アップ" << std::endl;
+    {
+        std::vector<CObject*> targets =
+            context.objectManager.FindObjectsInSeeDirection(context.player.GetPos(), context.player.GetDirection(), context.map, false);
+
+        for (CObject* object : targets)
+        {
+            if (object == nullptr)
+            {
+                continue;
+            }
+
+            object->AddDamage(20);
+
+
+        }
+
+        std::cout << "視界内の敵に20ダメージ" << std::endl;
+
+        context.objectManager.DeleteDeadObject();
         break;
+    }
 
     case ITEM_4:
     {
@@ -37,6 +57,7 @@ bool Item::Use(ItemUseContext& context) const
             }
 
             object->AddDamage(5);
+
         }
 
         std::cout << "敵全体に5ダメージ" << std::endl;

@@ -100,6 +100,9 @@
     <Filter Include="ソース ファイル\Game\UI">
       <UniqueIdentifier>{b359e093-346b-470a-bd1a-4626439df1d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Object\ObjectManager">
+      <UniqueIdentifier>{cc8ffd35-aaaa-41c8-a416-e562610de275}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Common.h">
@@ -180,9 +183,6 @@
     <ClInclude Include="Src\Game\Item\ItemUseContext.h">
       <Filter>ソース ファイル\Game\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Object\ObjectManager.h">
-      <Filter>ソース ファイル\Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Game\Map\Room\Room.h">
       <Filter>ソース ファイル\Game\Map\Room</Filter>
     </ClInclude>
@@ -212,6 +212,18 @@
     </ClInclude>
     <ClInclude Include="Src\Game\UI\Log.h">
       <Filter>ソース ファイル\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Object\ObjectManager.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Object\ObjectManager\MoveRule.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Object\ObjectManager\CombatResolver.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Object\ObjectManager\CObjectStore.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,9 +299,6 @@
     <ClCompile Include="Src\Game\Item\FieldItem\FieldItem.cpp">
       <Filter>ソース ファイル\Game\Item\FieldItem</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Object\ObjectManager.cpp">
-      <Filter>ソース ファイル\Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Game\Map\Room\Room.cpp">
       <Filter>ソース ファイル\Game\Map\Room</Filter>
     </ClCompile>
@@ -313,6 +322,18 @@
     </ClCompile>
     <ClCompile Include="Src\Game\UI\Log.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Object\ObjectManager.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Object\ObjectManager\MoveRule.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Object\ObjectManager\CombatResolver.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Object\ObjectManager\CObjectStore.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

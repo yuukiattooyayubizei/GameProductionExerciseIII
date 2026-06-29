@@ -141,6 +141,8 @@ int CPlayScene::Step()
 			if (UseItem(i - 2))
 			{
 				m_PlayMode = MODE_PLAY;
+				m_PlayerTurn = false;
+				m_ObjectManager.EnemyStep(m_Floor);
 			}
 		}
 	}
@@ -152,6 +154,7 @@ bool CPlayScene::UseItem(int index)
 {
 	const auto& inventory = m_ObjectManager.GetPlayer()->GetInventory();
 
+	//存在しないアイテムを使おうとしていたら失敗させる
 	if (index < 0 || index >= static_cast<int>(inventory.size()))
 	{
 		return false;
@@ -205,6 +208,8 @@ int CPlayScene::StepPlay() {
 		if (m_Floor >= GOAL_FLOOR)
 			return 1;
 		m_Floor++;
+		//このままだと次の階に行った直後に敵のターンになるため、プレイヤーのターンにする
+		m_PlayerTurn = true;
 		CreateFloor();
 	}
 		

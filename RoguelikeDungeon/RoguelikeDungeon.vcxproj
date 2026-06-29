@@ -161,6 +161,9 @@
     <ClInclude Include="Src\Game\Object\Enemy\Enemy4\Enemy4.h" />
     <ClInclude Include="Src\Game\Object\Enemy\EnemyModelManager.h" />
     <ClInclude Include="Src\Game\Object\Object.h" />
+    <ClInclude Include="Src\Game\Object\ObjectManager\CObjectStore.h" />
+    <ClInclude Include="Src\Game\Object\ObjectManager\CombatResolver.h" />
+    <ClInclude Include="Src\Game\Object\ObjectManager\MoveRule.h" />
     <ClInclude Include="Src\Game\Object\Player\Player.h" />
     <ClInclude Include="Src\Game\Scene\Play\PlayScene.h" />
     <ClInclude Include="Src\Game\Scene\Result\ResultScene.h" />
@@ -197,6 +200,9 @@
     <ClCompile Include="Src\Game\Object\Enemy\Enemy4\Enemy4.cpp" />
     <ClCompile Include="Src\Game\Object\Enemy\EnemyModelManager.cpp" />
     <ClCompile Include="Src\Game\Object\Object.cpp" />
+    <ClCompile Include="Src\Game\Object\ObjectManager\CObjectStore.cpp" />
+    <ClCompile Include="Src\Game\Object\ObjectManager\CombatResolver.cpp" />
+    <ClCompile Include="Src\Game\Object\ObjectManager\MoveRule.cpp" />
     <ClCompile Include="Src\Game\Object\Player\Player.cpp" />
     <ClCompile Include="Src\Game\Scene\Play\PlayScene.cpp" />
     <ClCompile Include="Src\Game\Scene\Result\ResultScene.cpp" />

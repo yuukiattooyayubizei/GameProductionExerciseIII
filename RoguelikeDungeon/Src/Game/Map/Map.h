@@ -50,6 +50,7 @@ public:
 
 	void SetSelectItemIndex(int i = 0) { m_ItemMenu.SetSelectItemIndex(i); }
 	void SetItemPage(int i = 0) { m_ItemMenu.SetItemPage(i); }
+	int GetFieldOfVision(Int2 i, DIRECTION dir) { return m_MapData.GetFieldOfVision(i,dir); }
 
 	//----------------------------------------------
 	// ”»’èŒn
