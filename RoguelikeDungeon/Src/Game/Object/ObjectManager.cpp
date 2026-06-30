@@ -12,7 +12,7 @@
 
 void CObjectManager::DeleteDeadObject()
 {
-    auto newEnd = std::remove_if(m_Object.begin(),m_Object.end(),[this](CObject* object){
+    auto newEnd = std::remove_if(GetObjects().begin(), GetObjects().end(),[this](CObject* object){
         CLog* Log = CLog::GetInstance();
             // プレイヤーはここでは削除しない
             if (object->GetKind() == KIND_PLAYER)
@@ -42,30 +42,10 @@ void CObjectManager::DeleteDeadObject()
         }
     );
 
-    m_Object.erase(newEnd, m_Object.end());
-}
+    //ClearEnemy();
+    GetObjects().erase(newEnd, GetObjects().end());
 
-CObject* CObjectManager::FindObjectAt(Int2 pos)
-{
-    for (CObject* object : m_Object)
-    {
-        if (object == nullptr)
-        {
-            continue;
-        }
 
-        if (!object->GetActive())
-        {
-            continue;
-        }
-
-        if (object->GetPos().x == pos.x &&
-            object->GetPos().y == pos.y)
-        {
-            return object;
-        }
-    }
-    return nullptr;
 }
 
 std::vector<CObject*> CObjectManager::FindObjectsInSameRoom(Int2 pos,CMap& map){
@@ -79,7 +59,7 @@ std::vector<CObject*> CObjectManager::FindObjectsInSameRoom(Int2 pos,CMap& map){
         return result;
     }
 
-    for (CObject* object : m_Object)
+    for (CObject* object : GetObjects())
     {
         if (object == nullptr)
         {
@@ -125,48 +105,8 @@ std::vector<CObject*> CObjectManager::FindObjectsInSeeDirection(Int2 pos, DIRECT
     return result;
 }
 
-void CObjectManager::ClearEnemy() {
-    //プレイヤー以外のオブジェクトを削除
-    auto newEnd = std::remove_if(
-        m_Object.begin(),
-        m_Object.end(),
-        [](CObject* object)
-        {
-            if (object == nullptr)
-            {
-                return true;
-            }
-
-            if (object->GetKind() != KIND_PLAYER)
-            {
-                object->Exit();
-                delete object;
-                return true;
-            }
-
-            return false;
-        }
-    );
-
-    m_Object.erase(newEnd, m_Object.end());
-}
-
-void CObjectManager::ClearAll()
-{
-    for (CObject* object : m_Object)
-    {
-        if (object == nullptr)
-        {
-            continue;
-        }
-        object->Exit();
-        delete object;
-    }
-    m_Object.clear();
-}
-
 void CObjectManager::Init() {
-    for (CObject* obj : m_Object)
+    for (CObject* obj : GetObjects())
     {
         if (obj != nullptr)
         {
@@ -183,7 +123,7 @@ void CObjectManager::Init() {
 }
 
 void CObjectManager::Load() {
-    for (CObject* obj : m_Object)
+    for (CObject* obj : GetObjects())
     {
         if (obj != nullptr)
         {
@@ -380,42 +320,13 @@ void CObjectManager::EnemyStep(int floor) {
 }
 
 void CObjectManager::Draw() {
-    for (CObject* obj : m_Object)
+    for (CObject* obj : GetObjects())
     {
         if (obj != nullptr)
         {
             obj->Draw();
         }
     }
-}
-
-int CObjectManager::CollisionObject(const Int2& pos) const
-{
-    int ret = 0;
-
-    for (CObject* obj : m_Object)
-    {
-        if (obj == nullptr)
-        {
-            ret++;
-            continue;
-        }
-
-        if (!obj->GetActive())
-        {
-            ret++;
-            continue;
-        }
-
-        if (obj->GetPos().x == pos.x && obj->GetPos().y == pos.y)
-        {
-            return ret;
-        }
-
-        ret++;
-    }
-
-    return -1;
 }
 
 bool CObjectManager::CollisionAll(Int2 pos)
@@ -534,7 +445,6 @@ CanMove CObjectManager::GetCanMoveEnemy(Int2 pos)
         if (t == TILE_WALL)
             C.Left = false;
 
-
         NextPos.x++;
         if (GetAheadMoveObject(NextPos, DIRECTION_LEFT) == KIND_ENEMY)
             C.Left = false;
@@ -605,14 +515,6 @@ ObjectKind CObjectManager::GetAheadMoveObject(Int2 pos, DIRECTION dir)
     }
 
     return ret;
-}
-
-ObjectKind CObjectManager::GetKind(int id)const {
-    //オブジェクトの範囲外ならNONを返す
-    if (id < 0 || id >= static_cast<int>(m_Object.size())) return KIND_NON;
-    if (m_Object[id] == nullptr) return KIND_NON;
-    
-    return m_Object[id]->GetKind();
 }
 
 void CObjectManager::CreatePlayer() {

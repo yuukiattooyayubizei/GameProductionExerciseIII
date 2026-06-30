@@ -1,7 +1,6 @@
 ﻿  Item.cpp
   main.cpp
   ObjectManager.cpp
-  CObjectStore.cpp
   PlayScene.cpp
   SceneManager.cpp
   コードを生成中...

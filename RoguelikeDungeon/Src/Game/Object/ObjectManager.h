@@ -6,14 +6,14 @@
 #include"Enemy/Enemy.h"
 #include "ObjectManager/MoveRule.h"
 #include "ObjectManager/CombatResolver.h"
-#include "ObjectManager/CObjectStore.h"
+#include "ObjectManager/ObjectStore.h"
 
 class CObjectManager
 {
 private:
     static constexpr int ENEMY_SPAWN_WAIT = 30;
 private:
-    std::vector<CObject*> m_Object;
+ //   std::vector<CObject*> m_Object;
     CPlayer* m_Player = {};
     CEnemyModelManager m_EnemyModelManager;
 
@@ -25,21 +25,13 @@ private:
 
     PlayMode m_PlayMode = MODE_PLAY;
 private:
-    void AddObject(CObject* object)
-    {
-        if (object != nullptr)
-        {
-            m_Object.push_back(object);
-        }
-    }
+    void AddObject(CObject* object) { m_ObjectStore.Add(object); }
 
-    const std::vector<CObject*>& GetObjects() const{return m_Object;}
-
-    CObject* FindObjectAt(Int2 pos);
-    ObjectKind GetKind(int id)const;
+	CObject* FindObjectAt(Int2 pos) { return m_ObjectStore.FindObjectAt(pos); }
+	ObjectKind GetKind(int id)const { return m_ObjectStore.GetKind(id); }
 
     //既に生成されているオブジェクトと座標が被っているかどうか
-    int CollisionObject(const Int2& pos) const;
+	int CollisionObject(const Int2& pos) const { return m_ObjectStore.CollisionObject(pos); }
 
     //オブジェクト、アイテム、敵など全てと被っているかどうか
     bool CollisionAll(Int2 pos);
@@ -62,7 +54,8 @@ private:
     //移動先にObjectがいるかどうか
     ObjectKind GetAheadMoveObject(Int2 pos, DIRECTION dir);
 public:
-    std::vector<CObject*>& GetObjects(){return m_Object;}
+    const std::vector<CObject*>& GetObjects() const {return m_ObjectStore.GetObjects();}
+    std::vector<CObject*>& GetObjects(){return m_ObjectStore.GetObjects();}
 
     void Init();
     void Load();
@@ -82,8 +75,8 @@ public:
 
     //死んでいる敵の消去
     void DeleteDeadObject();
-    void ClearEnemy();
-    void ClearAll();
+	void ClearEnemy() { m_ObjectStore.ClearEnemy(); }
+    void ClearAll() { m_ObjectStore.ClearAll(); }
 
     //敵生成
     void CreateEnemy(int floor, int CreateNum = 1);
