@@ -164,6 +164,8 @@
     <ClInclude Include="Src\Game\Object\ObjectManager\ObjectStore.h" />
     <ClInclude Include="Src\Game\Object\ObjectManager\CombatResolver.h" />
     <ClInclude Include="Src\Game\Object\ObjectManager\MoveRule.h" />
+    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectSearch.h" />
+    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectSpawner.h" />
     <ClInclude Include="Src\Game\Object\Player\Player.h" />
     <ClInclude Include="Src\Game\Scene\Play\PlayScene.h" />
     <ClInclude Include="Src\Game\Scene\Result\ResultScene.h" />
@@ -203,6 +205,8 @@
     <ClCompile Include="Src\Game\Object\ObjectManager\ObjectStore.cpp" />
     <ClCompile Include="Src\Game\Object\ObjectManager\CombatResolver.cpp" />
     <ClCompile Include="Src\Game\Object\ObjectManager\MoveRule.cpp" />
+    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectSearch.cpp" />
+    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectSpawner.cpp" />
     <ClCompile Include="Src\Game\Object\Player\Player.cpp" />
     <ClCompile Include="Src\Game\Scene\Play\PlayScene.cpp" />
     <ClCompile Include="Src\Game\Scene\Result\ResultScene.cpp" />

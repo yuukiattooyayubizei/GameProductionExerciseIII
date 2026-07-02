@@ -225,6 +225,12 @@
     <ClInclude Include="Src\Game\Object\ObjectManager\ObjectStore.h">
       <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectSearch.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectSpawner.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -333,6 +339,12 @@
       <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Object\ObjectManager\ObjectStore.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectSearch.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectSpawner.cpp">
       <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
     </ClCompile>
   </ItemGroup>

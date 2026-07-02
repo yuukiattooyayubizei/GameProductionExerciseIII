@@ -10,6 +10,10 @@
 #include"Player/Player.h"
 #include "../UI/Log.h"
 
+<<<<<<< HEAD
+void CObjectManager::Init() {
+    m_ObjectStore.Init();
+=======
 void CObjectManager::DeleteDeadObject()
 {
     auto newEnd = std::remove_if(GetObjects().begin(), GetObjects().end(),[this](CObject* object){
@@ -113,16 +117,20 @@ void CObjectManager::Init() {
             obj->Init();
         }
     }
+>>>>>>> e9bdf0b032d5c04ebb51621f16223fb007233716
 
     // îOÇÃÇΩÇﬂëOâÒÇÃécÇËÇè¡Ç∑
     ClearAll();
-  //  m_PlayerTurn = true;
+    //m_PlayerTurn = true;
     m_EnemySpawnWait = ENEMY_SPAWN_WAIT;
     m_Player = {};
     m_PlayMode = MODE_PLAY;
 }
 
 void CObjectManager::Load() {
+<<<<<<< HEAD
+    m_ObjectStore.Load();
+=======
     for (CObject* obj : GetObjects())
     {
         if (obj != nullptr)
@@ -130,6 +138,7 @@ void CObjectManager::Load() {
             obj->Load();
         }
     }
+>>>>>>> e9bdf0b032d5c04ebb51621f16223fb007233716
 }
 
 PlayerAction CObjectManager::PlayerStep(int floor) {
@@ -320,6 +329,9 @@ void CObjectManager::EnemyStep(int floor) {
 }
 
 void CObjectManager::Draw() {
+<<<<<<< HEAD
+    m_ObjectStore.Draw();
+=======
     for (CObject* obj : GetObjects())
     {
         if (obj != nullptr)
@@ -532,4 +544,5 @@ void CObjectManager::CreatePlayer() {
 void CObjectManager::CreatePlayerPos() {
     Int2 v = FindSpawnPos();
     m_Player->SetPos(v);
+>>>>>>> e9bdf0b032d5c04ebb51621f16223fb007233716
 }
