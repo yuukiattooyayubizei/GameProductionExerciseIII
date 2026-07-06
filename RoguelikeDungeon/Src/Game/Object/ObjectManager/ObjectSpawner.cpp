@@ -6,7 +6,7 @@
 #include"../Enemy/Enemy3/Enemy3.h"
 #include"../Enemy/Enemy4/Enemy4.h"
 
-void CObjectSpawner::CreatePlayer(CObjectStore& objectStore, CPlayer* player) {
+void CObjectSpawner::CreatePlayer(CObjectStore& objectStore, CPlayer*& player) {
 
     player = nullptr;
 

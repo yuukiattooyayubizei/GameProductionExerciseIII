@@ -73,11 +73,12 @@ void CPlayScene::CreateFloor() {
 	//プレイヤー以外のオブジェクトを削除
 	m_ObjectManager.ClearEnemy();
 	Map->CreateFloor();
-	//敵を作成
-	m_ObjectManager.CreateEnemy(m_Floor,STRAT_ENEMY_NUM);
 
 	//プレイヤーを作成
 	m_ObjectManager.CreatePlayerPos();
+
+	//敵を作成
+	m_ObjectManager.CreateEnemy(m_Floor,STRAT_ENEMY_NUM);
 }
 
 int CPlayScene::Loop()

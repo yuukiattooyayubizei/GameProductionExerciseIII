@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Common.h"
-#include "CObjectStore.h"
+#include "ObjectStore.h"
 
 class CMoveRule {
 public:

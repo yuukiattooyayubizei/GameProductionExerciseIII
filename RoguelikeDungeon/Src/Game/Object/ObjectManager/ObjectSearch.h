@@ -3,7 +3,7 @@
 #include "../../Map/Map.h"
 #include "../Object.h"
 #include <vector>
-#include "CObjectStore.h"
+#include "ObjectStore.h"
 
 class CObjectSearch {
 public:

@@ -1,6 +1,39 @@
 #include"ObjectStore.h"
+#include <string>
+#include "../../UI/Log.h"
 
-void CObjectStore::Add(CObject* object) {
+void CObjectStore::Init() {
+    for (CObject* obj : m_Object)
+    {
+        if (obj != nullptr)
+        {
+            obj->Init();
+        }
+    }
+}
+
+void CObjectStore::Load() {
+    for (CObject* obj : m_Object)
+    {
+        if (obj != nullptr)
+        {
+            obj->Load();
+        }
+    }
+}
+
+void CObjectStore::Draw() {
+    for (CObject* obj : m_Object)
+    {
+        if (obj != nullptr)
+        {
+            obj->Draw();
+        }
+    }
+}
+
+void CObjectStore::AddObject(CObject* object)
+{
     if (object != nullptr)
     {
         m_Object.push_back(object);
@@ -107,11 +140,37 @@ void CObjectStore::ClearAll()
     m_Object.clear();
 }
 
-void CObjectStore::Load() {
+void CObjectStore::DeleteDeadObject(CObjectStore& objectStore, CPlayer* player)
+{
+    auto newEnd = std::remove_if(objectStore.GetObjects().begin(), objectStore.GetObjects().end(), [player](CObject* object) {
+        CLog* Log = CLog::GetInstance();
+        // ƒvƒŒƒCƒ„[‚Í‚±‚±‚Å‚Ííœ‚µ‚È‚¢
+        if (object->GetKind() == KIND_PLAYER)
+        {
+            return false;
+        }
+        if (!object->GetActive())
+        {
+            if (object->GetHP() <= 0)
+            {
+                std::string rog = "“GŒ‚”j";
+                Log->AddLog(rog);
+                object->SetActive(false);
+                //ŒoŒ±’l‚Ì•t—^
+                int exp = object->GetAddExp();
+                player->AddExp(exp);
+                rog = std::to_string(exp) + "‚ÌŒoŒ±’l‚ðŠl“¾";
+                Log->AddLog(rog);
+            }
 
-}
 
+            object->Exit();
+            delete object;
+            return true;
+        }
+        return false;
+        }
+    );
 
-void CObjectStore::Draw() {
-
+    objectStore.GetObjects().erase(newEnd, objectStore.GetObjects().end());
 }

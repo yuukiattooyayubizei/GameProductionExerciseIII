@@ -1,11 +1,11 @@
 #pragma once
 #include "../Enemy/Enemy.h"
-#include"CObjectStore.h"
+#include"ObjectStore.h"
 #include"../Player/Player.h"
 
 class CObjectSpawner {
 public:
-	void CreatePlayer(CObjectStore& objectStore, CPlayer* player);
+	void CreatePlayer(CObjectStore& objectStore, CPlayer*& player);
 
 	void CreatePlayerPos(CObjectStore& objectStore, CPlayer* player);
 
