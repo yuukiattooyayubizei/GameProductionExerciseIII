@@ -45,7 +45,7 @@ public:
 
 	Int2 GetStairsPos() const { return m_MapData.GetStairsPos(); }									//階段の座標を返す
 	TILE GetTile(Int2 pos) { return m_MapData.GetTile(pos); }										//指定された座標のタイルの種類を返す
-	int GetRoomNum(Int2 pos) { return m_MapData.GetRoomNum(pos); }									//座標の部屋のIDを返す
+	int GetRoomID(Int2 pos) { return m_MapData.GetRoomID(pos); }									//座標の部屋のIDを返す
 	Int2 GetNotHerePlayerRoomPos(Int2 PlPos) { return m_MapData.GetNotHerePlayerRoomPos(PlPos); }	//部屋の中のプレイヤーがいないランダムな座標を取得
 
 	void SetSelectItemIndex(int i = 0) { m_ItemMenu.SetSelectItemIndex(i); }

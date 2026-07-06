@@ -4,7 +4,7 @@ std::vector<CObject*> CObjectSearch::FindObjectsInSameRoom(Int2 pos, CMap& map, 
 
     std::vector<CObject*> result;
 
-    int roomNum = map.GetRoomNum(pos);
+    int roomNum = map.GetRoomID(pos);
 
     if (roomNum == -1)
     {
@@ -23,7 +23,7 @@ std::vector<CObject*> CObjectSearch::FindObjectsInSameRoom(Int2 pos, CMap& map, 
             continue;
         }
 
-        if (map.GetRoomNum(object->GetPos()) == roomNum)
+        if (map.GetRoomID(object->GetPos()) == roomNum)
         {
             result.push_back(object);
         }
@@ -63,7 +63,7 @@ std::vector<CObject*> CObjectSearch::FindLiveTogetherObject(Int2 i, const CObjec
     std::vector<CObject*> res;
 
     //プレイヤーの部屋番号を取得
-    int PlayerRoomNum = Map->GetRoomNum(i);
+    int PlayerRoomNum = Map->GetRoomID(i);
     //-1(部屋にいない)の場合終了
     if (PlayerRoomNum == -1)return {};
 
@@ -73,7 +73,7 @@ std::vector<CObject*> CObjectSearch::FindLiveTogetherObject(Int2 i, const CObjec
             continue;
         }
 
-        if (Map->GetRoomNum(object->GetPos()) == PlayerRoomNum) {
+        if (Map->GetRoomID(object->GetPos()) == PlayerRoomNum) {
             res.push_back(object);
         }
     }

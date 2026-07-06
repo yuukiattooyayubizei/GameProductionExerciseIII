@@ -52,7 +52,7 @@ CRoom CMapData::GetStartRoom() {
 	return m_Room.front();
 }
 
-int CMapData::GetRoomNum(Int2 i) {
+int CMapData::GetRoomID(Int2 i) {
 
 	int num = 0;
 
@@ -215,7 +215,7 @@ Int2 CMapData::GetNotHerePlayerRoomPos(Int2 PlPos)
 	//ランダムで座標を取得
 	Int2 ret = GetRoomPos();
 	//プレイヤーと同じ部屋か、廊下と隣接しているなら再抽選
-	while (GetRoomNum(ret) == GetRoomNum(PlPos) || GetTile(ret) == TILE_CORRIDOR_ADJACENT_ROOM)
+	while (GetRoomID(ret) == GetRoomID(PlPos) || GetTile(ret) == TILE_CORRIDOR_ADJACENT_ROOM)
 	{
 		ret = GetRoomPos();
 	}

@@ -28,7 +28,7 @@ public:
 	// À•W‚É•”‰®‚ª‚ ‚é‚©‚ğ’²‚×‚é
 	// •Ô‚è’l‚Í•”‰®‚Ì”Ô†
 	// •”‰®‚ª‚È‚¢ê‡‚Í -1 ‚ğ•Ô‚·
-	int GetRoomNum(Int2 i);
+	int GetRoomID(Int2 i);
 
 	// À•W‚©‚ç“Á’è‚ÌŒü‚«‚ğŒ©‚½‚ç‚Ç‚±‚Ü‚ÅŒ©‚ê‚é‚©‚ğ•Ô‚·
 	int GetFieldOfVision(Int2 i, DIRECTION dir);

@@ -56,8 +56,8 @@ void CEnemy::Step(CanMove canmove, Int2 playerPos) {
 	CMap* Map = CMap::GetInstance();
 
 	//プレイヤーと敵のいる部屋を探す
-	int PlayerRoomNum = Map->GetRoomNum(playerPos);
-	int EnemyRoomNum = Map->GetRoomNum(m_Pos);
+	int PlayerRoomNum = Map->GetRoomID(playerPos);
+	int EnemyRoomNum = Map->GetRoomID(m_Pos);
 	Int2 SubPos = SubInt2(playerPos, m_Pos);
 
 	//プレイヤーが隣にいるならそっちに移動(攻撃)
