@@ -204,14 +204,36 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 		if (GetRand(1) == 0)
 		{
 			Int2 mid{ centerB.x, centerA.y };
+
+			RoomLink link;
+			link.m_RoomA = edge.roomA;
+			link.m_RoomB = edge.roomB;
+			link.m_CenterA = centerA;
+			link.m_Bend = mid;
+			link.m_CenterB = centerB;
+
 			DigCorridor(mapData,centerA, mid);
 			DigCorridor(mapData,mid, centerB);
+
+			// 接続情報を保存
+			mapData.AddRoomLink(link);
 		}
 		else
 		{
-			Int2 mid{ centerA.x, centerB.y };
+			Int2 mid{ centerB.x, centerA.y };
+
+			RoomLink link;
+			link.m_RoomA = edge.roomA;
+			link.m_RoomB = edge.roomB;
+			link.m_CenterA = centerA;
+			link.m_Bend = mid;
+			link.m_CenterB = centerB;
+
 			DigCorridor(mapData,centerA, mid);
 			DigCorridor(mapData,mid, centerB);
+
+			// 接続情報を保存
+			mapData.AddRoomLink(link);
 		}
 
 		//作り終わったらカウントを進める

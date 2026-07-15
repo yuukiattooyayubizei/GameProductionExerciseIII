@@ -41,6 +41,7 @@ void CMap::Exit() {
 void CMap::Draw(Int2 playerPos) {
 	m_MapDraw.Draw(m_MapData, playerPos);
 	m_FieldItemManager.Draw();					
+	m_MapData.GetRoomLinks();
 }
 
 void CMap::DeleteAll() {

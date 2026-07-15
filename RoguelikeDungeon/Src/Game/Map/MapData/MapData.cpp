@@ -6,6 +6,7 @@ using namespace std;
 void CMapData::Init() {
 	//•”‰®î•ñ‚ğÁ‹
 	m_Room.clear();
+	m_RoomLinks.clear();
 
 	for (int i = 0;i < MAP_Y;i++)
 	{
@@ -20,6 +21,7 @@ void CMapData::Init() {
 void CMapData::Exit() {
 	//•”‰®î•ñ‚ğÁ‹
 	m_Room.clear();
+	m_RoomLinks.clear();
 
 	for (int i = 0;i < MAP_Y;i++)
 	{
@@ -50,6 +52,37 @@ CRoom CMapData::GetStartRoom() {
 	}
 	//Å‰‚Ì‚ÌRoom‚Å•Ô‚·
 	return m_Room.front();
+}
+
+void CMapData::AddLineToRoute(std::vector<Int2>& route,Int2 start,Int2 end,bool includeStart){
+	Int2 pos = start;
+
+	if (includeStart)
+	{
+		route.push_back(pos);
+	}
+
+	while (pos.x != end.x || pos.y != end.y)
+	{
+		if (pos.x < end.x)
+		{
+			pos.x++;
+		}
+		else if (pos.x > end.x)
+		{
+			pos.x--;
+		}
+		else if (pos.y < end.y)
+		{
+			pos.y++;
+		}
+		else if (pos.y > end.y)
+		{
+			pos.y--;
+		}
+
+		route.push_back(pos);
+	}
 }
 
 int CMapData::GetRoomID(Int2 i) {
