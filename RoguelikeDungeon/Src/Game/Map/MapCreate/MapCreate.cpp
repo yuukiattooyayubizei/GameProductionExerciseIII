@@ -3,9 +3,10 @@
 #include<algorithm>
 #include<DxLib.h>
 
-void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
+Int2 CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 {
 	Int2 startpos = start;
+	Int2 ret = { -1,-1 };
 
 	// 横方向に掘る
 	while (start.x != end.x)
@@ -36,13 +37,16 @@ void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 	if (mapData.GetTile(start) != TILE_ROOM)
 		mapData.SetTile(start, TILE_CORRIDOR);
 
-	//廊下を作ったら、もう一度作った廊下を確認し、部屋のまま変わっていないかつ隣に廊下があるならそこを廊下に新設した部屋マスに変える
+	//廊下を作ったら、もう一度作った廊下を確認し、部屋のまま変わっていないかつ隣に廊下があるならそこを廊下に隣接した部屋マスに変える
 	start = startpos;
 
 	while (start.x != end.x)
 	{
 		if (mapData.GetTile(start) == TILE_ROOM && mapData.IsAdjacentTile(start, TILE_CORRIDOR) == true)
+		{
 			mapData.SetTile(start, TILE_CORRIDOR_ADJACENT_ROOM);
+			ret = start;
+		}
 
 		//目標が右か左か調べ、その方向に1マス移動
 		if (start.x < end.x)
@@ -54,7 +58,10 @@ void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 	while (start.y != end.y)
 	{
 		if (mapData.GetTile(start) == TILE_ROOM && mapData.IsAdjacentTile(start, TILE_CORRIDOR) == true)
+		{
 			mapData.SetTile(start, TILE_CORRIDOR_ADJACENT_ROOM);
+			ret = start;
+		}
 
 		//目標が上か下か調べ、その方向に1マス移動
 		if (start.y < end.y)
@@ -62,6 +69,8 @@ void CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
 		else
 			start.y--;
 	}
+
+	return ret;
 }
 
 void CMapCreate::CreateStairs(CMapData& mapData)
@@ -205,15 +214,20 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 		{
 			Int2 mid{ centerB.x, centerA.y };
 
+			Int2 GateA = DigCorridor(mapData,centerA, mid);
+			Int2 GateB = DigCorridor(mapData,mid, centerB);
+
 			RoomLink link;
 			link.m_RoomA = edge.roomA;
 			link.m_RoomB = edge.roomB;
+
 			link.m_CenterA = centerA;
-			link.m_Bend = mid;
 			link.m_CenterB = centerB;
 
-			DigCorridor(mapData,centerA, mid);
-			DigCorridor(mapData,mid, centerB);
+			link.m_GateA = GateA;
+			link.m_GateB = GateB;
+
+			link.m_Bend = mid;
 
 			// 接続情報を保存
 			mapData.AddRoomLink(link);
@@ -222,15 +236,22 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 		{
 			Int2 mid{ centerB.x, centerA.y };
 
+			Int2 GateA = DigCorridor(mapData,centerA, mid);
+			Int2 GateB = DigCorridor(mapData,mid, centerB);
+
 			RoomLink link;
 			link.m_RoomA = edge.roomA;
 			link.m_RoomB = edge.roomB;
+
 			link.m_CenterA = centerA;
-			link.m_Bend = mid;
 			link.m_CenterB = centerB;
 
-			DigCorridor(mapData,centerA, mid);
-			DigCorridor(mapData,mid, centerB);
+			link.m_GateA = GateA;
+			link.m_GateB = GateB;
+
+			link.m_Bend = mid;
+
+			link.m_Route = CreateCorridorRoute(link.m_GateA,link.m_Bend,link.m_GateB);
 
 			// 接続情報を保存
 			mapData.AddRoomLink(link);
@@ -248,4 +269,50 @@ bool CMapCreate::CreateCorridor(CMapData& mapData)
 	}
 
 	return true;
+}
+
+void CMapCreate::AddLineToRoute(std::vector<Int2>& route,Int2 start,Int2 end,bool includeStart){
+
+	Int2 pos = start;
+
+	if (includeStart)
+	{
+		route.push_back(pos);
+	}
+
+	while (pos.x != end.x || pos.y != end.y)
+	{
+		if (pos.x < end.x)
+		{
+			pos.x++;
+		}
+		else if (pos.x > end.x)
+		{
+			pos.x--;
+		}
+		else if (pos.y < end.y)
+		{
+			pos.y++;
+		}
+		else if (pos.y > end.y)
+		{
+			pos.y--;
+		}
+
+		route.push_back(pos);
+	}
+}
+
+std::vector<Int2> CMapCreate::CreateCorridorRoute(Int2 gateA, Int2 gateB, Int2 bend){
+
+	std::vector<Int2> route;
+
+	// gateAからbendまで
+	AddLineToRoute(route, gateA, bend, true);
+
+	// bendはすでに追加されているので、
+	// 2本目では開始地点を追加しない
+	AddLineToRoute(route, bend, gateB, false);
+
+	return route;
 }

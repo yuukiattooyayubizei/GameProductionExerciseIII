@@ -1,0 +1,275 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Map\\MapCreate\\MapCreate.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Map\\MapCreate\\MapCreate.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Map\\MapCreate\\MapCreate.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Map\\MapCreate\\MapCreate.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSearch\\ObjectSearch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\ObjectSearch\\ObjectSearch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Scene\\Play\\PlayScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Scene\\Play\\PlayScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Item\\Item.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Item\\Item.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\ObjectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F16C67B0-3037-42DF-BB5A-C514E19FA235}|RoguelikeDungeon.vcxproj|solutionrelative:Src\\Game\\Object\\ObjectManager\\ObjectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MapCreate.h",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Map\\MapCreate\\MapCreate.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Map\\MapCreate\\MapCreate.h",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Map\\MapCreate\\MapCreate.h",
+              "RelativeToolTip": "Src\\Game\\Map\\MapCreate\\MapCreate.h",
+              "ViewState": "AgIAACcAAAAAAAAAAAApwEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-16T01:16:26.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MapCreate.cpp",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Map\\MapCreate\\MapCreate.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Map\\MapCreate\\MapCreate.cpp",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Map\\MapCreate\\MapCreate.cpp",
+              "RelativeToolTip": "Src\\Game\\Map\\MapCreate\\MapCreate.cpp",
+              "ViewState": "AgIAACIBAAAAAAAAAAAAADYBAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-16T01:16:00.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PlayScene.h",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Scene\\Play\\PlayScene.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Scene\\Play\\PlayScene.h",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Scene\\Play\\PlayScene.h",
+              "RelativeToolTip": "Src\\Game\\Scene\\Play\\PlayScene.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-16T01:07:10.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Item.cpp",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Item\\Item.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Item\\Item.cpp",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Item\\Item.cpp",
+              "RelativeToolTip": "Src\\Game\\Item\\Item.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-16T01:06:45.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CombatResolver.cpp",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.cpp",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.cpp",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-16T01:05:39.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CombatResolver.h",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.h",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.h",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\CombatResolver\\CombatResolver.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-16T01:05:33.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MoveRule.cpp",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.cpp",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.cpp",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-16T01:05:03.352Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MoveRule.h",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.h",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.h",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\MoveRule\\MoveRule.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-16T01:04:58.464Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ObjectStore.cpp",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.cpp",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.cpp",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-16T01:04:54.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ObjectSpawner.h",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.h",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.h",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-16T01:04:35.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ObjectSearch.h",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSearch\\ObjectSearch.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\ObjectSearch\\ObjectSearch.h",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSearch\\ObjectSearch.h",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\ObjectSearch\\ObjectSearch.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-16T01:04:04.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ObjectStore.h",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.h",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.h",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\ObjectStore\\ObjectStore.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-16T01:04:44.589Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ObjectSpawner.cpp",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.cpp",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.cpp",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\ObjectSpawner\\ObjectSpawner.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-16T01:04:19.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ObjectManager.h",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectManager.h",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\ObjectManager.h",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectManager.h",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\ObjectManager.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-16T01:01:57.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ObjectManager.cpp",
+              "DocumentMoniker": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectManager.cpp",
+              "RelativeDocumentMoniker": "Src\\Game\\Object\\ObjectManager\\ObjectManager.cpp",
+              "ToolTip": "D:\\Users\\2409408\\Documents\\GitHub\\GameProductionExerciseIII\\RoguelikeDungeon\\Src\\Game\\Object\\ObjectManager\\ObjectManager.cpp",
+              "RelativeToolTip": "Src\\Game\\Object\\ObjectManager\\ObjectManager.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-16T01:01:28.123Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

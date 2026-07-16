@@ -103,6 +103,21 @@
     <Filter Include="ソース ファイル\Game\Object\ObjectManager">
       <UniqueIdentifier>{cc8ffd35-aaaa-41c8-a416-e562610de275}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Object\ObjectManager\CombatResolver">
+      <UniqueIdentifier>{bd90f27f-95d1-4a82-b1e1-a0a9284c04b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\ObjectManager\MoveRule">
+      <UniqueIdentifier>{23dee352-7095-426e-bf2b-2ac1d427d1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\ObjectManager\ObjectSearch">
+      <UniqueIdentifier>{707a00ce-ca85-4166-a0dd-8342775160e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\ObjectManager\ObjectSpawner">
+      <UniqueIdentifier>{9c0dd4d0-716f-4be9-a913-d40445af9840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Object\ObjectManager\ObjectStore">
+      <UniqueIdentifier>{b3878cd8-71ea-4acc-a31b-a90cd897fa77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Common.h">
@@ -213,23 +228,23 @@
     <ClInclude Include="Src\Game\UI\Log.h">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Object\ObjectManager.h">
+    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectManager.h">
       <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Object\ObjectManager\MoveRule.h">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectStore\ObjectStore.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\ObjectStore</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Object\ObjectManager\CombatResolver.h">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectSpawner\ObjectSpawner.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\ObjectSpawner</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectStore.h">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectSearch\ObjectSearch.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\ObjectSearch</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectSearch.h">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClInclude Include="Src\Game\Object\ObjectManager\MoveRule\MoveRule.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\MoveRule</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Object\ObjectManager\ObjectSpawner.h">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClInclude Include="Src\Game\Object\ObjectManager\CombatResolver\CombatResolver.h">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\CombatResolver</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -329,23 +344,23 @@
     <ClCompile Include="Src\Game\UI\Log.cpp">
       <Filter>ソース ファイル\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Object\ObjectManager.cpp">
+    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectManager.cpp">
       <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Object\ObjectManager\MoveRule.cpp">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectStore\ObjectStore.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\ObjectStore</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Object\ObjectManager\CombatResolver.cpp">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectSpawner\ObjectSpawner.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\ObjectSpawner</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectStore.cpp">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectSearch\ObjectSearch.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\ObjectSearch</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectSearch.cpp">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClCompile Include="Src\Game\Object\ObjectManager\MoveRule\MoveRule.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\MoveRule</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Object\ObjectManager\ObjectSpawner.cpp">
-      <Filter>ソース ファイル\Game\Object\ObjectManager</Filter>
+    <ClCompile Include="Src\Game\Object\ObjectManager\CombatResolver\CombatResolver.cpp">
+      <Filter>ソース ファイル\Game\Object\ObjectManager\CombatResolver</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

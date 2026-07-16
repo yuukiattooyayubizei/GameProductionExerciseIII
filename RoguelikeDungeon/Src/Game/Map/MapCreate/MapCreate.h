@@ -71,7 +71,7 @@ private:
 	void CreateStairs(CMapData& mapData);
 
 	// 掘る
-	void DigCorridor(CMapData& mapData, Int2 a, Int2 b);
+	Int2 DigCorridor(CMapData& mapData, Int2 a, Int2 b);
 
 	// 部屋を作成
 	bool CreateRoom(CMapData& mapData, int CreateNum);
@@ -81,6 +81,17 @@ private:
 
 	// 廊下の生成
 	bool CreateCorridor(CMapData& mapData);
+
+	//廊下のルートの直線を作成
+	//route:作成したrouteを入れる
+	//includeStart:移動前のマスを含むか
+	void AddLineToRoute(std::vector<Int2>& route, Int2 start, Int2 end, bool includeStart);
+
+	//廊下のルートを作成
+	//gateA:スタートの座標
+	//gateB:ゴールの座標
+	//bend:曲がり角の座標
+	std::vector<Int2> CreateCorridorRoute(Int2 gateA, Int2 gateB, Int2 bend);
 public:
 	//階層を生成
 	void CreateFloor(CMapData& mapData);

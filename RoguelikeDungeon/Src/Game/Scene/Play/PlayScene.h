@@ -1,6 +1,6 @@
 #pragma once
 #include"../../Camera/CameraManager.h"
-#include"../../Object/ObjectManager.h"
+#include"../../Object/ObjectManager/ObjectManager.h"
 #include"../../UI/UI.h"
 
 class CPlayScene 
