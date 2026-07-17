@@ -93,10 +93,7 @@ CanMove CMoveRule::GetCanMoveEnemy(Int2 pos, CObjectStore& objectStore)
         if (t == TILE_WALL)
             C.Left = false;
 
-
         NextPos.x++;
-        if (GetAheadMoveObject(NextPos, DIRECTION_LEFT, objectStore) == KIND_ENEMY)
-            C.Left = false;
     }
     if (C.Right == true)
     {
@@ -105,8 +102,6 @@ CanMove CMoveRule::GetCanMoveEnemy(Int2 pos, CObjectStore& objectStore)
         if (t == TILE_WALL)
             C.Right = false;
         NextPos.x--;
-        if (GetAheadMoveObject(NextPos, DIRECTION_RIGHT, objectStore) == KIND_ENEMY)
-            C.Right = false;
     }
     if (C.Up == true)
     {
@@ -115,8 +110,6 @@ CanMove CMoveRule::GetCanMoveEnemy(Int2 pos, CObjectStore& objectStore)
         if (t == TILE_WALL)
             C.Up = false;
         NextPos.y++;
-        if (GetAheadMoveObject(NextPos, DIRECTION_UP, objectStore) == KIND_ENEMY)
-            C.Up = false;
     }
     if (C.Down == true)
     {
@@ -125,8 +118,6 @@ CanMove CMoveRule::GetCanMoveEnemy(Int2 pos, CObjectStore& objectStore)
         if (t == TILE_WALL)
             C.Down = false;
         NextPos.y--;
-        if (GetAheadMoveObject(NextPos, DIRECTION_DOWN, objectStore) == KIND_ENEMY)
-            C.Down = false;
     }
 
     return C;

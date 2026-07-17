@@ -3,74 +3,68 @@
 #include<algorithm>
 #include<DxLib.h>
 
-Int2 CMapCreate::DigCorridor(CMapData& mapData, Int2 start, Int2 end)
+UnionFind::UnionFind(int size)
 {
-	Int2 startpos = start;
-	Int2 ret = { -1,-1 };
+	//要素数を部屋数と同じにする
+	m_Parent.resize(size);
 
-	// 横方向に掘る
-	while (start.x != end.x)
+	//自分自身を親にする
+	for (int i = 0; i < size; i++)
 	{
-		if (mapData.GetTile(start) != TILE_ROOM && mapData.GetTile(start) != TILE_CORRIDOR_ADJACENT_ROOM)
-			mapData.SetTile(start, TILE_CORRIDOR);
-
-		//目標が右か左か調べ、その方向に1マス移動
-		if (start.x < end.x)
-			start.x++;
-		else
-			start.x--;
+		m_Parent[i] = i;
 	}
+}
 
-	// 縦方向に掘る
-	while (start.y != end.y)
+//親を探す
+int UnionFind::Find(int x)
+{
+	//親が自分自身なら自分自身を返す
+	if (m_Parent[x] == x)
+		return x;
+
+	//親が自分自身じゃないなら、その親の親を探す
+	//これを、自分自身が親のものが出るまで繰り返す
+	//さらに、その自分自身が親のものが出た時にそれを保存して、次回以降の探索を短縮
+	m_Parent[x] = Find(m_Parent[x]);
+	return m_Parent[x];
+}
+
+//2つが同じグループかどうかを返す
+bool UnionFind::Same(int a, int b)
+{
+	if (Find(a) == Find(b))return true;
+	return false;
+}
+
+//2つを同じグループにする
+//Aが親としてつなぐ
+void UnionFind::Unite(int a, int b)
+{
+	int rootA = Find(a);
+	int rootB = Find(b);
+
+	//既に同じグループなら(親が同じなら)つながない
+	if (rootA == rootB)
+		return;
+
+	m_Parent[rootB] = rootA;
+}
+
+void CMapCreate::DigCorridor(CMapData& mapData,const std::vector<Int2>& route){
+
+	//routeの座標を一つづつ確認
+	for (const Int2& pos : route)
 	{
-		if (mapData.GetTile(start) != TILE_ROOM && mapData.GetTile(start) != TILE_CORRIDOR_ADJACENT_ROOM)
-			mapData.SetTile(start, TILE_CORRIDOR);
-		//目標が上か下か調べ、その方向に1マス移動
-		if (start.y < end.y)
-			start.y++;
-		else
-			start.y--;
-	}
+		TILE tile = mapData.GetTile(pos);
 
-	// 最後のマス
-	if (mapData.GetTile(start) != TILE_ROOM)
-		mapData.SetTile(start, TILE_CORRIDOR);
-
-	//廊下を作ったら、もう一度作った廊下を確認し、部屋のまま変わっていないかつ隣に廊下があるならそこを廊下に隣接した部屋マスに変える
-	start = startpos;
-
-	while (start.x != end.x)
-	{
-		if (mapData.GetTile(start) == TILE_ROOM && mapData.IsAdjacentTile(start, TILE_CORRIDOR) == true)
+		// 部屋マスは廊下に書き換えない
+		if (tile == TILE_ROOM ||tile == TILE_CORRIDOR_ADJACENT_ROOM)
 		{
-			mapData.SetTile(start, TILE_CORRIDOR_ADJACENT_ROOM);
-			ret = start;
+			continue;
 		}
 
-		//目標が右か左か調べ、その方向に1マス移動
-		if (start.x < end.x)
-			start.x++;
-		else
-			start.x--;
+		mapData.SetTile(pos, TILE_CORRIDOR);
 	}
-
-	while (start.y != end.y)
-	{
-		if (mapData.GetTile(start) == TILE_ROOM && mapData.IsAdjacentTile(start, TILE_CORRIDOR) == true)
-		{
-			mapData.SetTile(start, TILE_CORRIDOR_ADJACENT_ROOM);
-			ret = start;
-		}
-
-		//目標が上か下か調べ、その方向に1マス移動
-		if (start.y < end.y)
-			start.y++;
-		else
-			start.y--;
-	}
-
-	return ret;
 }
 
 void CMapCreate::CreateStairs(CMapData& mapData)
@@ -151,7 +145,11 @@ void CMapCreate::CreateFloor(CMapData& mapData) {
 
 	//5個から7個の部屋を作成
 	if (CreateRoom(mapData,GetRand(ROOM_MAX - ROOM_MIN) + ROOM_MIN) == false)return;
+	//廊下を作る
 	CreateCorridor(mapData);
+	mapData.CreateRoomGraph();
+
+	//階段を作る
 	CreateStairs(mapData);
 }
 
@@ -159,116 +157,115 @@ void CMapCreate::CreateFloor(CMapData& mapData) {
 bool CMapCreate::CreateCorridor(CMapData& mapData)
 {
 	//部屋の数を取得
-	int roomCount = static_cast<int>(mapData.GetRoomNum());
+	int roomCount =static_cast<int>(mapData.GetRoomNum());
 
 	//部屋の数が少なすぎたらやめる
-	if (roomCount < ROOM_COUNT_MIN)
-		return false;
+	if (roomCount < ROOM_COUNT_MIN)return false;
 
 	std::vector<RoomEdge> edges;
-
 
 	for (int i = 0; i < roomCount; i++)
 	{
 		for (int k = i + 1; k < roomCount; k++)
 		{
 			//部屋の中心座標を取得
-			Int2 RoomA{ ChangeInt2ToFloat2(mapData.GetRoom(i).GetCenter()) };
-			Int2 RoomB{ ChangeInt2ToFloat2(mapData.GetRoom(k).GetCenter()) };
-			Int2 distance{ SubInt2(RoomA,RoomB) };
+			Int2 roomA{
+				ChangeInt2ToFloat2(
+					mapData.GetRoom(i).GetCenter()
+				)
+			};
 
+			Int2 roomB{
+				ChangeInt2ToFloat2(
+					mapData.GetRoom(k).GetCenter()
+				)
+			};
+
+			//内容を記録
 			RoomEdge edge;
+
 			edge.roomA = i;
 			edge.roomB = k;
-			//直線距離でどれくらい距離が離れているか計算
+
+			//2部屋の距離を計算
+			Int2 distance = SubInt2(roomA, roomB);
 			edge.distance = distance.x * distance.x + distance.y * distance.y;
 
 			edges.push_back(edge);
 		}
 	}
 
-	//直線距離が短い順に並べ替える
-	std::sort(edges.begin(), edges.end(),[](const RoomEdge& a, const RoomEdge& b){
+	//2部屋の距離が短い順に並べる
+	std::sort(edges.begin(),edges.end(),[](const RoomEdge& a, const RoomEdge& b)
+		{
 			return a.distance < b.distance;
-		});
+		}
+	);
 
 	UnionFind uf(roomCount);
 
+	//実際に作った廊下の数
 	int corridorCount = 0;
 
-	//直線距離が短い順に計算
 	for (const RoomEdge& edge : edges)
 	{
-		//2つがすでに同じグループだったら計算しない
+		//すでに2部屋が行き来可能ならやめる
 		if (uf.Same(edge.roomA, edge.roomB))
+		{
 			continue;
+		}
 
-		const CRoom& roomA = mapData.GetRoom(edge.roomA);
-		const CRoom& roomB = mapData.GetRoom(edge.roomB);
+		const CRoom& roomA =mapData.GetRoom(edge.roomA);
+		const CRoom& roomB =mapData.GetRoom(edge.roomB);
 
-		Int2 centerA{ ChangeInt2ToFloat2(roomA.GetCenter()) };
-		Int2 centerB{ ChangeInt2ToFloat2(roomB.GetCenter()) };
+		Int2 centerA = ChangeInt2ToFloat2(roomA.GetCenter());
+		Int2 centerB = ChangeInt2ToFloat2(roomB.GetCenter());
 
-		//左右→上下の順に廊下を作るか上下→左右の順に廊下を作るかをランダムで決定
+		Int2 mid;
+
+		// ランダムで横→縦か縦→横のどちらかに
 		if (GetRand(1) == 0)
-		{
-			Int2 mid{ centerB.x, centerA.y };
-
-			Int2 GateA = DigCorridor(mapData,centerA, mid);
-			Int2 GateB = DigCorridor(mapData,mid, centerB);
-
-			RoomLink link;
-			link.m_RoomA = edge.roomA;
-			link.m_RoomB = edge.roomB;
-
-			link.m_CenterA = centerA;
-			link.m_CenterB = centerB;
-
-			link.m_GateA = GateA;
-			link.m_GateB = GateB;
-
-			link.m_Bend = mid;
-
-			// 接続情報を保存
-			mapData.AddRoomLink(link);
-		}
+			// 横→縦
+			mid = {centerB.x,centerA.y};
 		else
-		{
-			Int2 mid{ centerB.x, centerA.y };
+			// 縦→横
+			mid = {centerA.x,centerB.y};
+		
 
-			Int2 GateA = DigCorridor(mapData,centerA, mid);
-			Int2 GateB = DigCorridor(mapData,mid, centerB);
+		// centerAからcenterBまでの全経路を作る
+		std::vector<Int2> fullRoute = CreateCorridorRoute(centerA,centerB,mid);
 
-			RoomLink link;
-			link.m_RoomA = edge.roomA;
-			link.m_RoomB = edge.roomB;
+		// 経路の通りに掘る
+		DigCorridor(mapData,fullRoute);
 
-			link.m_CenterA = centerA;
-			link.m_CenterB = centerB;
+		RoomLink link{};
 
-			link.m_GateA = GateA;
-			link.m_GateB = GateB;
+		link.m_RoomA = edge.roomA;
+		link.m_RoomB = edge.roomB;
 
-			link.m_Bend = mid;
+		link.m_CenterA = centerA;
+		link.m_CenterB = centerB;
 
-			link.m_Route = CreateCorridorRoute(link.m_GateA,link.m_Bend,link.m_GateB);
+		link.m_Bend = mid;
 
-			// 接続情報を保存
-			mapData.AddRoomLink(link);
-		}
+		// 掘った後の経路からGateを調べる
+		bool foundGate = FindCorridorGates(mapData, fullRoute, link.m_GateA, link.m_GateB, link.m_Route);
 
-		//作り終わったらカウントを進める
+		mapData.AddRoomLink(link);
+
 		corridorCount++;
 
-		//作成が終わったら、2つの部屋を結びつける
-		uf.Unite(edge.roomA, edge.roomB);
+		//2部屋をつなげる
+		uf.Unite(edge.roomA,edge.roomB);
 
-		//規定数まで作ったら終わる
+		//必要本数出来たらやめる
 		if (corridorCount >= roomCount - 1)
+		{
 			break;
+		}
 	}
 
-	return true;
+	return corridorCount == roomCount - 1;
 }
 
 void CMapCreate::AddLineToRoute(std::vector<Int2>& route,Int2 start,Int2 end,bool includeStart){
@@ -315,4 +312,71 @@ std::vector<Int2> CMapCreate::CreateCorridorRoute(Int2 gateA, Int2 gateB, Int2 b
 	AddLineToRoute(route, bend, gateB, false);
 
 	return route;
+}
+
+bool CMapCreate::IsRoomLikeTile(TILE tile)
+{
+	if(tile == TILE_ROOM || tile == TILE_CORRIDOR_ADJACENT_ROOM)return true;
+
+	return false;
+}
+
+bool CMapCreate::IsCorridorTile(TILE tile)
+{
+	if (tile == TILE_CORRIDOR)return true;
+
+	return false;
+}
+
+bool CMapCreate::FindCorridorGates(CMapData& mapData,const std::vector<Int2>& fullRoute,Int2& gateA,Int2& gateB,std::vector<Int2>& gateRoute){
+
+	//経路が短過ぎたらやめる
+	if (fullRoute.size() < 2) return false;
+
+	int gateAIndex = -1;
+	int gateBIndex = -1;
+
+	// centerA側からGateAを探す
+	for (int i = 0;i + 1 < static_cast<int>(fullRoute.size());i++){
+
+		//今と次のタイルを取得
+		TILE currentTile = mapData.GetTile(fullRoute[i]);
+		TILE nextTile = mapData.GetTile(fullRoute[i + 1]);
+
+		//現在が部屋で一歩先が廊下ならそこが境界
+		if (IsRoomLikeTile(currentTile) &&IsCorridorTile(nextTile)){
+			gateAIndex = i;
+			break;
+		}
+	}
+
+	// centerB側からGateBを探す
+	for (int i = static_cast<int>(fullRoute.size()) - 1; i - 1 >= 0; i--)
+	{
+		//今と前のタイルを取得
+		TILE currentTile = mapData.GetTile(fullRoute[i]);
+		TILE previousTile = mapData.GetTile(fullRoute[i - 1]);
+
+		//現在が部屋で一歩後ろが廊下ならそこが境界
+		if (IsRoomLikeTile(currentTile) && IsCorridorTile(previousTile)){
+			gateBIndex = i;
+			break;
+		}
+	}
+
+	//境界が見つかっていないなら終わる
+	if (gateAIndex < 0 || gateBIndex < 0 || gateAIndex >= gateBIndex) return false;
+	
+	//実際の座標を取得
+	gateA = fullRoute[gateAIndex];
+	gateB = fullRoute[gateBIndex];
+
+	//そのタイルを、廊下に隣接した部屋マスに変える
+	mapData.SetTile(gateA,TILE_CORRIDOR_ADJACENT_ROOM);
+	mapData.SetTile(gateB,TILE_CORRIDOR_ADJACENT_ROOM);
+
+	//敵のルートを今見つけたルートに書き換え
+	gateRoute.assign(fullRoute.begin() + gateAIndex,fullRoute.begin() + gateBIndex + 1);
+
+	return true;
 }

@@ -193,6 +193,7 @@
     <ClCompile Include="Src\Game\Map\MapCreate\MapCreate.cpp" />
     <ClCompile Include="Src\Game\Map\MapData\MapData.cpp" />
     <ClCompile Include="Src\Game\Map\MapDraw\MapDraw.cpp" />
+    <ClCompile Include="Src\Game\Map\RoomLink\RoomLink.h" />
     <ClCompile Include="Src\Game\Map\Room\Room.cpp" />
     <ClCompile Include="Src\Game\Object\Enemy\Enemy.cpp" />
     <ClCompile Include="Src\Game\Object\Enemy\Enemy1\Enemy1.cpp" />

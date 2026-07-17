@@ -46,6 +46,7 @@ void EditCamera::Init(VECTOR camPos, VECTOR targetPos, VECTOR upVec)
 
 void EditCamera::Step(VECTOR focus, float rota)
 {
+	CInput* Input = CInput::GetInstance();
 	m_camPos.x = (float)m_TarGetPosX * 200.0f + 100.0f;
 	m_camPos.y = 1000.0f;
 	m_camPos.z = (float)m_TarGetPosZ * 200.0f + 100.0f;
@@ -54,22 +55,22 @@ void EditCamera::Step(VECTOR focus, float rota)
 	m_targetPos.y = 0.0f;
 	m_targetPos.z = (float)m_TarGetPosZ * 200.0f + 101.0f;
 
-	if (IsInputTrg(KEY_W))
+	if (Input->IsInputTrg(KEY_W))
 	{
 		if(m_TarGetPosZ < MAP_Y)
 		m_TarGetPosZ++;
 	}
-	if (IsInputTrg(KEY_S))
+	if (Input->IsInputTrg(KEY_S))
 	{
 		if (m_TarGetPosZ > 0)
 		m_TarGetPosZ--;
 	}
-	if (IsInputTrg(KEY_A))
+	if (Input->IsInputTrg(KEY_A))
 	{
 		if (m_TarGetPosX > 0)
 		m_TarGetPosX--;
 	}
-	if (IsInputTrg(KEY_D))
+	if (Input->IsInputTrg(KEY_D))
 	{
 		if (m_TarGetPosX < MAP_X)
 		m_TarGetPosX++;

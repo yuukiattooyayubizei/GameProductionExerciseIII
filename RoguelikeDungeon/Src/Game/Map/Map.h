@@ -47,10 +47,14 @@ public:
 	TILE GetTile(Int2 pos) { return m_MapData.GetTile(pos); }										//指定された座標のタイルの種類を返す
 	int GetRoomID(Int2 pos) { return m_MapData.GetRoomID(pos); }									//座標の部屋のIDを返す
 	Int2 GetNotHerePlayerRoomPos(Int2 PlPos) { return m_MapData.GetNotHerePlayerRoomPos(PlPos); }	//部屋の中のプレイヤーがいないランダムな座標を取得
+	int GetRoomNum() { return m_MapData.GetRoomNum(); }												//部屋の数を取得
 
 	void SetSelectItemIndex(int i = 0) { m_ItemMenu.SetSelectItemIndex(i); }
 	void SetItemPage(int i = 0) { m_ItemMenu.SetItemPage(i); }
 	int GetFieldOfVision(Int2 i, DIRECTION dir) { return m_MapData.GetFieldOfVision(i,dir); }
+	std::vector<int> CalcRoomDistance(int startRoom) const{return m_MapData.CalcRoomDistance(startRoom);}
+	std::vector<int> FindRoomRoute(int startRoom,int goalRoom) const{return m_MapData.FindRoomRoute(startRoom,goalRoom);}
+	const RoomLink* FindRoomLink(int currentRoomID, int nextRoomID) { return m_MapData.FindRoomLink(currentRoomID,nextRoomID); }
 
 	//----------------------------------------------
 	// 判定系

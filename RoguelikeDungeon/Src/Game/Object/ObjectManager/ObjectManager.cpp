@@ -34,9 +34,9 @@ void CObjectManager::Load() {
 PlayerAction CObjectManager::PlayerStep(int floor) {
     CMap* Map = CMap::GetInstance();
     CLog* Log = CLog::GetInstance();
-
+    CInput* Input = CInput::GetInstance();
         //アイテム選択に移行
-    if (IsInputTrg(KEY_K))
+    if (Input->IsInputTrg(KEY_K))
     {
         m_PlayMode = MODE_ITEM_MENU;
         Map->SetSelectItemIndex();
@@ -46,16 +46,16 @@ PlayerAction CObjectManager::PlayerStep(int floor) {
         return ACTION_ITEM_MENU;
     }
         //足踏みする(なにもしない)
-    if (IsInputTrg(KEY_F))
+    if (Input->IsInputTrg(KEY_F))
     {
         return ACTION_END;
     }
 
     //Zキーでランダム敵召喚
-    if (IsInputTrg(KEY_Z))
+    if (Input->IsInputTrg(KEY_Z))
         CreateEnemy(floor);
     //Xキーでランダムアイテム入手
-    if (IsInputTrg(KEY_X))
+    if (Input->IsInputTrg(KEY_X))
     {
         int i = GetRand(ITEM_NUM);
         Item item = {};
@@ -185,20 +185,27 @@ void CObjectManager::EnemyStep(int floor) {
                 //移動先にオブジェクトがいない時
                 if (target == nullptr)
                 {
-                    if (NextTile == TILE_ROOM || NextTile == TILE_CORRIDOR || NextTile == TILE_CORRIDOR_ADJACENT_ROOM)
-                    {
-                        // 何もいないなら移動
+                    //その方向に移動可能なマスなら進む
+                    if (NextTile == TILE_ROOM|| NextTile == TILE_CORRIDOR || NextTile == TILE_CORRIDOR_ADJACENT_ROOM)
                         object->AddPos(move);
-                    }
                 }
                 else
                 {
-                    // プレイヤーがいるなら攻撃
+                    // プレイヤーがいる場合は攻撃
                     if (target->GetKind() == KIND_PLAYER)
                     {
-                        int damage = object->GetAtk();
+                        const int damage = object->GetAtk();
 
                         m_CombatResolver.EnemyAttack(*m_Player, damage);
+                    }
+                    // 敵がいる場合はこの敵と進むマスにいる敵の座標を交換
+                    else if (target->GetKind() == KIND_ENEMY)
+                    {
+                        const Int2 currentPos = object->GetPos();
+                        const Int2 targetPos = target->GetPos();
+
+                        object->SetPos(targetPos);
+                        target->SetPos(currentPos);
                     }
                 }
             }

@@ -17,11 +17,11 @@ int main(void)
 	SetUseZBuffer3D(TRUE);
 	SetWriteZBuffer3D(TRUE);
 
-
+	CInput* Input = CInput::GetInstance();
 	SceneManager m_Scene;
 
 	m_Scene.Load();
-	InitInput();
+	Input->InitInput();
 
 	//ゲームメインループ
 	while (ProcessMessage() != -1)	// 問題が発生したら終了
@@ -33,7 +33,7 @@ int main(void)
 		ClearDrawScreen();
 
 		// ゲーム本体の命令はこれより下に書く
-		UpdateInput();
+		Input->UpdateInput();
 		m_Scene.Loop();
 
 		m_Scene.Draw();

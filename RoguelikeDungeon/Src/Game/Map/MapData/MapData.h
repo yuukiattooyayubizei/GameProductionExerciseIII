@@ -2,24 +2,7 @@
 #include"../Room/Room.h"
 #include<vector>
 #include"../MapCommon.h"
-
-struct RoomLink
-{
-	int m_RoomA;//部屋AのID
-	int m_RoomB;//部屋BのID
-
-	Int2 m_CenterA;//部屋Aの中心点
-	Int2 m_CenterB;//部屋Bの中心点
-
-	Int2 m_GateA;//廊下に隣接する部屋Aの座標
-	Int2 m_GateB;//廊下に隣接する部屋Bの座標
-
-	Int2 m_Bend;//廊下の曲がる位置
-
-	// 推奨
-	// AからBまでの廊下経路を順番に保存
-	std::vector<Int2> m_Route;
-};
+#include "../RoomLink/RoomLink.h"
 
 class CMapData {
 private:
@@ -33,6 +16,9 @@ private:
 
 	//部屋どうしのつながり
 	std::vector<RoomLink> m_RoomLinks;
+
+	std::vector<std::vector<int>> m_RoomGraph;
+
 public:
 	void Init();
 	void Draw();
@@ -49,6 +35,12 @@ public:
 	const std::vector<RoomLink>& GetRoomLinks() const{return m_RoomLinks;}
 	Int2 GetStairsPos() const { return m_StairsPos; }
 	CRoom GetRoom(int i) { return m_Room[i]; }
+	const std::vector<std::vector<int>>& GetRoomGraph() const{return m_RoomGraph;}
+
+	//const std::vector<std::vector<int>>& graphはそれぞれの部屋がどの部屋と直通しているか
+	//graphがgraph[0] = { 1, 3 };graph[1] = { 0,2 };graph[2] = { 1 };graph[3] = { 0 };
+	//の場合0と1、0と3、1と2が繋がっている
+	std::vector<int> CalcRoomDistance(int startRoom) const;
 
 	// 座標に部屋があるかを調べる
 	// 返り値は部屋の番号
@@ -87,4 +79,14 @@ public:
 
 	//指定されたマスに隣接しているマスに指定されたタイルがあるかどうか調べる
 	bool IsAdjacentTile(Int2 pos,TILE tile);
+
+
+	// 保存されたRoomLinkから部屋グラフを作る
+	void CreateRoomGraph();
+
+	std::vector<int> FindRoomRoute(int startRoom,int goalRoom) const;
+
+	const RoomLink* FindRoomLink(int currentRoomID, int nextRoomID);
+
+	Int2 GetStartGate(const RoomLink& link, int currentRoomID) ;
 };

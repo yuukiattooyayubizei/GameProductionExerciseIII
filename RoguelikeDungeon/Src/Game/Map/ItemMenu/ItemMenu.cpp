@@ -59,8 +59,9 @@ void CItemMenu::UpdatePage(int itemCount) {
 
 int CItemMenu::StepItemMenu(int itemCount)
 {
+	CInput* Input = CInput::GetInstance();
 	//SPACEでキャンセル
-	if (IsInputTrg(KEY_SPACE))
+	if (Input->IsInputTrg(KEY_SPACE))
 	{
 		return 1;
 	}
@@ -73,7 +74,7 @@ int CItemMenu::StepItemMenu(int itemCount)
 	}
 
 	//Aで前のページへ
-	if (IsInputTrg(KEY_A))
+	if (Input->IsInputTrg(KEY_A))
 	{
 		m_ItemPage--;
 
@@ -82,14 +83,12 @@ int CItemMenu::StepItemMenu(int itemCount)
 			m_ItemPage = m_MaxPage - 1;
 		}
 
-		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
-		m_PageStart -= 10;
-		m_PageEnd -= 10;
-
+		UpdatePage(itemCount);
+		m_SelectItemIndex = m_PageStart;
 	}
 
 	//Dで次のページへ
-	if (IsInputTrg(KEY_D))
+	if (Input->IsInputTrg(KEY_D))
 	{
 		m_ItemPage++;
 
@@ -98,13 +97,12 @@ int CItemMenu::StepItemMenu(int itemCount)
 			m_ItemPage = 0;
 		}
 
-		m_SelectItemIndex = m_ItemPage * ITEM_PER_PAGE;
-		m_PageStart += 10;
-		m_PageEnd += 10;
+		UpdatePage(itemCount);
+		m_SelectItemIndex = m_PageStart;
 	}
 
 	//Wで上へ
-	if (IsInputTrg(KEY_W))
+	if (Input->IsInputTrg(KEY_W))
 	{
 		m_SelectItemIndex--;
 
@@ -115,7 +113,7 @@ int CItemMenu::StepItemMenu(int itemCount)
 	}
 
 	//Sで下へ
-	if (IsInputTrg(KEY_S))
+	if (Input->IsInputTrg(KEY_S))
 	{
 		m_SelectItemIndex++;
 
@@ -126,7 +124,7 @@ int CItemMenu::StepItemMenu(int itemCount)
 	}
 
 	//Kで使用
-	if (IsInputTrg(KEY_K))
+	if (Input->IsInputTrg(KEY_K))
 	{
 		//2以上ならアイテムを使用したことになる
 		return m_SelectItemIndex + 2;

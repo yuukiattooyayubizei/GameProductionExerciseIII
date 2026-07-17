@@ -118,6 +118,9 @@
     <Filter Include="ソース ファイル\Game\Object\ObjectManager\ObjectStore">
       <UniqueIdentifier>{b3878cd8-71ea-4acc-a31b-a90cd897fa77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Map\RoomLink">
+      <UniqueIdentifier>{aedbc46f-4d73-4e1a-a1d6-f44a777bd375}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Common.h">
@@ -361,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Object\ObjectManager\CombatResolver\CombatResolver.cpp">
       <Filter>ソース ファイル\Game\Object\ObjectManager\CombatResolver</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Map\RoomLink\RoomLink.h">
+      <Filter>ソース ファイル\Game\Map\RoomLink</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

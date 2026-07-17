@@ -1,22 +1,12 @@
 #include"Input.h"
 #include<DxLib.h>
 
-CMouce* CMouce::m_Instance = NULL;
-
-
-//キー入力情報に必要なデータをまとめた構造体
-typedef struct {
-	unsigned int m_nowKey; //現在のボタン情報
-	unsigned int m_PrevKey;//1フレーム前のボタン情報
-}INPUT_DATA;
-
-//グローバル変数で生成
-static INPUT_DATA g_inputData;
+CInput* CInput::m_Instance = NULL;
 
 //-------------------------------------
 //キー入力初期化
 //-------------------------------------
-void InitInput()
+void CInput::InitInput()
 {
 	g_inputData.m_nowKey = g_inputData.m_PrevKey = 0;
 }
@@ -25,7 +15,7 @@ void InitInput()
 //-------------------------------------
 //キー入力情報更新
 //-------------------------------------
-void UpdateInput()
+void CInput::UpdateInput()
 {
 	//前回の入力情報を最新に更新
 	g_inputData.m_PrevKey = g_inputData.m_nowKey;
@@ -95,20 +85,10 @@ void UpdateInput()
 		g_inputData.m_nowKey |= KEY_Y;
 	if (CheckHitKey(KEY_INPUT_Z))
 		g_inputData.m_nowKey |= KEY_Z;
-
-	//←マウスキーを押した
-	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
-	{
-		g_inputData.m_nowKey |= KEY_CLICK;
-	}
-	//→マウスキーを押した
-	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0) {
-		g_inputData.m_nowKey |= KEY_RCLICK;
-	}
 }
 
 //キー入力判定(通常判定)
-bool IsInputRep(unsigned int key)
+bool CInput::IsInputRep(unsigned int key)
 {
 	if (g_inputData.m_nowKey)
 	{
@@ -125,7 +105,7 @@ bool IsInputRep(unsigned int key)
 }
 
 //キー入力判定(トリガー判定)
-bool IsInputTrg(unsigned int key)
+bool CInput::IsInputTrg(unsigned int key)
 {
 	if ((g_inputData.m_nowKey & key) && !(g_inputData.m_PrevKey & key))
 	{
@@ -137,17 +117,17 @@ bool IsInputTrg(unsigned int key)
 	}
 }
 
-CMouce* CMouce::GetInstance() {
+CInput* CInput::GetInstance() {
 	//まだ生成されてないなら
 	if (m_Instance == NULL)
 	{
-		m_Instance = new CMouce();
+		m_Instance = new CInput();
 	}
 
 	return m_Instance;
 }
 
-void CMouce::DeleteInstance() {
+void CInput::DeleteInstance() {
 	//まだ生成されてないなら
 	if (m_Instance)
 	{
@@ -155,27 +135,4 @@ void CMouce::DeleteInstance() {
 		m_Instance = NULL;
 	}
 
-}
-
-void CMouce::Draw() {
-	DrawFormatString(32, 320, GetColor(255, 255, 255), "mouseX = %d", m_MouceX);
-	DrawFormatString(32, 352, GetColor(255, 255, 255), "mouseY = %d", m_MouceY);
-
-	if (IsInputRep(KEY_CLICK))
-		DrawFormatString(32, 384, GetColor(255, 255, 255), "クリック中");
-}
-
-bool CMouce::HitCheckMouceToBox(VECTOR pos, VECTOR size)
-{
-	int Up = pos.y - size.y / 2;
-	int Down = pos.y + size.y / 2;
-	int Left = pos.x - size.x / 2;
-	int Right = pos.x + size.x / 2;
-
-	if (Up <= m_MouceY && Down >= m_MouceY && Left <= m_MouceX && Right >= m_MouceX)
-	{
-		return true;
-	}
-	else
-		return false;
 }

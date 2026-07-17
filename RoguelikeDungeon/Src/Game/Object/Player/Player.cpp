@@ -36,9 +36,10 @@ void CPlayer::Load() {
 }
 
 void CPlayer::Step(CanMove canmove, Int2 playerPos) {
+	CInput* Input = CInput::GetInstance();
 	m_IsMove = false;
 
-	if (IsInputTrg(KEY_W) && canmove.Up == true) {
+	if (Input->IsInputTrg(KEY_W) && canmove.Up == true) {
 		m_Direction = DIRECTION_UP;
 		m_IsMove = true;
 		//‰Ÿ‚µ’¼‚µ‚½‚©‚ç’·‰Ÿ‚µ‚Ì”»’è‚ð•œŠˆ
@@ -49,7 +50,7 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		else
 			m_MoveLongPress = 0;
 	}
-	if (IsInputTrg(KEY_S) && canmove.Down == true) {
+	if (Input->IsInputTrg(KEY_S) && canmove.Down == true) {
 		m_Direction = DIRECTION_DOWN;
 		m_IsMove = true;
 		m_CanLongPress = true;
@@ -58,7 +59,7 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		else
 			m_MoveLongPress = 0;
 	}
-	if (IsInputTrg(KEY_A) && canmove.Left == true) {
+	if (Input->IsInputTrg(KEY_A) && canmove.Left == true) {
 		m_Direction = DIRECTION_LEFT;
 		m_IsMove = true;
 		m_CanLongPress = true;
@@ -67,7 +68,7 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 		else
 			m_MoveLongPress = 0;
 	}
-	if (IsInputTrg(KEY_D) && canmove.Right == true) {
+	if (Input->IsInputTrg(KEY_D) && canmove.Right == true) {
 		m_Direction = DIRECTION_RIGHT;
 		m_IsMove = true;
 		m_CanLongPress = true;
@@ -82,7 +83,7 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 	//ˆÚ“®ƒL[‚ð‰Ÿ‚µ‚Ä‚¢‚½‚ç
 	if(m_CanLongPress == true)
 	{
-		if (IsInputRep(KEY_W) || IsInputRep(KEY_A) || IsInputRep(KEY_S) || IsInputRep(KEY_D))
+		if (Input->IsInputRep(KEY_W) || Input->IsInputRep(KEY_A) || Input->IsInputRep(KEY_S) || Input->IsInputRep(KEY_D))
 			//’·‰Ÿ‚µ‚Ì”»’è‚ª—­‚Ü‚é
 			m_MoveLongPress++;
 		else
@@ -93,35 +94,35 @@ void CPlayer::Step(CanMove canmove, Int2 playerPos) {
 
 	//’·‰Ÿ‚µ‚ª‘±‚¢‚½‚ç‚»‚Ì•ûŒü‚ÉˆÚ“®
 	if (m_MoveLongPress >= 30){
-		if (IsInputRep(KEY_W) && canmove.Up == true) {
+		if (Input->IsInputRep(KEY_W) && canmove.Up == true) {
 			m_Direction = DIRECTION_UP;
 			m_IsMove = true;
 			m_MoveLongPress = 20;
 		}
-		if (IsInputRep(KEY_S) && canmove.Down == true) {
+		if (Input->IsInputRep(KEY_S) && canmove.Down == true) {
 			m_Direction = DIRECTION_DOWN;
 			m_IsMove = true;
 			m_MoveLongPress = 20;
 		}
-		if (IsInputRep(KEY_A) && canmove.Left == true) {
+		if (Input->IsInputRep(KEY_A) && canmove.Left == true) {
 			m_Direction = DIRECTION_LEFT;
 			m_IsMove = true;
 			m_MoveLongPress = 20;
 		}
-		if (IsInputRep(KEY_D) && canmove.Right == true) {
+		if (Input->IsInputRep(KEY_D) && canmove.Right == true) {
 			m_Direction = DIRECTION_RIGHT;
 			m_IsMove = true;
 			m_MoveLongPress = 20;
 		}
 	}
 
-	if (IsInputRep(KEY_G))
+	if (Input->IsInputRep(KEY_G))
 		m_IsMove = false;
 
-	if (IsInputTrg(KEY_SPACE))
+	if (Input->IsInputTrg(KEY_SPACE))
 		DrawInventoryDebug();
 
-	if (IsInputTrg(KEY_F))
+	if (Input->IsInputTrg(KEY_F))
 		m_IsStomping = true;
 	else
 		m_IsStomping = false;

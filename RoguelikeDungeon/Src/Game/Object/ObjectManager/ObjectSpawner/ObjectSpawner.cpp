@@ -25,6 +25,7 @@ void CObjectSpawner::CreatePlayerPos(CObjectStore& objectStore, CPlayer* player)
 
 void CObjectSpawner::CreateEnemy(int floor, CObjectStore& objectStore, CEnemyModelManager& enemyModelManager, CPlayer* player, int CreateNum)
 {
+    CMap* Map = CMap::GetInstance();
     for (int i = 0; i < CreateNum; i++)
     {
         Int2 pos = FindSpawnPos(objectStore, player);
@@ -32,6 +33,7 @@ void CObjectSpawner::CreateEnemy(int floor, CObjectStore& objectStore, CEnemyMod
         CEnemy* enemy = CreateRandomEnemy(floor, enemyModelManager);
 
         enemy->Init();
+        enemy->InitRoomVisitCount(Map->GetRoomNum());
         enemy->SetPos(pos);
 
         std::cout << pos.x << "," << pos.y << "‚É“G‚ð¶¬" << std::endl;
