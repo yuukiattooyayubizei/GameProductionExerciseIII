@@ -150,6 +150,15 @@ void CObjectManager::EnemyStep(int floor) {
     CMap* Map = CMap::GetInstance();
     CLog* Log = CLog::GetInstance();
 
+    //全ての敵の行動したかをリセット
+    for (CObject* object : GetObjects())
+    {
+        if (object->GetKind() == KIND_ENEMY)
+        {
+            object->SetIsActed(false);
+        }
+    }
+
     // プレイヤー行動の後
     for (CObject* object : GetObjects())
     {
@@ -163,9 +172,16 @@ void CObjectManager::EnemyStep(int floor) {
             continue;
         }
 
+
         // プレイヤー以外を動かす
         if (object->GetKind() != KIND_PLAYER)
         {
+            //既に行動しているなら動かさない
+            if (object->GetIsActed())
+            {
+                continue;
+            }
+
             // オブジェクトが動けるマスを探す
             CanMove C = GetCanMoveEnemy(object->GetPos());
 
@@ -187,7 +203,10 @@ void CObjectManager::EnemyStep(int floor) {
                 {
                     //その方向に移動可能なマスなら進む
                     if (NextTile == TILE_ROOM|| NextTile == TILE_CORRIDOR || NextTile == TILE_CORRIDOR_ADJACENT_ROOM)
+                    {
                         object->AddPos(move);
+                        object->SetIsActed(true);
+                    }
                 }
                 else
                 {
@@ -197,17 +216,30 @@ void CObjectManager::EnemyStep(int floor) {
                         const int damage = object->GetAtk();
 
                         m_CombatResolver.EnemyAttack(*m_Player, damage);
+                        object->SetIsActed(true);
                     }
                     // 敵がいる場合はこの敵と進むマスにいる敵の座標を交換
                     else if (target->GetKind() == KIND_ENEMY)
                     {
+                        //// 移動先に敵がいるため、このターンは動かない
+                        //object->SetDirection(DIRECTION_NON);
+
                         const Int2 currentPos = object->GetPos();
                         const Int2 targetPos = target->GetPos();
 
                         object->SetPos(targetPos);
                         target->SetPos(currentPos);
+
+                        //交代した2体とも行動済みにする
+                        object->SetIsActed(true);
+                        target->SetIsActed(true);
                     }
                 }
+            }
+            //移動できたいとき
+            else
+            {
+                object->SetPos(object->GetPos());
             }
         }
     }

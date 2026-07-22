@@ -25,6 +25,9 @@ public:
 	void Exit();
 private:
 	std::vector<CRoom> GetAllRoom() { return m_Room; }
+
+	//Œ»İˆÊ’u‚É˜L‰º‚ª‚ ‚é‚©’²‚×‚é
+	bool IsPositionOnRoomLink(const RoomLink& link, const Int2& position) const;
 public:
 	void AddLineToRoute(std::vector<Int2>& route,Int2 start,Int2 end,bool includeStart);
 
@@ -89,4 +92,7 @@ public:
 	const RoomLink* FindRoomLink(int currentRoomID, int nextRoomID);
 
 	Int2 GetStartGate(const RoomLink& link, int currentRoomID) ;
+
+	//Œ»İˆÊ’u‚Ì˜L‰º‚ğ’²‚×‚é
+	const RoomLink* FindRoomLinkByPosition(const Int2& position) const;
 };

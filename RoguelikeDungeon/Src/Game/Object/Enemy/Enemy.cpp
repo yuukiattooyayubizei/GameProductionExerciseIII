@@ -315,12 +315,12 @@ bool CEnemy::CanMoveDirection(const CanMove& canMove,DIRECTION direction){
 }
 
 Int2 CEnemy::GetStartGate(const RoomLink& link, int currentRoomID) const{
+	Int2 ret = { -1, -1 };
 
-	if (currentRoomID == link.m_RoomA)return link.m_GateA;
-	if (currentRoomID == link.m_RoomB)return link.m_GateB;
+	if (currentRoomID == link.m_RoomA) ret = link.m_GateA;
+	if (currentRoomID == link.m_RoomB) ret = link.m_GateB;
 	
-	// linkと現在の部屋が一致しない
-	return Int2{ -1, -1 };
+	return ret;
 }
 
 //ルート上で自分がどこにいるか
@@ -337,7 +337,12 @@ int CEnemy::FindRoutePosition(const std::vector<Int2>& route,Int2 position){
 bool CEnemy::GetNextCorridorPosition(const RoomLink& link,int fromRoomID,Int2 currentPosition,Int2& nextPosition){
 	int currentIndex =FindRoutePosition(link.m_Route, currentPosition);
 
-	if (currentIndex < 0)return false;
+	//どこにも行けないなら新しくルートを作り直す
+	if (currentIndex < 0)
+	{
+		RepairPatrolRoute();
+		return false;
+	}
 
 	// roomAからroomBへ進む
 	if (link.m_RoomA == fromRoomID)
@@ -578,4 +583,122 @@ void CEnemy::ChasePlayer(CanMove canMove,Int2 playerPos)
 	const int randomIndex = GetRand(static_cast<int>(movableDirections.size()) - 1);
 
 	m_Direction = movableDirections[randomIndex];
+}
+
+bool CEnemy::RepairPatrolRoute()
+{
+	CMap* map = CMap::GetInstance();
+
+	//何番目の部屋にいるか調べる
+	const int roomID =map->GetRoomID(m_Pos);
+
+	//どこかの部屋にいるなら
+	if (roomID >= 0)
+	{
+		m_CurrentRoomID = roomID;
+		m_CorridorFromRoomID = -1;
+
+		// 元の目的地が無効なら、新しく選び直す
+		if (m_DestinationRoomID < 0 ||m_DestinationRoomID == roomID)
+		{
+			m_DestinationRoomID =
+				SelectDestinationRoom(roomID);
+		}
+
+		//巡回する部屋を調べる
+		m_RoomRoute =map->FindRoomRoute(roomID,m_DestinationRoomID);
+
+		//部屋数が少なすぎるならリセット
+		if (m_RoomRoute.size() < 2)
+		{
+			ResetPatrolRoute();
+			return false;
+		}
+
+		m_RoomRouteIndex = 1;
+		//次に進むべき部屋をセット
+		m_NextRoomID =m_RoomRoute[m_RoomRouteIndex];
+
+		return true;
+	}
+
+	//ここまで来たなら、今廊下にいる
+	const RoomLink* actualLink = map->FindRoomLinkByPosition(m_Pos);
+
+	//リンクが存在しなかったらやめる
+	if (actualLink == nullptr)
+	{
+		return false;
+	}
+
+	// 目的地が無効なら、一方の部屋を仮の目的地にする
+	if (m_DestinationRoomID < 0)
+	{
+		m_DestinationRoomID =actualLink->m_RoomB;
+	}
+
+	//廊下が繋がっていたら、その廊下の両端の部屋に続くルートをそれぞれ作る
+	const std::vector<int> routeFromA =map->FindRoomRoute(actualLink->m_RoomA,m_DestinationRoomID);
+	const std::vector<int> routeFromB =map->FindRoomRoute(actualLink->m_RoomB,m_DestinationRoomID);
+
+	//ルートが存在するか確かめる
+	const bool canReachFromA = !routeFromA.empty();
+	const bool canReachFromB = !routeFromB.empty();
+
+	//次に向かうべき部屋のID
+	int enterRoomID = -1;
+
+	//両方の部屋に行ける場合
+	if (canReachFromA && canReachFromB)
+	{
+		//AとBのうち近い方を選ぶ
+		if (routeFromA.size() <=routeFromB.size())
+		{
+			enterRoomID =actualLink->m_RoomA;
+		}
+		else
+		{
+			enterRoomID =actualLink->m_RoomB;
+		}
+	}
+	//Aの部屋にしか行けない場合
+	else if (canReachFromA)
+	{
+		enterRoomID =actualLink->m_RoomA;
+	}
+	//Bの部屋にしか行けない場合
+	else if (canReachFromB)
+	{
+		enterRoomID =actualLink->m_RoomB;
+	}
+	//どちらの部屋にも行けない場合
+	else
+	{
+		// 元の目的地へ行けない場合は廊下の片方を新しい目的地にする
+		enterRoomID =actualLink->m_RoomA;
+
+		m_DestinationRoomID =enterRoomID;
+	}
+
+	if (enterRoomID == actualLink->m_RoomA)
+	{
+		m_CorridorFromRoomID =actualLink->m_RoomB;
+
+		m_NextRoomID =actualLink->m_RoomA;
+	}
+	else
+	{
+		m_CorridorFromRoomID =actualLink->m_RoomA;
+
+		m_NextRoomID =actualLink->m_RoomB;
+	}
+
+	m_CurrentRoomID = -1;
+
+	//その部屋に行くまでの道を探す
+	m_RoomRoute =map->FindRoomRoute(enterRoomID,m_DestinationRoomID);
+
+	m_RoomRouteIndex = 0;
+
+	return true;
 }

@@ -474,3 +474,43 @@ Int2 CMapData::GetStartGate(const RoomLink& link,int currentRoomID){
 
 	return link.m_GateB;
 }
+
+const RoomLink* CMapData::FindRoomLinkByPosition(const Int2& position) const
+{
+	//全てのリンクを調べる
+	for (const RoomLink& link : m_RoomLinks)
+	{
+		//この廊下のリンクに調べたい座標があるか調べる
+		if (IsPositionOnRoomLink(link, position))
+		{
+			return &link;
+		}
+	}
+
+	return nullptr;
+}
+
+bool CMapData::IsPositionOnRoomLink(const RoomLink& link,const Int2& position) const
+{
+	//目的地と座標が一致していたら、その座標は廊下のリンクである
+	if (position.x == link.m_GateA.x &&position.y == link.m_GateA.y)
+	{
+		return true;
+	}
+	if (position.x == link.m_GateB.x &&position.y == link.m_GateB.y)
+	{
+		return true;
+	}
+
+	//巡回ルートの座標を一つ一つ調べる
+	for (const Int2& routePosition : link.m_Route)
+	{
+		//巡回ルートの中に調べたい座標と一致するものがあれば、その座標は廊下のリンクである
+		if (position.x == routePosition.x &&position.y == routePosition.y)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}

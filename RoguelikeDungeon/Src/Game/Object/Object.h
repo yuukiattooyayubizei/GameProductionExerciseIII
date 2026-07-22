@@ -20,6 +20,7 @@ protected:
     int m_Atk;
     bool m_IsActive = true;
     int m_Addexp;                   //倒したらもらえる経験値量
+    bool m_IsActed = false;         //このターン行動したか
 public:
     CObject();
     virtual ~CObject() {}
@@ -38,8 +39,9 @@ public:
     int GetMaxHP() const { return m_MaxHP; }
     bool GetActive() const { return m_IsActive; }
     int GetAddExp() { return m_Addexp; }
+    bool GetIsActed() const { return m_IsActed; }
 
-
+    void SetIsActed(bool acted) { m_IsActed = acted; }
     void SetPos(Int2 pos) {m_Pos.x = pos.x;m_Pos.y = pos.y;}
     void AddPos(Int2 pos) { m_Pos.x += pos.x;m_Pos.y += pos.y; }
     void AddDamage(int dam) {
@@ -55,4 +57,5 @@ public:
     void AddMaxHP(int mhp) { m_MaxHP += mhp; }
     void AddAtk(int atk) { m_Atk+= atk; }
     void SetActive(bool active) { m_IsActive = active; }
+    void SetDirection(DIRECTION dir) { m_Direction = dir; }
 };

@@ -100,4 +100,7 @@ private:
 
     //ƒvƒŒƒCƒ„[‚ğ’Ç‚¤
     void ChasePlayer(CanMove canMove,Int2 playerPos);
+
+    //„‰ñ‚ğÄ¶¬‚·‚é
+    bool RepairPatrolRoute();
 };

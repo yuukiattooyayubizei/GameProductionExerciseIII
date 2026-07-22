@@ -30,6 +30,7 @@ CanMove CMoveRule::GetCanMove(Int2 pos)
     {
         NextPos.x--;
         t = Map->GetTile(NextPos);
+
         if (t == TILE_WALL)
             C.Left = false;
         NextPos.x++;

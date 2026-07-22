@@ -55,6 +55,7 @@ public:
 	std::vector<int> CalcRoomDistance(int startRoom) const{return m_MapData.CalcRoomDistance(startRoom);}
 	std::vector<int> FindRoomRoute(int startRoom,int goalRoom) const{return m_MapData.FindRoomRoute(startRoom,goalRoom);}
 	const RoomLink* FindRoomLink(int currentRoomID, int nextRoomID) { return m_MapData.FindRoomLink(currentRoomID,nextRoomID); }
+	const RoomLink* FindRoomLinkByPosition(const Int2& position) const { return m_MapData.FindRoomLinkByPosition(position); }
 
 	//----------------------------------------------
 	// ”»’èŒn
