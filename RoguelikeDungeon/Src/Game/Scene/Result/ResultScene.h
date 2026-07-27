@@ -14,6 +14,8 @@ private:
 		RESULT_SCENE_NUM,
 	};
 	tagResultScene m_tagResultScene;//状態遷移
+
+	int m_Resulthndl;
 public:
 	//コンストラクタ・デストラクタ
 	CResultScene();

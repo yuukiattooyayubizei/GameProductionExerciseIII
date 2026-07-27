@@ -162,9 +162,6 @@
     <ClInclude Include="Src\Lib\Input\Input.h">
       <Filter>ソース ファイル\Lib\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Lib\Input\PadInput.h">
-      <Filter>ソース ファイル\Lib\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Game\Camera\CameraManager.h">
       <Filter>ソース ファイル\Game\Camera</Filter>
     </ClInclude>
@@ -285,9 +282,6 @@
       <Filter>ソース ファイル\Lib\Sound</Filter>
     </ClCompile>
     <ClCompile Include="Src\Lib\Input\Input.cpp">
-      <Filter>ソース ファイル\Lib\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Lib\Input\PadInput.cpp">
       <Filter>ソース ファイル\Lib\Input</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Camera\CameraManager.cpp">

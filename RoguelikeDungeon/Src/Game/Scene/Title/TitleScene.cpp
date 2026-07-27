@@ -1,6 +1,7 @@
 #include"TitleScene.h"
 #include"../../../Lib/Sound/Sound.h"
 #include"../../../Lib/Input/Input.h"
+#include "../../Common.h"
 
 //コンストラクタ
 CTitleScene::CTitleScene()
@@ -32,7 +33,7 @@ void CTitleScene::Exit()
 void CTitleScene::Load()
 {
 	if(m_Titlehndl == -1)
-		m_Titlehndl = LoadGraph("../Data/Image/Title/Title.JPG");
+		m_Titlehndl = LoadGraph("Data/Image/Title/Title.png");
 }
 
 int CTitleScene::Loop()
@@ -83,6 +84,6 @@ int CTitleScene::Step()
 void CTitleScene::Draw()
 {
 	//描画処理
-
+	DrawRotaGraph(WINDOW_SIZE_HALF_X, WINDOW_SIZE_HALF_Y, 1.0f, 0.0f, m_Titlehndl, TRUE);
 	DrawFormatString(32, 96, GetColor(255, 255, 255), "Jキーでスタート");
 }

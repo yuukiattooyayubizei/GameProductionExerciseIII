@@ -2,10 +2,9 @@
 #include<DxLib.h>
 
 static const char* SOUND_PATH[SOUND_NUM] = {
-	"../Data/Musics/BGM01.mp3",
-	"../Data/Musics/BGM02.mp3",
-	"../Data/Musics/BGM03.mp3",
-	"../Data/Musics/SE01.mp3",
+	"Data/Music/Title.mp3",
+	"Data/Music/Result.mp3",
+	"Data/Music/Result.mp3",
 };
 
 SOUND_MANAGER g_soundManager;

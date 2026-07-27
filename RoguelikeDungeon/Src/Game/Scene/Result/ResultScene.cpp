@@ -1,11 +1,13 @@
 #include"ResultScene.h"
 #include"../../../Lib/Sound/Sound.h"
 #include"../../../Lib/Input/Input.h"
+#include "../../Common.h"
 
 //コンストラクタ
 CResultScene::CResultScene()
 {
 	m_tagResultScene = RESULT_SCENE_INIT;
+	m_Resulthndl = -1;
 }
 
 //デストラクタ
@@ -21,12 +23,17 @@ void CResultScene::Init()
 
 void CResultScene::Exit()
 {
-
+	if (m_Resulthndl != -1)
+	{
+		DeleteGraph(m_Resulthndl);
+		m_Resulthndl = -1;
+	}
 }
 
 void CResultScene::Load()
 {
-
+	if (m_Resulthndl == -1)
+		m_Resulthndl = LoadGraph("Data/Image/Result/Result.png");
 
 }
 
@@ -79,4 +86,6 @@ int CResultScene::Step()
 
 void CResultScene::Draw()
 {
+	DrawRotaGraph(WINDOW_SIZE_HALF_X,WINDOW_SIZE_HALF_Y ,1.0f,0.0f, m_Resulthndl, TRUE);
+	DrawFormatString(32, 96, GetColor(255, 255, 255), "Kキーでタイトル");
 }

@@ -6,6 +6,11 @@ static constexpr float CAMERA_FAR = 15000.0f;					//カメラの映す距離の上限
 
 static constexpr float TILE_SIZE = 100.0f;						//マップチップ1枚ごとのサイズ
 
+static constexpr int WINDOW_SIZE_X = 960;
+static constexpr int WINDOW_SIZE_Y = 720;
+static constexpr int WINDOW_SIZE_HALF_X = WINDOW_SIZE_X / 2;
+static constexpr int WINDOW_SIZE_HALF_Y = WINDOW_SIZE_Y / 2;
+
 //部屋の最小値
 static constexpr int ROOM_MIN = 5;
 //部屋の最大値

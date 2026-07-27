@@ -4,7 +4,6 @@ enum tagSound{
 	BGMID_TITLE, //タイトルBGM
 	BGMID_GAME, //本編BGM
 	BGMID_RESULT, //リザルトBGM
-	SEID_ATTACK,//攻撃時
 
 	SOUND_NUM,//BGM,SEの総数
 };

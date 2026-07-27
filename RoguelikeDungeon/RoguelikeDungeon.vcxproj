@@ -175,7 +175,6 @@
     <ClInclude Include="Src\Game\UI\Log.h" />
     <ClInclude Include="Src\Game\UI\UI.h" />
     <ClInclude Include="Src\Lib\Input\Input.h" />
-    <ClInclude Include="Src\Lib\Input\PadInput.h" />
     <ClInclude Include="Src\Lib\Sound\Sound.h" />
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +215,6 @@
     <ClCompile Include="Src\Game\UI\Log.cpp" />
     <ClCompile Include="Src\Game\UI\UI.cpp" />
     <ClCompile Include="Src\Lib\Input\Input.cpp" />
-    <ClCompile Include="Src\Lib\Input\PadInput.cpp" />
     <ClCompile Include="Src\Lib\Sound\Sound.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

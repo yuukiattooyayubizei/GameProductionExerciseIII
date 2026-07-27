@@ -1,25 +1,4 @@
-﻿  CameraManager.cpp
-  EditCamera.cpp
-  Item.cpp
-  FieldItemManager.cpp
-  Map.cpp
-  MapCreate.cpp
-  MapData.cpp
-  MapDraw.cpp
-  RoomLink.h
-  Enemy.cpp
-  Enemy1.cpp
-  Enemy2.cpp
-  Enemy3.cpp
-  Enemy4.cpp
-  MoveRule.cpp
-  ObjectManager.cpp
-  ObjectSearch.cpp
-  ObjectSpawner.cpp
-  PlayScene.cpp
-  SceneManager.cpp
-  コードを生成中...
-  コンパイル中...
-  main.cpp
+﻿  main.cpp
+  Sound.cpp
   コードを生成中...
   RoguelikeDungeon.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\x64\Debug\RoguelikeDungeon.exe
