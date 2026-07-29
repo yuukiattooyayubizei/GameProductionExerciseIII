@@ -102,10 +102,7 @@ int CObjectStore::CollisionObject(const Int2& pos) const
 
 void CObjectStore::ClearEnemy() {
     //プレイヤー以外のオブジェクトを削除
-    auto newEnd = std::remove_if(
-        m_Object.begin(),
-        m_Object.end(),
-        [](CObject* object)
+    auto newEnd = std::remove_if(m_Object.begin(),m_Object.end(),[](CObject* object)
         {
             if (object == nullptr)
             {

@@ -119,6 +119,23 @@ static bool CollsionInt2(Int2 i1, Int2 i2)
 		return false;
 }
 
+//2Ç¬ÇÃç¿ïWÇ™ó◊ÇËçáÇ¡ÇƒÇ¢ÇÈÇ©
+static bool IsAdjacentInt2(Int2 i1, Int2 i2) {
+	Int2 Next = AddInt2(i1, DirectionToInt2(DIRECTION_UP));
+	if (CollsionInt2(Next, i2))return true;
+
+	Next = AddInt2(i1, DirectionToInt2(DIRECTION_DOWN));
+	if (CollsionInt2(Next, i2))return true;
+
+	Next = AddInt2(i1, DirectionToInt2(DIRECTION_LEFT));
+	if (CollsionInt2(Next, i2))return true;
+
+	Next = AddInt2(i1, DirectionToInt2(DIRECTION_RIGHT));
+	if (CollsionInt2(Next, i2))return true;
+
+	return false;
+}
+
 struct Float2 {
 	float x, y;
 };

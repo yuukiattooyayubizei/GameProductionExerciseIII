@@ -30,7 +30,6 @@ private:
 private:
     void AddObject(CObject* object){m_ObjectStore.AddObject(object);}
 
-
     CObject* FindObjectAt(Int2 pos) { return m_ObjectStore.FindObjectAt(pos); };
     ObjectKind GetKind(int id)const { return m_ObjectStore.GetKind(id); };
 

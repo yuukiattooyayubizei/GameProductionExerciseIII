@@ -40,6 +40,7 @@ void CEnemy::Draw() {
         return;
     }
 
+
     int hndl = m_ModelManager->GetModel(m_EnemyType);
 
     if (hndl == -1) {
@@ -63,8 +64,7 @@ void CEnemy::Step(CanMove canMove,Int2 playerPosition){
 
 	CMap* map = CMap::GetInstance();
 
-	int playerRoomID =
-		map->GetRoomID(playerPosition);
+	int playerRoomID = map->GetRoomID(playerPosition);
 
 	if (m_CurrentRoomID >= 0 &&
 		playerRoomID == m_CurrentRoomID)
