@@ -1,11 +1,32 @@
 #include"MapDraw.h"
 
+void CMapDraw::SetModelBrightness(int modelHandle, float brightness)
+{
+	if (modelHandle == -1)
+	{
+		return;
+	}
+
+	//à√Ç≥ÇÃó Çê›íË
+	const COLOR_F color = GetColorF(brightness, brightness, brightness, 1.0f);
+
+	//ê›íËÇµÇΩà√Ç≥Ç…Ç∑ÇÈ
+	MV1SetDifColorScale(modelHandle, color);
+	MV1SetAmbColorScale(modelHandle, color);
+	MV1SetEmiColorScale(modelHandle, color);
+}
+
 void CMapDraw::Load() {
 	VECTOR scale = VGet(0.5f, 0.5f, 0.5f);
 	m_Corridorhndl = LoadModelWithScale("Data/Model/Corridor.x", scale);
 	m_Roomhndl = LoadModelWithScale("Data/Model/Room.x", scale);
 	m_Stairshndl = LoadModelWithScale("Data/Model/STAIRS.x", scale);
 	m_Wallhndl = LoadModelWithScale("Data/Model/WALL.x", scale);
+
+	SetModelBrightness(m_Corridorhndl, 0.40f);
+	SetModelBrightness(m_Roomhndl, 0.40f);
+	SetModelBrightness(m_Stairshndl, 0.40f);
+	SetModelBrightness(m_Wallhndl, 0.40f);
 }
 
 void CMapDraw::Exit() {

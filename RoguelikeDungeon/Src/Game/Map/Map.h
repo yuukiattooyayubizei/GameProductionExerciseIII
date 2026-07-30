@@ -64,6 +64,9 @@ public:
 	// 廊下とかぶっているかを判定
 	bool CollisionStairs(Int2 i) { return m_MapData.CollisionStairs(i); }
 
+	//指定座標がプレイヤーから見えるか判定
+	bool IsVisibleFrom(const Int2 PPos, const  Int2 EPos);
+
 	//----------------------------------------------
 	// アイテム関連
 	//----------------------------------------------

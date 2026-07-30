@@ -261,36 +261,21 @@ void CObjectManager::Draw() {
 
     //プレイヤーかマップのどちらかがなかったらやめる
     if (m_Player == nullptr)return;
+
     CMap* Map = CMap::GetInstance();
     if (Map == nullptr)return;
 
     //プレイヤーの座標を取得
     Int2 PPos = m_Player->GetPos();
-    //プレイヤーがどの部屋にいるか取得
-    int PID = Map->GetRoomID(PPos);
+
 
     for (CObject* obj : GetObjects()) {
-        //オブジェクトが存在しないか死んでいるなら描画しない
-        if (obj == nullptr || !obj->GetActive())continue;
-
-        //プレイヤーなら無条件で描画
         if (obj->GetKind() == KIND_PLAYER) {
             obj->Draw();
             continue;
         }
 
-        //このオブジェクトがどの部屋にいるかを取得
-        int EID = Map->GetRoomID(obj->GetPos());
-
-        //部屋ID同じかつ-1(廊下)でないなら描画
-        if (EID != -1 && EID == PID) {
+        if (Map->IsVisibleFrom(PPos, obj->GetPos()))
             obj->Draw();
-            continue;
-        }
-
-        //プレイヤーに隣接していたら描画
-        if (IsAdjacentInt2(PPos, obj->GetPos())) {
-            obj->Draw();
-        }
     }
 }
