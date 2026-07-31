@@ -188,7 +188,9 @@ bool CPlayScene::UseItem(int index)
 
 int CPlayScene::StepPlay() {
 	CMap* Map = CMap::GetInstance();
+
 	PlayerAction action = m_ObjectManager.PlayerStep(m_Floor);
+
 	if (action == ACTION_ITEM_MENU) {
 		m_PlayMode = MODE_ITEM_MENU;
 		Map->SetSelectItemIndex();
@@ -198,7 +200,10 @@ int CPlayScene::StepPlay() {
 		return 0;
 	}
 	else if(action == ACTION_END)
+	{
+		m_ObjectManager.Heal();
 		m_ObjectManager.EnemyStep(m_Floor);
+	}
 
 	if (CheckHitKey(KEY_INPUT_L))
 		return 1;

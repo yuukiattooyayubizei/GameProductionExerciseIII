@@ -65,7 +65,7 @@ public:
 	bool CollisionStairs(Int2 i) { return m_MapData.CollisionStairs(i); }
 
 	//指定座標がプレイヤーから見えるか判定
-	bool IsVisibleFrom(const Int2 PPos, const  Int2 EPos);
+	bool IsVisibleFrom(const Int2 PPos, const  Int2 EPos) { return m_MapData.IsVisibleFrom(PPos, EPos); }
 
 	//----------------------------------------------
 	// アイテム関連

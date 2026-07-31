@@ -26,6 +26,7 @@ void CPlayer::Init(){
 	m_hndl = -1;
 	m_NextNecessaryExp = 30;
 	m_MoveLongPress = 0;
+	m_heal = 0.0f;
 	m_CanLongPress = true;
 }
 
@@ -249,4 +250,18 @@ void CPlayer::LvUp() {
 
 	std::string rog = std::to_string(m_Lv) + "ƒŒƒxƒ‹‚É‚È‚Á‚½";
 	Log->AddLog(rog);
+}
+
+void CPlayer::Heal() {
+	//Å‘å’l‚Ì1%‰ñ•œ
+	m_heal += m_MaxHP / static_cast<float>(100);
+
+	//‰ñ•œ—Ê‚ª1‚ğ’´‚¦‚Ä‚¢‚½‚çÀ‘Ì—Í‚ğ‰ñ•œ
+	while (m_heal >= 1.0f)
+	{
+		m_heal -= 1.0f;
+		m_HP++;
+		if (m_HP > m_MaxHP)
+			 m_HP = m_MaxHP;
+	}
 }

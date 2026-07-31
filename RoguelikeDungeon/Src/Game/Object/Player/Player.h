@@ -23,6 +23,8 @@ private:
 
     int m_MoveLongPress = 0;        //’·‰Ÿ‚µ‚µ‚½ƒtƒŒ[ƒ€”
     bool m_CanLongPress = true;     //’·‰Ÿ‚µ‚Å”½‰‚·‚é‚©
+
+    float m_heal;                   //‰ñ•œ
 public:
     ~CPlayer()override;
 
@@ -56,4 +58,7 @@ public:
     void SetCanLongPress(bool is = false) { m_CanLongPress = is; }
 
     void LvUp();
+
+    //©‘R‰ñ•œ‚Ìˆ—
+    void Heal();
 };

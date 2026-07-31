@@ -11,6 +11,8 @@ public:
 	//ƒ‚ƒfƒ‹‚Ì–¾‚é‚³‚ğİ’è
 	void SetModelBrightness(int modelHandle, float brightness);
 
+	void DrawMapModel(int modelHandle, const Int2& position, float brightness);
+
 	void Load();
 	void Draw(CMapData& mapData,Int2 playerpos);
 	void Exit();

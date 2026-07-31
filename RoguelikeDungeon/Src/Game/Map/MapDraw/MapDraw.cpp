@@ -48,56 +48,148 @@ void CMapDraw::Exit() {
 	}
 }
 
-void CMapDraw::Draw(CMapData& mapData,Int2 playerpos) {
-	//プレイヤーの近くだけ描写
-	for (int i = playerpos.y - DRAW_LENGTH_Y;i < playerpos.y + DRAW_LENGTH_Y;i++)
-	{
-		for (int k = playerpos.x - DRAW_LENGTH_X;k < playerpos.x + DRAW_LENGTH_X;k++)
-		{
+void CMapDraw::DrawMapModel(int modelHandle,const Int2& position,float brightness){
+    if (modelHandle == -1)
+    {
+        return;
+    }
 
-			int tile = TILE_WALL;
-			Int2 nextPos = { k,i };
+    SetModelBrightness(modelHandle, brightness);
 
-			// 配列内なら実際のマップを参照
-			if (mapData.InvestigationMapOutside(nextPos) == false)
-			{
-				tile = mapData.GetTile(nextPos);
-			}
+    MV1SetPosition(
+        modelHandle,
+        VGet(
+            -position.x * TILE_SIZE,
+            150.0f,
+            position.y * TILE_SIZE
+        )
+    );
 
-			switch (tile)
-			{
-			case TILE_WALL:
-				MV1SetPosition(m_Wallhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
-				MV1DrawModel(m_Wallhndl);
-				break;
-
-			case TILE_ROOM:
-				//廊下に隣接した部屋も描画は普通の部屋と同じ
-			case TILE_CORRIDOR_ADJACENT_ROOM:
-				MV1SetPosition(m_Roomhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
-				MV1DrawModel(m_Roomhndl);
-				break;
-
-			case TILE_CORRIDOR:
-				MV1SetPosition(m_Corridorhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
-				MV1DrawModel(m_Corridorhndl);
-				break;
-
-			default:
-				break;
-			}
-		}
-	}
-
-	//階段の描画
-	int centerX = 8 + 16 * mapData.GetStairsPos().x;
-	int centerY = 8 + 16 * mapData.GetStairsPos().y;
-
-	float x = -mapData.GetStairsPos().x * TILE_SIZE;
-	float z = mapData.GetStairsPos().y * TILE_SIZE;
-
-	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
-	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
-	MV1SetPosition(m_Stairshndl, VGet(x, 150, z));
-	MV1DrawModel(m_Stairshndl);
+    MV1DrawModel(modelHandle);
 }
+
+void CMapDraw::Draw(CMapData& mapData, Int2 playerPos)
+{
+    for (int y = playerPos.y - DRAW_LENGTH_Y;
+        y < playerPos.y + DRAW_LENGTH_Y;
+        ++y)
+    {
+        for (int x = playerPos.x - DRAW_LENGTH_X;
+            x < playerPos.x + DRAW_LENGTH_X;
+            ++x)
+        {
+            const Int2 tilePos = { x, y };
+
+            TILE tile = TILE_WALL;
+
+            // マップ内なら実際のタイルを取得
+            if (!mapData.InvestigationMapOutside(tilePos))
+            {
+                tile = mapData.GetTile(tilePos);
+            }
+
+            int modelHandle = -1;
+
+            switch (tile)
+            {
+            case TILE_WALL:
+                modelHandle = m_Wallhndl;
+                break;
+
+            case TILE_ROOM:
+            case TILE_CORRIDOR_ADJACENT_ROOM:
+                modelHandle = m_Roomhndl;
+                break;
+
+            case TILE_CORRIDOR:
+                modelHandle = m_Corridorhndl;
+                break;
+
+            default:
+                continue;
+            }
+
+            const bool isVisible =mapData.IsVisibleFrom(playerPos, tilePos);
+
+            //視界内なら明るさ1.0視界外なら明るさ0.4
+            const float brightness =isVisible? 1.0f: 0.4f;
+
+            DrawMapModel(modelHandle,tilePos,brightness);
+        }
+    }
+
+    // 階段
+    const Int2 stairsPos = mapData.GetStairsPos();
+
+    const bool isStairsVisible =mapData.IsVisibleFrom(playerPos, stairsPos);
+
+    // 視界外でも暗く表示する場合
+    const float stairsBrightness =isStairsVisible? 1.0f: 0.4f;
+
+    SetModelBrightness(m_Stairshndl,stairsBrightness);
+
+    MV1SetPosition(m_Stairshndl,VGet(-stairsPos.x * TILE_SIZE,150.0f,stairsPos.y * TILE_SIZE)
+    );
+
+    MV1DrawModel(m_Stairshndl);
+
+    // 次の描画に暗さを残さないため、最後に戻す
+    SetModelBrightness(m_Wallhndl, 1.0f);
+    SetModelBrightness(m_Roomhndl, 1.0f);
+    SetModelBrightness(m_Corridorhndl, 1.0f);
+    SetModelBrightness(m_Stairshndl, 1.0f);
+}
+
+//void CMapDraw::Draw(CMapData& mapData,Int2 playerpos) {
+//	//プレイヤーの近くだけ描写
+//	for (int i = playerpos.y - DRAW_LENGTH_Y;i < playerpos.y + DRAW_LENGTH_Y;i++)
+//	{
+//		for (int k = playerpos.x - DRAW_LENGTH_X;k < playerpos.x + DRAW_LENGTH_X;k++)
+//		{
+//
+//			int tile = TILE_WALL;
+//			Int2 nextPos = { k,i };
+//
+//			// 配列内なら実際のマップを参照
+//			if (mapData.InvestigationMapOutside(nextPos) == false)
+//			{
+//				tile = mapData.GetTile(nextPos);
+//			}
+//
+//			switch (tile)
+//			{
+//			case TILE_WALL:
+//				MV1SetPosition(m_Wallhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+//				MV1DrawModel(m_Wallhndl);
+//				break;
+//
+//			case TILE_ROOM:
+//				//廊下に隣接した部屋も描画は普通の部屋と同じ
+//			case TILE_CORRIDOR_ADJACENT_ROOM:
+//				MV1SetPosition(m_Roomhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+//				MV1DrawModel(m_Roomhndl);
+//				break;
+//
+//			case TILE_CORRIDOR:
+//				MV1SetPosition(m_Corridorhndl, VGet(-k * TILE_SIZE, 150, i * TILE_SIZE));
+//				MV1DrawModel(m_Corridorhndl);
+//				break;
+//
+//			default:
+//				break;
+//			}
+//		}
+//	}
+//
+//	//階段の描画
+//	int centerX = 8 + 16 * mapData.GetStairsPos().x;
+//	int centerY = 8 + 16 * mapData.GetStairsPos().y;
+//
+//	float x = -mapData.GetStairsPos().x * TILE_SIZE;
+//	float z = mapData.GetStairsPos().y * TILE_SIZE;
+//
+//	VECTOR pos1 = VGet(x - 50.0f, 150, z - 50.0f);
+//	VECTOR pos2 = VGet(x + 50.0f, 150 + 100.0f, z + 50.0f);
+//	MV1SetPosition(m_Stairshndl, VGet(x, 150, z));
+//	MV1DrawModel(m_Stairshndl);
+//}

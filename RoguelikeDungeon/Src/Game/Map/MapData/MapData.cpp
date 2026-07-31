@@ -514,3 +514,27 @@ bool CMapData::IsPositionOnRoomLink(const RoomLink& link,const Int2& position) c
 
 	return false;
 }
+
+bool CMapData::IsVisibleFrom(const Int2 PPos, const  Int2 EPos) {
+	// 隣接している場合は廊下や部屋に関係なく見える
+	if (IsAdjacentInt2(PPos, EPos))
+	{
+		return true;
+	}
+
+	//プレイヤーがどの部屋にいるか取得
+	const int PID = GetRoomID(PPos);
+
+	// 見る側が廊下にいる場合、隣接マス以外は見えない
+	if (PID == -1)
+	{
+		return false;
+	}
+
+	//敵がどの部屋にいるか取得
+	const int EID = GetRoomID(EPos);
+
+	if (PID == EID)return true;
+
+	return false;
+}

@@ -86,4 +86,7 @@ public:
     void CreateEnemy(int floor, int CreateNum = 1) { return m_ObjectSpawner.CreateEnemy(floor, m_ObjectStore, m_EnemyModelManager, m_Player,CreateNum); }
     CPlayer* GetPlayer() { return m_Player; }
 
+    //ƒvƒŒƒCƒ„[‚Ì‰ñ•œ
+    void Heal() { m_Player->Heal(); }
+
 };

@@ -29,6 +29,9 @@ private:
 	//現在位置に廊下があるか調べる
 	bool IsPositionOnRoomLink(const RoomLink& link, const Int2& position) const;
 public:
+	//指定座標がプレイヤーから見えるか判定
+	bool IsVisibleFrom(const Int2 PPos, const  Int2 EPos);
+
 	void AddLineToRoute(std::vector<Int2>& route,Int2 start,Int2 end,bool includeStart);
 
 	void SetTile(Int2 pos, TILE tile) { m_Map[pos.y][pos.x] = tile; }
