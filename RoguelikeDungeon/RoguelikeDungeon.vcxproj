@@ -172,6 +172,7 @@
     <ClInclude Include="Src\Game\Scene\Scene.h" />
     <ClInclude Include="Src\Game\Scene\SceneManager.h" />
     <ClInclude Include="Src\Game\Scene\Title\TitleScene.h" />
+    <ClInclude Include="Src\Game\Trap\Trap.h" />
     <ClInclude Include="Src\Game\UI\Log.h" />
     <ClInclude Include="Src\Game\UI\UI.h" />
     <ClInclude Include="Src\Lib\Input\Input.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Src\Game\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="Src\Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Src\Game\Scene\Title\TitleScene.cpp" />
+    <ClCompile Include="Src\Game\Trap\Trap.cpp" />
     <ClCompile Include="Src\Game\UI\Log.cpp" />
     <ClCompile Include="Src\Game\UI\UI.cpp" />
     <ClCompile Include="Src\Lib\Input\Input.cpp" />

@@ -121,6 +121,9 @@
     <Filter Include="ソース ファイル\Game\Map\RoomLink">
       <UniqueIdentifier>{aedbc46f-4d73-4e1a-a1d6-f44a777bd375}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Trap">
+      <UniqueIdentifier>{4cb7e508-eac7-47de-92a3-9634a344f3de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\Common.h">
@@ -246,6 +249,9 @@
     <ClInclude Include="Src\Game\Object\ObjectManager\CombatResolver\CombatResolver.h">
       <Filter>ソース ファイル\Game\Object\ObjectManager\CombatResolver</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Trap\Trap.h">
+      <Filter>ソース ファイル\Game\Trap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\main.cpp">
@@ -361,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="Src\Game\Map\RoomLink\RoomLink.h">
       <Filter>ソース ファイル\Game\Map\RoomLink</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Trap\Trap.cpp">
+      <Filter>ソース ファイル\Game\Trap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
