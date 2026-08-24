@@ -538,3 +538,63 @@ bool CMapData::IsVisibleFrom(const Int2 PPos, const  Int2 EPos) {
 
 	return false;
 }
+
+CanMove CMapData::GetCanMove(Int2 pos)
+{
+	Int2 v = pos;
+	CanMove C;
+	Int2 NextPos{};
+	NextPos.x = static_cast<int>(v.x);
+	NextPos.y = static_cast<int>(v.y);
+
+	//一旦全部trueに
+	C.Down = true, C.Up = true, C.Left = true, C.Right = true;
+	//マス目の端だとマスの外側の方向には行けない
+	if (NextPos.x <= 0)
+		C.Left = false;
+	if (NextPos.x >= MAP_X - 1)
+		C.Right = false;
+	if (NextPos.y <= 0)
+		C.Up = false;
+	if (NextPos.y >= MAP_Y - 1)
+		C.Down = false;
+
+	//上下左右のマスを見て通れるマスでなければ行けない
+	//すでにfalseなら見る必要がない
+	TILE t = {};
+	if (C.Left == true)
+	{
+		NextPos.x--;
+		t = GetTile(NextPos);
+
+		if (t == TILE_WALL)
+			C.Left = false;
+		NextPos.x++;
+	}
+	if (C.Right == true)
+	{
+		NextPos.x++;
+		t = GetTile(NextPos);
+		if (t == TILE_WALL)
+			C.Right = false;
+		NextPos.x--;
+	}
+	if (C.Up == true)
+	{
+		NextPos.y--;
+		t = GetTile(NextPos);
+		if (t == TILE_WALL)
+			C.Up = false;
+		NextPos.y++;
+	}
+	if (C.Down == true)
+	{
+		NextPos.y++;
+		t = GetTile(NextPos);
+		if (t == TILE_WALL)
+			C.Down = false;
+		NextPos.y--;
+	}
+
+	return C;
+}

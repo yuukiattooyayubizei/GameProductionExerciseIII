@@ -1,5 +1,6 @@
 #pragma once
 #include"../Common.h"
+#include "../Map/Map.h"
 
 enum ObjectKind {
     KIND_NON,
@@ -58,4 +59,9 @@ public:
     void AddAtk(int atk) { m_Atk+= atk; }
     void SetActive(bool active) { m_IsActive = active; }
     void SetDirection(DIRECTION dir) { m_Direction = dir; }
+
+    //強制移動
+    //dir = 移動方向、movenum = 移動マス(未記入なら無限に飛ぶ)
+    //返り値がtrueなら移動完了、falseなら途中で障害物に当たって移動未完了
+    bool ForcedMove(DIRECTION dir, CMap map, int movenum = 999);
 };

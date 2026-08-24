@@ -216,6 +216,7 @@ void CObjectManager::EnemyStep(int floor) {
                         const int damage = object->GetAtk();
 
                         m_CombatResolver.EnemyAttack(*m_Player, damage);
+                        //m_Player->ForcedMove(object->GetDirection(), *Map,1);
                         object->SetIsActed(true);
                     }
                     // 敵がいる場合はこの敵と進むマスにいる敵の座標を交換

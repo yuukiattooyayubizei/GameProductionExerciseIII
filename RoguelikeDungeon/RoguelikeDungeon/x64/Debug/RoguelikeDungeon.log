@@ -1,3 +1,4 @@
-﻿  Player.cpp
-C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\Src\Game\Object\Player\Player.cpp(249,24): warning C4244: '*=': 'double' から 'int' への変換です。データが失われる可能性があります。
+﻿  Object.cpp
+  ObjectManager.cpp
+  コードを生成中...
   RoguelikeDungeon.vcxproj -> C:\Users\2409408\Documents\GitHub\GameProductionExerciseIII\RoguelikeDungeon\x64\Debug\RoguelikeDungeon.exe

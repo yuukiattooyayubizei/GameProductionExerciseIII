@@ -123,7 +123,7 @@ void CMapDraw::Draw(CMapData& mapData, Int2 playerPos)
 
     const bool isStairsVisible =mapData.IsVisibleFrom(playerPos, stairsPos);
 
-    // ‹ŠEŠO‚Å‚àˆÃ‚­•\¦‚·‚éê‡
+    //‹ŠEŠO‚¾‚Á‚½‚çˆÃ‚­‚·‚é
     const float stairsBrightness =isStairsVisible? 1.0f: 0.4f;
 
     SetModelBrightness(m_Stairshndl,stairsBrightness);

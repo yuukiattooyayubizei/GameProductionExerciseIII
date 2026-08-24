@@ -56,6 +56,8 @@ public:
 	// 座標から特定の向きを見たらどこまで見れるかを返す
 	int GetFieldOfVision(Int2 i, DIRECTION dir);
 
+	CanMove GetCanMove(Int2 pos);
+
 	//指定された座標のタイルを取得
 	TILE GetTile(Int2 i);
 

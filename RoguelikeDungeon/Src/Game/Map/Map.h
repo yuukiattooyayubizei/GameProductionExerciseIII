@@ -48,6 +48,7 @@ public:
 	int GetRoomID(Int2 pos) { return m_MapData.GetRoomID(pos); }									//座標の部屋のIDを返す
 	Int2 GetNotHerePlayerRoomPos(Int2 PlPos) { return m_MapData.GetNotHerePlayerRoomPos(PlPos); }	//部屋の中のプレイヤーがいないランダムな座標を取得
 	int GetRoomNum() { return m_MapData.GetRoomNum(); }												//部屋の数を取得
+	CanMove GetCanMove(Int2 pos) { return m_MapData.GetCanMove(pos); }
 
 	void SetSelectItemIndex(int i = 0) { m_ItemMenu.SetSelectItemIndex(i); }
 	void SetItemPage(int i = 0) { m_ItemMenu.SetItemPage(i); }
