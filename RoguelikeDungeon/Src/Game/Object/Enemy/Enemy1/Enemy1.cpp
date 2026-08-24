@@ -19,3 +19,7 @@ void CEnemy1::InitStatus() {
     m_Atk = 2;
     m_Addexp = 3;
 }
+
+void CEnemy1::Attackeffect(CPlayer& player) {
+
+}

@@ -25,8 +25,10 @@ void CCombatResolver::PlayerAttack(CPlayer& player, CObject& target) {
 
 }
 
-void CCombatResolver::EnemyAttack(CPlayer& player, int damage) {
+void CCombatResolver::EnemyAttack(CPlayer& player, CEnemy& enemy) {
     CLog* Log = CLog::GetInstance();
+
+    const int damage = enemy.GetAtk();
 
     player.AddDamage(damage);
 
@@ -34,6 +36,9 @@ void CCombatResolver::EnemyAttack(CPlayer& player, int damage) {
     Log->AddLog(rog);
     //ƒ_ƒ[ƒW‚ğó‚¯‚½‚ç’·‰Ÿ‚µ‚Å‚«‚é‚©‚Ì”»’è‚ğˆê’UÁ‚·
     player.SetCanLongPress();
+
+    //“G‚²‚Æ‚ÌŒø‰Ê
+    enemy.Attackeffect(player);
 
     if (player.GetHP() <= 0)
     {

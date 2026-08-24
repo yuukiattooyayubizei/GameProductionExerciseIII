@@ -213,10 +213,10 @@ void CObjectManager::EnemyStep(int floor) {
                     // プレイヤーがいる場合は攻撃
                     if (target->GetKind() == KIND_PLAYER)
                     {
-                        const int damage = object->GetAtk();
+                        CEnemy* enemy = static_cast<CEnemy*>(object);
 
-                        m_CombatResolver.EnemyAttack(*m_Player, damage);
-                        //m_Player->ForcedMove(object->GetDirection(), *Map,1);
+                        m_CombatResolver.EnemyAttack(*m_Player, *enemy);
+                    
                         object->SetIsActed(true);
                     }
                     // 敵がいる場合はこの敵と進むマスにいる敵の座標を交換

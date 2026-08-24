@@ -1,4 +1,5 @@
 #include"Enemy4.h"
+#include"../../Player/Player.h"
 
 CEnemy4::CEnemy4(CEnemyModelManager* modelManager)
     : CEnemy(modelManager)
@@ -18,4 +19,10 @@ void CEnemy4::InitStatus() {
     m_MaxHP = 25;
     m_Atk = 2;
     m_Addexp = 8;
+}
+
+void CEnemy4::Attackeffect(CPlayer& player) {
+    CMap* Map = CMap::GetInstance();
+
+    player.ForcedMove(m_Direction,*Map,3);
 }

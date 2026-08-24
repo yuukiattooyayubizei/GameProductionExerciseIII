@@ -9,6 +9,8 @@ enum EnemyMoveType {
     MOVE_TRACK,
 };
 
+class CPlayer;
+
 class CEnemy : public CObject {
 protected:
     EnemyType m_EnemyType;
@@ -54,6 +56,8 @@ public:
     virtual void Step(CanMove canmove, Int2 playerPos) override;
     virtual void Draw() override;
     virtual void Exit() override;
+
+    virtual void Attackeffect(CPlayer& player) {}
 protected:
     virtual void InitStatus() = 0;
     virtual void InitModelType() = 0;

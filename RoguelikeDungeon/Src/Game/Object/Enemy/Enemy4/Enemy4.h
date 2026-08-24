@@ -8,4 +8,6 @@ public:
 protected:
     void InitStatus() override;
     void InitModelType() override;
+
+    void Attackeffect(CPlayer& player) override;
 };
