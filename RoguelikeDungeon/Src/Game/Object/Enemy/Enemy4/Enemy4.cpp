@@ -24,5 +24,5 @@ void CEnemy4::InitStatus() {
 void CEnemy4::Attackeffect(CPlayer& player) {
     CMap* Map = CMap::GetInstance();
 
-    player.ForcedMove(m_Direction,*Map,3);
+    player.ForcedMove(m_Direction,*Map,2);
 }
